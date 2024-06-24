@@ -4,6 +4,7 @@ This repo contains experiments with regards to the prepopulation of Translation 
 # Overview
 
 Individual python scripts process inputs, primarily a tagged English translation (ULT), for a specific book. Each script then processes this data to create a TSV file of raw data. Then, this raw data is transformed into the format required by Translation Notes and written to another TSV file. Each individual script targets a specific translation issue. So far, the following issues are covered:
+
     * figs-go (words such as go, come, take, and bring)
     * figs-abstractnouns (such as "peace" or "happiness")
     * translate-ordinal (ordinal numbers such as “fifth” or “third”)
@@ -74,6 +75,7 @@ To run the scripts that deal with specific translation issues individually, the 
 `$ BOOK_NAME="Esther" VERSION="ult" python3 script_name.py`
 
 Here are the total required dependencies:
+
 `$ import csv`
 `$ from collections import defaultdict`
 `$ import random`
