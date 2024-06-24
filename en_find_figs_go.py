@@ -73,6 +73,33 @@ acronym_mapping = {
     "Revelation": "67-REV"
 }
 
+word_mapping = {
+    "goes": "comes",
+    "gone": "come",
+    "going": "coming",
+    "go": "come",
+    "went": "came",
+    "has come": "has gone",
+    "have come": "have gone",
+    "had come": "had gone",
+    "comes": "goes",
+    "coming": "going",
+    "came": "went",
+    "come": "go",
+    "takes": "brings",
+    "taken": "brought",
+    "taking": "bringing",
+    "took": "brought",
+    "take": "bring",
+    "has brought": "has taken",
+    "have brought": "have taken",
+    "had brought": "had taken",
+    "brings": "takes",
+    "bringing": "taking",
+    "bring": "take",
+    "brought": "took"
+}
+
 # Get the book name from the user
 book_name = input("Enter the book name (e.g., 2 Chronicles): ")
 version = input("Enter the version (e.g., ult or ust): ")
@@ -174,7 +201,7 @@ if verse_data:
 
 # Standard link and note
 standard_link = 'rc://*/ta/man/translate/figs-go'
-standard_note_template = 'In a context such as this, your language might say “text” instead of **key**. Alternate translation: “alternate_translation”'
+standard_note_template = 'In a context such as this, your language might say “{text}” instead of **{key}**. Alternate translation: “alternate_translation”'
 
 # Debugging: Print before writing transformed data
 print("Transforming data for transformed_figs_go.tsv")
@@ -192,6 +219,15 @@ if modified_verse_data:
                 snippet = row[1]
                 lexeme = row[2]
 
+                for word in word_mapping:
+                    if word in snippet:
+                        key = word
+                        key = re.sub(r'(has|have|had) ', r'', key)
+                        text = word_mapping[key]
+                        text = re.sub(r'(has|have|had) ', r'', text)
+                        break  # Stop searching once a match is found
+
+
                 # Extract chapter and verse from the reference
                 chapter_verse = reference.split(' ', 1)[1]
 
@@ -203,7 +239,7 @@ if modified_verse_data:
                     standard_link,  # SupportReference: standard link
                     lexeme,         # Quote: lexeme
                     '1',            # Occurrence: the number 1
-                    standard_note_template,  # Note: standard note with {gloss}
+                    standard_note_template.format(key=key, text=text),  # Note: standard note with {gloss}
                     snippet
                 ]
 
