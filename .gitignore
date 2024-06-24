@@ -2,3 +2,5 @@ data_files
 *.tsv
 Ideas and work.txt
 .env
+report.txt
+lemma_count.txt
