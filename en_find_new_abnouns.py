@@ -4,6 +4,7 @@ import re
 import csv
 from tqdm import tqdm
 from io import StringIO
+import os
 
 # TSV data included directly in the script
 tsv_data = """Abstract Noun\tCount
@@ -686,8 +687,8 @@ acronym_mapping = {
 }
 
 # Get the book name from the user
-book_name = input("Enter the book name (e.g., 2 Chronicles): ")
-version = input("Enter the version (e.g., ult or ust): ")
+book_name = os.getenv('BOOK_NAME')
+version = os.getenv('VERSION')
 
 # Get the acronym from the acronym mapping
 if book_name in acronym_mapping:
@@ -807,13 +808,13 @@ for line in verse_data:
 # Sort abstract nouns by count in descending order
 sorted_counts = sorted(abstract_noun_counts.items(), key=lambda x: x[1], reverse=True)
 
-# Append the report to report.txt
-with open('report.txt', 'a', encoding='utf-8') as report_file:
-    report_file.write(f"\n\nAbstract nouns from {book_name}\nAbstract Noun\tFrequency\n")
+# Append the report to report.md
+with open('report.md', 'a', encoding='utf-8') as report_file:
+    report_file.write(f"\n## Abstract nouns from {book_name}\nAbstract Noun\tFrequency\n")
     for ab_noun, count in sorted_counts:
         report_file.write(f"{ab_noun}\t{count}\n")
 
-print("Report has been appended to report.txt")
+print("Report has been appended to report.md")
 
 # Write all collected data to the output file only if there are abstract nouns found
 if verse_data:

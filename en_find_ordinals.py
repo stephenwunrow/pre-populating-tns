@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import csv
 from tqdm import tqdm
+import os
 
 # Mapping of book names to their respective acronyms
 acronym_mapping = {
@@ -74,8 +75,8 @@ acronym_mapping = {
 }
 
 # Get the book name from the user
-book_name = input("Enter the book name (e.g., 2 Chronicles): ")
-version = input("Enter the version (e.g., ult or ust): ")
+book_name = os.getenv('BOOK_NAME')
+version = os.getenv('VERSION')
 
 # Get the acronym from the acronym mapping
 if book_name in acronym_mapping:

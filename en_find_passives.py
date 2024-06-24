@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import csv
 from tqdm import tqdm
+import os
 
 # Mapping of book names to their respective acronyms
 acronym_mapping = {
@@ -74,8 +75,8 @@ acronym_mapping = {
 }
 
 # Get the book name from the user
-book_name = input("Enter the book name (e.g., 2 Chronicles): ")
-version = input("Enter the version (e.g., ult or ust): ")
+book_name = os.getenv('BOOK_NAME')
+version = os.getenv('VERSION')
 
 # Get the acronym from the acronym mapping
 if book_name in acronym_mapping:
@@ -201,13 +202,13 @@ def generate_report(modified_verse_data, book_name):
         else:
             Other.append(line_str)
 
-    with open('report.txt', 'a', encoding='utf-8') as report_file:
-        report_file.write(f'\n\nPassives in English from {book_name} that are not Niphal, Qal passive, Hophal, or Pual\n')
+    with open('report.md', 'a', encoding='utf-8') as report_file:
+        report_file.write(f'\n## Passives in English from {book_name} that are not Niphal, Qal passive, Hophal, or Pual\n')
         report_file.write('References\tGlosses\tLexeme\tMorphology\n')
         for line in Other:
             report_file.write(f'{line}\n')
     
-    print('Data processed and written to report.txt')
+    print('Data processed and written to report.md')
 
 generate_report(modified_verse_data, book_name)
 

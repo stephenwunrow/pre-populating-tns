@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import csv
 from tqdm import tqdm
+import os
 
 # Mapping of book names to their respective acronyms
 acronym_mapping = {
@@ -74,8 +75,8 @@ acronym_mapping = {
 }
 
 # Get the book name from the user
-book_name = input("Enter the book name (e.g., 2 Chronicles): ")
-version = input("Enter the version (e.g., ult or ust): ")
+book_name = os.getenv('BOOK_NAME')
+version = os.getenv('VERSION')
 
 # Get the acronym from the acronym mapping
 if book_name in acronym_mapping:
@@ -209,12 +210,12 @@ if verse_data:
 
     print(f"Data has been written to en_new_names.tsv")
 
-# Write the names and their frequency to report.txt, excluding custom words to remove
+# Write the names and their frequency to report.md, excluding custom words to remove
 sorted_name_count = sorted(name_count.items(), key=lambda item: item[1], reverse=True)
 
 # Append to the file instead of replacing existing content
-with open('report.txt', 'a', encoding='utf-8') as report_file:
-    report_file.write(f'\n\nNames from {book_name}\n')
+with open('report.md', 'a', encoding='utf-8') as report_file:
+    report_file.write(f'\n## Names from {book_name}\n')
     report_file.write('Name\tFrequency\n')
     for name, count in sorted_name_count:
         if name.lower() not in all_names_to_remove:

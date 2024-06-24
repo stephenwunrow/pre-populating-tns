@@ -2,5 +2,5 @@ data_files
 *.tsv
 Ideas and work.txt
 .env
-report.txt
+report.md
 lemma_count.txt
