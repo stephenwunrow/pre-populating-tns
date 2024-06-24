@@ -37,33 +37,31 @@ def sort_rows(tsv_data, verse_texts):
     for row in tsv_data:
         chapter_verse = row[0]  # Assuming first column is Reference (e.g., "1:14")
         snippet = row[7]  # Assuming eighth column is snippet
-        modified_snippet = re.sub(r'(.+?)….+', r'\1', snippet)
+        modified_snippet = re.escape(snippet)
+        modified_snippet = re.sub(r'…', r'[\\w, ]{1,40}', modified_snippet)
         verse_text = verse_texts.get(chapter_verse, "")
         if verse_text and modified_snippet:
             positions = []
-            start = 0
-            while True:
-                start = verse_text.find(modified_snippet, start)
-                if start == -1:
-                    break
-                positions.append(start)
-                start += len(modified_snippet)
-            snippet_positions[chapter_verse][modified_snippet] = positions
+            pattern = re.compile(modified_snippet)
+            
+            for match in pattern.finditer(verse_text):
+                positions.append(match.start())
+            
+            snippet_positions[chapter_verse][snippet] = positions
 
     # Sort function
     def sort_key(row):
         chapter_verse = row[0]  # Assuming first column is Reference (e.g., "1:14")
         snippet = row[7]  # Assuming eighth column is snippet
-        modified_snippet = re.sub(r'(.+?)….+', r'\1', snippet)
-
+        
         # Split chapter_verse into chapter and verse components
         chapter, verse = map(int, chapter_verse.split(':'))
 
         # Get positions of snippet in the verse_text for this chapter_verse
-        positions = snippet_positions.get(chapter_verse, {}).get(modified_snippet, [])
+        positions = snippet_positions.get(chapter_verse, {}).get(snippet, [])
 
         # Return tuple for sorting: (chapter, verse, first position of snippet or large number, snippet)
-        return (chapter, verse, positions[0] if positions else float('inf'), modified_snippet)
+        return (chapter, verse, positions[0] if positions else float('inf'), snippet)
 
     # Sort rows
     sorted_data = sorted(tsv_data, key=sort_key)
@@ -125,7 +123,7 @@ def combine_multiple_tsv(files, output_file, verse_text_file):
 # Example usage:
 if __name__ == "__main__":
     # List of input files to combine
-    input_files = ['transformed_ab_nouns.tsv', 'transformed_names.tsv', 'transformed_passives.tsv', 'transformed_ordinals.tsv']
+    input_files = ['transformed_ab_nouns.tsv', 'transformed_names.tsv', 'transformed_passives.tsv', 'transformed_ordinals.tsv', 'transformed_figs_go.tsv']
 
     # Output file name
     output_file = 'combined_notes.tsv'
