@@ -1,0 +1,47 @@
+
+
+Passives in English from Exodus that are not Niphal or Qal passive
+References	Glosses	Lexeme	Morphology
+Exodus 4:7	it was restored	שָׁ֖בָה	He,Vqp3fs
+Exodus 12:39	it was…leavened	חָמֵ֑ץ	He,Vqp3ms
+Exodus 14:14	you will be silent	תַּחֲרִישֽׁוּ⁠ן	He,Vhi2mp:Sn
+Exodus 15:9	will be satisfied in them	תִּמְלָאֵ֣⁠מוֹ	He,Vqi3fs:Sp3mp
+Exodus 16:12	you will be satisfied	תִּשְׂבְּעוּ	He,Vqi2mp
+Exodus 20:24	I cause…to be remembered	אַזְכִּ֣יר	He,Vhi1cs
+Exodus 21:8	then he shall cause her to be ransomed	וְ⁠הֶפְדָּ֑⁠הּ	He,C:Vhq3ms:Sp3fs
+Exodus 25:15	they shall…be removed	יָסֻ֖רוּ	He,Vqi3mp
+Exodus 29:21	And…will be set apart	וְ⁠קָדַ֥שׁ	He,C:Vqq3ms
+Exodus 29:37	will be set apart	יִקְדָּֽשׁ	He,Vqi3ms
+Exodus 30:29	will be set apart	יִקְדָּֽשׁ	He,Vqi3ms
+Exodus 30:32	It shall…be poured	יִיסָ֔ךְ	He,Vqi3ms
+Exodus 34:10	am about to cut	כֹּרֵ֣ת	He,Vqrmsa
+Exodus 36:10	And…were joined	וַ⁠יְחַבֵּר֙	He,C:Vpw3ms
+Exodus 36:10	were joined	חִבַּ֔ר	He,Vpp3ms
+Exodus 37:17	were made	עָשָׂ֤ה	He,Vqp3ms
+Exodus 39:32	And…was finished	וַ⁠תֵּ֕כֶל	He,C:Vqw3fs
+
+
+Passives in English from Esther that are not Niphal or Qal passive
+References	Glosses	Lexeme	Morphology
+Esther 1:5	And when…were fulfilled	וּ⁠בִ⁠מְל֣וֹאת	He,C:R:Vqc
+Esther 1:10	when…was pleased	כְּ⁠ט֥וֹב	He,R:Vqc
+Esther 1:15	is to be done	לַּ⁠עֲשׂ֔וֹת	He,R:Vqc
+Esther 2:12	would be fulfilled	יִמְלְא֖וּ	He,Vqi3mp
+Esther 3:6	And it was despised	וַ⁠יִּ֣בֶז	He,C:Vqw3ms
+Esther 4:4	even…was seized with…fear	וַ⁠תִּתְחַלְחַ֥ל	He,C:Vfw3fs
+Esther 6:6	is delighted	חָפֵ֣ץ	He,Vqp3ms
+Esther 7:7	was determined	כָלְתָ֥ה	He,Vqp3fs
+Esther 7:8	was fallen	נֹפֵ֔ל	He,Vqrmsa
+
+
+Passives in English from Esther that are not Niphal, Qal passive, Hophal, or Pual
+References	Glosses	Lexeme	Morphology
+Esther 1:5	And when…were fulfilled	וּ⁠בִ⁠מְל֣וֹאת	He,C:R:Vqc
+Esther 1:10	when…was pleased	כְּ⁠ט֥וֹב	He,R:Vqc
+Esther 1:15	is to be done	לַּ⁠עֲשׂ֔וֹת	He,R:Vqc
+Esther 2:12	would be fulfilled	יִמְלְא֖וּ	He,Vqi3mp
+Esther 3:6	And it was despised	וַ⁠יִּ֣בֶז	He,C:Vqw3ms
+Esther 4:4	even…was seized with…fear	וַ⁠תִּתְחַלְחַ֥ל	He,C:Vfw3fs
+Esther 6:6	is delighted	חָפֵ֣ץ	He,Vqp3ms
+Esther 7:7	was determined	כָלְתָ֥ה	He,Vqp3fs
+Esther 7:8	was fallen	נֹפֵ֔ל	He,Vqrmsa
