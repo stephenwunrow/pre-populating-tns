@@ -21,7 +21,6 @@ death	58
 judgment	53
 knowledge	52
 hope	47
-kingdom	47
 salvation	46
 joy	46
 life	41
@@ -86,7 +85,6 @@ promises	8
 comfort	8
 faithfulness	7
 royalty	7
-petition	7
 trouble	7
 sickness	7
 temptation	7
@@ -242,7 +240,6 @@ licentiousness	3
 rigor	2
 anguish	2
 oppression	2
-report	2
 emptiness	2
 craftsmanship	2
 beauty	2
@@ -258,7 +255,6 @@ habitation	2
 deliverance	2
 terror	2
 corruption	2
-outcry	2
 measure	2
 doctrines	2
 depth	2
@@ -309,7 +305,6 @@ instruction	2
 offering	2
 deed	2
 divisions	2
-speech	2
 flattery	2
 preaching	2
 mind	2
@@ -334,7 +329,6 @@ attitude	2
 gains	2
 goal	2
 end	2
-requests	2
 passion	2
 enjoyment	2
 maturity	2
@@ -376,7 +370,6 @@ investigation	1
 correction	1
 pleasantness	1
 habitations	1
-supplications	1
 folly	1
 double	1
 difficulty	1
@@ -453,7 +446,6 @@ obligations	1
 fulfillment	1
 celebrations	1
 forethought	1
-insults	1
 contribution	1
 prayers	1
 obstacles	1
@@ -478,7 +470,6 @@ administration	1
 meaning	1
 danger	1
 mercies	1
-supplication	1
 grief	1
 recommendation	1
 manifestation	1
@@ -556,7 +547,6 @@ provocation	1
 thoughts	1
 intentions	1
 source	1
-message	1
 confirmation	1
 quality	1
 refuge	1
@@ -577,7 +567,6 @@ exhortation	1
 testing	1
 exaltation	1
 lowliness	1
-doing	1
 cursing	1
 conduct	1
 unsettledness	1
