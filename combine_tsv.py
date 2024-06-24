@@ -14,7 +14,7 @@ def read_tsv(file_path):
             data.append(row)
     return data
 
-# Function to read verse texts from output.tsv
+# Function to read verse texts from ult_book.tsv
 def read_verse_texts(file_path):
     verse_texts = {}
     with open(file_path, 'r', encoding='utf-8') as tsvfile:
@@ -92,7 +92,7 @@ def add_codes(sorted_data):
     sorted_data = modified_sorted_data
     return sorted_data
 
-# Function to combine and write sorted data to output.tsv
+# Function to combine and write sorted data to ult_book.tsv
 def combine_and_write(sorted_data, output_file):
     with open(output_file, 'w', newline='', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
@@ -103,7 +103,7 @@ def combine_and_write(sorted_data, output_file):
 
 # Main function to process multiple input files
 def combine_multiple_tsv(files, output_file, verse_text_file):
-    # Read verse texts from output.tsv
+    # Read verse texts from ult_book.tsv
     verse_texts = read_verse_texts(verse_text_file)
 
     combined_data = []
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     output_file = 'combined_notes.tsv'
 
     # File containing verse texts
-    verse_text_file = 'output.tsv'
+    verse_text_file = 'ult_book.tsv'
 
     # Combine and sort
     combine_multiple_tsv(input_files, output_file, verse_text_file)
