@@ -1,5 +1,8 @@
 import csv
 from collections import defaultdict
+import random
+import string
+import re
 
 # Function to read and parse TSV files
 def read_tsv(file_path):
@@ -10,29 +13,6 @@ def read_tsv(file_path):
         for row in reader:
             data.append(row)
     return data
-
-# Function to extract note_word from Notes column
-def extract_note_word(note):
-    if '**' in note:
-        start_index = note.index('**') + 2
-        
-        # Find the first occurrence of either '…' or '**'
-        end_index_ellipsis = note.find('…', start_index)
-        end_index_asterisks = note.find('**', start_index)
-        
-        if end_index_ellipsis == -1:
-            end_index = end_index_asterisks
-        elif end_index_asterisks == -1:
-            end_index = end_index_ellipsis
-        else:
-            end_index = min(end_index_ellipsis, end_index_asterisks)
-
-        # If no ending found, return the remaining string
-        if end_index == -1:
-            return note[start_index:].strip()
-        
-        return note[start_index:end_index].strip()
-    return ''
 
 # Function to read verse texts from output.tsv
 def read_verse_texts(file_path):
@@ -48,50 +28,77 @@ def read_verse_texts(file_path):
             verse_texts[chapter_verse] = verse_text
     return verse_texts
 
-# Function to sort rows by chapter and verse, and then by sequence of note_word in verse text
+# Function to sort rows by chapter and verse, and then by sequence of snippet in verse text
 def sort_rows(tsv_data, verse_texts):
-    # Dictionary to store positions of note_words in verse_texts
-    note_word_positions = defaultdict(dict)
+    # Dictionary to store positions of snippets in verse_texts
+    snippet_positions = defaultdict(dict)
 
-    # Populate note_word_positions
+    # Populate snippet_positions
     for row in tsv_data:
         chapter_verse = row[0]  # Assuming first column is Reference (e.g., "1:14")
-        note_word = extract_note_word(row[6])  # Assuming seventh column is Notes
+        snippet = row[7]  # Assuming eighth column is snippet
+        modified_snippet = re.sub(r'(.+?)….+', r'\1', snippet)
         verse_text = verse_texts.get(chapter_verse, "")
-        if verse_text and note_word:
+        if verse_text and modified_snippet:
             positions = []
             start = 0
             while True:
-                start = verse_text.find(note_word, start)
+                start = verse_text.find(modified_snippet, start)
                 if start == -1:
                     break
                 positions.append(start)
-                start += len(note_word)
-            note_word_positions[chapter_verse][note_word] = positions
+                start += len(modified_snippet)
+            snippet_positions[chapter_verse][modified_snippet] = positions
 
     # Sort function
     def sort_key(row):
         chapter_verse = row[0]  # Assuming first column is Reference (e.g., "1:14")
-        note_word = extract_note_word(row[6])  # Assuming seventh column is Notes
+        snippet = row[7]  # Assuming eighth column is snippet
+        modified_snippet = re.sub(r'(.+?)….+', r'\1', snippet)
 
         # Split chapter_verse into chapter and verse components
         chapter, verse = map(int, chapter_verse.split(':'))
 
-        # Get positions of note_word in the verse_text for this chapter_verse
-        positions = note_word_positions.get(chapter_verse, {}).get(note_word, [])
+        # Get positions of snippet in the verse_text for this chapter_verse
+        positions = snippet_positions.get(chapter_verse, {}).get(modified_snippet, [])
 
-        # Return tuple for sorting: (chapter, verse, first position of note_word or large number, note_word)
-        return (chapter, verse, positions[0] if positions else float('inf'), note_word)
+        # Return tuple for sorting: (chapter, verse, first position of snippet or large number, snippet)
+        return (chapter, verse, positions[0] if positions else float('inf'), modified_snippet)
 
     # Sort rows
     sorted_data = sorted(tsv_data, key=sort_key)
+    return sorted_data
+
+def add_codes(sorted_data):
+# Function to generate a random, unique four-letter and number combination
+    def generate_random_code(existing_codes):
+        while True:
+            first_char = random.choice(string.ascii_lowercase)
+            remaining_chars = ''.join(random.choices(string.ascii_lowercase + string.digits, k=3))
+            code = first_char + remaining_chars
+            if code not in existing_codes:
+                existing_codes.add(code)
+                return code
+            
+    # Set to keep track of existing codes to ensure uniqueness
+    existing_codes = set()
+
+    modified_sorted_data = []
+    for line in sorted_data:
+        if len(line) > 1:
+            random_code = generate_random_code(existing_codes)
+            line[1] = random_code
+        modified_sorted_data.append(line)
+
+    # Replace sorted_data with modified_sorted_data
+    sorted_data = modified_sorted_data
     return sorted_data
 
 # Function to combine and write sorted data to output.tsv
 def combine_and_write(sorted_data, output_file):
     with open(output_file, 'w', newline='', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
-        writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])
+        writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet'])
 
         for row in sorted_data:
             writer.writerow(row)
@@ -108,6 +115,8 @@ def combine_multiple_tsv(files, output_file, verse_text_file):
 
     # Sort combined data
     sorted_data = sort_rows(combined_data, verse_texts)
+
+    add_codes(sorted_data)
 
     # Write sorted data to output file
     combine_and_write(sorted_data, output_file)

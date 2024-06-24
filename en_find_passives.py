@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import re
 import csv
 from tqdm import tqdm
-import random
-import string
 
 # Mapping of book names to their respective acronyms
 acronym_mapping = {
@@ -213,15 +211,9 @@ def generate_report(modified_verse_data, book_name):
 
 generate_report(modified_verse_data, book_name)
 
-# Function to generate a random, unique four-letter and number combination
-def generate_random_code():
-    first_char = random.choice(string.ascii_lowercase)
-    remaining_chars = ''.join(random.choices(string.ascii_lowercase + string.digits, k=3))
-    return first_char + remaining_chars
-
 # Standard link and note
 standard_link = 'rc://*/ta/man/translate/figs-activepassive'
-standard_note_template = 'If your language does not use the passive form **{gloss}**, you could express the idea in active form or in another way that is natural in your language. Alternate translation: “alternate_translation”'
+standard_note_template = 'If your language does not use this passive form, you could express the idea in active form or in another way that is natural in your language. Alternate translation: “alternate_translation”'
 
 # Debugging: Print before writing transformed data
 print("Transforming data for transformed_passives.tsv")
@@ -231,29 +223,27 @@ if modified_verse_data:
     with open('transformed_passives.tsv', 'w', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
         # Write the headers
-        writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])
+        writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet'])
         
         for row in modified_verse_data:
             if len(row) == 4:
                 reference = row[0]
-                gloss = row[1]
+                snippet = row[1]
                 lexeme = row[2]
 
                 # Extract chapter and verse from the reference
                 chapter_verse = reference.split(' ', 1)[1]
 
-                # Generate a random code
-                random_code = generate_random_code()
-
                 # Create the new row
                 transformed_row = [
                     chapter_verse,  # Reference without the book name
-                    random_code,    # ID: random, unique four-letter and number combination
+                    '',    # ID: random, unique four-letter and number combination
                     '',             # Tags: blank
                     standard_link,  # SupportReference: standard link
                     lexeme,         # Quote: lexeme
                     '1',            # Occurrence: the number 1
-                    standard_note_template.format(gloss=gloss)  # Note: standard note with {gloss}
+                    standard_note_template,
+                    snippet  # Note: standard note with {gloss}
                 ]
 
                 # Write the transformed row to the output file

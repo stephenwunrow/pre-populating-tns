@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import re
 import csv
 from tqdm import tqdm
-import random
-import string
 
 # Mapping of book names to their respective acronyms
 acronym_mapping = {
@@ -174,15 +172,9 @@ if verse_data:
 
     print(f"Data has been written to en_new_figs_go.tsv")
 
-# Function to generate a random, unique four-letter and number combination
-def generate_random_code():
-    first_char = random.choice(string.ascii_lowercase)
-    remaining_chars = ''.join(random.choices(string.ascii_lowercase + string.digits, k=3))
-    return first_char + remaining_chars
-
 # Standard link and note
 standard_link = 'rc://*/ta/man/translate/figs-go'
-standard_note_template = 'In a context such as this, your language might say “text” instead of **{gloss}**. Alternate translation: “alternate_translation”'
+standard_note_template = 'In a context such as this, your language might say “text” instead of **key**. Alternate translation: “alternate_translation”'
 
 # Debugging: Print before writing transformed data
 print("Transforming data for transformed_figs_go.tsv")
@@ -197,24 +189,22 @@ if modified_verse_data:
         for row in modified_verse_data:
             if len(row) == 4:
                 reference = row[0]
-                gloss = row[1]
+                snippet = row[1]
                 lexeme = row[2]
 
                 # Extract chapter and verse from the reference
                 chapter_verse = reference.split(' ', 1)[1]
 
-                # Generate a random code
-                random_code = generate_random_code()
-
                 # Create the new row
                 transformed_row = [
                     chapter_verse,  # Reference without the book name
-                    random_code,    # ID: random, unique four-letter and number combination
+                    '',    # ID: random, unique four-letter and number combination
                     '',             # Tags: blank
                     standard_link,  # SupportReference: standard link
                     lexeme,         # Quote: lexeme
                     '1',            # Occurrence: the number 1
-                    standard_note_template.format(gloss=gloss)  # Note: standard note with {gloss}
+                    standard_note_template,  # Note: standard note with {gloss}
+                    snippet
                 ]
 
                 # Write the transformed row to the output file

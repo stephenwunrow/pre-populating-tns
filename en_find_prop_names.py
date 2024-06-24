@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import re
 import csv
 from tqdm import tqdm
-import random
-import string
 
 # Mapping of book names to their respective acronyms
 acronym_mapping = {
@@ -120,13 +118,25 @@ with tqdm(total=len(chunks), desc="Processing Chunks") as pbar:
     for chunk in chunks:
         pbar.update(1)  # Update progress bar
 
-        matches = re.findall(r'x-morph="[^"]*?[^V]Np[^"]*?".+?x-content="([^"]+?)".+?\\w ([A-Z].+?)\|', chunk)
+        matches = re.findall(r'x-morph="[^"]*?[^V]Np[^"]*?".+?x-content="([^"]+?)".+\\w .+?\|', chunk, re.DOTALL)
         if matches:  # Only proceed if there are matches
             for match in matches:
-                lexeme = match[0]
-                name = match[1]
+                lexeme = match
+
+                # Find all glosses in the chunk
+                gloss_matches = re.findall(r'\\w (.+?)\|', chunk)
+                if gloss_matches:
+                    # Combine all glosses into a single string
+                    combined_gloss = ' '.join(gloss_matches)
+                    mod_gloss = re.sub(r'\b(And|But|Then|Now|In|The)\b ', r'', combined_gloss)
+                    names_search = re.findall(r'(\b[A-Z]\w+?\b)', mod_gloss)
+                    if names_search:
+                        for word in names_search:
+                            name = word
+
                 # Append to verse_data with lexeme, verse reference, and name
-                verse_data.append(f'{book_name} {chapter}:{verse}\t{name}\t{lexeme}')
+                verse_data.append(f'{book_name} {chapter}:{verse}\t{name}\t{lexeme}\t{combined_gloss}')
+
                 # Count the occurrence of this name
                 if name in name_count:
                     name_count[name] += 1
@@ -193,7 +203,7 @@ filtered_rows = filter_rows(rows, all_names_to_remove)
 # Write all collected data to the output file only if there are abstract nouns found
 if verse_data:
     with open('en_new_names.tsv', 'w', encoding='utf-8') as f:
-        f.write('Reference\tName\tLexeme\n')
+        f.write('Reference\tName\tLexeme\tCombined Gloss\n')
         for line in verse_data:
             f.write(line + '\n')
 
@@ -210,49 +220,45 @@ with open('report.txt', 'a', encoding='utf-8') as report_file:
         if name.lower() not in all_names_to_remove:
             report_file.write(f'{name}\t{count}\n')
 
-
-# Function to generate a random, unique four-letter and number combination
-def generate_random_code():
-    first_char = random.choice(string.ascii_lowercase)
-    remaining_chars = ''.join(random.choices(string.ascii_lowercase + string.digits, k=3))
-    return first_char + remaining_chars
-
 # Standard link and note
 standard_link = 'rc://*/ta/man/translate/translate-names'
 standard_note_template = 'The word **{name}** is the name of a ______.'
+name_occurrence = {}
 
 # Write to the output file only if rows exist after filtering
 if filtered_rows:
     with open('transformed_names.tsv', 'w', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
         # Write the headers
-        writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])
+        writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet'])
         
         for row in filtered_rows:
-            if len(row) == 3:
+            if len(row) == 4:
                 reference = row[0]
                 name = row[1]
                 lexeme = row[2]
+                snippet = row[3]
 
                 # Extract chapter and verse from the reference
                 chapter_verse = reference.split(' ', 1)[1]
 
-                # Generate a random code
-                random_code = generate_random_code()
-
                 # Create the new row
                 transformed_row = [
                     chapter_verse,  # Reference without the book name
-                    random_code,    # ID: random, unique four-letter and number combination
+                    '',    # ID: random, unique four-letter and number combination
                     '',             # Tags: blank
                     standard_link,  # SupportReference: standard link
                     lexeme,         # Quote: lexeme
                     '1',            # Occurrence: the number 1
-                    standard_note_template.format(name=name)  # Note: standard note with {name}
+                    standard_note_template.format(name=name),  # Note: standard note with {name}
+                    snippet
                 ]
-
-                # Write the transformed row to the output file
-                writer.writerow(transformed_row)
+                if name not in name_occurrence:
+                    # Write the transformed row to the output file
+                    writer.writerow(transformed_row)
+                    name_occurrence[name] = True
+                elif name in name_occurrence:
+                    continue
 
     print(f"Data has been transformed and written to transformed_names.tsv")
 else:

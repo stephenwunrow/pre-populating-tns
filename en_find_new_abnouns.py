@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import re
 import csv
 from tqdm import tqdm
-import random
-import string
 from io import StringIO
 
 # TSV data included directly in the script
@@ -745,8 +743,15 @@ with tqdm(total=len(chunks), desc="Processing Chunks") as pbar:
             if matches:  # Only proceed if there are matches
                 for match in matches:
                     lexeme = match
+
+                    # Find all glosses in the chunk
+                    gloss_matches = re.findall(r'\\w (.+?)\|', chunk)
+                    if gloss_matches:
+                        # Combine all glosses into a single string
+                        combined_gloss = ' '.join(gloss_matches)
+
                     # Append to verse_data with lexeme, verse reference, and ab_noun
-                    verse_data.append(f'{book_name} {chapter}:{verse}\t{ab_noun}\t{lexeme}')
+                    verse_data.append(f'{book_name} {chapter}:{verse}\t{ab_noun}\t{lexeme}\t{combined_gloss}')
 
         # Find chapter in the chunk
         chapter_match = re.search(r'\\c (\d+)', chunk)
@@ -792,7 +797,7 @@ abstract_noun_counts = {}
 for line in verse_data:
     if line:
         parts = line.split('\t')
-        if len(parts) == 3:
+        if len(parts) == 4:
             ab_noun = parts[1]
             if ab_noun in abstract_noun_counts:
                 abstract_noun_counts[ab_noun] += 1
@@ -813,19 +818,13 @@ print("Report has been appended to report.txt")
 # Write all collected data to the output file only if there are abstract nouns found
 if verse_data:
     with open('en_new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
-        f.write('Reference\tAbstract Noun\tLexeme\n')
+        f.write('Reference\tAbstract Noun\tLexeme\tSnippet\n')
         for line in verse_data:
             f.write(line + '\n')
 
     print(f"Data has been written to en_new_ab_nouns.tsv")
 else:
     print("No abstract nouns found. Output file not created.")
-
-# Function to generate a random, unique four-letter and number combination
-def generate_random_code():
-    first_char = random.choice(string.ascii_lowercase)
-    remaining_chars = ''.join(random.choices(string.ascii_lowercase + string.digits, k=3))
-    return first_char + remaining_chars
 
 # Standard link and note
 standard_link = 'rc://*/ta/man/translate/figs-abstractnouns'
@@ -845,26 +844,25 @@ with open('transformed_ab_nouns.tsv', 'w', encoding='utf-8') as outfile:
     writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])
     
     for row in rows:
-        if len(row) == 3:
+        if len(row) == 4:
             reference = row[0]
             ab_noun = row[1]
             lexeme = row[2]
+            snippet = row[3]
 
             # Extract chapter and verse from the reference
             chapter_verse = reference.split(' ', 1)[1]
 
-            # Generate a random code
-            random_code = generate_random_code()
-
             # Create the new row
             transformed_row = [
                 chapter_verse,  # Reference without the book name
-                random_code,    # ID: random, unique four-letter and number combination
+                '',    # ID: random, unique four-letter and number combination
                 '',             # Tags: blank
                 standard_link,  # SupportReference: standard link
                 lexeme,         # Quote: lexeme
                 '1',            # Occurrence: the number 1
-                standard_note_template.format(ab_noun=ab_noun)  # Note: standard note with {ab_noun}
+                standard_note_template.format(ab_noun=ab_noun),  # Note: standard note with {ab_noun}
+                snippet
             ]
 
             # Write the transformed row to the output file
