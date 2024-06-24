@@ -852,7 +852,7 @@ with open('transformed_ab_nouns.tsv', 'w', encoding='utf-8') as outfile:
             snippet = row[3]
 
             # Extract chapter and verse from the reference
-            chapter_verse = reference.split(' ', 1)[1]
+            chapter_verse = reference.rsplit(' ', 1)[1]
 
             # Create the new row
             transformed_row = [

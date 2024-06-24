@@ -24,7 +24,7 @@ def read_verse_texts(file_path):
             reference = row[0]  # Assuming first column is Reference (e.g., Esther 1:14)
             verse_text = row[-1]  # Assuming last column is Verse Text
             # Split the reference to remove the book name prefix
-            book_name, chapter_verse = reference.split(' ', 1)
+            book_name, chapter_verse = reference.rsplit(' ', 1)
             verse_texts[chapter_verse] = verse_text
     return verse_texts
 

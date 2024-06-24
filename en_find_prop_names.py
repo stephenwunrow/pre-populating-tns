@@ -175,7 +175,7 @@ def extract_words_from_url(url):
 url = 'https://git.door43.org/unfoldingWord/en_tw/src/branch/master/bible/names'
 
 # Define a list of custom words to remove
-custom_words_to_remove = ["and", "but", "then", "in", "now"]
+custom_words_to_remove = ["and", "but", "then", "in", "now", "Yahweh", "Israel"]
 
 # Extract words from the URL
 scraped_names = extract_words_from_url(url)
@@ -241,7 +241,7 @@ if filtered_rows:
                 snippet = row[3]
 
                 # Extract chapter and verse from the reference
-                chapter_verse = reference.split(' ', 1)[1]
+                chapter_verse = reference.rsplit(' ', 1)[1]
 
                 # Create the new row
                 transformed_row = [

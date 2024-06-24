@@ -233,7 +233,7 @@ if modified_verse_data:
                 lexeme = row[2]
 
                 # Extract chapter and verse from the reference
-                chapter_verse = reference.split(' ', 1)[1]
+                chapter_verse = reference.rsplit(' ', 1)[1]
 
                 # Create the new row
                 transformed_row = [
