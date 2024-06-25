@@ -145,6 +145,7 @@ with tqdm(total=len(chunks), desc="Processing Chunks") as pbar:
             verse = int(verse_match.group(1))
 
 # Write all collected data to the output file only if there are abstract nouns found
+modified_verse_data = list()
 if verse_data:
     # Join all lines into a single string for search and replace
     all_text = '\n'.join(['\t'.join(line) for line in verse_data])
