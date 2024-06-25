@@ -191,8 +191,10 @@ def filter_rows(rows, all_names_to_remove):
             filtered_rows.append(row)
     return filtered_rows
 
-# Read the input file again after writing to en_new_names.tsv
-rows = list()
+rows = [row for row in verse_data]
+
+# Filter rows
+filtered_rows = filter_rows(rows, all_names_to_remove)
 
 # Construct the directory path
 directory_path = f'output/{book_name}'
@@ -200,21 +202,12 @@ directory_path = f'output/{book_name}'
 # Ensure the directory exists
 os.makedirs(directory_path, exist_ok=True)
 
-with open(f'{directory_path}/en_new_names.tsv', 'r', encoding='utf-8') as infile:
-    reader = csv.reader(infile, delimiter='\t')
-    # Skip the header
-    next(reader)
-    rows = [row for row in reader]
-
-# Filter rows
-filtered_rows = filter_rows(rows, all_names_to_remove)
-
 # Write all collected data to the output file only if there are abstract nouns found
-if verse_data:
+if filtered_rows:
     with open(f'{directory_path}/en_new_names.tsv', 'w', encoding='utf-8') as f:
         f.write('Reference\tName\tLexeme\tCombined Gloss\n')
-        for line in verse_data:
-            f.write(line + '\n')
+        for row in filtered_rows:
+            f.write(row + '\n')
 
     print(f"Data has been written to en_new_names.tsv")
 
@@ -234,14 +227,21 @@ standard_link = 'rc://*/ta/man/translate/translate-names'
 standard_note_template = 'The word **{name}** is the name of a ______.'
 name_occurrence = {}
 
+# Read the input file again after writing to en_new_names.tsv
+with open(f'{directory_path}/en_new_names.tsv', 'r', encoding='utf-8') as infile:
+    reader = csv.reader(infile, delimiter='\t')
+    # Skip the header
+    next(reader)
+    rows = [row for row in reader]
+
 # Write to the output file only if rows exist after filtering
-if filtered_rows:
+if rows:
     with open(f'{directory_path}/transformed_names.tsv', 'w', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
         # Write the headers
         writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet'])
         
-        for row in filtered_rows:
+        for row in rows:
             if len(row) == 4:
                 reference = row[0]
                 name = row[1]
