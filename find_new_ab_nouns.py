@@ -104,7 +104,7 @@ verse = None
 verse_data = []
 
 lemmas = []
-with open('lemma_count.txt', 'r') as file:
+with open('output/lemma_count.txt', 'r') as file:
     for line in file:
         for word in line.split():
             lemma = word.split(':')[0].strip()
@@ -152,7 +152,7 @@ def cleanup_lines(data):
 cleaned_data = cleanup_lines(verse_data)
 
 # Write the parsed verses to output.tsv (unchanged)
-with open('new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
+with open('output/new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
     f.write('Reference\tLemma\tGloss\n')  # write the header row
     for verse in cleaned_data:
         f.write(verse + '\n')

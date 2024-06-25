@@ -14,7 +14,7 @@ def run_script(script_path, book_name, version):
 def write_report(book_name):
     report_content = f"# Report for {book_name}\n"
 
-    with open("report.md", "w") as report_file:
+    with open("output/report.md", "w") as report_file:
         report_file.write(report_content)
 
 def main():

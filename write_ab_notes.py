@@ -7,8 +7,8 @@ def generate_random_code():
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=4))
 
 # File paths
-input_file = 'en_new_ab_nouns.tsv'
-output_file = 'transformed_ab_nouns.tsv'
+input_file = 'output/en_new_ab_nouns.tsv'
+output_file = 'output/transformed_ab_nouns.tsv'
 
 # Standard link and note
 standard_link = 'rc://*/ta/man/translate/figs-abstractnouns'

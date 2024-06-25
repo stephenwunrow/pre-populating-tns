@@ -49,7 +49,7 @@ for acronym in acronyms:
         print(f"Failed to fetch data from {url}: {e}")
 
 # Write results to a TSV file
-output_file = "abstract_nouns.tsv"
+output_file = "output/abstract_nouns.tsv"
 
 with open(output_file, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file, delimiter='\t')

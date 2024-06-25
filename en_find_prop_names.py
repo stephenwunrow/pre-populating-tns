@@ -192,18 +192,20 @@ def filter_rows(rows, all_names_to_remove):
     return filtered_rows
 
 # Read the input file again after writing to en_new_names.tsv
-with open('en_new_names.tsv', 'r', encoding='utf-8') as infile:
-    reader = csv.reader(infile, delimiter='\t')
-    # Skip the header
-    next(reader)
-    rows = [row for row in reader]
+rows = list()
+if os.path.exists('output/en_new_names.tsv'):
+    with open('output/en_new_names.tsv', 'r', encoding='utf-8') as infile:
+        reader = csv.reader(infile, delimiter='\t')
+        # Skip the header
+        next(reader)
+        rows = [row for row in reader]
 
 # Filter rows
 filtered_rows = filter_rows(rows, all_names_to_remove)
 
 # Write all collected data to the output file only if there are abstract nouns found
 if verse_data:
-    with open('en_new_names.tsv', 'w', encoding='utf-8') as f:
+    with open('output/en_new_names.tsv', 'w', encoding='utf-8') as f:
         f.write('Reference\tName\tLexeme\tCombined Gloss\n')
         for line in verse_data:
             f.write(line + '\n')
@@ -214,7 +216,7 @@ if verse_data:
 sorted_name_count = sorted(name_count.items(), key=lambda item: item[1], reverse=True)
 
 # Append to the file instead of replacing existing content
-with open('report.md', 'a', encoding='utf-8') as report_file:
+with open('output/report.md', 'a', encoding='utf-8') as report_file:
     report_file.write(f'\n## Names from {book_name}\n')
     report_file.write('Name\tFrequency\n')
     for name, count in sorted_name_count:
@@ -228,7 +230,7 @@ name_occurrence = {}
 
 # Write to the output file only if rows exist after filtering
 if filtered_rows:
-    with open('transformed_names.tsv', 'w', encoding='utf-8') as outfile:
+    with open('output/transformed_names.tsv', 'w', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
         # Write the headers
         writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet'])

@@ -1,6 +1,8 @@
 data_files
-*.tsv
+
+output/*.tsv
+output/*.txt
+output/report.md
+
 Ideas and work.txt
 .env
-report.md
-lemma_count.txt

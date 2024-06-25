@@ -161,7 +161,7 @@ if verse_data:
     # Split the modified string back into lines
     modified_verse_data = [line.split('\t') for line in all_text.split('\n')]
 
-    with open('en_new_ordinals.tsv', 'w', encoding='utf-8') as f:
+    with open('output/en_new_ordinals.tsv', 'w', encoding='utf-8') as f:
         f.write('Reference\tGlosses\tLexeme\n')
         for line in modified_verse_data:
             f.write('\t'.join(line) + '\n')
@@ -177,7 +177,7 @@ print("Transforming data for transformed_ordinals.tsv")
 
 # Write to the output file only if rows exist after filtering
 if modified_verse_data:
-    with open('transformed_ordinals.tsv', 'w', encoding='utf-8') as outfile:
+    with open('output/transformed_ordinals.tsv', 'w', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
         # Write the headers
         writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])

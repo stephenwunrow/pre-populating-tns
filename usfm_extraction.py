@@ -166,7 +166,7 @@ def cleanup_lines(data):
 cleaned_data = cleanup_lines(verse_data)
 
 # Write the parsed verses to ult_book.tsv
-with open('ult_book.tsv', 'w', encoding='utf-8') as f:
+with open('output/ult_book.tsv', 'w', encoding='utf-8') as f:
     f.write('Reference\tVerse\n')  # write the header row
     for verse in cleaned_data:
         f.write(verse + '\n')

@@ -55,7 +55,7 @@ for acronym in acronyms:
         print(f"Failed to fetch data from {url}: {e}")
 
 # Write detailed results to a TSV file
-output_file = "en_abstract_nouns.tsv"
+output_file = "output/en_abstract_nouns.tsv"
 
 with open(output_file, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file, delimiter='\t')
@@ -65,7 +65,7 @@ with open(output_file, mode='w', newline='', encoding='utf-8') as file:
 print(f"Detailed data has been written to {output_file}")
 
 # Write abstract noun counts to a new TSV file, sorted by count in descending order
-ab_noun_list_file = "en_ab_noun_list.tsv"
+ab_noun_list_file = "output/en_ab_noun_list.tsv"
 
 with open(ab_noun_list_file, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file, delimiter='\t')

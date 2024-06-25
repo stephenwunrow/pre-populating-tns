@@ -809,7 +809,7 @@ for line in verse_data:
 sorted_counts = sorted(abstract_noun_counts.items(), key=lambda x: x[1], reverse=True)
 
 # Append the report to report.md
-with open('report.md', 'a', encoding='utf-8') as report_file:
+with open('output/report.md', 'a', encoding='utf-8') as report_file:
     report_file.write(f"\n## Abstract nouns from {book_name}\nAbstract Noun\tFrequency\n")
     for ab_noun, count in sorted_counts:
         report_file.write(f"{ab_noun}\t{count}\n")
@@ -818,7 +818,7 @@ print("Report has been appended to report.md")
 
 # Write all collected data to the output file only if there are abstract nouns found
 if verse_data:
-    with open('en_new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
+    with open('output/en_new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
         f.write('Reference\tAbstract Noun\tLexeme\tSnippet\n')
         for line in verse_data:
             f.write(line + '\n')
@@ -832,14 +832,14 @@ standard_link = 'rc://*/ta/man/translate/figs-abstractnouns'
 standard_note_template = 'If your language does not use an abstract noun for the idea of **{ab_noun}**, you could express the same idea in another way. Alternate translation: “alternate_translation”'
 
 # Read the input file
-with open('en_new_ab_nouns.tsv', 'r', encoding='utf-8') as infile:
+with open('output/en_new_ab_nouns.tsv', 'r', encoding='utf-8') as infile:
     reader = csv.reader(infile, delimiter='\t')
     # Skip the header
     next(reader)
     rows = [row for row in reader]
 
 # Write to the output file
-with open('transformed_ab_nouns.tsv', 'w', encoding='utf-8') as outfile:
+with open('output/transformed_ab_nouns.tsv', 'w', encoding='utf-8') as outfile:
     writer = csv.writer(outfile, delimiter='\t')
     # Write the headers
     writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])

@@ -77,9 +77,9 @@ def process_row(reference, word, data):
     return None
 
 # Read the output.tsv file
-input_file = "abstract_nouns.tsv"
-output_file = "abstract_nouns_with_lemma.tsv"
-lemma_count_file = "lemma_count.txt"
+input_file = "output/abstract_nouns.tsv"
+output_file = "output/abstract_nouns_with_lemma.tsv"
+lemma_count_file = "output/lemma_count.txt"
 
 # Prepare the new data with x-lemma
 new_data = []

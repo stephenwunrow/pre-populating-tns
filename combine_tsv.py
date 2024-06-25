@@ -3,6 +3,7 @@ from collections import defaultdict
 import random
 import string
 import re
+import os
 
 # Function to read and parse TSV files
 def read_tsv(file_path):
@@ -108,8 +109,9 @@ def combine_multiple_tsv(files, output_file, verse_text_file):
 
     combined_data = []
     for file_path in files:
-        data = read_tsv(file_path)
-        combined_data.extend(data)
+        if os.path.exists(file_path): # File might not have been created
+            data = read_tsv(file_path)
+            combined_data.extend(data)
 
     # Sort combined data
     sorted_data = sort_rows(combined_data, verse_texts)
@@ -123,13 +125,15 @@ def combine_multiple_tsv(files, output_file, verse_text_file):
 # Example usage:
 if __name__ == "__main__":
     # List of input files to combine
-    input_files = ['transformed_ab_nouns.tsv', 'transformed_names.tsv', 'transformed_passives.tsv', 'transformed_ordinals.tsv', 'transformed_figs_go.tsv']
+    input_files = ['output/transformed_ab_nouns.tsv', 'output/transformed_names.tsv', 
+                   'output/transformed_passives.tsv', 'output/transformed_ordinals.tsv', 
+                   'output/transformed_figs_go.tsv']
 
     # Output file name
-    output_file = 'combined_notes.tsv'
+    output_file = 'output/combined_notes.tsv'
 
     # File containing verse texts
-    verse_text_file = 'ult_book.tsv'
+    verse_text_file = 'output/ult_book.tsv'
 
     # Combine and sort
     combine_multiple_tsv(input_files, output_file, verse_text_file)
