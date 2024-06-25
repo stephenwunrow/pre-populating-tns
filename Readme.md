@@ -81,7 +81,10 @@ To run the scripts that deal with specific translation issues individually, the 
 
 `$ BOOK_NAME="Esther" VERSION="ult" python3 script_name.py`
 
-# Further Work
+# Further Work/Todo
+
+- Right now, output files are being overwritten, even when it's a completely different book / translation. How bad is that?
+- Refactoring into classes + 'motherclass' will be a tremendous help in extendability
 
 There are at least three areas in which further development is ongoing:
 
