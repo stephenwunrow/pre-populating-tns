@@ -89,5 +89,5 @@ To run the scripts that deal with specific translation issues individually, the 
 There are at least three areas in which further development is ongoing:
 
 1. There are many more translation issues to write individual scripts for
-2. The generated notes do not include alternate translations or matching snippets; the plan is to query an LLM to generate these
+2. The generated notes do not include alternate translations or matching snippets; the plan is to query an LLM to generate these (see the first attempt at `ATs_snippets.py`)
 3. The sort function in combine_tsv.py needs improvement to be completely trustworthy when it comes to snippets with ellipses and snippets that begin with the same word (in such a case, the longer snippet should be first)
