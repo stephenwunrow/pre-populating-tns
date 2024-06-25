@@ -209,7 +209,7 @@ if verse_data:
 
 # Standard link and note
 standard_link = 'rc://*/ta/man/translate/figs-go'
-standard_note_template = 'In a context such as this, your language might say “{text}” instead of **{key}**. Alternate translation: “alternate_translation”'
+standard_note_template = 'In a context such as this, your language might say “{text}” instead of **{key}**. Alternate translation: “{AT}”'
 
 # Debugging: Print before writing transformed data
 print("Transforming data for transformed_figs_go.tsv")
@@ -234,7 +234,8 @@ if modified_verse_data:
                         text = word_mapping[key]
                         text = re.sub(r'(has|have|had) ', r'', text)
                         break  # Stop searching once a match is found
-
+                
+                AT = re.sub(rf'(.*){key}(.*)', rf'\1{text}\2', snippet)
 
                 # Extract chapter and verse from the reference
                 chapter_verse = reference.rsplit(' ', 1)[1]
@@ -247,7 +248,7 @@ if modified_verse_data:
                     standard_link,  # SupportReference: standard link
                     lexeme,         # Quote: lexeme
                     '1',            # Occurrence: the number 1
-                    standard_note_template.format(key=key, text=text),  # Note: standard note with {gloss}
+                    standard_note_template.format(key=key, text=text, AT=AT),  # Note: standard note with {gloss}
                     snippet
                 ]
 
