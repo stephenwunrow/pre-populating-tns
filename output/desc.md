@@ -1,1 +1,1 @@
-This directory will contain all outputted files
+This directory will contain all outputted files in subdirectories

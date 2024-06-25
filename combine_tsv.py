@@ -5,6 +5,8 @@ import string
 import re
 import os
 
+book_name = os.getenv('BOOK_NAME')
+
 # Function to read and parse TSV files
 def read_tsv(file_path):
     data = []
@@ -124,16 +126,23 @@ def combine_multiple_tsv(files, output_file, verse_text_file):
 
 # Example usage:
 if __name__ == "__main__":
+
+    # Construct the directory path
+    directory_path = f'output/{book_name}'
+
+    # Ensure the directory exists
+    os.makedirs(directory_path, exist_ok=True)
+
     # List of input files to combine
-    input_files = ['output/transformed_ab_nouns.tsv', 'output/transformed_names.tsv', 
-                   'output/transformed_passives.tsv', 'output/transformed_ordinals.tsv', 
-                   'output/transformed_figs_go.tsv']
+    input_files = [f'{directory_path}/transformed_ab_nouns.tsv', f'{directory_path}/transformed_names.tsv', 
+                   f'{directory_path}/transformed_passives.tsv', f'{directory_path}/transformed_ordinals.tsv', 
+                   f'{directory_path}/transformed_figs_go.tsv']
 
     # Output file name
-    output_file = 'output/combined_notes.tsv'
+    output_file = f'{directory_path}/combined_notes.tsv'
 
     # File containing verse texts
-    verse_text_file = 'output/ult_book.tsv'
+    verse_text_file = f'{directory_path}/ult_book.tsv'
 
     # Combine and sort
     combine_multiple_tsv(input_files, output_file, verse_text_file)

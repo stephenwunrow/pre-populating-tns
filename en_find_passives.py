@@ -168,7 +168,13 @@ if verse_data:
     # Split the modified string back into lines
     modified_verse_data = [line.split('\t') for line in all_text.split('\n')]
 
-    with open('output/en_new_passives.tsv', 'w', encoding='utf-8') as f:
+    # Construct the directory path
+    directory_path = f'output/{book_name}'
+
+    # Ensure the directory exists
+    os.makedirs(directory_path, exist_ok=True)
+
+    with open(f'{directory_path}/en_new_passives.tsv', 'w', encoding='utf-8') as f:
         f.write('Reference\tGlosses\tLexeme\tMorphology\n')
         for line in modified_verse_data:
             f.write('\t'.join(line) + '\n')
@@ -203,7 +209,7 @@ def generate_report(modified_verse_data, book_name):
         else:
             Other.append(line_str)
 
-    with open('output/report.md', 'a', encoding='utf-8') as report_file:
+    with open(f'{directory_path}/report.md', 'a', encoding='utf-8') as report_file:
         report_file.write(f'\n## Passives in English from {book_name} that are not Niphal, Qal passive, Hophal, or Pual\n')
         report_file.write('References\tGlosses\tLexeme\tMorphology\n')
         for line in Other:
@@ -222,7 +228,7 @@ print("Transforming data for transformed_passives.tsv")
 
 # Write to the output file only if rows exist after filtering
 if modified_verse_data:
-    with open('output/transformed_passives.tsv', 'w', encoding='utf-8') as outfile:
+    with open(f'{directory_path}/transformed_passives.tsv', 'w', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='\t')
         # Write the headers
         writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet'])

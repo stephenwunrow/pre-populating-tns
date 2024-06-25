@@ -14,7 +14,13 @@ def run_script(script_path, book_name, version):
 def write_report(book_name):
     report_content = f"# Report for {book_name}\n"
 
-    with open("output/report.md", "w") as report_file:
+    # Construct the directory path
+    directory_path = f'output/{book_name}'
+
+    # Ensure the directory exists
+    os.makedirs(directory_path, exist_ok=True)
+
+    with open(f"{directory_path}/report.md", "w") as report_file:
         report_file.write(report_content)
 
 def main():

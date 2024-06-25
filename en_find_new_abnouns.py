@@ -91,7 +91,6 @@ unbelief	7
 condemnation	7
 boldness	7
 disobedience	7
-command	7
 blessing	7
 slavery	6
 abundance	6
@@ -120,7 +119,6 @@ image	6
 favor	5
 goodness	5
 iniquity	5
-request	5
 priesthood	5
 gentleness	5
 labor	5
@@ -280,7 +278,6 @@ witness	2
 ungodliness	2
 full awareness	2
 malice	2
-decree	2
 forbearance	2
 unfaithfulness	2
 distinction	2
@@ -511,7 +508,6 @@ working	1
 full assurance	1
 philosophy	1
 decrees	1
-commands	1
 teachings	1
 indulgence	1
 complaint	1
@@ -808,8 +804,14 @@ for line in verse_data:
 # Sort abstract nouns by count in descending order
 sorted_counts = sorted(abstract_noun_counts.items(), key=lambda x: x[1], reverse=True)
 
+# Construct the directory path
+directory_path = f'output/{book_name}'
+
+# Ensure the directory exists
+os.makedirs(directory_path, exist_ok=True)
+
 # Append the report to report.md
-with open('output/report.md', 'a', encoding='utf-8') as report_file:
+with open(f'{directory_path}/report.md', 'a', encoding='utf-8') as report_file:
     report_file.write(f"\n## Abstract nouns from {book_name}\nAbstract Noun\tFrequency\n")
     for ab_noun, count in sorted_counts:
         report_file.write(f"{ab_noun}\t{count}\n")
@@ -818,7 +820,7 @@ print("Report has been appended to report.md")
 
 # Write all collected data to the output file only if there are abstract nouns found
 if verse_data:
-    with open('output/en_new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
+    with open(f'{directory_path}/en_new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
         f.write('Reference\tAbstract Noun\tLexeme\tSnippet\n')
         for line in verse_data:
             f.write(line + '\n')
@@ -832,14 +834,14 @@ standard_link = 'rc://*/ta/man/translate/figs-abstractnouns'
 standard_note_template = 'If your language does not use an abstract noun for the idea of **{ab_noun}**, you could express the same idea in another way. Alternate translation: “alternate_translation”'
 
 # Read the input file
-with open('output/en_new_ab_nouns.tsv', 'r', encoding='utf-8') as infile:
+with open(f'{directory_path}/en_new_ab_nouns.tsv', 'r', encoding='utf-8') as infile:
     reader = csv.reader(infile, delimiter='\t')
     # Skip the header
     next(reader)
     rows = [row for row in reader]
 
 # Write to the output file
-with open('output/transformed_ab_nouns.tsv', 'w', encoding='utf-8') as outfile:
+with open(f'{directory_path}/transformed_ab_nouns.tsv', 'w', encoding='utf-8') as outfile:
     writer = csv.writer(outfile, delimiter='\t')
     # Write the headers
     writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])
