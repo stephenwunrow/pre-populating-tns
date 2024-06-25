@@ -3,6 +3,6 @@ data_files
 output/*.tsv
 output/*.txt
 output/report.md
-
+*.tsv
 Ideas and work.txt
 .env
