@@ -118,10 +118,80 @@ def process_support_reference_abstract_nouns(note, context, verse_reference):
     note['Snippet'] = response2.strip('"“”‘’….()\'')
     return note
 
+# Function for SupportReference: rc://*/ta/man/translate/translate-ordinal
+def process_support_reference_translate_ordinal(note, context, verse_reference):
+
+    snippet = note['Snippet']
+
+    # Generate prompt 1
+    prompt1 = (
+        f"In {verse_reference}, the word or phrase '{snippet}' is or contains an ordinal number. Provide a way to express the idea by using a cardinal number. Make your answer as short as possible, and respond with the rephrased text only."
+    )
+    
+    # Query LLM for response 1
+    response1 = query_llm(context, prompt1)
+    print(f'Response: {response1}')
+    if response1 is None:
+        print(f"Failed to get response for prompt 1: {prompt1}")
+        return note
+    
+    # Generate prompt 2 using response 1
+    prompt2 = (
+        f"Which exact words from {verse_reference} are the words '{response1.strip('"“”‘’….()\'')}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+    )
+    
+    # Query LLM for response 2
+    response2 = query_llm(context, prompt2)
+    print(f'Response: {response2}')
+    if response2 is None:
+        print(f"Failed to get response for prompt 2: {prompt2}")
+        return note
+    
+    # Process responses
+    note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
+    note['Snippet'] = response2.strip('"“”‘’….()\'')
+    return note
+
+# Function for SupportReference: rc://*/ta/man/translate/figs-activepassive
+def process_support_reference_figs_activepassive(note, context, verse_reference):
+
+    snippet = note['Snippet']
+
+    # Generate prompt 1
+    prompt1 = (
+        f"In {verse_reference}, the phrase '{snippet}' contains a passive form. Provide a way to express the idea in active form, including the agent of the action if you can infer it from the context. Make your answer as short as possible, and respond with the rephrased text only."
+    )
+    
+    # Query LLM for response 1
+    response1 = query_llm(context, prompt1)
+    print(f'Response: {response1}')
+    if response1 is None:
+        print(f"Failed to get response for prompt 1: {prompt1}")
+        return note
+    
+    # Generate prompt 2 using response 1
+    prompt2 = (
+        f"Which exact words from {verse_reference} are the words '{response1.strip('"“”‘’….()\'')}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+    )
+    
+    # Query LLM for response 2
+    response2 = query_llm(context, prompt2)
+    print(f'Response: {response2}')
+    if response2 is None:
+        print(f"Failed to get response for prompt 2: {prompt2}")
+        return note
+    
+    # Process responses
+    note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
+    note['Snippet'] = response2.strip('"“”‘’….()\'')
+    return note
+
 # Map support references to their corresponding processing functions
 support_reference_handlers = {
     'rc://*/ta/man/translate/translate-names': process_support_reference_translate_names,
     'rc://*/ta/man/translate/figs-abstractnouns': process_support_reference_abstract_nouns,
+    'rc://*/ta/man/translate/translate-ordinal': process_support_reference_translate_ordinal,
+    'rc://*/ta/man/translate/figs-activepassive': process_support_reference_figs_activepassive,
     # Add more mappings as needed
 }
 
