@@ -51,8 +51,10 @@ def write_tsv(file_path, fieldnames, data):
         writer.writeheader()
         writer.writerows(data)
 
+ai_notes = []
+
 # Function for SupportReference: rc://*/ta/man/translate/translate-names
-def process_support_reference_translate_names(note, context, verse_reference):
+def process_support_reference_translate_names(note, context, verse_reference, ai_notes):
     # Extract verse text and context
 
     # Example of how to generate prompts and process responses
@@ -65,7 +67,8 @@ def process_support_reference_translate_names(note, context, verse_reference):
     # Generate prompt
     prompt = (
         f"Given the context, does the name {bold_word} in {verse_reference} refer to a man, woman, god, province, region, city, or something else? "
-        f"Provide a one-word answer that identifies the class of thing the name {bold_word} refers to. Be as specific as possible."
+        f"If the name refers to a person, identify only whether the person is a man or a woman. If the name refers to anything else, be as specific as possible."
+        f"Provide a one-word answer that identifies the class of thing the name {bold_word} refers to."
     )
 
     # Query LLM for response
@@ -73,14 +76,14 @@ def process_support_reference_translate_names(note, context, verse_reference):
     print(f'Response: {response}')
     if response is None:
         print(f"Failed to get response for prompt: {prompt}")
-        return note
+        ai_notes.append(note)
     
     # Process response
     note['Note'] = note['Note'].replace('______', response.rstrip('.').lower())
-    return note
+    ai_notes.append(note)
 
 # Function for SupportReference: rc://*/ta/man/translate/figs-abstractnouns
-def process_support_reference_abstract_nouns(note, context, verse_reference):
+def process_support_reference_abstract_nouns(note, context, verse_reference, ai_notes):
 
     # Example of how to generate prompts and process responses
     bold_word_match = re.search(r'\*\*(.*?)\*\*', note['Note'])
@@ -91,7 +94,8 @@ def process_support_reference_abstract_nouns(note, context, verse_reference):
     
     # Generate prompt 1
     prompt1 = (
-        f"In {verse_reference}, the noun {bold_word} is abstract. Provide an alternate way to express the idea without using this or any other abstract noun. Make your answer as short as possible, and respond with the rephrased text only."
+        f"In {verse_reference}, the noun '{bold_word}' is abstract. Express the meaning in another way, without using this or any other abstract noun. "
+        f"Make your answer as short as possible, and respond with the rephrased text only."
     )
     
     # Query LLM for response 1
@@ -99,7 +103,7 @@ def process_support_reference_abstract_nouns(note, context, verse_reference):
     print(f'Response: {response1}')
     if response1 is None:
         print(f"Failed to get response for prompt 1: {prompt1}")
-        return note
+        ai_notes.append(note)
     
     # Generate prompt 2 using response 1
     prompt2 = (
@@ -111,21 +115,21 @@ def process_support_reference_abstract_nouns(note, context, verse_reference):
     print(f'Response: {response2}')
     if response2 is None:
         print(f"Failed to get response for prompt 2: {prompt2}")
-        return note
+        ai_notes.append(note)
     
     # Process responses
     note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
     note['Snippet'] = response2.strip('"“”‘’….()\'')
-    return note
+    ai_notes.append(note)
 
 # Function for SupportReference: rc://*/ta/man/translate/translate-ordinal
-def process_support_reference_translate_ordinal(note, context, verse_reference):
+def process_support_reference_translate_ordinal(note, context, verse_reference, ai_notes):
 
     snippet = note['Snippet']
 
     # Generate prompt 1
     prompt1 = (
-        f"In {verse_reference}, the word or phrase '{snippet}' is or contains an ordinal number. Provide a way to express the idea by using a cardinal number. Make your answer as short as possible, and respond with the rephrased text only."
+        f"In {verse_reference}, the word or phrase '{snippet}' is or contains an ordinal number. Provide a way to express the idea by using a cardinal number. Make your answer as short as possible, and respond with the rephrased text only. Do not include any explanation."
     )
     
     # Query LLM for response 1
@@ -133,7 +137,7 @@ def process_support_reference_translate_ordinal(note, context, verse_reference):
     print(f'Response: {response1}')
     if response1 is None:
         print(f"Failed to get response for prompt 1: {prompt1}")
-        return note
+        ai_notes.append(note)
     
     # Generate prompt 2 using response 1
     prompt2 = (
@@ -145,15 +149,15 @@ def process_support_reference_translate_ordinal(note, context, verse_reference):
     print(f'Response: {response2}')
     if response2 is None:
         print(f"Failed to get response for prompt 2: {prompt2}")
-        return note
+        ai_notes.append(note)
     
     # Process responses
     note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
     note['Snippet'] = response2.strip('"“”‘’….()\'')
-    return note
+    ai_notes.append(note)
 
 # Function for SupportReference: rc://*/ta/man/translate/figs-activepassive
-def process_support_reference_figs_activepassive(note, context, verse_reference):
+def process_support_reference_figs_activepassive(note, context, verse_reference, ai_notes):
 
     snippet = note['Snippet']
 
@@ -167,7 +171,7 @@ def process_support_reference_figs_activepassive(note, context, verse_reference)
     print(f'Response: {response1}')
     if response1 is None:
         print(f"Failed to get response for prompt 1: {prompt1}")
-        return note
+        ai_notes.append(note)
     
     # Generate prompt 2 using response 1
     prompt2 = (
@@ -179,12 +183,36 @@ def process_support_reference_figs_activepassive(note, context, verse_reference)
     print(f'Response: {response2}')
     if response2 is None:
         print(f"Failed to get response for prompt 2: {prompt2}")
-        return note
+        ai_notes.append(note)
     
     # Process responses
     note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
     note['Snippet'] = response2.strip('"“”‘’….()\'')
-    return note
+    ai_notes.append(note)
+
+# Function for SupportReference: rc://*/ta/man/translate/figs-go
+def process_support_reference_figs_go(note, context, verse_reference, ai_notes):
+
+    snippet = note['Snippet']
+    
+    # Generate prompt
+    prompt = (
+        f"Given the context, does the verb or verb phrase '{snippet}' in {verse_reference} indicate movement through space/time? "
+        f"Answer with 'Yes' or 'No' only, and do not provide any explanation."
+    )
+
+    # Query LLM for response
+    response = query_llm(context, prompt)
+    print(f'Response: {response}')
+    if response is None:
+        print(f"Failed to get response for prompt: {prompt}")
+        ai_notes.append(note)
+    
+    # Process response
+    if 'yes' in response.lower():
+        ai_notes.append(note)
+    elif 'no' in response.lower():
+        pass
 
 # Map support references to their corresponding processing functions
 support_reference_handlers = {
@@ -192,6 +220,7 @@ support_reference_handlers = {
     'rc://*/ta/man/translate/figs-abstractnouns': process_support_reference_abstract_nouns,
     'rc://*/ta/man/translate/translate-ordinal': process_support_reference_translate_ordinal,
     'rc://*/ta/man/translate/figs-activepassive': process_support_reference_figs_activepassive,
+    'rc://*/ta/man/translate/figs-go': process_support_reference_figs_go,
     # Add more mappings as needed
 }
 
@@ -208,7 +237,6 @@ note_texts = read_tsv(f'{notes_text}')
 verse_map = {verse['Reference']: verse['Verse'] for verse in verse_texts}
 
 # Prepare the context and query the LLM for each note
-results = []
 for note in note_texts:
     # Construct the verse reference using the book name and the first column of the note
     chapter_verse = note['Reference']
@@ -235,14 +263,13 @@ for note in note_texts:
     support_ref = note['SupportReference']
     if support_ref in support_reference_handlers:
         # Call the appropriate processing function for this SupportReference
-        note = support_reference_handlers[support_ref](note, context, verse_reference)
-        results.append(note)
+        note = support_reference_handlers[support_ref](note, context, verse_reference, ai_notes)
     else:
         print(f"Unknown SupportReference: {support_ref}. Appending unmodified note.")
-        results.append(note)
+        ai_notes.append(note)
 
 # Write the results to a new TSV file
 fieldnames = note_texts[0].keys()  # Assuming all notes have the same keys
-write_tsv('ai_notes.tsv', fieldnames, results)
+write_tsv('ai_notes.tsv', fieldnames, ai_notes)
 
 print("Results saved to ai_notes.tsv")
