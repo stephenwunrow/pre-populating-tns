@@ -2,6 +2,7 @@ import re
 import csv
 import requests
 from bs4 import BeautifulSoup
+import string
 
 # Function to read and parse TSV files
 def read_tsv(file_path):
@@ -13,12 +14,21 @@ def read_tsv(file_path):
             data.append(row)
     return data, headers
 
+def write_tsv(file_path, headers, data):
+    with open(file_path, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerow(headers)
+        writer.writerows(data)
+
+def strip_punctuation(text):
+    return text.translate(str.maketrans('', '', string.punctuation))
+
 def create_search_dict(input_file):
     data, headers = read_tsv(input_file)
     search_dict = {}
     
     for row in data:
-        if len(row) >= 8:  # Ensure the row has at least 8 columns
+        if len(row) == 8:
             reference = row[0]  # Extract the "Reference" column
             snippet = row[7]  # Extract the eighth column ("Snippet")
             
@@ -197,13 +207,63 @@ def find_snippets(combined_text, search_dict, book_name):
                     combined_gloss = ' '.join(gloss_matches)
 
                     # Append to verse_data with lexeme, verse reference, snippet, and combined glosses
-                    verse_data.append([f'{book_name} {ref}', snippet, combined_lexemes, combined_gloss])
-    print(verse_data)
+                    verse_data.append([f'{ref}', snippet, combined_lexemes, combined_gloss])
     return verse_data
 
 # Call the function
 results = find_snippets(combined_text, search_dict, book_name)
 
-# Print results
-for result in results:
-    print(result)
+def write_results(input_file, results, output_file):
+    data, headers = read_tsv(input_file)
+
+    headers = headers[:-1]
+
+    # Create a list to hold updated rows
+    updated_data = []
+
+    # Create a dictionary for quick lookup of results by (new_reference, new_snippet)
+    results_dict = {(row[0], row[1]): (row[2], row[3]) for row in results if len(row) == 4}
+
+    for row in data:
+        if len(row) == 8:
+            reference = row[0]
+            lexeme = row[4]
+            note = row[6]
+            snippet = row[7]
+
+            # Check if the current row's reference and snippet match any in the results
+            if (reference, snippet) in results_dict:
+                new_lexeme, new_AT = results_dict[(reference, snippet)]
+                row[4] = new_lexeme  # Replace the lexeme with new_lexeme
+
+                # Search for the stripped snippet in row[3] of the dictionary
+                new_snippet = row[3]
+                stripped_snippet = strip_punctuation(snippet)
+
+                # Find the position of the stripped snippet in the stripped context
+                snippet_pos = stripped_snippet.find(new_snippet)
+                if snippet_pos != -1:
+                    # Extract words before and after the snippet in the original context
+                    pre_context = new_snippet[:snippet_pos].split()
+                    post_context = new_snippet[snippet_pos + len(snippet):].split()
+                    pre_words = ' '.join(pre_context[-10:])
+                    post_words = ' '.join(post_context[:10])
+                    print(pre_words)
+                    print(post_words)
+                
+                else:
+                    pre_words = ''
+                    post_words = ''
+
+                if 'Alternate translation:' in note:
+                    note = re.sub(r'(Alternate translation: “)(.+)(”)', rf'\1{pre_words} \2 {post_words}\3', note)
+
+            row = row[:-1]
+
+        updated_data.append(row)
+
+    # Write the updated data back to a TSV file
+    write_tsv(output_file, headers, updated_data)
+
+output_file = 'final_notes.tsv'
+write_results(input_file, results, output_file)
