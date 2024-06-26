@@ -715,15 +715,6 @@ chapter = None
 verse = None
 verse_data = []
 
-# Build the search patterns
-patterns = {}
-for ab_noun in ab_nouns:
-    if ' ' in ab_noun:
-        ab_noun1, ab_noun2 = ab_noun.split(' ', 1)
-        patterns[ab_noun] = re.compile(rf'x-strong.*?x-morph="[^"]*?Nc[^"]*?".+?x-content="([^"]+?)".*?\\w {ab_noun1}\|.*?\\w {ab_noun2}\|.*?zaln-e', re.IGNORECASE | re.DOTALL)
-    else:
-        patterns[ab_noun] = re.compile(rf'x-strong.*?x-morph="[^"]*?Nc[^"]*?".+?x-content="([^"]+?)".*?\\w {ab_noun}\|.*?zaln-e', re.IGNORECASE | re.DOTALL)
-
 # Combine all lines into a single string
 combined_text = soup.get_text(separator='\n')
 
@@ -735,20 +726,21 @@ with tqdm(total=len(chunks), desc="Processing Chunks") as pbar:
     for chunk in chunks:
         pbar.update(1)  # Update progress bar
 
-        for ab_noun, pattern in patterns.items():
-            matches = pattern.findall(chunk)
-            if matches:  # Only proceed if there are matches
-                for match in matches:
-                    lexeme = match
+        # Find all matches of the desired pattern
+        matches = re.findall(r'x-morph="([^"]*?[^V]Nc[^"]*?)".+?x-content="([^"]+?)".+\\w .+?\|', chunk, re.DOTALL)
+        if matches:  # Only proceed if there are matches
+            for match in matches:
+                lexeme = match[1]  # lexeme is the matched group from x-content
+                morphology = match[0]
 
-                    # Find all glosses in the chunk
-                    gloss_matches = re.findall(r'\\w (.+?)\|', chunk)
-                    if gloss_matches:
-                        # Combine all glosses into a single string
-                        combined_gloss = ' '.join(gloss_matches)
+                # Find all glosses in the chunk
+                gloss_matches = re.findall(r'\\w (.+?)\|', chunk)
+                if gloss_matches:
+                    # Combine all glosses into a single string
+                    combined_gloss = ' '.join(gloss_matches)
 
-                    # Append to verse_data with lexeme, verse reference, and ab_noun
-                    verse_data.append(f'{book_name} {chapter}:{verse}\t{ab_noun}\t{lexeme}\t{combined_gloss}')
+                # Append to verse_data with lexeme, verse reference, and ab_noun
+                verse_data.append(f'{book_name} {chapter}:{verse}\t{combined_gloss}\t{lexeme}\t{morphology}')
 
         # Find chapter in the chunk
         chapter_match = re.search(r'\\c (\d+)', chunk)
@@ -759,6 +751,44 @@ with tqdm(total=len(chunks), desc="Processing Chunks") as pbar:
         verse_match = re.search(r'\\v (\d+)', chunk)
         if verse_match:
             verse = int(verse_match.group(1))
+
+# Define the search and replace pattern
+search_pattern = r'([^\n]*\d+:\d+)\t([^\n]+?)\t([^\n]+?)\t(.+?)\n(\1\t)([^\n]+?)(\t\3[^\n]+)'
+replace_with = r'\1\t\2…\6\t\3\t\4'
+
+# Join the verse_data list into a single string
+verse_data_str = '\n'.join(verse_data)
+
+# Apply search and replace until no changes are detected
+while True:
+    new_text = re.sub(search_pattern, replace_with, verse_data_str, flags=re.DOTALL)
+    if new_text == verse_data_str:
+        break
+    verse_data_str = new_text
+
+# Split back into a list
+verse_data = verse_data_str.split('\n')
+
+def find_abnouns(verse_data, ab_nouns):
+    found_instances = []
+    patterns = {}
+    for ab_noun in ab_nouns:
+        if ' ' in ab_noun:
+            ab_noun1, ab_noun2 = ab_noun.split(' ', 1)
+            patterns[ab_noun] = re.compile(rf'.+?\t.*?\b{ab_noun1}\b.*?\b{ab_noun2}\b.*?\t.+', re.IGNORECASE)
+        else:
+            patterns[ab_noun] = re.compile(rf'.+?\t.*?\b{ab_noun}\b.*?\t.+', re.IGNORECASE)
+
+    for line in verse_data:
+        for ab_noun, pattern in patterns.items():
+            matches = pattern.findall(line)
+            if matches:
+                for match in matches:
+                    # Append to verse_data with lexeme, verse reference, and ab_noun
+                    found_instances.append(f'{match}\t{ab_noun}\n')
+    return found_instances
+
+verse_data = find_abnouns(verse_data, ab_nouns)
 
 # Apply regex replacements repeatedly
 def apply_replacements(text, patterns):
@@ -821,7 +851,7 @@ print("Report has been appended to report.md")
 # Write all collected data to the output file only if there are abstract nouns found
 if verse_data:
     with open(f'{directory_path}/en_new_ab_nouns.tsv', 'w', encoding='utf-8') as f:
-        f.write('Reference\tAbstract Noun\tLexeme\tSnippet\n')
+        f.write('Reference\tSnippet\tLexeme\tMorphology\tAbstract Noun\n')
         for line in verse_data:
             f.write(line + '\n')
 
@@ -847,11 +877,11 @@ with open(f'{directory_path}/transformed_ab_nouns.tsv', 'w', encoding='utf-8') a
     writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note'])
     
     for row in rows:
-        if len(row) == 4:
+        if len(row) == 5:
             reference = row[0]
-            ab_noun = row[1]
+            snippet = row[1]
             lexeme = row[2]
-            snippet = row[3]
+            ab_noun = row[4]
 
             # Extract chapter and verse from the reference
             chapter_verse = reference.rsplit(' ', 1)[1]
