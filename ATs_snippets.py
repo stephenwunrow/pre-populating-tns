@@ -3,6 +3,7 @@ import re
 from groq import Groq
 import os
 from dotenv import load_dotenv
+import time
 
 load_dotenv()
 
@@ -10,6 +11,10 @@ api_key = os.getenv('API_KEY')
 verse_text = os.getenv('VERSE_TEXT')
 notes_text = os.getenv('NOTES_TEXT')
 
+# Function to wait between queries
+def wait_between_queries(seconds):
+    print(f"Waiting for {seconds} seconds...")
+    time.sleep(seconds)
 
 # Initialize the Groq client with your API key
 client = Groq(api_key=api_key)
@@ -37,6 +42,8 @@ def query_llm(context, prompt):
     except Exception as e:
         print(f"Request failed: {e}")
         return None
+    finally:
+        wait_between_queries(2)
 
 # Function to read a TSV file and return its contents as a list of dictionaries
 def read_tsv(file_path):
