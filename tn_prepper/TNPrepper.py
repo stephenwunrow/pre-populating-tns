@@ -5,10 +5,18 @@ from bs4 import BeautifulSoup
 import re
 from tqdm import tqdm
 
+
 class TNPrepper():
     def __init__(self):
         self.output_base_dir = 'output'
-        pass
+
+    # Function to get the content of the file
+    def _get_file_content(self, url):
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return ''
 
     # Scrapes ult or ust and reads it, returning "soup"
     def _scrape_and_read_data(self, book_name, version):
@@ -91,16 +99,8 @@ class TNPrepper():
         # URL of the file to download
         url = f"https://git.door43.org/unfoldingWord/en_{version}/raw/branch/master/{acronym}.usfm"
 
-        # Function to get the content of the file
-        def get_file_content(url):
-            response = requests.get(url)
-            if response.status_code == 200:
-                return response.text
-            else:
-                return ''
-
         # Get the file content
-        file_content = get_file_content(url)
+        file_content = self._get_file_content(url)
 
         # Process the file content
         soup = BeautifulSoup(file_content, 'html.parser')
@@ -158,37 +158,35 @@ class TNPrepper():
     # NOTE: there may be too much variation among the functions to use this for all of them
     # Takes "verse_data" and transforms it into TN form
         # Provide the appropriate "SupportReference" and "note_template" for the type of note
-        # Provide the output file name (e.g., "transformed_ordinals.tsv")
-    def _transform_data(self, verse_data, output_path, SupportReference, note_template, file_name):
+    def _transform_data(self, verse_data, support_reference, note_template):
         if verse_data:
-            with open(f'{output_path}/{file_name}', 'w', encoding='utf-8') as outfile:
-                writer = csv.writer(outfile, delimiter='\t')
-                # Write the headers
-                writer.writerow(['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet'])
-                
-                for row in verse_data:
-                    if len(row) == 4:
-                        reference = row[0]
-                        snippet = row[1]
-                        lexeme = row[2]
 
-                        # Extract chapter and verse from the reference
-                        chapter_verse = reference.rsplit(' ', 1)[1]
+            transformed_data = list()
+            for row in verse_data:
 
-                        # Create the new row
-                        transformed_row = [
-                            chapter_verse,  # Reference without the book name
-                            '',    # ID: random, unique four-letter and number combination
-                            '',             # Tags: blank
-                            SupportReference,  # SupportReference: standard link
-                            lexeme,         # Quote: lexeme
-                            '1',            # Occurrence: the number 1
-                            note_template,  # Note: standard note with {gloss}
-                            snippet
-                        ]
+                if len(row) == 4:
+                    reference = row[0]
+                    snippet = row[1]
+                    lexeme = row[2]
 
-                        # Write the transformed row to the output file
-                        writer.writerow(transformed_row)
+                    # Extract chapter and verse from the reference
+                    chapter_verse = reference.rsplit(' ', 1)[1]
+
+                    # Create the new row
+                    transformed_row = [
+                        chapter_verse,  # Reference without the book name
+                        '',  # ID: random, unique four-letter and number combination
+                        '',  # Tags: blank
+                        support_reference,  # SupportReference: standard link
+                        lexeme,  # Quote: lexeme
+                        '1',  # Occurrence: the number 1
+                        note_template,  # Note: standard note with {gloss}
+                        snippet
+                    ]
+
+                    transformed_data.append(transformed_row)
+
+            return transformed_data
 
     def __setup_output(self, book_name, file_name):
         # Construct the output path
@@ -197,16 +195,16 @@ class TNPrepper():
         # Ensure the directory exists
         os.makedirs(output_path, exist_ok=True)
 
-        # Path to the file you want to write
-        return f'{output_path}/{file_name}.tsv'
+        if '.tsv' not in file_name:
+            file_name += '.tsv'
 
+        # Path to the file you want to write
+        return f'{output_path}/{file_name}'
 
     def _write_output(self, book_name, file, headers, data):
         output_file = self.__setup_output(book_name, file)
 
         # Write results to a TSV file
-        #output_file = self.output_base_dir + '/' + book + "/abstract_nouns.tsv"
-
         with open(output_file, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter='\t')
             writer.writerow(headers)  # Column headers

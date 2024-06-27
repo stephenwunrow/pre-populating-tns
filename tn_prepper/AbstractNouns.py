@@ -1,18 +1,20 @@
+from .TNPrepper import TNPrepper
 import requests
 import re
+
 
 class AbstractNouns(TNPrepper):
     def __init__(self):
         super().__init__()
 
     # Function to fetch data from a given URL
-    def fetch_data(url):
+    def fetch_data(self, url):
         response = requests.get(url)
         response.raise_for_status()  # Raise an exception for HTTP errors
         return response.text
 
     # Function to process data and extract relevant information based on a regex pattern
-    def process_data(data, pattern, book_name):
+    def process_data(self, data, pattern, book_name):
         result = []
         rows = data.splitlines()
         for row in rows:
@@ -32,7 +34,6 @@ class AbstractNouns(TNPrepper):
 
     def run(self):
 
-
         # Base URL with placeholder for the acronym
         base_url = "https://git.door43.org/unfoldingWord/en_tn/raw/branch/master/tn_{}.tsv"
 
@@ -48,8 +49,8 @@ class AbstractNouns(TNPrepper):
         for acronym in acronyms:
             url = base_url.format(acronym)
             try:
-                data = fetch_data(url)
-                results = process_data(data, pattern, acronym)
+                data = self.fetch_data(url)
+                results = self.process_data(data, pattern, acronym)
                 all_results.extend(results)
             except requests.HTTPError as e:
                 print(f"Failed to fetch data from {url}: {e}")
@@ -57,12 +58,3 @@ class AbstractNouns(TNPrepper):
             # Write results to a TSV file
             headers = ["Reference", "Word"]
             self._write_output(book_name=acronym, file='abstract_nouns', headers=headers, data=all_results)
-
-        # output_file = "output/abstract_nouns.tsv"
-
-        # with open(output_file, mode='w', newline='', encoding='utf-8') as file:
-        #     writer = csv.writer(file, delimiter='\t')
-        #     writer.writerow(["Reference", "Word"])  # Column headers
-        #     writer.writerows(all_results)
-
-        # print(f"Data has been written to {output_file}")

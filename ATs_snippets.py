@@ -11,10 +11,12 @@ api_key = os.getenv('API_KEY')
 verse_text = os.getenv('VERSE_TEXT')
 notes_text = os.getenv('NOTES_TEXT')
 
+
 # Function to wait between queries
 def wait_between_queries(seconds):
     print(f"Waiting for {seconds} seconds...")
     time.sleep(seconds)
+
 
 # Initialize the Groq client with your API key
 client = Groq(api_key=api_key)
@@ -113,8 +115,9 @@ def process_support_reference_abstract_nouns(note, context, verse_reference, ai_
         ai_notes.append(note)
     
     # Generate prompt 2 using response 1
+    response1_cleaned = response1.strip('"“”‘’….()\'')
     prompt2 = (
-        f"Which exact words from {verse_reference} are the words '{response1.strip('"“”‘’….()\'')}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+        f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
     )
     
     # Query LLM for response 2
@@ -125,7 +128,7 @@ def process_support_reference_abstract_nouns(note, context, verse_reference, ai_
         ai_notes.append(note)
     
     # Process responses
-    note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
+    note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
     note['Snippet'] = response2.strip('"“”‘’….()\'')
     ai_notes.append(note)
 
@@ -147,8 +150,9 @@ def process_support_reference_translate_ordinal(note, context, verse_reference, 
         ai_notes.append(note)
     
     # Generate prompt 2 using response 1
+    response1_cleaned = response1.strip('"“”‘’….()\'')
     prompt2 = (
-        f"Which exact words from {verse_reference} are the words '{response1.strip('"“”‘’….()\'')}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+        f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
     )
     
     # Query LLM for response 2
@@ -159,7 +163,7 @@ def process_support_reference_translate_ordinal(note, context, verse_reference, 
         ai_notes.append(note)
     
     # Process responses
-    note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
+    note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
     note['Snippet'] = response2.strip('"“”‘’….()\'')
     ai_notes.append(note)
 
@@ -181,8 +185,9 @@ def process_support_reference_figs_activepassive(note, context, verse_reference,
         ai_notes.append(note)
     
     # Generate prompt 2 using response 1
+    response1_cleaned = response1.strip('"“”‘’….()\'')
     prompt2 = (
-        f"Which exact words from {verse_reference} are the words '{response1.strip('"“”‘’….()\'')}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+        f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
     )
     
     # Query LLM for response 2
@@ -193,7 +198,7 @@ def process_support_reference_figs_activepassive(note, context, verse_reference,
         ai_notes.append(note)
     
     # Process responses
-    note['Note'] = note['Note'].replace('alternate_translation', response1.strip('"“”‘’….()\''))
+    note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
     note['Snippet'] = response2.strip('"“”‘’….()\'')
     ai_notes.append(note)
 
