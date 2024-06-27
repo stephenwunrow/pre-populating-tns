@@ -233,34 +233,39 @@ def write_results(input_file, results, output_file):
 
             # Check if the current row's reference and snippet match any in the results
             if (reference, snippet) in results_dict:
-                new_lexeme, new_AT = results_dict[(reference, snippet)]
+                new_lexeme, new_snippet = results_dict[(reference, snippet)]
                 row[4] = new_lexeme  # Replace the lexeme with new_lexeme
 
                 # Search for the stripped snippet in row[3] of the dictionary
-                new_snippet = row[3]
+                print(f'New Snippet: {new_snippet}')
                 stripped_snippet = strip_punctuation(snippet)
+                print(f'Old Snippet: {stripped_snippet}')
 
                 # Find the position of the stripped snippet in the stripped context
-                snippet_pos = stripped_snippet.find(new_snippet)
+                snippet_pos = new_snippet.lower().find(stripped_snippet.lower())
                 if snippet_pos != -1:
                     # Extract words before and after the snippet in the original context
                     pre_context = new_snippet[:snippet_pos].split()
                     post_context = new_snippet[snippet_pos + len(snippet):].split()
-                    pre_words = ' '.join(pre_context[-10:])
-                    post_words = ' '.join(post_context[:10])
-                    print(pre_words)
-                    print(post_words)
+                    pre_words = ' '.join(pre_context[-30:])
+                    post_words = ' '.join(post_context[:30])
+                    print(f'Pre-words: {pre_words}')
+                    print(f'Post-words: {post_words}')
                 
                 else:
                     pre_words = ''
                     post_words = ''
 
                 if 'Alternate translation:' in note:
+                    print(f'Old note: {note}')
                     note = re.sub(r'(Alternate translation: “)(.+)(”)', rf'\1{pre_words} \2 {post_words}\3', note)
+                    print(f'New note: {note}]')
+                row[6] = note
 
             row = row[:-1]
 
         updated_data.append(row)
+        print(updated_data)
 
     # Write the updated data back to a TSV file
     write_tsv(output_file, headers, updated_data)
