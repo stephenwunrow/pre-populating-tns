@@ -4,6 +4,9 @@ output/*.tsv
 output/*.txt
 output/*/report.md
 output/report.md
+
 *.tsv
 Ideas and work.txt
 .env
+
+*__pycache__
