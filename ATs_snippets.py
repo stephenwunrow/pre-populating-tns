@@ -19,6 +19,7 @@ class ATSnippets(TNPrepper):
 
         # Initialize the Groq client with your API key
         self.groq_client = Groq(api_key=api_key)
+        self.groq_model = 'llama3-70b-8192'
 
     # Function to wait between queries
     def __wait_between_queries(self, seconds):
@@ -28,7 +29,7 @@ class ATSnippets(TNPrepper):
     # Function to query the LLM
     def __query_llm(self, context, prompt):
         combined_prompt = f"Verse and context:\n{context}\n\nPrompt:\n{prompt}"
-        print(combined_prompt)
+        response = None
 
         try:
             chat_completion = self.groq_client.chat.completions.create(
@@ -38,16 +39,23 @@ class ATSnippets(TNPrepper):
                         "content": combined_prompt,
                     }
                 ],
-                model="llama3-70b-8192",
+                model=self.groq_model,
             )
-            return chat_completion.choices[0].message.content.strip()
+            response = chat_completion.choices[0].message.content.strip()
 
         except Exception as e:
             print(f"Request failed: {e}")
-            return None
+            print(f"Failed to get response for prompt: {prompt}")
 
         finally:
+            print(combined_prompt)
+            print(f'Response: {response}')
+            print('---')
+
+            # Waiting for what?
             self.__wait_between_queries(2)
+
+            return response
 
     # Function for SupportReference: rc://*/ta/man/translate/translate-names
     def __process_support_reference_translate_names(self, note, context, verse_reference, ai_notes):
@@ -69,18 +77,16 @@ class ATSnippets(TNPrepper):
 
         # Query LLM for response
         response = self.__query_llm(context, prompt)
-        print(f'Response: {response}')
 
         if response is None:
-            print(f"Failed to get response for prompt: {prompt}")
             ai_notes.append(note)
 
-        # Process response
-        note['Note'] = note['Note'].replace('______', response.rstrip('.').lower())
-        ai_notes.append(note)
+        else:
+            # Process response
+            note['Note'] = note['Note'].replace('______', response.rstrip('.').lower())
+            ai_notes.append(note)
 
-        # Function for SupportReference: rc://*/ta/man/translate/figs-abstractnouns
-
+    # Function for SupportReference: rc://*/ta/man/translate/figs-abstractnouns
     def __process_support_reference_abstract_nouns(self, note, context, verse_reference, ai_notes):
 
         # Example of how to generate prompts and process responses
@@ -98,28 +104,26 @@ class ATSnippets(TNPrepper):
 
         # Query LLM for response 1
         response1 = self.__query_llm(context, prompt1)
-        print(f'Response: {response1}')
         if response1 is None:
-            print(f"Failed to get response for prompt 1: {prompt1}")
             ai_notes.append(note)
 
-        # Generate prompt 2 using response 1
-        response1_cleaned = response1.strip('"“”‘’….()\'')
-        prompt2 = (
-            f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
-        )
+        else:
+            # Generate prompt 2 using response 1
+            response1_cleaned = response1.strip('"“”‘’….()\'')
+            prompt2 = (
+                f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+            )
 
-        # Query LLM for response 2
-        response2 = self.__query_llm(context, prompt2)
-        print(f'Response: {response2}')
-        if response2 is None:
-            print(f"Failed to get response for prompt 2: {prompt2}")
-            ai_notes.append(note)
+            # Query LLM for response 2
+            response2 = self.__query_llm(context, prompt2)
+            if response2 is None:
+                ai_notes.append(note)
 
-        # Process responses
-        note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
-        note['Snippet'] = response2.strip('"“”‘’….()\'')
-        ai_notes.append(note)
+            else:
+                # Process responses
+                note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
+                note['Snippet'] = response2.strip('"“”‘’….()\'')
+                ai_notes.append(note)
 
     # Function for SupportReference: rc://*/ta/man/translate/translate-ordinal
     def __process_support_reference_translate_ordinal(self, note, context, verse_reference, ai_notes):
@@ -133,28 +137,25 @@ class ATSnippets(TNPrepper):
 
         # Query LLM for response 1
         response1 = self.__query_llm(context, prompt1)
-        print(f'Response: {response1}')
         if response1 is None:
-            print(f"Failed to get response for prompt 1: {prompt1}")
             ai_notes.append(note)
 
-        # Generate prompt 2 using response 1
-        response1_cleaned = response1.strip('"“”‘’….()\'')
-        prompt2 = (
-            f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
-        )
+        else:
+            # Generate prompt 2 using response 1
+            response1_cleaned = response1.strip('"“”‘’….()\'')
+            prompt2 = (
+                f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+            )
 
-        # Query LLM for response 2
-        response2 = self.__query_llm(context, prompt2)
-        print(f'Response: {response2}')
-        if response2 is None:
-            print(f"Failed to get response for prompt 2: {prompt2}")
+            # Query LLM for response 2
+            response2 = self.__query_llm(context, prompt2)
+            if response2 is None:
+                ai_notes.append(note)
+
+            # Process responses
+            note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
+            note['Snippet'] = response2.strip('"“”‘’….()\'')
             ai_notes.append(note)
-
-        # Process responses
-        note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
-        note['Snippet'] = response2.strip('"“”‘’….()\'')
-        ai_notes.append(note)
 
     # Function for SupportReference: rc://*/ta/man/translate/figs-activepassive
     def __process_support_reference_figs_activepassive(self, note, context, verse_reference, ai_notes):
@@ -168,28 +169,25 @@ class ATSnippets(TNPrepper):
 
         # Query LLM for response 1
         response1 = self.__query_llm(context, prompt1)
-        print(f'Response: {response1}')
         if response1 is None:
-            print(f"Failed to get response for prompt 1: {prompt1}")
             ai_notes.append(note)
 
-        # Generate prompt 2 using response 1
-        response1_cleaned = response1.strip('"“”‘’….()\'')
-        prompt2 = (
-            f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
-        )
+        else:
+            # Generate prompt 2 using response 1
+            response1_cleaned = response1.strip('"“”‘’….()\'')
+            prompt2 = (
+                f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+            )
 
-        # Query LLM for response 2
-        response2 = self.__query_llm(context, prompt2)
-        print(f'Response: {response2}')
-        if response2 is None:
-            print(f"Failed to get response for prompt 2: {prompt2}")
+            # Query LLM for response 2
+            response2 = self.__query_llm(context, prompt2)
+            if response2 is None:
+                ai_notes.append(note)
+
+            # Process responses
+            note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
+            note['Snippet'] = response2.strip('"“”‘’….()\'')
             ai_notes.append(note)
-
-        # Process responses
-        note['Note'] = note['Note'].replace('alternate_translation', response1_cleaned)
-        note['Snippet'] = response2.strip('"“”‘’….()\'')
-        ai_notes.append(note)
 
     # Function for SupportReference: rc://*/ta/man/translate/figs-go
     def __process_support_reference_figs_go(self, note, context, verse_reference, ai_notes):
@@ -204,20 +202,19 @@ class ATSnippets(TNPrepper):
 
         # Query LLM for response
         response = self.__query_llm(context, prompt)
-        print(f'Response: {response}')
         if response is None:
-            print(f"Failed to get response for prompt: {prompt}")
             ai_notes.append(note)
 
-        # Process response
-        if 'yes' in response.lower():
-            ai_notes.append(note)
-        # elif 'no' in response.lower():
-        #     pass
+        else:
+            # Process response
+            if 'yes' in response.lower():
+                ai_notes.append(note)
+            # elif 'no' in response.lower():
+            #     pass
 
     def run(self):
         # Instruction message to guide the LLM
-        # --> TODO: not being used yet!
+        # --> TODO: instruction_message not being used yet!
         instruction_message = (
             "You are a bible-believing scholar. You are analyzing a text and providing answers that exactly match that text. You should not provide explanations and interpretation unless you are specifically asked to do so."
         )
@@ -235,11 +232,7 @@ class ATSnippets(TNPrepper):
         }
 
         # Acquire the name of the Bible book
-        if os.getenv('BOOK_NAME'):
-            book_name = os.getenv('BOOK_NAME')
-        else:
-            # Prompt the user for book name
-            book_name = input("Enter the book name (e.g., 2 Chronicles): ")
+        book_name = self._get_book_name()
 
         # Verse_texts should be the extracted ult created by usfm_extraction.py
         verse_texts = self._read_tsv(f'{self.verse_text}')
@@ -284,7 +277,7 @@ class ATSnippets(TNPrepper):
             if support_ref in support_reference_handlers:
                 # Call the appropriate processing function for this SupportReference
                 note = support_reference_handlers[support_ref](note, context, verse_reference, ai_notes)
-                # TODO: this is not being used
+                # TODO: note here seems not to be used
             else:
                 print(f"Unknown SupportReference: {support_ref}. Appending unmodified note.")
                 ai_notes.append(note)
@@ -296,16 +289,3 @@ class ATSnippets(TNPrepper):
 
 obj_at_snippets = ATSnippets()
 obj_at_snippets.run()
-
-# Function to read a TSV file and return its contents as a list of dictionaries
-# def read_tsv(file_path):
-#     with open(file_path, mode='r', encoding='utf-8') as file:
-#         reader = csv.DictReader(file, delimiter='\t')
-#         return list(reader)
-
-# Function to write a list of dictionaries to a TSV file
-# def write_tsv(file_path, fieldnames, data):
-#     with open(file_path, mode='w', encoding='utf-8', newline='') as file:
-#         writer = csv.DictWriter(file, delimiter='\t', fieldnames=fieldnames)
-#         writer.writeheader()
-#         writer.writerows(data)
