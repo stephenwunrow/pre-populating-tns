@@ -202,6 +202,15 @@ class TNPrepper():
         # Path to the file you want to write
         return f'{output_path}/{file_name}'
 
+    def _get_book_name(self):
+        if os.getenv('BOOK_NAME'):
+            book_name = os.getenv('BOOK_NAME')
+        else:
+            # Prompt the user for book name
+            book_name = input("Enter the book name (e.g., 2 Chronicles): ")
+
+        return book_name
+
     def _read_tsv(self, file_path):
         with open(file_path, mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file, delimiter='\t')
