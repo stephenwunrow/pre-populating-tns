@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from tqdm import tqdm
+from pprint import pprint
 
 
 class TNPrepper():
@@ -201,13 +202,24 @@ class TNPrepper():
         # Path to the file you want to write
         return f'{output_path}/{file_name}'
 
-    def _write_output(self, book_name, file, headers, data):
+    def _read_tsv(self, file_path):
+        with open(file_path, mode='r', encoding='utf-8') as file:
+            reader = csv.DictReader(file, delimiter='\t')
+            return list(reader)
+
+    def _write_output(self, book_name, file, headers, data, fieldnames=None):
+
         output_file = self.__setup_output(book_name, file)
 
         # Write results to a TSV file
         with open(output_file, mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file, delimiter='\t')
-            writer.writerow(headers)  # Column headers
+            if fieldnames:
+                writer = csv.DictWriter(file, delimiter='\t', fieldnames=fieldnames)
+                writer.writeheader()
+            else:
+                writer = csv.writer(file, delimiter='\t')
+                writer.writerow(headers)  # Column headers
+
             writer.writerows(data)
 
         print(f"Data has been written to {output_file}")
