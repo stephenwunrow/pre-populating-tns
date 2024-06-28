@@ -34,6 +34,12 @@ class ATSnippets(TNPrepper):
         try:
             chat_completion = self.groq_client.chat.completions.create(
                 messages=[
+
+                    {
+                        "role": "system",
+                        "content": "You are a bible-believing scholar. You are analyzing a text and providing answers that exactly match that text. You should not provide explanations and interpretation unless you are specifically asked to do so."
+                    },
+
                     {
                         "role": "user",
                         "content": combined_prompt,
@@ -213,11 +219,6 @@ class ATSnippets(TNPrepper):
             #     pass
 
     def run(self):
-        # Instruction message to guide the LLM
-        # --> TODO: instruction_message not being used yet!
-        instruction_message = (
-            "You are a bible-believing scholar. You are analyzing a text and providing answers that exactly match that text. You should not provide explanations and interpretation unless you are specifically asked to do so."
-        )
 
         ai_notes = list()
 
@@ -276,8 +277,7 @@ class ATSnippets(TNPrepper):
             support_ref = note['SupportReference']
             if support_ref in support_reference_handlers:
                 # Call the appropriate processing function for this SupportReference
-                note = support_reference_handlers[support_ref](note, context, verse_reference, ai_notes)
-                # TODO: note here seems not to be used
+                support_reference_handlers[support_ref](note, context, verse_reference, ai_notes)
             else:
                 print(f"Unknown SupportReference: {support_ref}. Appending unmodified note.")
                 ai_notes.append(note)
