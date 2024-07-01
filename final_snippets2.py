@@ -316,37 +316,66 @@ def find_sequence(ult_dict, input_file):
     data, headers = read_tsv(input_file)
     snippet_data = []
     
+    # Step 1: Create a dictionary with verse_ref as key and concatenated string of gloss words as value
+    gloss_dict = {}
+    for entry in ult_dict:
+        verse_ref = entry[0]
+        gloss_word = entry[3]
+        chunk_number = entry[4]
+        
+        if verse_ref not in gloss_dict:
+            gloss_dict[verse_ref] = []
+        
+        # Append a tuple of (gloss_word, chunk_number) to the list
+        gloss_dict[verse_ref].append((gloss_word, chunk_number))
+
+    # Convert the list of tuples to a concatenated string for each verse_ref
+    final_gloss_dict = {verse_ref: ' '.join([f'{gloss_word} {chunk_number}' for gloss_word, chunk_number in gloss_words]) for verse_ref, gloss_words in gloss_dict.items()}
+
+    # Step 2: Find sequences
     for row in data:
         verse_ref = row[0]
-        phrase = row[7]
-        words = phrase.split()
+        phrase = row[7].strip()
+        mod_phrase = re.sub(r'[.,:;”’‘“!?—]', r'', phrase)
+        search_phrase = re.sub(r' ', r' \\d+ ', mod_phrase)
+        search_phrase = search_phrase + ' \\d+'
 
         chunk_numbers = []
         numbers = []
-        start_index = 0  # Initialize start index for each phrase
-        
-        for word in words:
-            for i in range(start_index, len(ult_dict)):
-                entry = ult_dict[i]
-                if entry[0] == verse_ref and entry[3] == word.strip('.,:;?“”‘’ '):
-                    entry_2_str = str(entry[2])
-                    if ' ' in entry_2_str:
-                        for num in entry_2_str.split():
-                            numbers.append(int(num))
-                    else:
-                        numbers.append(int(entry[2]))
-                    chunk_numbers.append(int(entry[4]))
-                    start_index = i + 1  # Update start index to the next position
-                    break  # move to the next word after finding the first match
-        
-            # Sort numbers and chunk_numbers numerically
-        numbers.sort()
-        chunk_numbers.sort()
 
-        snippet_data.append([verse_ref, phrase, numbers, chunk_numbers])
+        if verse_ref in final_gloss_dict:
+            gloss_text = final_gloss_dict[verse_ref]
+            matches = re.findall(search_phrase, gloss_text)
+            if matches:
+                for match in matches:
+                    print(f'Match: {match}\n')
+                    pairs = re.findall(r'(\w+) (\d+)', match)
+                    if pairs:
+                        for gloss_word, chunk_number in pairs:
+                            print(f'Verse number: {verse_ref}')
+                            print(f'Gloss word: {gloss_word}')
+                            print(f'Chunk number: {chunk_number}')
+                            for entry in ult_dict:
+                                if entry[0] == verse_ref and entry[3].lower() == gloss_word and entry[4] == int(chunk_number):
+                                    print(f'Entry: {entry}')
+                                    entry_2_str = str(entry[2])
+                                    if ' ' in entry_2_str:
+                                        for num in entry_2_str.split():
+                                            numbers.append(int(num))
+                                    else:
+                                        numbers.append(int(entry[2]))
+                                    chunk_numbers.append(int(entry[4]))
+
+            # Sort numbers and chunk_numbers numerically
+            numbers.sort()
+            chunk_numbers.sort()
+
+            snippet_data.append([verse_ref, phrase, numbers, chunk_numbers])
     
     return snippet_data
 
+
+# Example usage
 snippet_data = find_sequence(ult_dict, input_file)
 
 output_file = 'data/3_snippet_data.tsv'
@@ -377,7 +406,15 @@ def write_origl_and_snippet(snippet_data, ult_dict, unique_numbers):
                 if entry[0] == verse_ref and int(entry[4]) == chunk_num:
                     english_words.append(entry[3])
         
-        hebrew_phrase = ' '.join(hebrew_words)
+        # Join hebrew_words with '&' where numbers are not consecutive
+        hebrew_phrase = ''
+        for i, word in enumerate(hebrew_words):
+            if i > 0 and numbers[i] != numbers[i - 1] + 1:
+                hebrew_phrase += f' & {word}'
+            else:
+                hebrew_phrase += f' {word}'
+
+        hebrew_phrase = hebrew_phrase.strip()
 
         # Join the English words by a space
         english_phrase = ' '.join(english_words)
