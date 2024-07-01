@@ -1,4 +1,4 @@
-from tn_prepper import *
+from TNPrepper import TNPrepper
 
 import re
 from groq import Groq
