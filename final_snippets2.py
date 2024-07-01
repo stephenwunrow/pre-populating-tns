@@ -356,7 +356,7 @@ def find_sequence(ult_dict, input_file):
                             print(f'Gloss word: {gloss_word}')
                             print(f'Chunk number: {chunk_number}')
                             for entry in ult_dict:
-                                if entry[0] == verse_ref and entry[3].lower() == gloss_word and entry[4] == int(chunk_number):
+                                if entry[0] == verse_ref and entry[3].lower() == gloss_word.lower() and entry[4] == int(chunk_number):
                                     print(f'Entry: {entry}')
                                     entry_2_str = str(entry[2])
                                     if ' ' in entry_2_str:
@@ -478,8 +478,10 @@ def process_ai_notes(input_file, origl_and_snippet):
                     
                     # Add pre-words and post-words to the quoted text in row 7 of ai_notes
                     quote_text = re.findall(r'Alternate translation: “(.+?)”', ai_row[6])
-                    new_AT = f'{pre_words} {quote_text} {post_words}'.strip('] [\'')
+                    new_AT = f'{pre_words} {quote_text} {post_words}'.strip('] [\'"')
                     ai_row[6] = re.sub(r'(.+Alternate translation: “).+(”)', rf'\1{new_AT}\2', ai_row[6])
+
+                ai_row[7] = ''
 
     return ai_notes
 
