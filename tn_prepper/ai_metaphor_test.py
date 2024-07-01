@@ -44,6 +44,8 @@ class ATSnippets(TNPrepper):
                     }
                 ],
                 model=self.groq_model,
+                temperature = 0.7
+
             )
             response = chat_completion.choices[0].message.content.strip()
 
@@ -177,7 +179,7 @@ class ATSnippets(TNPrepper):
                     transformed_data.append(transformed_row)
 
         headers = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']
-        self._write_output(book_name='Metaphors', file='transformed_ai_metaphors.tsv', headers=headers, data=transformed_data)
+        self._write_output(book_name='Obadiah', file='transformed_ai_metaphors.tsv', headers=headers, data=transformed_data)
 
 if __name__ == "__main__":
     obj_at_snippets = ATSnippets()
