@@ -202,14 +202,17 @@ class TNPrepper():
         # Path to the file you want to write
         return f'{output_path}/{file_name}'
 
-    def _get_book_name(self):
+    def _get_book_name_and_version(self):
         if os.getenv('BOOK_NAME'):
             book_name = os.getenv('BOOK_NAME')
         else:
             # Prompt the user for book name
             book_name = input("Enter the book name (e.g., 2 Chronicles): ")
-
-        return book_name
+        if os.getenv('VERSION'):
+            version = os.getenv('VERSION')
+        else:
+            version = input("Enter the version (i.e., ult or ust): ")
+        return book_name, version
 
     def _read_tsv(self, file_path):
         with open(file_path, mode='r', encoding='utf-8') as file:
@@ -232,3 +235,104 @@ class TNPrepper():
             writer.writerows(data)
 
         print(f"Data has been written to {output_file}")
+
+
+
+
+    # SupportReference specific functions
+    ## figs_go
+    def _figs_go(self, verse_data):
+        # Write all collected data to the output file only if there are abstract nouns found
+        modified_verse_data = list()
+        if verse_data:
+            # Join all lines into a single string for search and replace
+            all_text = '\n'.join(['\t'.join(line) for line in verse_data])
+
+            # Define the search and replace pattern
+            search_pattern = r'.+? (\d+:\d+)\t(.+?)\t(.+?)\t.+\n(.+? \1\t)(.+?\t\3.+)'
+            replace_with = r'\4\2…\5'
+
+            # Apply search and replace until no changes are detected
+            while True:
+                new_text = re.sub(search_pattern, replace_with, all_text)
+                if new_text == all_text:
+                    break
+                all_text = new_text
+            all_text = re.sub(r'(.+\b(go|goes|gone|going|went|come|comes|coming|came|take|takes|taken|taking|took|bring|brings|bringing|brought)\b)', r'~\1', all_text)
+            all_text = re.sub(r'\n[^~].+', r'', all_text)
+            all_text = re.sub(r'^[^~].+', r'', all_text)
+            all_text = re.sub(r'^\n', r'', all_text)
+            all_text = re.sub(r'~', r'', all_text)
+            # Split the modified string back into lines
+            modified_verse_data = [line.split('\t') for line in all_text.split('\n')]
+
+        return modified_verse_data
+    
+    def _transform_figs_go(self, modified_verse_data, support_reference):
+        word_mapping = {
+            "goes": "comes",
+            "gone": "come",
+            "going": "coming",
+            "go": "come",
+            "went": "came",
+            "has come": "has gone",
+            "have come": "have gone",
+            "had come": "had gone",
+            "comes": "goes",
+            "coming": "going",
+            "came": "went",
+            "come": "go",
+            "takes": "brings",
+            "taken": "brought",
+            "taking": "bringing",
+            "took": "brought",
+            "take": "bring",
+            "has brought": "has taken",
+            "have brought": "have taken",
+            "had brought": "had taken",
+            "brings": "takes",
+            "bringing": "taking",
+            "bring": "take",
+            "brought": "took"
+        }
+
+        if modified_verse_data:
+            transformed_data = []
+            for row in modified_verse_data:
+                if len(row) == 4:
+                    reference = row[0]
+                    snippet = row[1]
+                    lexeme = row[2]
+
+                    key = ""
+                    text = ""
+
+                    for word in word_mapping:
+                        if word in snippet:
+                            key = word
+                            key = re.sub(r'(has|have|had) ', r'', key)
+                            text = word_mapping[key]
+                            text = re.sub(r'(has|have|had) ', r'', text)
+                            break  # Stop searching once a match is found
+                    
+                    AT = re.sub(rf'(.*){key}(.*)', rf'\1{text}\2', snippet)
+
+                    # Extract chapter and verse from the reference
+                    chapter_verse = reference.rsplit(' ', 1)[1]
+
+                    note_template = f"In a context such as this, your language might say “{text}” instead of **{key}**. Alternate translation: “{AT}”"
+
+                    # Create the new row
+                    transformed_row = [
+                        chapter_verse,  # Reference without the book name
+                        '',    # ID: random, unique four-letter and number combination
+                        '',             # Tags: blank
+                        support_reference,  # SupportReference: standard link
+                        lexeme,         # Quote: lexeme
+                        '1',            # Occurrence: the number 1
+                        note_template.format(key=key, text=text, AT=AT),  # Note: standard note with {gloss}
+                        snippet
+                    ]
+                    transformed_data.append(transformed_row)
+
+            return transformed_data
