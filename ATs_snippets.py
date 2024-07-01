@@ -58,7 +58,7 @@ class ATSnippets(TNPrepper):
             print(f'Response: {response}')
             print('---')
 
-            # Waiting for what?
+            # Waiting, to stay below our request limit (30 reqs/minute)
             self.__wait_between_queries(2)
 
             return response
