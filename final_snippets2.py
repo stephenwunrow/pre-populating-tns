@@ -336,7 +336,8 @@ def find_sequence(ult_dict, input_file):
     for row in data:
         verse_ref = row[0]
         phrase = row[7].strip()
-        mod_phrase = re.sub(r'[.,:;”’‘“!?—]', r'', phrase)
+        lower_phrase = phrase.lower()
+        mod_phrase = re.sub(r'[.,:;”’‘“!?—]', r'', lower_phrase)
         search_phrase = re.sub(r' ', r' \\d+ ', mod_phrase)
         search_phrase = search_phrase + ' \\d+'
 
@@ -344,20 +345,15 @@ def find_sequence(ult_dict, input_file):
         numbers = []
 
         if verse_ref in final_gloss_dict:
-            gloss_text = final_gloss_dict[verse_ref]
+            gloss_text = final_gloss_dict[verse_ref].lower()
             matches = re.findall(search_phrase, gloss_text)
             if matches:
                 for match in matches:
-                    print(f'Match: {match}\n')
                     pairs = re.findall(r'(\w+) (\d+)', match)
                     if pairs:
                         for gloss_word, chunk_number in pairs:
-                            print(f'Verse number: {verse_ref}')
-                            print(f'Gloss word: {gloss_word}')
-                            print(f'Chunk number: {chunk_number}')
                             for entry in ult_dict:
                                 if entry[0] == verse_ref and entry[3].lower() == gloss_word.lower() and entry[4] == int(chunk_number):
-                                    print(f'Entry: {entry}')
                                     entry_2_str = str(entry[2])
                                     if ' ' in entry_2_str:
                                         for num in entry_2_str.split():
@@ -388,8 +384,8 @@ def write_origl_and_snippet(snippet_data, ult_dict, unique_numbers):
     for row in snippet_data:
         verse_ref = row[0]
         phrase = row[1]
-        numbers = list(set(row[2]))  # Remove duplicates
-        chunk_numbers = list(set(row[3]))  # Remove duplicates
+        numbers = sorted(set(row[2]))  # Remove duplicates
+        chunk_numbers = sorted(set(row[3]))  # Remove duplicates
 
         # Step 2: Replace "number" with the corresponding Hebrew word
         hebrew_words = []
