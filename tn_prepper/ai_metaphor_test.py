@@ -21,85 +21,44 @@ class ATSnippets(TNPrepper):
         self.groq_client = Groq(api_key=api_key)
         self.groq_model = 'llama3-70b-8192'
 
-    # Function to wait between queries
-    def __wait_between_queries(self, seconds):
-        print(f"Waiting for {seconds} seconds...")
-        time.sleep(seconds)
-
-    # Function to query the LLM
-    def __query_llm(self, context, prompt):
-        combined_prompt = f"Verse and context:\n{context}\n\nPrompt:\n{prompt}"
-        response = None
-
-        try:
-            chat_completion = self.groq_client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a bible-believing scholar. You are analyzing a text and providing answers that exactly match that text. You should not provide explanations and interpretation unless you are specifically asked to do so."
-                    },
-                    {
-                        "role": "user",
-                        "content": combined_prompt,
-                    }
-                ],
-                model=self.groq_model,
-                temperature = 0.7
-
-            )
-            response = chat_completion.choices[0].message.content.strip()
-
-        except Exception as e:
-            print(f"Request failed: {e}")
-            print(f"Failed to get response for prompt: {prompt}")
-
-        finally:
-            print(combined_prompt)
-            print(f'Response: {response}')
-            print('---')
-
-            # Waiting, to stay below our request limit (30 reqs/minute)
-            self.__wait_between_queries(2)
-
-            return response
-
     # Function for metaphors
     def __process_metaphors(self, context, verse_reference):
         # Generate prompt
         prompt1 = (
-            f"Given the context, does verse {verse_reference} contain any metaphors? "
-            f"Answer with 'Yes' or 'No' only, and do not provide any explanation."
+            f"Given the context, does verse {verse_reference} contain a metaphor? "
+            f"Be sure that the word or phrase is not better classified under a different label, such as simile or personification. "
+            f"If there is a metaphor present, answer 'Yes'. If there is no metaphor present, answer 'No'. Do not provide any explanation."
         )
 
         # Query LLM for response
-        response1 = self.__query_llm(context, prompt1)
+        response1 = self._query_llm(context, prompt1)
 
         # Process response
         if 'yes' in response1.lower():
             prompt2 = (
                 f"Which exact words from {verse_reference} contain the metaphor? Respond with the exact words from the verse only. Do not include any explanation."
             )
-            response2 = self.__query_llm(context, prompt2)
+            response2 = self._query_llm(context, prompt2)
             stripped_response2 = response2.strip('\'"“”‘’.,;:!?')
 
             prompt3 = (
                 f"Explain in one sentence the meaning of the metaphor in the words '{stripped_response2}'. Be as brief as possible, and begin your sentence with the phrase 'This metaphor'."
             )
-            response3 = self.__query_llm(context, prompt3)
+            response3 = self._query_llm(context, prompt3)
             stripped_response3 = response3.strip('\'"“”‘’.,;:!?')
 
             prompt4 = (
                 f"In {verse_reference}, the phrase '{stripped_response2}' contains a metaphor. Provide a way to express the idea without using a metaphor. Make your answer as short as possible, and respond with the rephrased text only."
 
             )
-            response4 = self.__query_llm(context, prompt4)
+            response4 = self._query_llm(context, prompt4)
             stripped_response4 = response4.strip('\'"“”‘’.,;:!?')
 
             prompt5 = (
                 f"Which exact words from {verse_reference} are the words '{stripped_response4}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
 
             )
-            response5 = self.__query_llm(context, prompt5)
+            response5 = self._query_llm(context, prompt5)
             stripped_response5 = response5.strip('\'"“”‘’.,;:!?')
 
 
@@ -120,6 +79,10 @@ class ATSnippets(TNPrepper):
 
         # Verse_texts should be the extracted ult created by usfm_extraction.py
         verse_texts = self._read_tsv(self.verse_text)
+
+        # Check the stage and slice the list if in development stage
+        if os.getenv('STAGE') == 'dev':
+            verse_texts = verse_texts[:5]
 
         # Organize verse texts for easy access
         verse_map = {verse['Reference']: verse['Verse'] for verse in verse_texts}
@@ -148,7 +111,7 @@ class ATSnippets(TNPrepper):
 
         # Write the results to a new TSV file
         headers = ['Reference', 'Metaphor', 'Explanation', 'Alternate Translation', 'Snippet']
-        self._write_output(book_name='Metaphors', file='ai_metaphors.tsv', headers=headers, data=ai_data)
+        self._write_output(book_name='Obadiah', file='ai_metaphors.tsv', headers=headers, data=ai_data)
 
         if ai_data:
             transformed_data = list()

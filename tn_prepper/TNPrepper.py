@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import re
 from tqdm import tqdm
 from pprint import pprint
+import time
 
 
 class TNPrepper():
@@ -332,3 +333,49 @@ class TNPrepper():
                     transformed_data.append(transformed_row)
 
             return transformed_data
+        
+
+
+    # LLM query stuff
+
+    # Function to wait between queries
+    def __wait_between_queries(self, seconds):
+        print(f"Waiting for {seconds} seconds...")
+        time.sleep(seconds)
+
+    # Function to query the LLM
+    def _query_llm(self, context, prompt):
+        combined_prompt = f"Verse and context:\n{context}\n\nPrompt:\n{prompt}"
+        response = None
+
+        try:
+            chat_completion = self.groq_client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a bible-believing scholar. You are analyzing a text and providing answers that exactly match that text. You should not provide explanations and interpretation unless you are specifically asked to do so."
+                    },
+                    {
+                        "role": "user",
+                        "content": combined_prompt,
+                    }
+                ],
+                model=self.groq_model,
+                temperature = 0.7
+
+            )
+            response = chat_completion.choices[0].message.content.strip()
+
+        except Exception as e:
+            print(f"Request failed: {e}")
+            print(f"Failed to get response for prompt: {prompt}")
+
+        finally:
+            print(combined_prompt)
+            print(f'Response: {response}')
+            print('---')
+
+            # Waiting, to stay below our request limit (30 reqs/minute)
+            self.__wait_between_queries(2)
+
+            return response
