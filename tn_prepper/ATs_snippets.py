@@ -284,7 +284,7 @@ class ATSnippets(TNPrepper):
 
         # Write the results to a new TSV file
         fieldnames = note_texts[0].keys()  # Assuming all notes have the same keys
-        self._write_output(book_name=book_name, file='ai_notes', headers=fieldnames, data=ai_notes, fieldnames=fieldnames)
+        self._write_output(book_name=book_name, file='ai_notes.tsv', headers=fieldnames, data=ai_notes, fieldnames=fieldnames)
 
 
 obj_at_snippets = ATSnippets()

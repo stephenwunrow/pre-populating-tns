@@ -105,15 +105,17 @@ def combine_and_write(sorted_data, output_file):
             writer.writerow(row)
 
 # Main function to process multiple input files
-def combine_multiple_tsv(files, output_file, verse_text_file):
+def combine_multiple_tsv(input_files, output_file, verse_text_file):
     # Read verse texts from ult_book.tsv
     verse_texts = read_verse_texts(verse_text_file)
 
     combined_data = []
-    for file_path in files:
+    for file_path in input_files:
         if os.path.exists(file_path): # File might not have been created
             data = read_tsv(file_path)
             combined_data.extend(data)
+
+    print(combined_data)
 
     # Sort combined data
     sorted_data = sort_rows(combined_data, verse_texts)
@@ -135,8 +137,9 @@ if __name__ == "__main__":
 
     # List of input files to combine
     input_files = [f'{directory_path}/transformed_ab_nouns.tsv', f'{directory_path}/transformed_names.tsv', 
-                   f'{directory_path}/transformed_passives.tsv', f'{directory_path}/transformed_ordinals.tsv', 
-                   f'{directory_path}/transformed_figs_go.tsv']
+                   f'{directory_path}/transformed_passives.tsv', f'{directory_path}/ordinals.tsv', 
+                   f'{directory_path}/go.tsv', f'{directory_path}/transformed_ai_metaphors.tsv',
+                   f'{directory_path}/transformed_ai_metonymy.tsv', f'{directory_path}/transformed_ai_rquestions.tsv']
 
     # Output file name
     output_file = f'{directory_path}/combined_notes.tsv'

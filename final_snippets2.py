@@ -104,11 +104,11 @@ acronym_mapping = {
     "Revelation": "67-REV"
 }
 
-input_file = 'ai_notes.tsv'
-
 # Get inputs from the user
 book_name = input("Enter the book name (e.g., 2 Chronicles): ")
 version = input("Enter the version (e.g., ult or ust): ")
+
+input_file = f'output/{book_name}/ai_notes.tsv'
 
 # Get the acronym from the acronym mapping
 if book_name in acronym_mapping:
@@ -477,12 +477,71 @@ def process_ai_notes(input_file, origl_and_snippet):
                     new_AT = f'{pre_words} {quote_text} {post_words}'.strip('] [\'"')
                     ai_row[6] = re.sub(r'(.+Alternate translation: “).+(”)', rf'\1{new_AT}\2', ai_row[6])
 
-                ai_row[7] = ''
-
     return ai_notes
 
-final_notes = process_ai_notes(input_file, origl_and_snippet)
+ai_notes = process_ai_notes(input_file, origl_and_snippet)
+
+verse_text_file = f'output/{book_name}/ult_book.tsv'
+
+# Function to read verse texts from ult_book.tsv
+def read_verse_texts(file_path):
+    verse_texts = {}
+    with open(file_path, 'r', encoding='utf-8') as tsvfile:
+        reader = csv.reader(tsvfile, delimiter='\t')
+        headers = next(reader)  # Assuming the first row is headers
+        for row in reader:
+            reference = row[0]  # Assuming first column is Reference (e.g., Esther 1:14)
+            verse_text = row[-1]  # Assuming last column is Verse Text
+            # Split the reference to remove the book name prefix
+            book_name, chapter_verse = reference.rsplit(' ', 1)
+            verse_texts[chapter_verse] = verse_text
+    return verse_texts
+verse_texts = read_verse_texts(verse_text_file)
+
+# Function to sort rows by chapter and verse, and then by sequence of snippet in verse text
+def sort_rows(ai_notes, verse_texts):
+
+    # Dictionary to store positions of snippets in verse_texts
+    snippet_positions = defaultdict(dict)
+
+    # Populate snippet_positions
+    for row in ai_notes:
+        chapter_verse = row[0]  # Assuming first column is Reference (e.g., "1:14")
+        snippet = row[7]  # Assuming eighth column is snippet
+        modified_snippet = re.escape(snippet)
+        modified_snippet = re.sub(r'…', r'[\\w, ]{1,40}', modified_snippet)
+        verse_text = verse_texts.get(chapter_verse, "")
+        if verse_text and modified_snippet:
+            positions = []
+            pattern = re.compile(modified_snippet, re.IGNORECASE)
+            
+            for match in pattern.finditer(verse_text):
+                positions.append(match.start())
+            
+            snippet_positions[chapter_verse][snippet] = positions
+
+    # Sort function
+    def sort_key(row):
+        chapter_verse = row[0]  # Assuming first column is Reference (e.g., "1:14")
+        snippet = row[7]  # Assuming eighth column is snippet
+        
+        # Split chapter_verse into chapter and verse components
+        chapter, verse = map(int, chapter_verse.split(':'))
+
+        # Get positions of snippet in the verse_text for this chapter_verse
+        positions = snippet_positions.get(chapter_verse, {}).get(snippet, [])
+
+        # Return tuple for sorting: (chapter, verse, first position of snippet or large number, snippet)
+        return (chapter, verse, positions[0] if positions else float('inf'), -len(snippet), snippet)
+
+    # Sort rows
+    sorted_data = sorted(ai_notes, key=sort_key)
+    for row in sorted_data:
+        row[7] = ''
+    return sorted_data
+
+sorted_data = sort_rows(ai_notes, verse_texts)
 
 output_file = 'final_notes.tsv'
 headers = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note']
-write_tsv_with_headers(output_file, final_notes, headers)
+write_tsv_with_headers(output_file, sorted_data, headers)
