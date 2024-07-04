@@ -1,12 +1,13 @@
 data_files
 .lab
-
+*.numbers
 output/*.tsv
 output/*.txt
 output/*/report.md
 output/report.md
 
 *.tsv
+Required Data.md
 Ideas and work.txt
 .env
 .idea

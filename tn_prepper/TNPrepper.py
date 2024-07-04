@@ -233,6 +233,13 @@ class TNPrepper():
 
         print(f"Data has been written to {output_file}")
 
+    def _write_report(self, data, message, book_name):
+        with open(f'output/{book_name}/report.md', 'a', encoding='utf-8') as report_file:
+            report_file.write(f'{message}')
+            for line in data:
+                report_file.write(f'{line}\n')
+        
+
 
 
 
@@ -334,6 +341,185 @@ class TNPrepper():
 
             return transformed_data
         
+    ## figs-activepassive
+    def _figs_passive(self, verse_data):
+        modified_verse_data = list()
+        if verse_data:
+            # Join all lines into a single string for search and replace
+            all_text = '\n'.join(['\t'.join(line) for line in verse_data])
+
+            # Define the search and replace pattern
+            search_pattern = r'.+? (\d+:\d+)\t(.+?)\t(.+?)\t.+\n(.+? \1\t)(.+?\t\3.+)'
+            replace_with = r'\4\2…\5'
+
+            # Apply search and replace until no changes are detected
+            while True:
+                new_text = re.sub(search_pattern, replace_with, all_text)
+                if new_text == all_text:
+                    break
+                all_text = new_text
+            all_text = re.sub(r'(.+\b(am|are|is|was|were|be|being|been)\b.+\b.*?(arisen|awoke|been|borne|beaten|become|begun|bent|bet|bound|bitten|bled|blown|broken|brought|built|burst|bought|caught|chosen|come|cost|crept|cut|dealt|dug|dived|done|drawn|dreamed|dreamt|drunk|driven|eaten|fallen|fed|felt|fought|found|fitted|fit|fled|flung|flown|forbidden|forgotten|forgot|forgiven|frozen|got|gotten|given|gone|grown|hanged|hung|had|heard|hidden|hit|held|hurt|kept|kneeled|knelt|knitted|known|laid|led|left|lent|let|lain|lied|lighted|lit|lost|made|meant|met|paid|pled|proved|proven|put|quit|read|ridden|rung|risen|run|said|seen|sought|sold|sent|set|sewed|sewn|shaken|shone|shined|shot|showed|shown|shrunk|shut|sung|sunk|sat|slain|slept|slid|slit|spoken|spent|spun|spat|spit|split|spread|sprung|stood|stolen|stuck|stung|stunk|stridden|struck|strung|sworn|swept|swollen|swum|swung|taken|taught|torn|told|thought|thrown|understood|waked up|woken up|worn|wed|wept|welcomed|wet|won|wrung|written|ed|en)\b.+)', r'~\1', all_text)
+            all_text = re.sub(r'\n[^~].+', r'', all_text)
+            all_text = re.sub(r'^[^~].+', r'', all_text)
+            all_text = re.sub(r'^\n', r'', all_text)
+            all_text = re.sub(r'~', r'', all_text)
+            # Split the modified string back into lines
+            modified_verse_data = [line.split('\t') for line in all_text.split('\n')]
+        
+        return modified_verse_data
+    
+    def _passive_report(self, modified_verse_data):
+        Niphal = []
+        Qal_passive = []
+        Hophal = []
+        Pual = []
+        Other = []
+
+        # Define the regex patterns
+        niphal_pattern = r'.+\tHe,.*?VN.+'
+        qal_passive_pattern = r'.+\tHe,.*?(Vqs|VQ).+'
+        hophal_pattern = r'.+\tHe,.*?(VH).+'
+        pual_pattern = r'.+\tHe,.*?(VP).+'
+
+        # Process each line to categorize
+        for line in modified_verse_data:
+            # Join the columns into a single string
+            line_str = '\t'.join(line)
+            if re.search(niphal_pattern, line_str):
+                Niphal.append(line_str)
+            elif re.search(qal_passive_pattern, line_str):
+                Qal_passive.append(line_str)
+            elif re.search(hophal_pattern, line_str):
+                Hophal.append(line_str)
+            elif re.search(pual_pattern, line_str):
+                Pual.append(line_str)
+            else:
+                Other.append(line_str)
+
+        return Other
+    
+    def _transform_passives(self, modified_verse_data, support_reference, note_template):
+        if modified_verse_data:
+            transformed_data = []
+            for row in modified_verse_data:
+                if len(row) == 4:
+                    reference = row[0]
+                    snippet = row[1]
+                    lexeme = row[2]
+
+                    # Extract chapter and verse from the reference
+                    chapter_verse = reference.rsplit(' ', 1)[1]
+
+                    # Create the new row
+                    transformed_row = [
+                        chapter_verse,  # Reference without the book name
+                        '',    # ID: random, unique four-letter and number combination
+                        '',             # Tags: blank
+                        support_reference,  # SupportReference: standard link
+                        lexeme,         # Quote: lexeme
+                        '1',            # Occurrence: the number 1
+                        note_template,
+                        snippet  # Note: standard note with {gloss}
+                    ]
+
+                    # Write the transformed row to the output file
+                    transformed_data.append(transformed_row)
+            return transformed_data
+
+
+    ## translate_names
+    def _translate_names(self, verse_data):
+        url = 'https://git.door43.org/unfoldingWord/en_tw/src/branch/master/bible/names'
+        custom_words_to_remove = ["and", "but", "then", "in", "now", "Yahweh", "Israel"]
+        # Function to fetch words from a URL
+        def __extract_words_from_url(url):
+            response = requests.get(url)
+            if response.status_code == 200:
+                html_content = response.text
+                return __extract_words_from_html(html_content)
+            else:
+                print(f"Failed to retrieve the page. Status code: {response.status_code}")
+                return []
+
+        # Function to extract words from HTML content
+        def __extract_words_from_html(html_content):
+            soup = BeautifulSoup(html_content, 'html.parser')
+            a_tags = soup.find_all('a', href=True, title=lambda x: x and x.endswith('.md'))
+            words = [a_tag['title'].split('.md')[0] for a_tag in a_tags]
+            return words
+        
+        scraped_names = __extract_words_from_url(url)
+
+        all_names_to_remove = [name.lower() for name in scraped_names + custom_words_to_remove]
+
+        if verse_data:
+            name_count = {}
+            for row in verse_data:
+                gloss = row[1]
+                mod_gloss = re.sub(r'\b(And|But|Then|Now|In|The)\b ', r'', gloss)
+                names_search = re.findall(r'(\b[A-Z]\w+?\b)', mod_gloss)
+                if names_search:
+                    for word in names_search:
+                        name = word
+                        if name.lower() not in all_names_to_remove:
+                            if name in name_count:
+                                name_count[name] += 1
+                            else:
+                                name_count[name] = 1
+                        row.append(name)
+                
+            sorted_name_count = sorted(name_count.items(), key=lambda x: x[1], reverse=True)
+
+            joined_name_count = []
+            for name, count in sorted_name_count:
+                joined_name_count.append([name, str(count)])
+        
+            def __filter_rows(verse_data, all_names_to_remove):
+                filtered_rows = []
+                for row in verse_data:
+                    if row[4].lower() not in all_names_to_remove:
+                        filtered_rows.append(row)
+                return filtered_rows
+                    
+            modified_verse_data = __filter_rows(verse_data, all_names_to_remove)
+
+        return joined_name_count, modified_verse_data
+
+    def _transform_names(self, modified_verse_data, support_reference):
+
+        if modified_verse_data:
+            name_occurrence = {}
+            transformed_data = []
+            for row in modified_verse_data:
+                if len(row) == 5:
+                    reference = row[0]
+                    name = row[4]
+                    lexeme = row[2]
+                    snippet = row[1]
+                    note_template = f'The word **{name}** is the name of a ______.'
+
+                    # Extract chapter and verse from the reference
+                    chapter_verse = reference.rsplit(' ', 1)[1]
+
+                    # Create the new row
+                    transformed_row = [
+                        chapter_verse,  # Reference without the book name
+                        '',    # ID: random, unique four-letter and number combination
+                        '',             # Tags: blank
+                        support_reference,  # SupportReference: standard link
+                        lexeme,         # Quote: lexeme
+                        '1',            # Occurrence: the number 1
+                        note_template,  # Note: standard note with {name}
+                        snippet
+                    ]
+                    if name not in name_occurrence:
+                        # Write the transformed row to the output file
+                        transformed_data.append(transformed_row)
+                        name_occurrence[name] = True
+                    elif name in name_occurrence:
+                        continue
+
+        return transformed_data
 
 
     # LLM query stuff

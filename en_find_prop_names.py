@@ -119,7 +119,7 @@ with tqdm(total=len(chunks), desc="Processing Chunks") as pbar:
     for chunk in chunks:
         pbar.update(1)  # Update progress bar
 
-        matches = re.findall(r'x-morph="[^"]*?[^V]Np[^"]*?".+?x-content="([^"]+?)".+\\w .+?\|', chunk, re.DOTALL)
+        matches = re.findall(r'x-morph="([^"]*?[^V]Np[^"]*?)".+?x-content="([^"]+?)".+\\w .+?\|', chunk, re.DOTALL)
         if matches:  # Only proceed if there are matches
             for match in matches:
                 lexeme = match

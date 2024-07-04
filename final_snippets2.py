@@ -537,7 +537,7 @@ def sort_rows(ai_notes, verse_texts):
     # Sort rows
     sorted_data = sorted(ai_notes, key=sort_key)
     for row in sorted_data:
-        row[7] = ''
+        del row[7]
     return sorted_data
 
 sorted_data = sort_rows(ai_notes, verse_texts)
