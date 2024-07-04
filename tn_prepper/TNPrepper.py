@@ -228,10 +228,21 @@ class TNPrepper():
             else:
                 writer = csv.writer(file, delimiter='\t')
                 writer.writerow(headers)  # Column headers
-
-            writer.writerows(data)
+            for line in data:
+                writer.writerow(line)
 
         print(f"Data has been written to {output_file}")
+
+    def _write_tsv(self, book_name, file_name, headers, data):
+        
+        output_file = self.__setup_output(book_name, file_name)
+
+        with open(output_file, mode='w', newline='', encoding='utf-8') as file:
+            file.write('\t'.join(headers) + '\n')  # Write headers
+
+            for line in data:
+                file.write(line + '\n')  # Write each line of data
+        print(f'data written to {output_file}')
 
     def _write_report(self, data, message, book_name):
         with open(f'output/{book_name}/report.md', 'a', encoding='utf-8') as report_file:
