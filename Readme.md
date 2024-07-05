@@ -1,6 +1,8 @@
 # Introduction
 This repo contains experiments with regards to the prepopulation of Translation Notes. These experiments are based on data from completed or in-progress book packages.
 
+# NOTE: ALL INFORMATION BELOW NEEDS TO BE UPDATED
+
 # Overview
 
 Individual python scripts process inputs, primarily a tagged English translation (ULT), for a specific book. Each script then processes this data to create a TSV file of raw data. Then, this raw data is transformed into the format required by Translation Notes and written to another TSV file. Each individual script targets a specific translation issue. So far, the following issues are covered:
