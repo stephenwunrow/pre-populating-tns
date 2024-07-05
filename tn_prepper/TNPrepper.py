@@ -552,7 +552,9 @@ class TNPrepper():
                 if new_text == combined_data:
                     break
                 combined_data = new_text
-                print(combined_data)
+                
+            combined_data = combined_data.split('\n')
+            
             return combined_data
         
         def __find_abnouns(combined_data, ab_nouns):
@@ -566,15 +568,12 @@ class TNPrepper():
                     patterns[ab_noun] = re.compile(rf'.+?\t.*?\b{ab_noun}\b.*?\t.+', re.IGNORECASE)
 
             for line in combined_data:
-                # PROBLEM: each line is a single character
-                print(line)
                 for ab_noun, pattern in patterns.items():
                     matches = pattern.findall(line)
                     if matches:
                         for match in matches:
                             # Append to verse_data with lexeme, verse reference, and ab_noun
                             found_instances.append(f'{match}\t{ab_noun}\n')
-            print(found_instances)
             return found_instances
         
         def __delete_repeats(found_instances):
@@ -599,7 +598,7 @@ class TNPrepper():
             ]
 
             # Join the verse_data list into a single string
-            verse_data_str = '\n'.join(found_instances)
+            verse_data_str = ''.join(found_instances)
 
             # Apply the replacements
             verse_data_str = apply_replacements(verse_data_str, replacements)
@@ -609,14 +608,14 @@ class TNPrepper():
 
             return modified_verse_data
         
-        def __count_nouns(verse_data):
+        def __count_nouns(modified_verse_data):
             # Count occurrences of each abstract noun
             abstract_noun_counts = {}
-            for line in verse_data:
+            for line in modified_verse_data:
                 if line:
                     parts = line.split('\t')
-                    if len(parts) == 4:
-                        ab_noun = parts[1]
+                    if len(parts) == 5:
+                        ab_noun = parts[4]
                         if ab_noun in abstract_noun_counts:
                             abstract_noun_counts[ab_noun] += 1
                         else:
@@ -637,10 +636,35 @@ class TNPrepper():
 
         return modified_verse_data, sorted_counts
 
+    def _transform_abstractnouns(self, modified_verse_data, support_reference):
+        if modified_verse_data:
+            transformed_data = []
+            for row in modified_verse_data:
+                parts = row.split('\t')
+                if len(parts) == 5:
+                    reference = parts[0]
+                    snippet = parts[1]
+                    lexeme = parts[2]
+                    ab_noun = parts[4]
+                    note_template = f'If your language does not use an abstract noun for the idea of **{ab_noun}**, you could express the same idea in another way. Alternate translation: “alternate_translation”'
 
 
-    def _transform_abstractnouns():
-        return
+                    # Extract chapter and verse from the reference
+                    chapter_verse = reference.rsplit(' ', 1)[1]
+
+                    # Create the new row
+                    transformed_row = [
+                        chapter_verse,  # Reference without the book name
+                        '',    # ID: random, unique four-letter and number combination
+                        '',             # Tags: blank
+                        support_reference,  # SupportReference: standard link
+                        lexeme,         # Quote: lexeme
+                        '1',            # Occurrence: the number 1
+                        note_template.format(ab_noun=ab_noun),  # Note: standard note with {ab_noun}
+                        snippet
+                    ]
+                    transformed_data.append(transformed_row)
+            return transformed_data
 
     # LLM query stuff
 

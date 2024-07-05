@@ -640,7 +640,17 @@ class AbstractNouns(TNPrepper):
 
         headers = ['Reference', 'Glosses', 'Lexeme', 'Morphology', 'Name']
         file_name = 'abnouns.tsv'
-        self._write_output(book_name=self.book_name, file=file_name, headers=headers, data=combined_verse_data)
+        data = combined_verse_data
+        self._write_tsv(book_name, file_name, headers, data)
+
+        support_reference = 'rc://*/ta/man/translate/figs-abstractnouns'
+        transformed_data = self._transform_abstractnouns(combined_verse_data, support_reference)
+        print(transformed_data)
+
+        # Write results to a TSV file
+        headers = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']
+        file_name = 'transformed_abnouns.tsv'
+        self._write_output(book_name=self.book_name, file=file_name, headers=headers, data=transformed_data)
 
 if __name__ == "__main__":
     book_name = os.getenv("BOOK_NAME")
