@@ -210,6 +210,11 @@ class TNPrepper():
             # Prompt the user for book name
             book_name = input("Enter the book name (e.g., 2 Chronicles): ")
         return book_name
+    
+    def _parse_verse_ref(self, verse_ref):
+        # Function to split verse_ref into chapter and verse and return as tuple for sorting
+        chapter, verse = verse_ref.split(':')
+        return int(chapter), int(verse)
 
     def _read_tsv(self, file_path):
         with open(file_path, mode='r', encoding='utf-8') as file:
