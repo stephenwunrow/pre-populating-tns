@@ -532,6 +532,115 @@ class TNPrepper():
 
         return transformed_data
 
+    # figs-abstractnouns
+    def _figs_abstractnouns(self, verse_data, ab_nouns):
+        def __combine_glosses(verse_data):
+            # Define the search and replace pattern
+            search_pattern = r'([^\n]*\d+:\d+)\t([^\n]+?)\t([^\n]+?)\t(.+?)\n(\1\t)([^\n]+?)(\t\3[^\n]+)'
+            replace_with = r'\1\t\2…\6\t\3\t\4'
+
+            combined_data = []
+            for verse in verse_data:
+                # Join elements in each inner list into a single string
+                combined_verse = '\t'.join(verse)
+                combined_data.append(combined_verse)
+            combined_data = '\n'.join(combined_data)
+
+            # Apply search and replace until no changes are detected
+            while True:
+                new_text = re.sub(search_pattern, replace_with, combined_data, flags=re.DOTALL)
+                if new_text == combined_data:
+                    break
+                combined_data = new_text
+                print(combined_data)
+            return combined_data
+        
+        def __find_abnouns(combined_data, ab_nouns):
+            found_instances = []
+            patterns = {}
+            for ab_noun in ab_nouns:
+                if ' ' in ab_noun:
+                    ab_noun1, ab_noun2 = ab_noun.split(' ', 1)
+                    patterns[ab_noun] = re.compile(rf'.+?\t.*?\b{ab_noun1}\b.*?\b{ab_noun2}\b.*?\t.+', re.IGNORECASE)
+                else:
+                    patterns[ab_noun] = re.compile(rf'.+?\t.*?\b{ab_noun}\b.*?\t.+', re.IGNORECASE)
+
+            for line in combined_data:
+                # PROBLEM: each line is a single character
+                print(line)
+                for ab_noun, pattern in patterns.items():
+                    matches = pattern.findall(line)
+                    if matches:
+                        for match in matches:
+                            # Append to verse_data with lexeme, verse reference, and ab_noun
+                            found_instances.append(f'{match}\t{ab_noun}\n')
+            print(found_instances)
+            return found_instances
+        
+        def __delete_repeats(found_instances):
+
+            # Apply regex replacements repeatedly
+            def apply_replacements(text, patterns):
+                while True:
+                    new_text = text
+                    for pattern, replacement in patterns:
+                        new_text = re.sub(pattern, replacement, new_text)
+                    if new_text == text:
+                        break
+                    text = new_text
+                return text
+
+            # Define the patterns and replacements
+            replacements = [
+                (r'(.+?)(\t)(\w+) (\w+)(\t.+?)\n\1\t\3.+', r'\1\2\3 \4\5'),
+                (r'(.+?)(\t)(\w+) (\w+)(\t.+?)\n\1\t\4.+', r'\1\2\3 \4\5'),
+                (r'(.+?)(\t)(\w+)(\t.+?\n)(\1\t\w+ \3\t.+)', r'\5'),
+                (r'(.+?)(\t)(\w+)(\t.+?\n)(\1\t\3 \w+\t.+)', r'\5')
+            ]
+
+            # Join the verse_data list into a single string
+            verse_data_str = '\n'.join(found_instances)
+
+            # Apply the replacements
+            verse_data_str = apply_replacements(verse_data_str, replacements)
+
+            # Split back into a list
+            modified_verse_data = verse_data_str.split('\n')
+
+            return modified_verse_data
+        
+        def __count_nouns(verse_data):
+            # Count occurrences of each abstract noun
+            abstract_noun_counts = {}
+            for line in verse_data:
+                if line:
+                    parts = line.split('\t')
+                    if len(parts) == 4:
+                        ab_noun = parts[1]
+                        if ab_noun in abstract_noun_counts:
+                            abstract_noun_counts[ab_noun] += 1
+                        else:
+                            abstract_noun_counts[ab_noun] = 1
+
+            # Sort abstract nouns by count in descending order
+            sorted_counts = sorted(abstract_noun_counts.items(), key=lambda x: x[1], reverse=True)
+
+            return sorted_counts
+        
+        combined_data = __combine_glosses(verse_data)
+
+        found_instances = __find_abnouns(combined_data, ab_nouns)
+
+        modified_verse_data = __delete_repeats(found_instances)
+
+        sorted_counts = __count_nouns(modified_verse_data)
+
+        return modified_verse_data, sorted_counts
+
+
+
+    def _transform_abstractnouns():
+        return
 
     # LLM query stuff
 
