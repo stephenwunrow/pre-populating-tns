@@ -645,7 +645,6 @@ class AbstractNouns(TNPrepper):
 
         support_reference = 'rc://*/ta/man/translate/figs-abstractnouns'
         transformed_data = self._transform_abstractnouns(combined_verse_data, support_reference)
-        print(transformed_data)
 
         # Write results to a TSV file
         headers = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']

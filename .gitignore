@@ -11,5 +11,8 @@ Required Data.md
 Ideas and work.txt
 .env
 .idea
+.venv
 
 *__pycache__
+deprecated
+output
