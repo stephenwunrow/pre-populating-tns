@@ -65,7 +65,7 @@ class Personification(TNPrepper):
             response = self.__process_personification(chapter_content)
             if response:
                 ai_data.append(response.split('\n'))
-
+        
         # Flatten the list of lists into a single list of dictionaries
         mod_ai_data = []
         for row_list in ai_data:
@@ -81,11 +81,13 @@ class Personification(TNPrepper):
                         'Speaker': columns[5]
                     }
                     mod_ai_data.append(row_dict)
-        print(mod_ai_data)
+                    print(mod_ai_data)
 
         # Write the results to a new TSV file
         headers = ['Reference', 'Personification', 'Explanation', 'Alternate Translation', 'Snippet', 'Speaker']
-        self._write_output(book_name='Obadiah', file='ai_personification.tsv', headers=headers, data=mod_ai_data)
+        file_name = 'ai_personification.tsv'
+        data = mod_ai_data
+        self._write_fieldnames_to_tsv(book_name, file_name, data, headers)
 
         # Prepare transformed data and write to another TSV file
         transformed_data = []

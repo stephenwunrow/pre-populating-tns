@@ -249,6 +249,17 @@ class TNPrepper():
                 file.write(line + '\n')  # Write each line of data
         print(f'data written to {output_file}')
 
+    def _write_fieldnames_to_tsv(self, book_name, file_name, data, headers):
+
+        output_file = self.__setup_output(book_name, file_name)
+
+        with open(output_file, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, delimiter='\t', fieldnames=headers)
+            writer.writeheader()
+            for row in data:
+                writer.writerow(row)
+        print(f'data written to {output_file}')
+
     def _write_report(self, data, message, book_name):
         with open(f'output/{book_name}/report.md', 'a', encoding='utf-8') as report_file:
             report_file.write(f'{message}')
