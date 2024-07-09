@@ -13,8 +13,8 @@ Individual python scripts process inputs, primarily a tagged English translation
     * figs-activepassive
     * translate-names
     * figs-metaphor
-    * figs-rquestions
     * figs-metonymy
+    * figs-rquestions
     * figs-personification
 
 Some of the script (abstractnouns, activepassive, and names) also generate reports that are written to a report file. Finally, the generated notes are combined and sorted (first by chapter, then by verse, and finally by sequence of the English snippet that the note comments on).
@@ -65,6 +65,22 @@ This script scrapes the usfm data for the requested book and translation. It chu
 ## The translation issue of names (5): `en_find_prop_names.py`
 
 This script scrapes the usfm data for the requested book and translation. It chunks the data by Hebrew word, searches the morphology for words tagged as proper nouns, and for each found proper noun saves the reference, Hebrew word, proper noun, and snippet. It also counts how many times each proper noun appears. Then, it scrapes a list of names addressed in Translation Words and removes the lines that contain these names. After that, it writes each remaining name and count to report.md and the rows of data to en_new_names.tsv. Then, for each first occurrence of a name, it writes a row in Translation Notes format (minus ID) to `transformed_names.tsv`. For all following occurrences of the name, no row is written.
+
+## The translation issue of metaphor (6): `Metaphors.py`
+
+This script asks an LLM to identify metaphor, and if found, runs through several queries to identify the data needed to create a note. That data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file. 
+
+## The translation issue of metonymy (7): `Metonymy.py`
+
+This script asks an LLM to identify metonymy, and if found, runs through several queries to identify the data needed to create a note. That data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file. 
+
+## The translation issue of rhetorical questions (8): `RQuestion.py`
+
+This script asks an LLM to identify rhetorical questions, and if found, runs through several queries to identify the data needed to create a note. That data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file. 
+
+## The translation issue of personification (9): `Personification.py`
+
+This script is a first attempt to pass an entire chapter to an LLM and ask it to generate a table of personification data for the chapter. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
 
 ## Combining notes: `combine_tsv.py`
 
