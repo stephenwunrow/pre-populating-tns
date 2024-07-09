@@ -26,8 +26,9 @@ class Personification(TNPrepper):
             "The second column should provide the clause that has the personification. Do not include any explanation or introduction. "
             "The third column should provide a one sentence explanation of the identified personification. The sentence have this form: 'Here, the speaker speaks of [thing personified] as if it were a person who could [the thing that it does].' Replace the information in square brackets with the appropriate information. "
             "The fourth column should provide a way to express the words from the second column without using personification. Only include the alternate phrase. Do not include any introduction or explanation. "
-            "The fifth column should give the exact words from the verse that are semantically equivalent to the phrase you provided in the third column. "
-            "The sixth column should indicate who speaks or writes the personification."
+            "The fifth column should give the exact words from the verse that are semantically equivalent to the phrase you provided in the fourth column. "
+            "The sixth column should indicate who speaks or writes the personification. Here is an example of what a line would look like: "
+            "2:10\tmountain was lonely\tHere, the speaker speaks of a mountain as if it were a person who could be lonely.\tthere were no other mountains nearby that mountain\tthat mountain was lonely\tthe poet"
         )
         return self._query_llm(chapter_content, prompt)
 
@@ -69,6 +70,7 @@ class Personification(TNPrepper):
         # Flatten the list of lists into a single list of dictionaries
         mod_ai_data = []
         for row_list in ai_data:
+            print(row_list)
             for row in row_list:
                 columns = row.split('\t')
                 if len(columns) == 6:

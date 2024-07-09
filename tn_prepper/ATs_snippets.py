@@ -14,8 +14,9 @@ class ATSnippets(TNPrepper):
         load_dotenv()
 
         api_key = os.getenv('API_KEY')
-        self.verse_text = os.getenv('VERSE_TEXT')
-        self.notes_text = os.getenv('NOTES_TEXT')
+        book_name = os.getenv('BOOK_NAME')
+        self.verse_text = f'output/{book_name}/ult_book.tsv'
+        self.notes_text = f'output/{book_name}/combined_notes.tsv'
 
         # Initialize the Groq client with your API key
         self.groq_client = Groq(api_key=api_key)

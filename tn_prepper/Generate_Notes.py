@@ -17,6 +17,8 @@ class ScriptRunner(TNPrepper):
             "ordinals": "Ordinals.py",
             "passives": "Passives.py",
             "rhetorical questions": "RQuestion.py",
+            "personification": "Personification.py",
+            "logical relationships": "Logical_Relationships.py"
             # Add more categories and corresponding scripts here
         }
 

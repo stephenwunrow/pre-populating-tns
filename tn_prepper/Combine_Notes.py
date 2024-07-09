@@ -142,7 +142,10 @@ class Combine_Notes(TNPrepper):
                        f'output/{self.book_name}/go.tsv', 
                        f'output/{self.book_name}/transformed_ai_metaphors.tsv',
                        f'output/{self.book_name}/transformed_ai_metonymy.tsv', 
-                       f'output/{self.book_name}/transformed_ai_rquestions.tsv']
+                       f'output/{self.book_name}/transformed_ai_rquestions.tsv',
+                       f'output/{self.book_name}/transformed_ai_personification.tsv',
+                       f'output/{self.book_name}/transformed_ai_relationships.tsv',
+                       ]
 
         # Output file name
         output_file = f'output/{self.book_name}/combined_notes.tsv'

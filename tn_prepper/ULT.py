@@ -25,7 +25,7 @@ class ULT(TNPrepper):
             verse_data = []
 
             # Regex pattern to capture words, punctuation, and curly brace content
-            pattern = re.compile(r'\\w ([^|]*?)\||([“‘{(]+)\\|\*([)}.,;!?’”—]+)')
+            pattern = re.compile(r'\\w ([^|]*?)\||([“‘{(]+)\\|\*([)}.,:;!?’”—]+)')
 
             # Split the content into lines and process
             for line in soup.get_text().splitlines():
@@ -77,7 +77,7 @@ class ULT(TNPrepper):
         def cleanup_lines(verse_data):
             cleaned_data = []
             for line in verse_data:
-                line = re.sub(r'( )([.,;’”?!—})]+)', r'\2', line)
+                line = re.sub(r'( )([.,;:’”?!—})]+)', r'\2', line)
                 line = re.sub(r'([({“‘—]+)( )', r'\1', line)
                 line = line.strip()
                 cleaned_data.append(line)
