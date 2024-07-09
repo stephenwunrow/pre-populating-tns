@@ -12,6 +12,10 @@ Individual python scripts process inputs, primarily a tagged English translation
     * translate-ordinal (ordinal numbers such as “fifth” or “third”)
     * figs-activepassive
     * translate-names
+    * figs-metaphor
+    * figs-rquestions
+    * figs-metonymy
+    * figs-personification
 
 Some of the script (abstractnouns, activepassive, and names) also generate reports that are written to a report file. Finally, the generated notes are combined and sorted (first by chapter, then by verse, and finally by sequence of the English snippet that the note comments on).
 
@@ -34,9 +38,9 @@ The combining script outputs a file of sorted notes (`combined_notes.tsv`).
 
 # Details by script
 
-## Master script: `generate_notes.py`
+## Master script: `Generate_Notes.py`
 
-This script requests user input to generate the book name and the version that will be the input for all processes (it passes these off as environmental variables). It then runs each individual script in correct sequence.
+This script requests user input for which issues to run. It then runs each individual script in correct sequence.
 
 ## ULT in English: `usfm_extraction.py`
 
@@ -66,6 +70,14 @@ This script scrapes the usfm data for the requested book and translation. It chu
 
 This script reads all the "transformed_….tsv" files created by the previous scripts. It combines them and then sorts them. It sorts first by chapter, then by verse, and then by placement of the start of the "snippet" text within the English verse text provided by ult_book.tsv (in doing this, it treats … as a wildcard of up to 40 characters). It then adds a unique ID for each row. Finally, it writes the rows to `combined_notes.tsv`.
 
+## Generating additional data: `ATs_snippets.py`
+
+This script runs through the combined notes and queries an LLM for additional required data for certain SupportReferences. It then writes the modified lines to `ai_notes.tsv`.
+
+## Generating correct Hebrew: `Final_Snippets.py`
+
+This script creates dictionaries for Hebrew and ULT words, finds the Hebrew for the generated ATs, and lengthens the ATs as needed to match the Hebrew. It writes the final notes to `final_notes.tsv`.
+
 ## Running the scripts
 
 ### Requirements
@@ -75,21 +87,13 @@ To install requirements:
 `pip install -f requirements.txt`
 
 ### The scripts
-To run the entire set of scripts to generate notes for each issue, simply run `generate_notes.py`, input the book name and version (ult), and check the outputs. 
-
-The scripts `usfm_extraction.py` or `combine_tsv.py` can also simply be run. 
-
-To run the scripts that deal with specific translation issues individually, the environmental variables must be provided in this form:
-
-`$ BOOK_NAME="Esther" VERSION="ult" python3 script_name.py`
+There are some file paths and variables to set up in a .env file. These include book name, version, API key, and file paths to the ULT text and `combined_notes.tsv`.
 
 # Further Work/Todo
 
-- Right now, output files are being overwritten, even when it's a completely different book / translation. How bad is that?
-- Refactoring into classes + 'motherclass' will be a tremendous help in extendability
+- Right now, output files are being overwritten when it's the same book. How bad is that?
 
 There are at least three areas in which further development is ongoing:
 
 1. There are many more translation issues to write individual scripts for
-2. The generated notes do not include alternate translations or matching snippets; the plan is to query an LLM to generate these (see the first attempt at `ATs_snippets.py`)
-3. The sort function in combine_tsv.py needs improvement to be completely trustworthy when it comes to snippets with ellipses and snippets that begin with the same word (in such a case, the longer snippet should be first)
+2. What is the best workflow for a final product?
