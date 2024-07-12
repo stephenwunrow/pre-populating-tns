@@ -8,14 +8,14 @@ import time
 import csv
 
 
-class ATSnippets(TNPrepper):
-    def __init__(self):
+class Metaphors(TNPrepper):
+    def __init__(self, book_name):
         super().__init__()
 
         load_dotenv()
 
         api_key = os.getenv('API_KEY')
-        self.verse_text = os.getenv('VERSE_TEXT')
+        self.verse_text = f'output/{book_name}/ult_book.tsv'
 
         # Initialize the Groq client with your API key
         self.groq_client = Groq(api_key=api_key)
@@ -145,5 +145,7 @@ class ATSnippets(TNPrepper):
         self._write_output(book_name='Obadiah', file='transformed_ai_metaphors.tsv', headers=headers, data=transformed_data)
 
 if __name__ == "__main__":
-    obj_at_snippets = ATSnippets()
+    book_name = os.getenv("BOOK_NAME")
+
+    obj_at_snippets = Metaphors()
     obj_at_snippets.run()

@@ -707,7 +707,7 @@ class TNPrepper():
                     }
                 ],
                 model=self.groq_model,
-                temperature = 0.7
+                temperature = 1
 
             )
             response = chat_completion.choices[0].message.content.strip()
@@ -725,3 +725,58 @@ class TNPrepper():
             self.__wait_between_queries(2)
 
             return response
+        
+    ## Combine name notes together (use after ATs_snippets.py)
+    def _combine_names(self, ai_notes):
+        # Join all lines into a single string
+        combined_lines = '\n'.join(['\t'.join(item.values()) for item in ai_notes])
+
+        search_pattern = r'(?s)(\d+:\d+)([^\n]+?names\t)([^\n]+)(\t\d)(\tThe word)([^\n]+?)(is the name of a )(\w+)([^\n]+)(.*?)\n\1\t[^\n]+names\t([^\n]+)\t\d\tThe word([^\n]+) is the name of a \8\.\t([^\n]+)'
+        replace_with = r'\1\2\3 & \11\4\tThe words\6and\12 are the names of \8s\9…\13\10'
+
+        while True:
+            new_text = re.sub(search_pattern, replace_with, combined_lines)
+            if new_text == combined_lines:
+                break
+            combined_lines = new_text
+
+        search_pattern = r'(?s)(\d+:\d+)([^\n]+?names\t)([^\n]+)(\t\d)(\tThe words)([^\n]+?)(are the names of )(\w+)(s[^\n]+)(.*?)\n\1\t[^\n]+names\t([^\n]+)\t\d\tThe word([^\n]+) is the name of a \8\.\t([^\n]+)'
+        replace_with = r'\1\2\3 \& \11\4\5\6and\12 \7\8\9…\13\10'
+
+        while True:
+            new_text = re.sub(search_pattern, replace_with, combined_lines)
+            if new_text == combined_lines:
+                break
+            combined_lines = new_text
+
+        search_pattern = r'(?s)(\d+:\d+)([^\n]+?names\t)([^\n]+)(\t\d)(\tThe words)([^\n]+?)(are the names of )(\w+)([^\n]+)(.*?)\n\1\t[^\n]+names\t([^\n]+)\t\d\tThe words([^\n]+) are the names of \8\.\t([^\n]+)'
+        replace_with = r'\1\2\3 \& \11\4\5\6and\12 \7\8\9…\13\10'
+
+        while True:
+            new_text = re.sub(search_pattern, replace_with, combined_lines)
+            if new_text == combined_lines:
+                break
+            combined_lines = new_text
+
+        combined_lines = re.sub(r' mans', r' men', combined_lines)
+        combined_lines = re.sub(r' womans', r' women', combined_lines)
+        combined_lines = re.sub(r'(The words \*\*\w+\*\*)( and)( \*\*\w+\*\*)( and \*\*\w+\*\*)', r'\1,\3,\4', combined_lines)
+
+        search_pattern = r'(\*\*\w+\*\*, \*\*\w+\*\*, )(and )(\*\*\w+\*\*)( and \*\*\w+\*\*)'
+        replace_with = r'\1\3,\4'
+
+        while True:
+            new_text = re.sub(search_pattern, replace_with, combined_lines)
+            if new_text == combined_lines:
+                break
+            combined_lines = new_text
+
+        # At the end, split the combined_lines back into a list of dictionaries
+        result_lines = []
+        for line in combined_lines.strip().split('\n'):
+            # Split each line by tabs and create a dictionary for each
+            values = line.split('\t')
+            result_lines.append({key: value for key, value in zip(ai_notes[0].keys(), values)})
+        
+        print(result_lines)
+        return result_lines

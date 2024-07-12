@@ -18,7 +18,7 @@ class LogicalRelationships(TNPrepper):
         self.groq_client = Groq(api_key=api_key)
         self.groq_model = 'llama3-70b-8192'
 
-    def __process_personification(self, chapter_content):
+    def __process_prompt(self, chapter_content):
         prompt = (
             "You have been given a chapter from the Bible. Please identify transition words that you find in the chapter. Only identify transition words that are significant for the logical structure of the chapter.\n"
             "As your answer, you will provide a table with exactly five tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
@@ -34,7 +34,7 @@ class LogicalRelationships(TNPrepper):
         )
         return self._query_llm(chapter_content, prompt)
     
-    def _transform_personification(self, mod_ai_data):
+    def _transform_response(self, mod_ai_data):
         if mod_ai_data:
             transformed_data = []
             for row in mod_ai_data:
@@ -110,7 +110,7 @@ class LogicalRelationships(TNPrepper):
         for chapter_key, verses in chapters.items():
             # Combine verses into chapter context
             chapter_content = "\n".join([f"{verse['Reference']} {verse['Verse']}" for verse in verses])
-            response = self.__process_personification(chapter_content)
+            response = self.__process_prompt(chapter_content)
             if response:
                 ai_data.append(response.split('\n'))
         
@@ -135,7 +135,7 @@ class LogicalRelationships(TNPrepper):
         data = mod_ai_data
         self._write_fieldnames_to_tsv(book_name, file_name, data, headers)
 
-        transformed_data = self._transform_personification(mod_ai_data)
+        transformed_data = self._transform_response(mod_ai_data)
 
         headers_transformed = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']
         self._write_output(book_name, file='transformed_ai_relationships.tsv', headers=headers_transformed, data=transformed_data)

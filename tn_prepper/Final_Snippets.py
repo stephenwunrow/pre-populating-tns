@@ -367,6 +367,8 @@ class Final_Snippets(TNPrepper):
                         # Add pre-words and post-words to the quoted text in row 7 of ai_notes
                         quote_text = re.findall(r'Alternate translation: “(.+?)”', ai_row[6])
                         new_AT = f'{pre_words} {quote_text} {post_words}'.strip('] [\'"')
+                        new_AT = re.sub(r'\'s', r'’s', new_AT)
+                        new_AT = re.sub(r'[\[\'\]]', r'', new_AT)
                         ai_row[6] = re.sub(r'(.+Alternate translation: “).+(”)', rf'\1{new_AT}\2', ai_row[6])
 
         return ai_notes

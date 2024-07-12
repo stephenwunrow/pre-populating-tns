@@ -9,13 +9,13 @@ import csv
 
 
 class ATSnippets(TNPrepper):
-    def __init__(self):
+    def __init__(self, book_name):
         super().__init__()
 
         load_dotenv()
 
         api_key = os.getenv('API_KEY')
-        self.verse_text = os.getenv('VERSE_TEXT')
+        self.verse_text = f'output/{book_name}/ult_book.tsv'
 
         # Initialize the Groq client with your API key
         self.groq_client = Groq(api_key=api_key)
@@ -26,7 +26,7 @@ class ATSnippets(TNPrepper):
         # Generate prompt
         prompt1 = (
             f"Metonymy always requires the substition of a related word or phrase for a normal word or phrase. For example, 'throne' substitutes for 'reign.' "
-            f"Given the context, does verse {verse_reference} contain metonymy? Be sure that the word or phrase is not better classified under a different label, such as metaphor or synecdoche. "
+            f"Given the context, does verse {verse_reference} contain metonymy? Be sure that the word or phrase really is metonymy. Consider whether it is better classified under a different label, such as metaphor or synecdoche, before answering. "
             f"If there is metonymy present, answer 'Yes'. If there is no metonymy present, answer 'No'. Do not provide any explanation."
         )
 
@@ -150,5 +150,7 @@ class ATSnippets(TNPrepper):
         self._write_output(book_name='Obadiah', file='transformed_ai_metonymy.tsv', headers=headers, data=transformed_data)
 
 if __name__ == "__main__":
+    book_name = os.getenv("BOOK_NAME")
+
     obj_at_snippets = ATSnippets()
     obj_at_snippets.run()

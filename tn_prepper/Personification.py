@@ -6,19 +6,19 @@ import csv
 from dotenv import load_dotenv
 
 class Personification(TNPrepper):
-    def __init__(self):
+    def __init__(self, book_name):
         super().__init__()
 
         load_dotenv()
 
         api_key = os.getenv('API_KEY')
-        self.verse_text = os.getenv('VERSE_TEXT')
+        self.verse_text = f'output/{book_name}/ult_book.tsv'
 
         # Initialize the Groq client with your API key
         self.groq_client = Groq(api_key=api_key)
         self.groq_model = 'llama3-70b-8192'
 
-    def __process_personification(self, chapter_content):
+    def __process_prompt(self, chapter_content):
         prompt = (
             "You have been given a chapter from the Bible. Please identify every occurrence of the figure of speech 'personification' in this chapter. Be sure that the personification you identify is not better classified as a different figure of speech. "
             "You should provide a table with tab-separated values as your answer. Do not provide any explanation or introduction. You should answer with the table only. "
@@ -63,7 +63,7 @@ class Personification(TNPrepper):
         for chapter_key, verses in chapters.items():
             # Combine verses into chapter context
             chapter_content = "\n".join([f"{verse['Reference']} {verse['Verse']}" for verse in verses])
-            response = self.__process_personification(chapter_content)
+            response = self.__process_prompt(chapter_content)
             if response:
                 ai_data.append(response.split('\n'))
         
@@ -121,5 +121,7 @@ class Personification(TNPrepper):
         self._write_output(book_name='Obadiah', file='transformed_ai_personification.tsv', headers=headers_transformed, data=transformed_data)
 
 if __name__ == "__main__":
+    book_name = os.getenv("BOOK_NAME")
+
     personification_instance = Personification()
     personification_instance.run()
