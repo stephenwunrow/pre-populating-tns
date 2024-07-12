@@ -19,6 +19,7 @@ Individual python scripts process inputs, primarily a tagged English translation
     * figs-simile
     * figs-doublet
     * figs-parallelism
+    * translate-unknowns
 
 Some of the script (abstractnouns, activepassive, and names) also generate reports that are written to a report file. Finally, the generated notes are combined and sorted (first by chapter, then by verse, and finally by sequence of the English snippet that the note comments on).
 
@@ -98,6 +99,10 @@ This script is another attempt to pass an entire chapter to an LLM and ask it to
 ## The translation issue of personification (12): `Parallelism.py`
 
 This script is another attempt to pass an entire chapter to an LLM and ask it to generate a table of parallelism data for the chapter. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
+
+## The translation issue of personification (13): `Unknowns.py`
+
+This script is another attempt to pass an entire chapter to an LLM and ask it to generate a table of parallelism data for the chapter. The data is written to a TSV file. Then, the identified words and phrases are checked against the list of defined terms in the Translation Words resource. If the word or phrase is not found in Translation Words, the row is transformed into Translation Notes format (minus ID) and written to another TSV file.
 
 ## Combining notes: `Combine_Notes.py`
 

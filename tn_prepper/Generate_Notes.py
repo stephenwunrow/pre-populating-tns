@@ -21,7 +21,8 @@ class ScriptRunner(TNPrepper):
             "logical relationships": "Logical_Relationships.py",
             "similes": "Similes.py",
             "parallelism": "Parallelism.py",
-            "doublets": "Doublets.py"
+            "doublets": "Doublets.py",
+            "unknowns": "Unknowns.py"
             # Add more categories and corresponding scripts here
         }
 
