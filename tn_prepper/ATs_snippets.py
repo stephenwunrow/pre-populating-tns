@@ -95,19 +95,33 @@ class ATSnippets(TNPrepper):
 
     # Function for SupportReference: rc://*/ta/man/translate/figs-abstractnouns
     def __process_support_reference_abstract_nouns(self, note, context, verse_reference, ai_notes):
+        if note['Note'].count('*') == 4:
+            # Example of how to generate prompts and process responses
+            bold_word_match = re.search(r'\*\*(.*?)\*\*', note['Note'])
+            if not bold_word_match:
+                bold_word = ''
+            else:
+                bold_word = bold_word_match.group(1)
 
-        # Example of how to generate prompts and process responses
-        bold_word_match = re.search(r'\*\*(.*?)\*\*', note['Note'])
-        if not bold_word_match:
-            bold_word = ''
-        else:
-            bold_word = bold_word_match.group(1)
+            # Generate prompt 1
+            prompt1 = (
+                f"In {verse_reference}, the noun '{bold_word}' is abstract. Express the meaning in another way, without using this or any other abstract noun. "
+                f"Make your answer as short as possible, and respond with the rephrased text only."
+            )
 
-        # Generate prompt 1
-        prompt1 = (
-            f"In {verse_reference}, the noun '{bold_word}' is abstract. Express the meaning in another way, without using this or any other abstract noun. "
-            f"Make your answer as short as possible, and respond with the rephrased text only."
-        )
+        elif note['Note'].count('*') > 4:
+            bold_phrase_match = re.search(r'ideas of (\*\*.+\*\*), you could', note['Note'])
+            if not bold_phrase_match:
+                bold_phrase = ''
+            else:
+                found_phrase = bold_phrase_match.group(1)
+                bold_phrase = re.sub(r"\*\*", r"'", found_phrase)
+
+            # Generate prompt 1
+            prompt1 = (
+                f"In {verse_reference}, the nouns {bold_phrase} are all abstract. Express the meaning in another way, without using these or any other abstract nouns. "
+                f"Make your answer as short as possible, and respond with the rephrased text only."
+            )
 
         # Query LLM for response 1
         response1 = self.__query_llm(context, prompt1)

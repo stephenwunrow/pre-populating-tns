@@ -656,14 +656,20 @@ class TNPrepper():
         if modified_verse_data:
             transformed_data = []
             for row in modified_verse_data:
-                parts = row.split('\t')
-                if len(parts) == 5:
-                    reference = parts[0]
-                    snippet = parts[1]
-                    lexeme = parts[2]
-                    ab_noun = parts[4]
-                    note_template = f'If your language does not use an abstract noun for the idea of **{ab_noun}**, you could express the same idea in another way. Alternate translation: “alternate_translation”'
-
+                if len(row) == 5:
+                    reference = row['Reference']
+                    snippet = row['Glosses']
+                    lexeme = row['Lexeme']
+                    ab_noun = row['Name']
+                    if ',' not in ab_noun:
+                        note_template = f'If your language does not use an abstract noun for the idea of **{ab_noun}**, you could express the same idea in another way. Alternate translation: “alternate_translation”'
+                    elif ab_noun.count(',') == 1:
+                        abnoun_1, abnoun_2 = ab_noun.rsplit(',')
+                        note_template = f'If your language does not use abstract nouns for the ideas of **{abnoun_1.strip()}** and **{abnoun_2.strip()}**, you could express the same ideas in another way. Alternate translation: “alternate_translation”'
+                    elif ab_noun.count(',') > 1:
+                        phrase, abnoun_2 = ab_noun.rsplit(',', 1)
+                        mod_phrase = re.sub(', ', '**, **', phrase)
+                        note_template = f'If your language does not use abstract nouns for the ideas of **{mod_phrase.strip()}**, and **{abnoun_2.strip()}**, you could express the same ideas in another way. Alternate translation: “alternate_translation”'
 
                     # Extract chapter and verse from the reference
                     chapter_verse = reference.rsplit(' ', 1)[1]
@@ -726,7 +732,7 @@ class TNPrepper():
 
             return response
         
-    ## Combine name notes together (use after ATs_snippets.py)
+    ## Combine name notes together (use at the end of ATs_snippets.py)
     def _combine_names(self, ai_notes):
         # Join all lines into a single string
         combined_lines = '\n'.join(['\t'.join(item.values()) for item in ai_notes])
@@ -778,5 +784,4 @@ class TNPrepper():
             values = line.split('\t')
             result_lines.append({key: value for key, value in zip(ai_notes[0].keys(), values)})
         
-        print(result_lines)
         return result_lines

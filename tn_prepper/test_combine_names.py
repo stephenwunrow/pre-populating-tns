@@ -1,85 +1,86 @@
-from TNPrepper import TNPrepper
-
+import csv
 import re
-import os
-from dotenv import load_dotenv
+from itertools import permutations
+from collections import defaultdict
 
-load_dotenv()
+def read_tsv(file_path):
+    with open(file_path, 'r', newline='', encoding='utf-8') as file:
+        reader = csv.DictReader(file, delimiter='\t')
+        return list(reader)
 
-class Combine_Names(TNPrepper):
+def write_tsv(data, file_path):
+    fieldnames = ['Reference', 'Glosses', 'Lexeme', 'Morphology', 'Name']
+    with open(file_path, 'w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames, delimiter='\t')
+        writer.writeheader()
+        writer.writerows(data)
 
-    def __init__(self, book_name):
-        super().__init__()
+def combine_rows(combined_verse_data, verse_text_data):
+    verse_dict = {row['Reference']: row['Verse'] for row in verse_text_data}
+    combined_data_dict = defaultdict(list)
 
-        self.book_name = book_name
+    for row in combined_verse_data:
+        reference = row['Reference']
+        combined_data_dict[reference].append(row)
 
-    def __join_and_search(self, ai_notes):
-        # Join all lines into a single string
-        combined_lines = '\n'.join(['\t'.join(item.values()) for item in ai_notes])
+    combined_data = []
 
-        search_pattern = r'(?s)(\d+:\d+)([^\n]+?names\t)([^\n]+)(\t\d)(\tThe word)([^\n]+?)(is the name of a )(\w+)([^\n]+)(.*?)\n\1\t[^\n]+names\t([^\n]+)\t\d\tThe word([^\n]+) is the name of a \8\.\t([^\n]+)'
-        replace_with = r'\1\2\3 & \11\4\tThe words\6and\12 are the names of \8s\9…\13\10'
+    for reference, rows in combined_data_dict.items():
+        verse = verse_dict.get(reference, "")
+        if not verse:
+            continue
 
-        while True:
-            new_text = re.sub(search_pattern, replace_with, combined_lines)
-            if new_text == combined_lines:
-                break
-            combined_lines = new_text
+        names = [re.escape(row['Name']) for row in rows]
 
-        search_pattern = r'(?s)(\d+:\d+)([^\n]+?names\t)([^\n]+)(\t\d)(\tThe words)([^\n]+?)(are the names of )(\w+)(s[^\n]+)(.*?)\n\1\t[^\n]+names\t([^\n]+)\t\d\tThe word([^\n]+) is the name of a \8\.\t([^\n]+)'
-        replace_with = r'\1\2\3 \& \11\4\5\6and\12 \7\8\9…\13\10'
+        # Try all permutations of names to find a valid sequence in the verse text
+        found_valid_sequence = False
 
-        while True:
-            new_text = re.sub(search_pattern, replace_with, combined_lines)
-            if new_text == combined_lines:
-                break
-            combined_lines = new_text
+        for perm in permutations(names):
+            pattern_parts = []
+            for i in range(len(perm) - 1):
+                pattern_parts.append(perm[i])
+                pattern_parts.append(r'[^.?!]+?')
+            pattern_parts.append(perm[-1])
 
-        search_pattern = r'(?s)(\d+:\d+)([^\n]+?names\t)([^\n]+)(\t\d)(\tThe words)([^\n]+?)(are the names of )(\w+)([^\n]+)(.*?)\n\1\t[^\n]+names\t([^\n]+)\t\d\tThe words([^\n]+) are the names of \8\.\t([^\n]+)'
-        replace_with = r'\1\2\3 \& \11\4\5\6and\12 \7\8\9…\13\10'
+            names_joined_pattern = ''.join(pattern_parts)
 
-        while True:
-            new_text = re.sub(search_pattern, replace_with, combined_lines)
-            if new_text == combined_lines:
-                break
-            combined_lines = new_text
+            # Searching for matches in the verse
+            combined_rows = []
 
-        combined_lines = re.sub(r' mans', r' men', combined_lines)
-        combined_lines = re.sub(r' womans', r' women', combined_lines)
-        combined_lines = re.sub(r'(The words \*\*\w+\*\*)( and)( \*\*\w+\*\*)( and \*\*\w+\*\*)', r'\1,\3,\4', combined_lines)
+            for match in re.finditer(names_joined_pattern, verse, re.IGNORECASE):
+                start, end = match.span()
+                glosses = '…'.join(row['Glosses'] for row in rows)
+                lexeme = ' & '.join(row['Lexeme'] for row in rows)
+                morphology = '; '.join(row['Morphology'] for row in rows)
+                name = ', '.join(row['Name'] for row in rows)
 
-        search_pattern = r'(\*\*\w+\*\*, \*\*\w+\*\*, )(and )(\*\*\w+\*\*)( and \*\*\w+\*\*)'
-        replace_with = r'\1\3,\4'
+                combined_rows.append({
+                    'Reference': reference,
+                    'Glosses': glosses,
+                    'Lexeme': lexeme,
+                    'Morphology': morphology,
+                    'Name': name
+                })
 
-        while True:
-            new_text = re.sub(search_pattern, replace_with, combined_lines)
-            if new_text == combined_lines:
-                break
-            combined_lines = new_text
+            if combined_rows:
+                combined_data.extend(combined_rows)
+                found_valid_sequence = True
+                break  # Stop searching if a valid sequence is found
 
-        return combined_lines
-    
-    def _write_tsv(self, file_path, data):
-        with open(file_path, 'w') as file:
-            file.write(data)
-        print(f'Data written to {file_path}')
+        # If no valid sequence was found, handle this case (e.g., append rows individually or handle differently)
+        if not found_valid_sequence:
+            # Example fallback: append rows individually if no valid sequence was found
+            combined_data.extend(rows)
 
-    def run(self):
-
-        file_path = f'output/{book_name}/ai_notes.tsv'
-        ai_notes = self._read_tsv(file_path)
-
-        combined_lines = self.__join_and_search(ai_notes)
-        
-        output_file_path = f'output/{book_name}/combined_names.tsv'
-        self._write_tsv(output_file_path, combined_lines)
+    return combined_data
 
 # Example usage:
-if __name__ == "__main__":
-    book_name = os.getenv("BOOK_NAME")
+combined_verse_data_path = 'output/Obadiah/abnouns.tsv'
+verse_text_data_path = 'output/Obadiah/ult_book.tsv'
+output_path = 'output/Obadiah/combined_abnouns.tsv'
 
-    # Ensure the directory exists
-    os.makedirs(f'output/{book_name}', exist_ok=True)
+combined_verse_data = read_tsv(combined_verse_data_path)
+verse_text_data = read_tsv(verse_text_data_path)
 
-    combine_instance = Combine_Names(book_name)
-    combine_instance.run()
+combined_data = combine_rows(combined_verse_data, verse_text_data)
+write_tsv(combined_data, output_path)

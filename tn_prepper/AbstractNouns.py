@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 import os
 import csv
 from io import StringIO
+import re
+from itertools import permutations
+from collections import defaultdict
 
 
 # TSV data included directly in the script
@@ -621,6 +624,88 @@ class AbstractNouns(TNPrepper):
         self.book_name = book_name
         self.version = version
 
+    def __parse_combined_verse_data(self, data_list):
+        combined_verse_data = []
+        for line in data_list:
+            if line.strip():  # Check if line is not empty
+                parts = line.split('\t')
+                reference = parts[0].strip()
+                glosses = parts[1].strip()
+                lexeme = parts[2].strip()
+                morphology = parts[3].strip()
+                name = parts[4].strip()
+
+                combined_verse_data.append({
+                    'Reference': reference,
+                    'Glosses': glosses,
+                    'Lexeme': lexeme,
+                    'Morphology': morphology,
+                    'Name': name
+                })
+
+        return combined_verse_data
+
+    def __combine_rows(self, combined_verse_data, verse_text_data):
+        verse_dict = {row['Reference']: row['Verse'] for row in verse_text_data}
+        combined_data_dict = defaultdict(list)
+        
+        combined_verse_data = self.__parse_combined_verse_data(combined_verse_data)
+
+        for row in combined_verse_data:
+            reference = row['Reference']
+            combined_data_dict[reference].append(row)
+
+        combined_data = []
+
+        for reference, rows in combined_data_dict.items():
+            verse = verse_dict.get(reference, "")
+            if not verse:
+                continue
+
+            names = [re.escape(row['Name']) for row in rows]
+
+            # Try all permutations of names to find a valid sequence in the verse text
+            found_valid_sequence = False
+
+            for perm in permutations(names):
+                pattern_parts = []
+                for i in range(len(perm) - 1):
+                    pattern_parts.append(perm[i])
+                    pattern_parts.append(r'[^.?!]+?')
+                pattern_parts.append(perm[-1])
+
+                names_joined_pattern = ''.join(pattern_parts)
+
+                # Searching for matches in the verse
+                combined_rows = []
+
+                for match in re.finditer(names_joined_pattern, verse, re.IGNORECASE):
+                    start, end = match.span()
+                    glosses = '…'.join(row['Glosses'] for row in rows)
+                    lexeme = ' & '.join(row['Lexeme'] for row in rows)
+                    morphology = '; '.join(row['Morphology'] for row in rows)
+                    name = ', '.join(row['Name'] for row in rows)
+
+                    combined_rows.append({
+                        'Reference': reference,
+                        'Glosses': glosses,
+                        'Lexeme': lexeme,
+                        'Morphology': morphology,
+                        'Name': name
+                    })
+
+                if combined_rows:
+                    combined_data.extend(combined_rows)
+                    found_valid_sequence = True
+                    break  # Stop searching if a valid sequence is found
+
+            # If no valid sequence was found, handle this case (e.g., append rows individually or handle differently)
+            if not found_valid_sequence:
+                # Example fallback: append rows individually if no valid sequence was found
+                combined_data.extend(rows)
+
+        return combined_data
+
     def run(self):
         
         # Scrape data from proposed book
@@ -643,8 +728,12 @@ class AbstractNouns(TNPrepper):
         data = combined_verse_data
         self._write_tsv(book_name, file_name, headers, data)
 
+        verse_text_data_path = f'output/{book_name}/ult_book.tsv'
+        verse_text_data = self._read_tsv(verse_text_data_path)
+        joined_verse_data = self.__combine_rows(combined_verse_data, verse_text_data)
+
         support_reference = 'rc://*/ta/man/translate/figs-abstractnouns'
-        transformed_data = self._transform_abstractnouns(combined_verse_data, support_reference)
+        transformed_data = self._transform_abstractnouns(joined_verse_data, support_reference)
 
         # Write results to a TSV file
         headers = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']

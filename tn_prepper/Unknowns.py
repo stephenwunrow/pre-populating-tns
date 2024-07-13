@@ -23,7 +23,7 @@ class Unknowns(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Identify any individual words that refer to objects or things that would be unfamiliar to people in other cultures.\n" 
+            "You have been given a chapter from the Bible. Identify any individual words that refer to objects or things that would be unfamiliar to people in other cultures. Do not include proper names.\n" 
             "As your answer, you will provide a table with exactly four tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
             "\n(1) The first column will provide the chapter and verse where the unknown word is found. Do not include the book name."
             "\n(2) The second column will provide an explanation of the unknown word. The explanation should be in this exact form: 'The word or phrase **[unknown word]** refers to [explanation]. If your readers would not be familiar with [unknown word], you could refer to a similar [class of unknown word] in your culture, or you could use a general expression.' Replace the words in brackets with the appropriate information from the verse and context."
@@ -87,7 +87,6 @@ class Unknowns(TNPrepper):
         scraped_names_2 = __extract_words_from_url(url_2)
 
         all_names_to_remove = [name.split('-')[0].lower() for name in scraped_names_1 + scraped_names_2]
-        print(all_names_to_remove)
 
         nlp = spacy.load("en_core_web_sm")
         def get_lemma(word):
@@ -102,7 +101,6 @@ class Unknowns(TNPrepper):
                     mod_name = re.sub(r' ', r'', name)
                 else:
                     mod_name = get_lemma(name)
-                print(mod_name)
                 if mod_name.lower() not in all_names_to_remove:
                     filtered_data.append(row)
 
