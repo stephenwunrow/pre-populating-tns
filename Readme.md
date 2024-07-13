@@ -124,8 +124,11 @@ It is advisable to setup this project inside a 'virtual environment', so that it
 To install requirements:
 `pip install -f requirements.txt`
 
-### The scripts
-There are some file paths and variables to set up in a .env file. These include book name, version, API key, and file paths to the ULT text and `combined_notes.tsv`.
+### .env file
+There are some file paths and variables to set up in a .env file. These include book name, version, API key, and project status (dev or prod).
+
+### Sequence
+In order for everything to run properly, you need to run the scripts in sequence. You must run `ULT.py` first. Then, you can run any scripts for individual issues in any order. After that, you must run `Combine_Notes.py`, `ATs_snippets.py`, and `Final_Snippets.py` in that sequence.
 
 # Further Work/Todo
 
@@ -134,4 +137,5 @@ There are some file paths and variables to set up in a .env file. These include 
 There are at least three areas in which further development is ongoing:
 
 1. There are many more translation issues to write individual scripts for
-2. What is the best workflow for a final product?
+2. Prompts for many figures of speech need refining
+3. What is the best workflow for a final product?
