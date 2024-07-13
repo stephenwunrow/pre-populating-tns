@@ -20,7 +20,7 @@ class LogicalRelationships(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify transition words that you find in the chapter. Only identify transition words that are significant for the logical structure of the chapter.\n"
+            "You have been given a chapter from the Bible. Please identify transition words that you find in the chapter. Only identify transition words that are significant for the logical structure of the chapter. Also, be sure that the words are transition words, not verbs or some other part of speech.\n"
             "As your answer, you will provide a table with exactly five tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
             "\n(1) The first column will provide the chapter and verse where the transition word is found. Do not include the book name."
             "\n(2) The second column will provide the transition word. "
