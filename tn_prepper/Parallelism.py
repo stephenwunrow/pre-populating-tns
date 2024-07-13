@@ -19,7 +19,7 @@ class Parallelism(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "In parallelism, two clauses that have equivalent meanings are used together for poetic effect. In the chapter from the Bible above, identify any parallelisms. Be sure that the clauses identified as parallel are within one verse and have equivalent meanings.\n\n"
+            "In parallelism, two clauses that have equivalent grammatical structures and equivalent meanings are used together for poetic effect. In the chapter from the Bible above, identify any parallelisms. Be sure that the clauses identified as parallel are within one verse and have equivalent meanings and equivalent grammatical structures.\n\n"
             "Provide your answer in table form without any introduction or explanation. Each row should contain exactly four tab-separated values:\n\n"
             "1. The first value must be the chapter and verse where the parallelism is found (without the book name).\n"
             "2. The second value must be the two clauses that make up the parallelism. You should quote exactly from the chapter.\n"
