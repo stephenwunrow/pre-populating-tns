@@ -713,7 +713,7 @@ class TNPrepper():
                     }
                 ],
                 model=self.groq_model,
-                temperature = 1
+                temperature = 0.4
 
             )
             response = chat_completion.choices[0].message.content.strip()

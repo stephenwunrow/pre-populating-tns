@@ -24,11 +24,11 @@ class Unknowns(TNPrepper):
     def __process_prompt(self, chapter_content):
         prompt = (
             "You have been given a chapter from the Bible. Identify any individual words that refer to objects or things that would be unfamiliar to people in other cultures. Do not include proper names.\n" 
-            "As your answer, you will provide a table with exactly four tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
+            "As your answer, you will provide a table with exactly four tab-separated values. Do not include any introduction or explanation with the table.\n"
             "\n(1) The first column will provide the chapter and verse where the unknown word is found. Do not include the book name."
             "\n(2) The second column will provide an explanation of the unknown word. The explanation should be in this exact form: 'The word or phrase **[unknown word]** refers to [explanation]. If your readers would not be familiar with [unknown word], you could refer to a similar [class of unknown word] in your culture, or you could use a general expression.' Replace the words in brackets with the appropriate information from the verse and context."
-            "\n(3) The third column will provide a way to express the idea in a more general way, without using the unknown word. "
-            "\n(4) The fourth column will contain the exact words from the verse that are semantically equivalent to the words that you provided in the third column. "
+            "\n(3) The third column will provide a way to express the idea in a more general way, without using the unknown word. Be sure that the expression you provide fits with the semantic and structural context. "
+            "\n(4) The fourth column will include an exact quote from the verse. This quote must be the word or words from the verse that are equivalent to the expression you provided in the third column. Be sure that the quoted words do not include more information than the expression from the third column. Also, be sure that the quote is precisely from the relevant verse.\n"
             "Be sure that the items in each row are consistent in how they understand the unknown word.\n"
             "Here is an example of what a row in your response might look like:\n\n"
             "22:34\tA **rooster** is a bird that calls out loudly around the time the sun comes up. If your readers would not be familiar with this bird, you could use the name of a bird in your area that calls out or sings just before dawn, or you could use a general expression.\tbefore the birds begin to sing in the morning, you will deny three times that you know me\tthe rooster will not crow today before you deny three times that you know me\n\n"

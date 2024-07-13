@@ -20,15 +20,24 @@ class Personification(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify every occurrence of the figure of speech 'personification' in this chapter. Be sure that the personification you identify is not better classified as a different figure of speech. "
-            "You should provide a table with tab-separated values as your answer. Do not provide any explanation or introduction. You should answer with the table only. "
-            "The first column should provide the chapter and verse for the found instance of personification. Do not include the book name."
-            "The second column should provide the clause that has the personification. Do not include any explanation or introduction. "
-            "The third column should provide a one sentence explanation of the identified personification. The sentence have this form: 'Here, the speaker speaks of [thing personified] as if it were a person who could [the thing that it does].' Replace the information in square brackets with the appropriate information. "
-            "The fourth column should provide a way to express the words from the second column without using personification. Only include the alternate phrase. Do not include any introduction or explanation. "
-            "The fifth column should give the exact words from the verse that are semantically equivalent to the phrase you provided in the fourth column. "
-            "The sixth column should indicate who speaks or writes the personification. Here is an example of what a line would look like: "
-            "2:10\tmountain was lonely\tHere, the speaker speaks of a mountain as if it were a person who could be lonely.\tthere were no other mountains nearby that mountain\tthat mountain was lonely\tthe poet"
+    "You have been given a chapter from the Bible. Please identify every occurrence of personification in this chapter, if any. Be sure that what you identify is not better classified as a different figure of speech, such as metaphor or simile.\n"
+    "Personification is a figure of speech where a non-human thing is described as having human attributes, actions, or emotions. It involves giving human-like qualities to animals, objects, or abstract concepts.\n"
+    "Do not confuse personification with metaphor, which directly compares two unlike things, or simile, which compares two unlike things using 'like' or 'as'.\n"
+    "Before identifying personification, ask yourself if the entity being described can logically possess human traits, actions, or emotions. If it cannot, then it is likely personification.\n"
+    "Do not consider groups of people (e.g., 'thieves', 'nations') or anthropomorphism (gods or animals given human traits) as personification.\n"
+    "Provide a table with exactly six tab-separated values as your answer. Do not provide any explanation or introduction. You should answer with the table only.\n"
+    "The first column should provide the chapter and verse for the found instance of personification. Do not include the book name.\n"
+    "The second column should provide the clause that has the personification. Do not include any explanation or introduction.\n"
+    "The third column should provide a one-sentence explanation of the identified personification. The sentence should have this form: 'Here, the speaker speaks of [thing personified] as if it/they were a person/people who could [the thing that it does].' Replace the information in square brackets with the appropriate information.\n"
+    "The fourth column should provide a way to express the words from the second column without using personification. Only include the alternate phrase. Do not include any introduction or explanation.\n"
+    "The fifth column should include an exact quote from the verse. This quote should be semantically equivalent to the alternate expression you provided in the fourth column. Be sure that the quote you provide is precisely from the relevant verse.\n"
+    "The sixth column should indicate who speaks or writes the personification.\n"
+    "Here is an example of what a line would look like:\n\n"
+    "2:10\tmountain was lonely\tHere, the speaker speaks of a mountain as if it were a person who could be lonely.\tthere were no other mountains nearby that mountain\tthat mountain was lonely\tthe poet\n"
+    "Be sure that each row contains exactly six values.\n"
+    "Before you answer with the table, check whether the thing that you identified as personified in context might refer to a person (such as 'thieves' or 'savior'). If it might refer to a person, remove that row.\n"
+    "Additionally, ensure that the personification does not involve anthropomorphism, where gods or animals are given human traits, as these are not considered personification in this context.\n"
+    "If you are unsure whether a clause is personification, do not include it in the table."
         )
         return self._query_llm(chapter_content, prompt)
 
@@ -70,7 +79,6 @@ class Personification(TNPrepper):
         # Flatten the list of lists into a single list of dictionaries
         mod_ai_data = []
         for row_list in ai_data:
-            print(row_list)
             for row in row_list:
                 columns = row.split('\t')
                 if len(columns) == 6:
@@ -83,7 +91,6 @@ class Personification(TNPrepper):
                         'Speaker': columns[5]
                     }
                     mod_ai_data.append(row_dict)
-                    print(mod_ai_data)
 
         # Write the results to a new TSV file
         headers = ['Reference', 'Personification', 'Explanation', 'Alternate Translation', 'Snippet', 'Speaker']
@@ -118,10 +125,10 @@ class Personification(TNPrepper):
 
         # Write transformed data to another TSV file
         headers_transformed = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']
-        self._write_output(book_name='Obadiah', file='transformed_ai_personification.tsv', headers=headers_transformed, data=transformed_data)
+        self._write_output(book_name, file='transformed_ai_personification.tsv', headers=headers_transformed, data=transformed_data)
 
 if __name__ == "__main__":
     book_name = os.getenv("BOOK_NAME")
 
-    personification_instance = Personification()
+    personification_instance = Personification(book_name)
     personification_instance.run()

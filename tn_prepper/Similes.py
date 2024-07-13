@@ -19,16 +19,17 @@ class Similes(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify similes in the chapter. A simile is a comparison that uses the words 'like' or 'as'.\n"
+            "A simile is a comparison that must use the words 'like' or 'as'. You have been given a chapter from the Bible. Please identify similes in the chapter, if any.\n"
             "As your answer, you will provide a table with exactly four tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
-            "\n(1) The first column will provide the chapter and verse where the doublet is found. Do not include the book name."
+            "\n(1) The first column will provide the chapter and verse where the simile is found. Do not include the book name."
             "\n(2) The second column will provide a one-sentence explanation of the simile. The explanation sentence should begin this way: 'The point of this comparison is that'. Direct references to key words from the verse should be inside double asterisks (like this: **word**). "
             "\n(3) The third column will provide a way to express the idea in a way that explicitly explains the simile. "
-            "\n(4) The fourth column will contain the exact words from the verse that are semantically equivalent to the words that you provided in the third column. "
-            "Be sure that the items in each row are consistent in how they understand the simile.\n"
+            "\n(4) The fourth column will include an exact quote from the verse. This quote should be precisely semantically equivalent to the alternate expression you provided in the third column. Be sure that the quote you provide is precisely from the relevant verse.\n"
+            "\nBe sure that the items in each row are consistent in how they understand the simile.\n"
             "Here is an example of what your response might look like:\n\n"
             "38:14\tThe point of this comparison is that just as plain **clay** takes on distinct features when it is pressed **under a seal**, so the features of the earth become distinct in the light of day.\tIts features change from indistinct to distinct, just as clay takes on distinct features when it is pressed under a seal\tIt is changed like clay under a seal\n"
-            "38:30\tThe point of this comparison is that just as it is not possible to see through **stone**, it is typically not possible to see through the ice that forms on top of **the waters** in the winter.\tAs under stone through which one cannot see\tAs under stone\n"
+            "38:30\tThe point of this comparison is that just as it is not possible to see through **stone**, it is typically not possible to see through the ice that forms on top of **the waters** in the winter.\tAs under stone through which one cannot see\tAs under stone\n\n"
+            "Before you return the table, check each row to make sure that the identified simile does use 'like' or 'as'. If the row does not, remove it from the table."
         )
 
         return self._query_llm(chapter_content, prompt)
