@@ -85,6 +85,7 @@ class ULT(TNPrepper):
             for line in verse_data:
                 line = re.sub(r'( )([.,;:’”?!—})]+)', r'\2', line)
                 line = re.sub(r'([({“‘—]+)( )', r'\1', line)
+                line = re.sub(r'(\w[’]) (s)', r'\1\2', line)
                 line = line.strip()
                 cleaned_data.append(line)
             return cleaned_data

@@ -554,7 +554,7 @@ if __name__ == "__main__":
     if book_name in acronym_mapping:
         acronym = acronym_mapping[book_name]
 
-    input_file = f'tn_prepper/output/{book_name}/ai_notes.tsv'
+    input_file = f'output/{book_name}/ai_notes.tsv'
 
     final_snippets_instance = Final_Snippets(book_name, version, acronym, input_file)
     final_snippets_instance.run()
