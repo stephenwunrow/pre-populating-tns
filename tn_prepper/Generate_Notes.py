@@ -22,7 +22,8 @@ class ScriptRunner(TNPrepper):
             "similes": "Similes.py",
             "parallelism": "Parallelism.py",
             "doublets": "Doublets.py",
-            "unknowns": "Unknowns.py"
+            "unknowns": "Unknowns.py",
+            "idioms": "Idioms.py"
             # Add more categories and corresponding scripts here
         }
 

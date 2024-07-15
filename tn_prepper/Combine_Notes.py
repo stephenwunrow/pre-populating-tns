@@ -149,6 +149,7 @@ class Combine_Notes(TNPrepper):
                        f'output/{self.book_name}/transformed_ai_parallelism.tsv',
                        f'output/{self.book_name}/transformed_ai_similes.tsv',
                        f'output/{self.book_name}/transformed_ai_unknowns.tsv',
+                       f'output/{self.book_name}/transformed_ai_idioms.tsv',
                        ]
 
         # Output file name
