@@ -20,14 +20,15 @@ class LogicalRelationships(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify transition words that you find in the chapter. Only identify transition words that are significant for the logical structure of the chapter. Also, be sure that the words are transition words, not verbs or some other part of speech.\n"
+            "You have been given a chapter from the Bible. Please identify transition words that you find in the chapter. Only identify transition words that are significant for the logical structure of the chapter. Do not identify transition words that simply add more information without indicating a logical relationship. Also, be sure that the words are transition words, not verbs or some other part of speech.\n"
             "As your answer, you will provide a table with exactly five tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
             "\n(1) The first column will provide the chapter and verse where the transition word is found. Do not include the book name."
-            "\n(2) The second column will provide the transition word. "
+            "\n(2) The second column will provide the transition word. Quote exactly from the verse. "
             "\n(3) The third column will provide a one sentence explanation of the function of the transition word in context. The sentence should begin with this phrase: 'The word **word** here'. "
             "\n(4) The fourth column will provide a way to express the idea without using the transition word that is in the verse. "
-            "\n(5) The fifth column will indicate the precise function of the transition word in context. Here are your options: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception.\n\n"
-            "Be sure that the items in each row are consistent in how they understand the transition word.\n"
+            "\n(5) The fifth column will indicate the precise function of the transition word in context. You must identify one of the following functions: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception."
+            "\nYou can only pick a 'condition' option if the transition word is 'if'.\n"
+            "Be sure that the values in each row are consistent in how they understand the transition word.\n"
             "Here is an example of what your response might look like:\n\n"
             "1:4\tbut\tThe word **but** here introduces a contrast with what Jonah said in the previous verse.\tin contrast\tcontrast\n"
             "3:5\tAnd\tThe word **And** here connects the response of the men of Nineveh to Jonah's proclamation.\tSo\tresult"

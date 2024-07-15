@@ -19,13 +19,13 @@ class Doublets(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify any doublets in the chapter. A doublet is made up of two words or very short phrases that are joined by the word 'and' and that have the same meaning.\n"
-            "When you find a doublet, you will append a row of data to a table. Each row should contain exactly six tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
+            "You have been given a chapter from the Bible. Please identify any doublets in the chapter. A doublet is made up of two words or very short phrases that have the same meaning and that are joined by the word 'and'. The structure must be like this: '[word\phrase 1] and [word\phrase 2]'.\n"
+            "When you find a doublet, you will append a row of data to a table. Each row should contain exactly six tab-separated values. Do not include any introduction or explanation with the table.\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the doublet is found. Do not include the book name."
-            "\n(2) The second tab-separated value will provide the first word or short phrase in the doublet. "
-            "\n(3) The third tab-separated value will provide the second word or short phrase in the doublet. "
+            "\n(2) The second tab-separated value will provide the first word or short phrase in the doublet. Quote exactly from the verse. "
+            "\n(3) The third tab-separated value will provide the second word or short phrase in the doublet. Quote exactly from the verse. "
             "\n(4) The fourth tab-separated value will provide a way to express the clause without using two words with the same meaning. Be sure that you rephrase the entire section of the verse that includes the doublet. "
-            "\n(5) For the fifth tab-separated value, consider the phrase you provided in the fourth tab-separated value. Then, provide the words from the verse that are semantically equivalent to that phrase. Be sure that the words you provide are exactly from the verse and exactly semantically equivalent to the phrase from the fourth tab-separated value. "
+            "\n(5) The fifth tab-separated value will include an exact quote from the verse. This quote should be semantically equivalent to the alternate expression you provided in the fourth value. Be sure that the quote you provide is precisely from the relevant verse."
             "\n(6) The sixth tab-separated value will identify who writes or speaks the doublet. "
             "Be sure that the items in each row are consistent in how they understand the doublet.\n"
             "Here are two examples of what the rows of values might look like:\n\n"

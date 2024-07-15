@@ -24,11 +24,17 @@ class ULT(TNPrepper):
             verse_words = []
             verse_data = []
 
+            # Extract the text from the BeautifulSoup object
+            text = soup.get_text()
+
+            # Perform the regex substitution on the extracted text
+            text = re.sub(r' \\v', r'\n\\v', text)
+
             # Regex pattern to capture words, punctuation, and curly brace content
             pattern = re.compile(r'\\w ([^|]*?)\||([“‘{(]+)\\|\*([)}.,:;!?’”—]+)')
 
             # Split the content into lines and process
-            for line in soup.get_text().splitlines():
+            for line in text.splitlines():
                 if line.startswith('\\c '):
                     if verse_words:
                         # Append previous verse words to verse_data
