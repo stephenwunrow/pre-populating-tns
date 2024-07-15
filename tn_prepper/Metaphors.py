@@ -19,7 +19,7 @@ class Metaphors(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify all metaphors in the chapter, if any. Be sure that what you identify as a metaphor is not better classified as another figure of speech, such as personification or idiom.\n"
+            "You have been given a chapter from the Bible. Please identify all metaphors in the chapter, if any. Be sure that what you identify as a metaphor is not better classified as another figure of speech, such as personification, idiom, or simile.\n"
             "When you find a metaphor, you will append a row of data to a table. Each row must contain exactly five tab-separated values. Do not include any introduction or explanation with the table.\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the metaphor is found. Do not include the book name."
             "\n(2) The second tab-separated value will provide the words from the verse that contain the metaphor. Quote exactly from the verse."

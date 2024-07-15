@@ -20,7 +20,7 @@ class RQuestion(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify all rhetorical questions in the chapter, if any."
+            "A rhetorical question is a question that is asked not to elicit a direct answer, but rather to make a point, emphasize a sentiment, or create an effect. You have been given a chapter from the Bible. Please identify all rhetorical questions in the chapter, if there are any.\n"
             "When you find a rhetorical question, you will append a row of data to a table. If there are multiple rhetorical questions in a verse, append a row for each one.\n"
             "Each row must contain exactly five tab-separated values. Do not include any introduction or explanation with the table.\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the rhetorical question is found. Do not include the book name."
