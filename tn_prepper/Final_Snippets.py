@@ -245,6 +245,7 @@ class Final_Snippets(TNPrepper):
             phrase = row[7].strip()
             lower_phrase = phrase.lower()
             mod_phrase = re.sub(r'[.,:;”’‘“!?—*]', r'', lower_phrase)
+            mod_phrase = re.sub('…', ' .+?', mod_phrase)
             search_phrase = re.sub(r' ', r' \\d+ ', mod_phrase)
             search_phrase = search_phrase + ' \\d+'
 
@@ -355,6 +356,8 @@ class Final_Snippets(TNPrepper):
             
             # Find corresponding line in ai_notes using reference and snippet
             for ai_row in ai_notes:
+                if not re.match(r'\d', ai_row[0]):
+                    ai_notes.remove(ai_row)
                 if ai_row[0] == reference and ai_row[7] == snippet:
                     # Replace "Quote" (row 5 in ai_notes) with english_words (row 3 in origl_and_snippet)
                     ai_row[4] = hebrew_words

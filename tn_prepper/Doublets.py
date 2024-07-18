@@ -19,7 +19,7 @@ class Doublets(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify any doublets in the chapter. A doublet is made up of two words or very short phrases that have the same meaning and that are joined by the word 'and'. The structure must be like this: '[word\phrase 1] and [word\phrase 2]'.\n"
+            "You have been given a chapter from the Bible. Please identify any doublets in the chapter. A doublet is made up of two words or very short phrases that have the same meaning and that are joined by the word 'and'. The structure must be like this: '[word\phrase] and [word\phrase with identical meaning]'.\n"
             "When you find a doublet, you will append a row of data to a table. Each row should contain exactly six tab-separated values. Do not include any introduction or explanation with the table.\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the doublet is found. Do not include the book name."
             "\n(2) The second tab-separated value will provide the first word or short phrase in the doublet. Quote exactly from the verse. "

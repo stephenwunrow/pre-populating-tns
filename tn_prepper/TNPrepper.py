@@ -309,6 +309,9 @@ class TNPrepper():
             "has come": "has gone",
             "have come": "have gone",
             "had come": "had gone",
+            "has…come": "has…gone",
+            "have…come": "have…gone",
+            "had…come": "had…gone",
             "comes": "goes",
             "coming": "going",
             "came": "went",
@@ -321,6 +324,9 @@ class TNPrepper():
             "has brought": "has taken",
             "have brought": "have taken",
             "had brought": "had taken",
+            "has…brought": "has…taken",
+            "have…brought": "have…taken",
+            "had…brought": "had…taken",
             "brings": "takes",
             "bringing": "taking",
             "bring": "take",
@@ -341,9 +347,9 @@ class TNPrepper():
                     for word in word_mapping:
                         if word in snippet:
                             key = word
-                            key = re.sub(r'(has|have|had) ', r'', key)
+                            key = re.sub(r'(has|have|had)(…| )', r'', key)
                             text = word_mapping[key]
-                            text = re.sub(r'(has|have|had) ', r'', text)
+                            text = re.sub(r'(has|have|had)(…| )', r'', text)
                             break  # Stop searching once a match is found
                     
                     AT = re.sub(rf'(.*){key}(.*)', rf'\1{text}\2', snippet)
@@ -705,7 +711,7 @@ class TNPrepper():
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a bible-believing scholar. You are analyzing a text and providing answers that exactly match that text. You should not provide explanations and interpretation unless you are specifically asked to do so."
+                        "content": "I want to write translation notes for translation issues in the Bible. These translation notes will include chapter and verse, an explanation of the translation issue, an alternate way to translate the idea without using the figure of speech, and the words from the Bible translation that need to be replaced to include the alternate translation. In order to accomplish this goal, I want you to provide with the precise data I request. You should not provide explanations and interpretation unless you are specifically asked to do so."
                     },
                     {
                         "role": "user",
