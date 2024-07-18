@@ -1,8 +1,6 @@
 # Introduction
 This repo contains experiments with regards to the prepopulation of Translation Notes. These experiments are based on data from completed or in-progress book packages.
 
-# NOTE: ALL INFORMATION BELOW NEEDS TO BE UPDATED
-
 # Overview
 
 Individual python scripts process inputs, primarily a tagged English translation (ULT), for a specific book. Each script then processes this data to create a TSV file of raw data. Then, this raw data is transformed into the format required by Translation Notes and written to another TSV file. Each individual script targets a specific translation issue. So far, the following issues are covered:
@@ -20,6 +18,8 @@ Individual python scripts process inputs, primarily a tagged English translation
     * figs-doublet
     * figs-parallelism
     * translate-unknowns
+
+NOTE: experimenting now with a general figures of speech script: test_figsofspeech.py.
 
 Some of the script (abstractnouns, activepassive, and names) also generate reports that are written to a report file. Finally, the generated notes are combined and sorted (first by chapter, then by verse, and finally by sequence of the English snippet that the note comments on).
 
@@ -103,6 +103,10 @@ This script is another attempt to pass an entire chapter to an LLM and ask it to
 ## The translation issue of personification (13): `Unknowns.py`
 
 This script is another attempt to pass an entire chapter to an LLM and ask it to generate a table of parallelism data for the chapter. The data is written to a TSV file. Then, the identified words and phrases are checked against the list of defined terms in the Translation Words resource. If the word or phrase is not found in Translation Words, the row is transformed into Translation Notes format (minus ID) and written to another TSV file.
+
+## TEST: overall figs of speech: `test_figsofspeech.py`
+
+Instead of running each figure separately, this query asks for all figures of speech in a specific list and then provides the correct sup ref for each one.
 
 ## Combining notes: `Combine_Notes.py`
 
