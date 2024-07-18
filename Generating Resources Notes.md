@@ -63,6 +63,7 @@ Acceptable percentage: 75%
 
 # Ideas/Recommendations for Ongoing Work
 (1) Create a set of precise model templates for each sup reference, ideally two or three for each one
-(2) Generate as much data as possible ahead of time (for example, we can find all passives, names, and ordinals ahead of time and feed them to the model)
+(2) Generate as much data as possible ahead of time (for example, we can find all passives, names, ordinals, go/come ahead of time and feed them to the model)
 (3) Be sure to check names and unknowns against TW somewhere in the process
-(4) Always check repeatability
+(4) Include sup ref specific rules (e.g., names only need a note on the first occurrence)
+(5) Always check repeatability
