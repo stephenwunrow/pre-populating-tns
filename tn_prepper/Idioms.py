@@ -19,14 +19,19 @@ class Idioms(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify all idioms in the chapter, if any. Be sure that what you identify as an idiom is not better classified as another figure of speech, such as metaphor or simile.\n"
-            "When you find an idiom, you will append a row of data to a table. Each row must contain exactly five tab-separated values. Do not include any introduction or explanation with the table.\n"
+            "An idiom is a fixed expression with a conventional meaning that differs from the literal meaning of the individual words. You have been given a chapter from the Bible. Please identify all idioms in the chapter, if any. A true idiom must meet the following criteria:"
+            "\n    1. It is a pre-defined phrase or sentence with a standard form and meaning."
+            "\n    2. The meaning of the idiom is widely recognized and accepted within the language or culture."
+            "\n    3. The individual words in the idiom typically have no direct connection to the overall meaning, and their literal meanings are often not relevant to the idiom's meaning."
+            "\n    4. The meaning of the idiom is not dependent on the context in which it is used.\n"
+            "When you find an idiom, you will append a row of data to a table. Each row must contain exactly five tab-separated values. Do not include any introduction or explanation with the table."
             "\n(1) The first tab-separated value will provide the chapter and verse where the idiom is found. Do not include the book name."
             "\n(2) The second tab-separated value will provide the words from the verse that contain the idiom. Quote exactly from the verse."
             "\n(3) The third tab-separated value will provide a one-sentence explanation of the meaning of the idiom. Your sentence must be in this form: 'Here, **[text]** is an idiom that means “[explanation].”' Replace [text] and [explanation] with the appropriate data from the verse, and keep the double asterisks."
             "\n(4) The fourth tab-separated value will provide a way to express the idea without using the idiom. Respond with the rephrased text only."
             "\n(5) The fifth tab-separated value will include an exact quote from the verse. This quote should be semantically equivalent to the alternate expression you provided in the fourth value. Be sure that the quote you provide is precisely from the relevant verse."
             "Be sure that the values in each row are consistent in how they identify, understand, and explain the idiom.\n"
+            "Note that metaphors, similes, and other figurative language will not be considered idioms for the purpose of this task. Only true idioms with fixed expressions and conventional meanings will be counted as idioms."
         )
         return self._query_llm(chapter_content, prompt)
     

@@ -61,13 +61,9 @@ class Final_Snippets(TNPrepper):
         current_number = 1  # Initialize a counter for consecutive numbering
 
         # Split the combined text by "\\v" to get verse chunks
-        chunks = combined_text.split('\\v')
+        chunks = combined_text.split('\\v ')
 
         for chunk in chunks:
-            # Find chapter in the chunk
-            chapter_match = re.search(r'\\c (\d+)', chunk)
-            if chapter_match:
-                chapter = int(chapter_match.group(1))
 
             # Find verse in the chunk
             verse_match = re.search(r'(\d+)', chunk)
@@ -89,6 +85,11 @@ class Final_Snippets(TNPrepper):
 
                     unique_numbers.append((verse_ref, word, current_number, occurrence_number))
                     current_number += 1  # Increment the counter
+
+                        # Find chapter in the chunk
+            chapter_match = re.search(r'\\c (\d+)', chunk)
+            if chapter_match:
+                chapter = int(chapter_match.group(1))
 
         return unique_numbers
     
