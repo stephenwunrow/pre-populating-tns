@@ -363,7 +363,7 @@ class Final_Snippets(TNPrepper):
                     ai_row[4] = hebrew_words
 
                     # Locate snippet in context and get pre-words and post-words
-                    snippet_index = context.find(snippet)
+                    snippet_index = context.lower().find(snippet)
                     if snippet_index != -1:
                         pre_words = context[:snippet_index].strip('] [\'')
                         post_words = context[snippet_index + len(snippet):].strip('] [\'')

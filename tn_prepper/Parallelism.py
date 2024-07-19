@@ -19,17 +19,15 @@ class Parallelism(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "In parallelism, two clauses that have equivalent grammatical structures and equivalent meanings are used together for poetic effect. In the chapter from the Bible above, identify any parallelisms. Be sure that the clauses identified as parallel are within one verse and have equivalent meanings and equivalent grammatical structures.\n\n"
-            "Provide your answer in table form without any introduction or explanation. Each row should contain exactly four tab-separated values:\n\n"
-            "1. The first value must be the chapter and verse where the parallelism is found (without the book name).\n"
-            "2. The second value must be the two clauses that make up the parallelism. You should quote exactly from the chapter.\n"
-            "3. The third value must be a way to express the two parallel clauses you quoted as only one clause. Be sure that this clause can completely replace the two clauses you quoted.\n"
-            "4. The fourth value must identify who writes or speaks the parallelism.\n\n"
-            "Ensure consistency in how you understand and present the parallelism.\n\n"
-            "Example response:\n\n"
-            "30:23\tto death and to the house of appointment to all the living\tto death, yes, to the house of appointment to all the living\tJob\n"
-            "30:26\tThe deep says, ‘It is not in me,’ and the sea says, ‘It is not with me.’\tThe deep, wide ocean says, ‘It is not in me’\tJob\n\n"
-            "Be sure that there are only four values in each row, as in the above example."
+            "In parallelism, two clauses that have equivalent grammatical structures and equivalent meanings are used together for poetic effect. In the chapter from the Bible above, identify any parallelisms. Be sure that what you identify as parallelism is made up of exactly two clauses within one verse that have equivalent meanings and equivalent grammatical structures.\n\n"
+            "Provide your answer in table form without any introduction or explanation. If there are multiple pairs of parallel lines in a verse, provide a separate row for each pair."
+            "Each row should contain exactly four tab-separated values:\n\n"
+            "(1) The first value will be the chapter and verse where the parallelism is found (without the book name).\n"
+            "(2) The second value will be the two clauses that make up the parallelism. You should quote exactly from the verse.\n"
+            "(3) The third value will be a way to express the two parallel clauses you quoted as only one clause. Be sure that this clause can completely replace the two clauses you quoted.\n"
+            "(4) The fourth value will identify who writes or speaks the parallelism.\n\n"
+            "Ensure consistency in how you understand and present the parallelism.\n"
+            "Also, be sure that there are exactly four values in each row."
 
         )
         return self._query_llm(chapter_content, prompt)

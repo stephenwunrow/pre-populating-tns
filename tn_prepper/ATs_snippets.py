@@ -132,7 +132,7 @@ class ATSnippets(TNPrepper):
             # Generate prompt 2 using response 1
             response1_cleaned = response1.strip('"“”‘’….()\'')
             prompt2 = (
-                f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond with the exact words from the verse only. Do not include any explanation."
+                f"Which exact words from {verse_reference} are the words '{response1_cleaned}' semantically equivalent to? Respond by quoting exact words from the verse only. Do not include any explanation."
             )
 
             # Query LLM for response 2

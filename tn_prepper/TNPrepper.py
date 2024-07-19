@@ -703,7 +703,7 @@ class TNPrepper():
 
     # Function to query the LLM
     def _query_llm(self, context, prompt):
-        combined_prompt = f"Verse and context:\n{context}\n\nPrompt:\n{prompt}"
+        combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
         response = None
 
         try:
@@ -711,7 +711,9 @@ class TNPrepper():
                 messages=[
                     {
                         "role": "system",
-                        "content": "I want to write translation notes for translation issues in the Bible. These translation notes will include chapter and verse, an explanation of the translation issue, an alternate way to translate the idea without using the figure of speech, and the words from the Bible translation that need to be replaced to include the alternate translation. In order to accomplish this goal, I want you to provide with the precise data I request. You should not provide explanations and interpretation unless you are specifically asked to do so."
+                        "content": "I want to write translation notes for translation issues in the Bible."
+                        "These translation notes will include chapter and verse, an explanation of the translation issue, an alternate way to translate the idea without using the figure of speech, and the words from the Bible translation that need to be replaced to include the alternate translation."
+                        "In order to accomplish this goal, I want you to provide me with the precise data I request. You should not provide explanations and interpretation unless you are specifically asked to do so."
                     },
                     {
                         "role": "user",

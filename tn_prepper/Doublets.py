@@ -19,18 +19,16 @@ class Doublets(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify any doublets in the chapter. A doublet is made up of two words or very short phrases that have the same meaning and that are joined by the word 'and'. The structure must be like this: '[word\phrase] and [word\phrase with identical meaning]'.\n"
-            "When you find a doublet, you will append a row of data to a table. Each row should contain exactly six tab-separated values. Do not include any introduction or explanation with the table.\n"
+            "A doublet is two or more words or very short phrases that mean the same thing and that are joined directly by 'and'. Be sure that the words or phrases you identify are not full clauses.\n"
+            "In the chapter of the Bible provided above, identify each doublet.\n"
+            "When you find a doublet, you will append a row of data to a table. Each row should contain exactly four tab-separated values, no more or less. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the doublet is found. Do not include the book name."
-            "\n(2) The second tab-separated value will provide the first word or short phrase in the doublet. Quote exactly from the verse. "
-            "\n(3) The third tab-separated value will provide the second word or short phrase in the doublet. Quote exactly from the verse. "
-            "\n(4) The fourth tab-separated value will provide a way to express the clause without using two words with the same meaning. Be sure that you rephrase the entire section of the verse that includes the doublet. "
-            "\n(5) The fifth tab-separated value will include an exact quote from the verse. This quote should be semantically equivalent to the alternate expression you provided in the fourth value. Be sure that the quote you provide is precisely from the relevant verse."
-            "\n(6) The sixth tab-separated value will identify who writes or speaks the doublet. "
-            "Be sure that the items in each row are consistent in how they understand the doublet.\n"
-            "Here are two examples of what the rows of values might look like:\n\n"
-            "34:22\tdarkness\tdeep darkness\tThere is no darkness at all\tThere is no darkness and there is no deep darkness\tElihu\n"
-            "34:28\tObserve\tsee\tCarefully observe the heavens\tObserve the heavens and see\tElihu\n"
+            "\n(2) The second tab-separated value will provide an explanation of the doublet. The explanation must be in this form: 'The terms **[word/phrase 1]** and **[word/phrase 2]** mean similar things. [Speaker/Writer] is using the two terms together for emphasis.' Use these exact sentences, including the asterisks, except you should replace the bracketed words with the appropriate data from the verse."
+            "\n(3) The third tab-separated value will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea without the doublet."
+            "\n(4) The fourth tab-separated value will provide a way to express the quote from the third value without using a doublet. This alternate expression should be able to replace the quote in the verse context without losing any meaning."
+            "\nBe sure that the items in each row are consistent in how they understand the doublet.\n"
+            "Here is an example of what a row of values might look like:\n\n"
+            "34:28\tThe terms **Observe** and **see** mean similar things. Elihu is using the two terms together for emphasis.\tCarefully observe the heavens\tObserve the heavens and see\n"
         )
         return self._query_llm(chapter_content, prompt)
     
@@ -39,12 +37,10 @@ class Doublets(TNPrepper):
             transformed_data = []
             for row in mod_ai_data:
                 ref = row['Reference']
-                word_1 = row['Word 1']
-                word_2 = row['Word 2']
+                explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
-                speaker = row['Speaker'].strip('\'".,;!?“”’‘')
-                note_template = f'The terms **{word_1}** and **{word_2}** mean similar things. {speaker} is using the two terms together for emphasis. If it would be clearer for your readers, you could express the emphasis with a single phrase. Alternate translation: “{alt_translation}”'
+                note_template = f'{explanation}. If it would be clearer for your readers, you could express the emphasis with a single phrase. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-doublet'
                 
                 transformed_row = [
@@ -101,19 +97,17 @@ class Doublets(TNPrepper):
         for row_list in ai_data:
             for row in row_list:
                 columns = row.split('\t')
-                if len(columns) == 6:
+                if len(columns) == 4:
                     row_dict = {
                         'Reference': columns[0],
-                        'Word 1': columns[1],
-                        'Word 2': columns[2],
-                        'Alternate Translation': columns[3],
-                        'Snippet': columns[4],
-                        'Speaker': columns[5]
+                        'Explanation': columns[1],
+                        'Snippet': columns[2],
+                        'Alternate Translation': columns[3]
                     }
                     mod_ai_data.append(row_dict)
 
         # Write the results to a new TSV file
-        headers = ['Reference', 'Word 1', 'Word 2', 'Alternate Translation', 'Snippet', 'Speaker']
+        headers = ['Reference', 'Explanation', 'Snippet', 'Alternate Translation']
         file_name = 'ai_doublets.tsv'
         data = mod_ai_data
         self._write_fieldnames_to_tsv(book_name, file_name, data, headers)

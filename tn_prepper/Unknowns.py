@@ -27,11 +27,11 @@ class Unknowns(TNPrepper):
             "As your answer, you will provide a table with exactly four tab-separated values. Do not include any introduction or explanation with the table.\n"
             "\n(1) The first column will provide the chapter and verse where the unknown word is found. Do not include the book name."
             "\n(2) The second column will provide an explanation of the unknown word. The explanation should be in this exact form: 'The word or phrase **[unknown word]** refers to [explanation]. If your readers would not be familiar with [unknown word], you could refer to a similar [class of unknown word] in your culture, or you could use a general expression.' Replace the words in brackets with the appropriate information from the verse and context."
-            "\n(3) The third column will provide a way to express the idea in a more general way, without using the unknown word. Be sure that the expression you provide fits with the semantic and structural context. "
-            "\n(4) The fourth column will include an exact quote from the verse. This quote must be the word or words from the verse that are exactly semantically equivalent to the expression you provided in the third column.\n"
-            "Be sure that the items in each row are consistent in how they understand the unknown word.\n"
+            "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea without using the unknown word."
+            "\n(4) The fourth column will provide a way to express the exact quote from the fourth value in a more general way, without using the unknown word."
+            "\nBe sure that the items in each row are consistent in how they understand the unknown word.\n"
             "Here is an example of what a row in your response might look like:\n\n"
-            "22:34\tA **rooster** is a bird that calls out loudly around the time the sun comes up. If your readers would not be familiar with this bird, you could use the name of a bird in your area that calls out or sings just before dawn, or you could use a general expression.\tbefore the birds begin to sing in the morning, you will deny three times that you know me\tthe rooster will not crow today before you deny three times that you know me\n\n"
+            "22:34\tA **rooster** is a bird that calls out loudly around the time the sun comes up. If your readers would not be familiar with this bird, you could use the name of a bird in your area that calls out or sings just before dawn, or you could use a general expression.\tthe rooster will not crow today before you deny three times that you know me\tbefore the birds begin to sing in the morning, you will deny three times that you know me\n\n"
             "Make sure that each row contains exactly four tab-separated values."
         )
 
@@ -150,13 +150,13 @@ class Unknowns(TNPrepper):
                     row_dict = {
                         'Reference': columns[0],
                         'Explanation': columns[1],
-                        'Alternate Translation': columns[2],
-                        'Snippet': columns[3]
+                        'Snippet': columns[2],
+                        'Alternate Translation': columns[3]
                     }
                     mod_ai_data.append(row_dict)
 
         # Write the results to a new TSV file
-        headers = ['Reference', 'Explanation', 'Alternate Translation', 'Snippet']
+        headers = ['Reference', 'Explanation', 'Snippet', 'Alternate Translation']
         file_name = 'ai_unknowns.tsv'
         data = mod_ai_data
         self._write_fieldnames_to_tsv(book_name, file_name, data, headers)

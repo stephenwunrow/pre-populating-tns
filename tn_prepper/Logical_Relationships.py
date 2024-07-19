@@ -20,18 +20,18 @@ class LogicalRelationships(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Please identify transition words that you find in the chapter. Only identify transition words that are significant for the logical structure of the chapter. Do not identify transition words that simply add more information without indicating a logical relationship. Also, be sure that the words are transition words, not verbs or some other part of speech.\n"
-            "As your answer, you will provide a table with exactly five tab-separated values. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
+            "Transition words are conjunctions that guide the reader in following logical structures within a section of text. You have been given a chapter from the Bible. Please identify any key transition words that you find in the chapter.\n"
+            "As your answer, you will provide a table with exactly five tab-separated values. Do not include any introduction or explanation with the table."
             "\n(1) The first column will provide the chapter and verse where the transition word is found. Do not include the book name."
-            "\n(2) The second column will provide the transition word. Quote exactly from the verse. "
+            "\n(2) The second column will indicate the precise function of the transition word in context. You must identify one of the following functions: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception."
             "\n(3) The third column will provide a one sentence explanation of the function of the transition word in context. The sentence should begin with this phrase: 'The word **word** here'. "
-            "\n(4) The fourth column will provide a way to express the idea without using the transition word that is in the verse. "
-            "\n(5) The fifth column will indicate the precise function of the transition word in context. You must identify one of the following functions: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception."
+            "\n(4) The fourth column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea with a different transition word or phrase."
+            "\n(5) The fifth column will provide a way to express the exact quote from the fourth value with a different transition word or phrase."
             "\nYou can only pick a 'condition' option if the transition word is 'if'.\n"
-            "Be sure that the values in each row are consistent in how they understand the transition word.\n"
+            "Be sure that the values in each row are consistent in how they understand the transition word. Also, be sure that the transition word is a conjunction, not some other part of speech.\n"
             "Here is an example of what your response might look like:\n\n"
-            "1:4\tbut\tThe word **but** here introduces a contrast with what Jonah said in the previous verse.\tin contrast\tcontrast\n"
-            "3:5\tAnd\tThe word **And** here connects the response of the men of Nineveh to Jonah's proclamation.\tSo\tresult"
+            "1:4\tcontrast\tThe word **but** here introduces a contrast with what Jonah said in the previous verse.\tbut\tin contrast\n"
+            "3:5\tresult\tThe word **And** here connects the response of the men of Nineveh to Jonah's proclamation.\tAnd he\tSo he"
         )
         return self._query_llm(chapter_content, prompt)
     
@@ -40,7 +40,7 @@ class LogicalRelationships(TNPrepper):
             transformed_data = []
             for row in mod_ai_data:
                 ref = row['Reference']
-                snippet = row['Transition'].strip('\'".,;!?“”’‘')
+                snippet = row['Snippet'].strip('\'".,;!?“”’‘')
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
                 function = row['Function'].strip('\'".,;!?“”’‘')
@@ -123,10 +123,10 @@ class LogicalRelationships(TNPrepper):
                 if len(columns) == 5:
                     row_dict = {
                         'Reference': columns[0],
-                        'Transition': columns[1],
+                        'Function': columns[1],
                         'Explanation': columns[2],
-                        'Alternate Translation': columns[3],
-                        'Function': columns[4]
+                        'Snippet': columns[3],
+                        'Alternate Translation': columns[4]
                     }
                     mod_ai_data.append(row_dict)
 

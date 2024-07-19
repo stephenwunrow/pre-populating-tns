@@ -11,19 +11,14 @@ class ScriptRunner(TNPrepper):
         self.script_mapping = {
             "abstract nouns": "AbstractNouns.py",
             "go": "Go.py",
-            "metaphors": "Metaphors.py",
-            "metonymy": "Metonymy.py",
             "names": "Names.py",
             "ordinals": "Ordinals.py",
             "passives": "Passives.py",
             "rhetorical questions": "RQuestion.py",
-            "personification": "Personification.py",
             "logical relationships": "Logical_Relationships.py",
-            "similes": "Similes.py",
             "parallelism": "Parallelism.py",
             "doublets": "Doublets.py",
             "unknowns": "Unknowns.py",
-            "idioms": "Idioms.py",
             "figures of speech": "test_figsofspeech.py"
             # Add more categories and corresponding scripts here
         }
