@@ -6,11 +6,16 @@ import re
 from tqdm import tqdm
 from pprint import pprint
 import time
+import openai
+from dotenv import load_dotenv
+from openai import OpenAI
+client = OpenAI()
 
 
 class TNPrepper():
-    def __init__(self):
+    def __init__(self, model='gpt-4o-mini'):
         self.output_base_dir = 'output'
+        self.model = model
 
     # Function to get the content of the file
     def _get_file_content(self, url):
@@ -149,12 +154,12 @@ class TNPrepper():
                 chapter_match = re.search(r'\\c (\d+)', chunk)
                 if chapter_match:
                     chapter = int(chapter_match.group(1))
-                
+
                 # Find verse in the chunk
                 verse_match = re.search(r'\\v (\d+)', chunk)
                 if verse_match:
                     verse = int(verse_match.group(1))
-    
+
         return verse_data
 
     # NOTE: there may be too much variation among the functions to use this for all of them
@@ -210,7 +215,7 @@ class TNPrepper():
             # Prompt the user for book name
             book_name = input("Enter the book name (e.g., 2 Chronicles): ")
         return book_name
-    
+
     def _parse_verse_ref(self, verse_ref):
         # Function to split verse_ref into chapter and verse and return as tuple for sorting
         chapter, verse = verse_ref.split(':')
@@ -239,7 +244,7 @@ class TNPrepper():
         print(f"Data has been written to {output_file}")
 
     def _write_tsv(self, book_name, file_name, headers, data):
-        
+
         output_file = self.__setup_output(book_name, file_name)
 
         with open(output_file, mode='w', newline='', encoding='utf-8') as file:
@@ -265,7 +270,7 @@ class TNPrepper():
             report_file.write(f'{message}')
             for line in data:
                 report_file.write(f'{line}\n')
-        
+
 
 
 
@@ -298,7 +303,7 @@ class TNPrepper():
             modified_verse_data = [line.split('\t') for line in all_text.split('\n')]
 
         return modified_verse_data
-    
+
     def _transform_figs_go(self, modified_verse_data, support_reference):
         word_mapping = {
             "goes": "comes",
@@ -351,7 +356,7 @@ class TNPrepper():
                             text = word_mapping[key]
                             text = re.sub(r'(has|have|had)(…| )', r'', text)
                             break  # Stop searching once a match is found
-                    
+
                     AT = re.sub(rf'(.*){key}(.*)', rf'\1{text}\2', snippet)
 
                     # Extract chapter and verse from the reference
@@ -373,7 +378,7 @@ class TNPrepper():
                     transformed_data.append(transformed_row)
 
             return transformed_data
-        
+
     ## figs-activepassive
     def _figs_passive(self, verse_data):
         modified_verse_data = list()
@@ -398,9 +403,9 @@ class TNPrepper():
             all_text = re.sub(r'~', r'', all_text)
             # Split the modified string back into lines
             modified_verse_data = [line.split('\t') for line in all_text.split('\n')]
-        
+
         return modified_verse_data
-    
+
     def _passive_report(self, modified_verse_data):
         Niphal = []
         Qal_passive = []
@@ -430,18 +435,23 @@ class TNPrepper():
                 Other.append(line_str)
 
         return Other
-    
-    def _transform_passives(self, modified_verse_data, support_reference, note_template):
+
+    def _transform_passives(self, modified_verse_data, support_reference):
         if modified_verse_data:
             transformed_data = []
             for row in modified_verse_data:
                 if len(row) == 4:
-                    reference = row[0]
-                    snippet = row[1]
-                    lexeme = row[2]
+                    reference = row['Reference']
+                    snippet = row['Glosses']
+                    lexeme = row['Lexeme']
 
                     # Extract chapter and verse from the reference
                     chapter_verse = reference.rsplit(' ', 1)[1]
+
+                    if '&' in lexeme:
+                        note_template = 'If your language does not use these passive forms, you could express the ideas in active form or in another way that is natural in your language. Alternate translation: “alternate_translation”'
+                    else:
+                        note_template = 'If your language does not use this passive form, you could express the idea in active form or in another way that is natural in your language. Alternate translation: “alternate_translation”'
 
                     # Create the new row
                     transformed_row = [
@@ -480,7 +490,7 @@ class TNPrepper():
             a_tags = soup.find_all('a', href=True, title=lambda x: x and x.endswith('.md'))
             words = [a_tag['title'].split('.md')[0] for a_tag in a_tags]
             return words
-        
+
         scraped_names = __extract_words_from_url(url)
 
         all_names_to_remove = [name.lower() for name in scraped_names + custom_words_to_remove]
@@ -500,20 +510,20 @@ class TNPrepper():
                             else:
                                 name_count[name] = 1
                         row.append(name)
-                
+
             sorted_name_count = sorted(name_count.items(), key=lambda x: x[1], reverse=True)
 
             joined_name_count = []
             for name, count in sorted_name_count:
                 joined_name_count.append([name, str(count)])
-        
+
             def __filter_rows(verse_data, all_names_to_remove):
                 filtered_rows = []
                 for row in verse_data:
                     if row[4].lower() not in all_names_to_remove:
                         filtered_rows.append(row)
                 return filtered_rows
-                    
+
             modified_verse_data = __filter_rows(verse_data, all_names_to_remove)
 
         return joined_name_count, modified_verse_data
@@ -574,11 +584,11 @@ class TNPrepper():
                 if new_text == combined_data:
                     break
                 combined_data = new_text
-                
+
             combined_data = combined_data.split('\n')
-            
+
             return combined_data
-        
+
         def __find_abnouns(combined_data, ab_nouns):
             found_instances = []
             patterns = {}
@@ -597,7 +607,7 @@ class TNPrepper():
                             # Append to verse_data with lexeme, verse reference, and ab_noun
                             found_instances.append(f'{match}\t{ab_noun}\n')
             return found_instances
-        
+
         def __delete_repeats(found_instances):
 
             # Apply regex replacements repeatedly
@@ -613,10 +623,7 @@ class TNPrepper():
 
             # Define the patterns and replacements
             replacements = [
-                (r'(.+?)(\t)(\w+) (\w+)(\t.+?)\n\1\t\3.+', r'\1\2\3 \4\5'),
-                (r'(.+?)(\t)(\w+) (\w+)(\t.+?)\n\1\t\4.+', r'\1\2\3 \4\5'),
-                (r'(.+?)(\t)(\w+)(\t.+?\n)(\1\t\w+ \3\t.+)', r'\5'),
-                (r'(.+?)(\t)(\w+)(\t.+?\n)(\1\t\3 \w+\t.+)', r'\5')
+                (r'([^\n]+?\d)(\t)([^\n\t]+)(\t)([^\n\t]+\t[^\n\t]+)(\t)([^\n\t]+)\n(\1\2\3\4\5\t[^\n\t]+)', r'\8')
             ]
 
             # Join the verse_data list into a single string
@@ -629,7 +636,7 @@ class TNPrepper():
             modified_verse_data = verse_data_str.split('\n')
 
             return modified_verse_data
-        
+
         def __count_nouns(modified_verse_data):
             # Count occurrences of each abstract noun
             abstract_noun_counts = {}
@@ -647,7 +654,7 @@ class TNPrepper():
             sorted_counts = sorted(abstract_noun_counts.items(), key=lambda x: x[1], reverse=True)
 
             return sorted_counts
-        
+
         combined_data = __combine_glosses(verse_data)
 
         found_instances = __find_abnouns(combined_data, ab_nouns)
@@ -739,7 +746,38 @@ class TNPrepper():
             self.__wait_between_queries(2)
 
             return response
-        
+
+    def _query_openai(self, context, prompt):
+        combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
+        response = None
+
+        try:
+            completion = client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "I want to write translation notes for translation issues in the Bible. These translation notes will include chapter and verse, "
+                    "an explanation of the translation issue, an alternate way to translate the idea without using the figure of speech, and the words from the Bible translation "
+                    "that need to be replaced to include the alternate translation. In order to accomplish this goal, I want you to provide me with the precise data I request. "
+                    "You should not provide explanations and interpretation unless you are specifically asked to do so."},
+                    {"role": "user", "content": combined_prompt}
+                ],
+                temperature=0.4
+            )
+
+            response_content = completion.choices[0].message.content
+            response = response_content
+
+        except openai.error.OpenAIError as e:
+            print(f"Failed to get response for prompt: {prompt}")
+            print(f"Exception: {e}")
+
+        finally:
+            print(combined_prompt)
+            print(f'Response: {response}')
+            print('---')
+
+            return response
+
     ## Combine name notes together (use at the end of ATs_snippets.py)
     def _combine_names(self, ai_notes):
         # Join all lines into a single string
@@ -791,5 +829,5 @@ class TNPrepper():
             # Split each line by tabs and create a dictionary for each
             values = line.split('\t')
             result_lines.append({key: value for key, value in zip(ai_notes[0].keys(), values)})
-        
+
         return result_lines

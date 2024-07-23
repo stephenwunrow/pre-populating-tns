@@ -83,7 +83,7 @@ class ATSnippets(TNPrepper):
         )
 
         # Query LLM for response
-        response = self.__query_llm(context, prompt)
+        response = self._query_openai(context, prompt)
 
         if response is None:
             ai_notes.append(note)
@@ -105,8 +105,8 @@ class ATSnippets(TNPrepper):
 
             # Generate prompt 1
             prompt1 = (
-                f"In {verse_reference}, the noun '{bold_word}' is abstract. Express the meaning in another way, without using this or any other abstract noun. "
-                f"Make your answer as short as possible, and respond with the rephrased text only."
+                f"In {verse_reference}, the noun '{bold_word}' is abstract. Express the meaning with the same root form in a different part of speech. For example, 'faithfulness' could become 'faithful.' When you do this, you may need to adjust the rest of the clause. "
+                f"Make your answer as short as possible, and respond with the rephrased text only. Do not include any explanation."
             )
 
         elif note['Note'].count('*') > 4:
@@ -119,12 +119,12 @@ class ATSnippets(TNPrepper):
 
             # Generate prompt 1
             prompt1 = (
-                f"In {verse_reference}, the nouns {bold_phrase} are all abstract. Express the meaning in another way, without using these or any other abstract nouns. "
+                f"In {verse_reference}, the nouns {bold_phrase} are all abstract. Express the meaning with the same root forms but with a different part of speech. For example, 'faithfulness' could become 'faithful', and 'power' could become 'powerfully'. When you do this, you may need to adjust the rest of the clause. "
                 f"Make your answer as short as possible, and respond with the rephrased text only."
             )
 
         # Query LLM for response 1
-        response1 = self.__query_llm(context, prompt1)
+        response1 = self._query_openai(context, prompt1)
         if response1 is None:
             ai_notes.append(note)
 
@@ -136,7 +136,7 @@ class ATSnippets(TNPrepper):
             )
 
             # Query LLM for response 2
-            response2 = self.__query_llm(context, prompt2)
+            response2 = self._query_openai(context, prompt2)
             if response2 is None:
                 ai_notes.append(note)
 
@@ -157,7 +157,7 @@ class ATSnippets(TNPrepper):
         )
 
         # Query LLM for response 1
-        response1 = self.__query_llm(context, prompt1)
+        response1 = self._query_openai(context, prompt1)
         if response1 is None:
             ai_notes.append(note)
 
@@ -169,7 +169,7 @@ class ATSnippets(TNPrepper):
             )
 
             # Query LLM for response 2
-            response2 = self.__query_llm(context, prompt2)
+            response2 = self._query_openai(context, prompt2)
             if response2 is None:
                 ai_notes.append(note)
 
@@ -185,11 +185,11 @@ class ATSnippets(TNPrepper):
 
         # Generate prompt 1
         prompt1 = (
-            f"In {verse_reference}, the phrase '{snippet}' contains a passive form. Provide a way to express the idea in active form, including the agent of the action if you can infer it from the context. Make your answer as short as possible, and respond with the rephrased text only."
+            f"In {verse_reference}, the phrase '{snippet}' contains one or several passive forms. Provide a way to express the idea in active form, including the agent of the action if you can infer it from the context. Make your answer as short as possible, and respond with the rephrased text only."
         )
 
         # Query LLM for response 1
-        response1 = self.__query_llm(context, prompt1)
+        response1 = self._query_openai(context, prompt1)
         if response1 is None:
             ai_notes.append(note)
 
@@ -201,7 +201,7 @@ class ATSnippets(TNPrepper):
             )
 
             # Query LLM for response 2
-            response2 = self.__query_llm(context, prompt2)
+            response2 = self._query_openai(context, prompt2)
             if response2 is None:
                 ai_notes.append(note)
 
@@ -222,7 +222,7 @@ class ATSnippets(TNPrepper):
         )
 
         # Query LLM for response
-        response = self.__query_llm(context, prompt)
+        response = self._query_openai(context, prompt)
         if response is None:
             ai_notes.append(note)
 

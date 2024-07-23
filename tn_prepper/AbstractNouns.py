@@ -86,7 +86,6 @@ promises	8
 comfort	8
 faithfulness	7
 royalty	7
-trouble	7
 sickness	7
 temptation	7
 unbelief	7
