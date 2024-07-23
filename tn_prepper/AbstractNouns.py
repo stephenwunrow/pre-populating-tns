@@ -4,7 +4,7 @@ import os
 import csv
 from io import StringIO
 import re
-from itertools import permutations
+from itertools import permutations, combinations
 from collections import defaultdict
 
 
@@ -644,64 +644,104 @@ class AbstractNouns(TNPrepper):
 
         return combined_verse_data
 
-    def __combine_rows(self, combined_verse_data, verse_text_data):
+    def __combine_rows(self, modified_verse_data, verse_text_data):
         verse_dict = {row['Reference']: row['Verse'] for row in verse_text_data}
         combined_data_dict = defaultdict(list)
-        
-        combined_verse_data = self.__parse_combined_verse_data(combined_verse_data)
+
+        # Parse the modified verse data
+        combined_verse_data = self.__parse_combined_verse_data(modified_verse_data)
 
         for row in combined_verse_data:
             reference = row['Reference']
             combined_data_dict[reference].append(row)
 
         combined_data = []
+        processed_references = set()
 
         for reference, rows in combined_data_dict.items():
+            if reference in processed_references:
+                continue  # Skip this reference if already processed
+
             verse = verse_dict.get(reference, "")
             if not verse:
                 continue
 
-            names = [re.escape(row['Name']) for row in rows]
+            glosses = [row['Glosses'] for row in rows]
+            glosses_set = set(glosses)  # For efficient lookup
 
-            # Try all permutations of names to find a valid sequence in the verse text
+            gloss_to_pattern = {re.escape(gloss): gloss for gloss in glosses}
+            found_glosses = set()
             found_valid_sequence = False
 
-            for perm in permutations(names):
-                pattern_parts = []
-                for i in range(len(perm) - 1):
-                    pattern_parts.append(perm[i])
-                    pattern_parts.append(r'[^.?!]+?')
-                pattern_parts.append(perm[-1])
+            for r in range(len(glosses), 1, -1):
+                for comb in combinations(glosses, r):
+                    for perm in permutations(comb):
+                        # Skip if any gloss in the permutation has already been used
+                        if any(gloss in found_glosses for gloss in perm):
+                            continue
 
-                names_joined_pattern = ''.join(pattern_parts)
+                        # Create a regex pattern and track glosses used
+                        pattern_parts = []
+                        glosses_used = []
 
-                # Searching for matches in the verse
-                combined_rows = []
+                        for i in range(len(perm) - 1):
+                            gloss = re.escape(perm[i])
+                            mod_gloss = re.sub('…', '.+?', gloss)
+                            pattern_parts.append(mod_gloss)
+                            pattern_parts.append(r'[^;.?:!]+?')  # Match any characters except sentence delimiters
+                            glosses_used.append(gloss)
+                        pattern_parts.append(re.escape(perm[-1]))
+                        glosses_used.append(re.escape(perm[-1]))
 
-                for match in re.finditer(names_joined_pattern, verse, re.IGNORECASE):
-                    start, end = match.span()
-                    glosses = '…'.join(row['Glosses'] for row in rows)
-                    lexeme = ' & '.join(row['Lexeme'] for row in rows)
-                    morphology = '; '.join(row['Morphology'] for row in rows)
-                    name = ', '.join(row['Name'] for row in rows)
+                        names_joined_pattern = ''.join(pattern_parts)
 
-                    combined_rows.append({
-                        'Reference': reference,
-                        'Glosses': glosses,
-                        'Lexeme': lexeme,
-                        'Morphology': morphology,
-                        'Name': name
-                    })
+                        # Search for matches in the verse
+                        for match in re.finditer(names_joined_pattern, verse, re.IGNORECASE):
+                            start, end = match.span()
+                            matched_text = verse[start:end]
 
-                if combined_rows:
-                    combined_data.extend(combined_rows)
-                    found_valid_sequence = True
-                    break  # Stop searching if a valid sequence is found
+                            # Map back to original glosses
+                            reconstructed_glosses = []
+                            for part in pattern_parts:
+                                if part in gloss_to_pattern:
+                                    reconstructed_glosses.append(gloss_to_pattern[part])
 
-            # If no valid sequence was found, handle this case (e.g., append rows individually or handle differently)
-            if not found_valid_sequence:
-                # Example fallback: append rows individually if no valid sequence was found
-                combined_data.extend(rows)
+                            # Filter rows based on the reconstructed glosses
+                            matched_rows = [row for row in rows if row['Glosses'] in reconstructed_glosses]
+                            found_glosses.update(reconstructed_glosses)
+
+                            if matched_rows:
+                                # Join matched rows
+                                glosses_combined = '…'.join(row['Glosses'] for row in matched_rows)
+                                lexeme_combined = ' & '.join(row['Lexeme'] for row in matched_rows)
+                                morphology_combined = '; '.join(row['Morphology'] for row in matched_rows)
+                                name = ', '.join(row['Name'] for row in rows)
+
+                                combined_data.append({
+                                    'Reference': reference,
+                                    'Glosses': glosses_combined,
+                                    'Lexeme': lexeme_combined,
+                                    'Morphology': morphology_combined,
+                                    'Name': name
+                                })
+
+                                found_valid_sequence = True
+                                break  # Stop searching if a valid sequence is found
+
+                            if found_valid_sequence:
+                                break
+                        if found_valid_sequence:
+                            break
+                    if found_valid_sequence:
+                        break
+
+            # Handle non-found glosses
+            non_found_glosses = set(glosses) - found_glosses
+            if non_found_glosses:
+                non_found_rows = [row for row in rows if row['Glosses'] in non_found_glosses]
+                combined_data.extend(non_found_rows)
+
+            processed_references.add(reference)  # Mark this reference as processed
 
         return combined_data
 
