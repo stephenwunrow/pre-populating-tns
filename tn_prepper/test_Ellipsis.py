@@ -13,24 +13,29 @@ class Ellipsis(TNPrepper):
 
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
-    def __process_prompt(self, chapter_content):
+    def __process_prompt1(self, chapter_content):
         prompt = (
-            "A clause must contain a subject and a main verb. Ellipsis occurs when the subject or main verb in a clause is omitted but can be inferred from the context. You have been given a chapter from the Bible. Identify all places where there is ellipsis, if any.\n"
-            "As your answer, you will provide a TSV table with exactly four tab-separated values. If there are multiple places in a verse where ellipsis occurs, include a separate row in the able for each one.\n"
+            "Ellipsis occurs when an author repeats the structure of a preceding clause but omits some of the key grammatical elements, usually the subject and/or main verb. Authors do this because readers can infer the omitted elements from the preceding clause.\n"
+            "You have been given a chapter from the Bible. Identify the subject and main verb in each independent and dependent clause in this chapter. If the subject and/or verb are omitted, identify the clause as ellipsis.\n"
+            "In your answer, make sure to include the clause, the subject, the verb, and whether there is ellipsis or not. Provide the data in this form:\n"
+            "**Book_Name Chapter:Verse**\n"
+            "**Clause**: clause_text\n"
+            "**Subject**: subject_text\n"
+            "**Verb**: verb_text\n"
+            "**Ellipsis**: either 'Yes' or 'No'\n\n"
+        )
+
+        return self._query_openai(chapter_content, prompt)
+    
+    def __process_prompt2(self, chapter_content, ellipses):
+        prompt = (
+            f"Here is a set of possible ellipses in this chapter: {ellipses}.\n"
+            "For each ellipsis, analyze the data and the chapter. Make sure that each possible ellipsis is a true case of ellipsis.\n"
+            "Then, for each true case of ellipsis, provide a TSV table with four tab-separated columns:"
             "\n(1) The first column will provide the chapter and verse where the ellipsis occurs. Do not include the book name."
-            "\n(2) The second column will name who writes or speaks the ellipsis."
+            "\n(2) The second column will name the person who wrote or spoke the verse in the chapter context."
             "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to make the omitted words explicit."
             "\n(4) The fourth column will provide a way to express the exact quote from the fourth value with the omitted words made explicit. The rephrased text should be as similar to the quote as possible, adding as few words as possible to make the omitted words explicit."
-            "\nBe sure that the items in each row are consistent in how they understand the ellipsis."
-            "\n# Important:"
-            "\n\t• Focus on identifying ellipsis where the subject or main verb is omitted."
-            "\n\t• Do not include conjunctions or repetitive structures unless they omit the subject or main verb."
-            "\n\t• Ensure that the rephrased quote maintains the original meaning by only adding the necessary omitted words."
-            "\n\t• Be completely sure that there is an ellipsis. It is better to have no data than to have false data."
-            "\n# Example:"
-            "\n\t• Original verse: 'so his life abhors bread, and his soul food of desire'"
-            "\n\t• Identified instance of ellipsis: 'his soul food of desire'"
-            "\n\t• Rephrased instance: 'his sould abhors food of desire'"
         )
 
         return self._query_openai(chapter_content, prompt)
@@ -87,14 +92,33 @@ class Ellipsis(TNPrepper):
                 chapters[chapter] = []
             chapters[chapter].append(verse)
 
+        for chapter_key, verses in chapters.items():
+            ellipses = []
+            # Combine verses into chapter context
+            chapter_content = "\n".join([f"{verse['Reference']} {verse['Verse']}" for verse in verses])
+            response1 = self.__process_prompt1(chapter_content)
+            if response1:
+                ellipsis_search = re.compile(fr'\*\*{book_name} (\d+:\d+)\*\*[^\n]*\n\*\*Clause\*\*: ([^\n]+)\n\*\*Subject\*\*: ([^\n]+)\n\*\*Verb\*\*: ([^\n]+)\n\*\*Ellipsis\*\*: Yes')
+                matches = ellipsis_search.findall(response1)
+                for match in matches:
+                    print(match)
+                    ellipses.append({
+                        "Reference": match[0],
+                        "Clause": match[1],
+                        "Subject": match[2],
+                        "Verb": match[3],
+                    })
+            print(ellipses)
+
+
         # Process each chapter for personification
         ai_data = []
         for chapter_key, verses in chapters.items():
             # Combine verses into chapter context
             chapter_content = "\n".join([f"{verse['Reference']} {verse['Verse']}" for verse in verses])
-            response = self.__process_prompt(chapter_content)
-            if response:
-                ai_data.append(response.split('\n'))
+            response2 = self.__process_prompt2(chapter_content, ellipses)
+            if response2:
+                ai_data.append(response2.split('\n'))
         
         # Flatten the list of lists into a single list of dictionaries
         mod_ai_data = []

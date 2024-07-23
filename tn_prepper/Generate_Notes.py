@@ -9,18 +9,19 @@ class ScriptRunner(TNPrepper):
 
         # Mapping from category to script name
         self.script_mapping = {
-            "abstract nouns": "test_AbstractNouns.py",
+            "abstract nouns": "AbstractNouns.py",
             "go": "Go.py",
             "names": "Names.py",
             "ordinals": "Ordinals.py",
-            "passives": "test_Passives.py",
+            "passives": "Passives.py",
             "rhetorical questions": "RQuestion.py",
             "logical relationships": "Logical_Relationships.py",
             "parallelism": "Parallelism.py",
             "doublets": "Doublets.py",
             "unknowns": "Unknowns.py",
             "explicit": "explicit.py",
-            "figures of speech": "test_figsofspeech.py"
+            "ellipsis": "test_Ellipsis.py",
+            "figures of speech": "Figs_of_Speech.py"
             # Add more categories and corresponding scripts here
         }
 
