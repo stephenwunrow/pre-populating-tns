@@ -151,6 +151,7 @@ class Combine_Notes(TNPrepper):
                        f'output/{self.book_name}/transformed_ai_unknowns.tsv',
                        f'output/{self.book_name}/transformed_ai_idioms.tsv',
                        f'output/{self.book_name}/transformed_ai_figures_of_speech.tsv',
+                       f'output/{self.book_name}/transformed_ai_explicit.tsv,'
                        ]
 
         # Output file name
