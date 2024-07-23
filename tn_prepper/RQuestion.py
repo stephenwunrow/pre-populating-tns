@@ -11,12 +11,7 @@ class RQuestion(TNPrepper):
 
         load_dotenv()
 
-        api_key = os.getenv('API_KEY')
         self.verse_text = f'output/{book_name}/ult_book.tsv'
-
-        # Initialize the Groq client with your API key
-        self.groq_client = Groq(api_key=api_key)
-        self.groq_model = 'llama3-70b-8192'
 
     def __process_prompt(self, chapter_content):
         prompt = (
@@ -31,7 +26,7 @@ class RQuestion(TNPrepper):
             "\nMake sure that the values in each row are consistent in how they identify, understand, and explain the rhetorical question.\n"
             "Also, make sure that each row contains exactly these five values, separated by tabs."
         )
-        return self._query_llm(chapter_content, prompt)
+        return self._query_openai(chapter_content, prompt)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:

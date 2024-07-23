@@ -10,16 +10,11 @@ class Doublets(TNPrepper):
 
         load_dotenv()
 
-        api_key = os.getenv('API_KEY')
         self.verse_text = f'output/{book_name}/ult_book.tsv'
-
-        # Initialize the Groq client with your API key
-        self.groq_client = Groq(api_key=api_key)
-        self.groq_model = 'llama3-70b-8192'
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "A doublet is two or more words or very short phrases that mean the same thing and that are joined directly by 'and'. Be sure that the words or phrases you identify are not full clauses.\n"
+            "A doublet is two words or very short phrases that have the same meaning and that are joined directly by 'and'. This type of repetition emphasizes the meaning. Be sure that the words or phrases you identify are not full clauses.\n"
             "In the chapter of the Bible provided above, identify each doublet.\n"
             "When you find a doublet, you will append a row of data to a table. Each row should contain exactly four tab-separated values, no more or less. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the doublet is found. Do not include the book name."
@@ -28,9 +23,9 @@ class Doublets(TNPrepper):
             "\n(4) The fourth tab-separated value will provide a way to express the quote from the third value without using a doublet. This alternate expression should be able to replace the quote in the verse context without losing any meaning."
             "\nBe sure that the items in each row are consistent in how they understand the doublet.\n"
             "Here is an example of what a row of values might look like:\n\n"
-            "34:28\tThe terms **Observe** and **see** mean similar things. Elihu is using the two terms together for emphasis.\tCarefully observe the heavens\tObserve the heavens and see\n"
+            "34:28\tThe terms **Observe** and **see** mean similar things. Elihu is using the two terms together for emphasis.\tCarefully observe\tObserve and see\n"
         )
-        return self._query_llm(chapter_content, prompt)
+        return self._query_openai(chapter_content, prompt)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:

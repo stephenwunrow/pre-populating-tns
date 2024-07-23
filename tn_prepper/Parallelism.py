@@ -10,27 +10,22 @@ class Parallelism(TNPrepper):
 
         load_dotenv()
 
-        api_key = os.getenv('API_KEY')
         self.verse_text = f'output/{book_name}/ult_book.tsv'
-
-        # Initialize the Groq client with your API key
-        self.groq_client = Groq(api_key=api_key)
-        self.groq_model = 'llama3-70b-8192'
 
     def __process_prompt(self, chapter_content):
         prompt = (
             "In parallelism, two clauses that have equivalent grammatical structures and equivalent meanings are used together for poetic effect. In the chapter from the Bible above, identify any parallelisms. Be sure that what you identify as parallelism is made up of exactly two clauses within one verse that have equivalent meanings and equivalent grammatical structures.\n\n"
-            "Provide your answer in table form without any introduction or explanation. If there are multiple pairs of parallel lines in a verse, provide a separate row for each pair."
+            "Provide your answer in TSV form without any introduction or explanation. If there are multiple pairs of parallel lines in a verse, provide a separate row for each pair."
             "Each row should contain exactly four tab-separated values:\n\n"
-            "(1) The first value will be the chapter and verse where the parallelism is found (without the book name).\n"
-            "(2) The second value will be the two clauses that make up the parallelism. You should quote exactly from the verse.\n"
-            "(3) The third value will be a way to express the two parallel clauses you quoted as only one clause. Be sure that this clause can completely replace the two clauses you quoted.\n"
-            "(4) The fourth value will identify who writes or speaks the parallelism.\n\n"
+            "(1) The first tab-separated value will be the chapter and verse where the parallelism is found (without the book name).\n"
+            "(2) The second tab-separated value will be the two clauses that make up the parallelism. Make sure that you quote exactly from the verse.\n"
+            "(3) The third tab-separated value will be a way to express the two parallel clauses you quoted as a single, simple clause. Be sure that this simple clause expresses the idea of the two clauses you quoted.\n"
+            "(4) The fourth tab-separated value will identify who writes or speaks the parallelism.\n\n"
             "Ensure consistency in how you understand and present the parallelism.\n"
-            "Also, be sure that there are exactly four values in each row."
+            "Also, be sure that there are exactly four tab-separated values in each row."
 
         )
-        return self._query_llm(chapter_content, prompt)
+        return self._query_openai(chapter_content, prompt)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
@@ -40,7 +35,7 @@ class Parallelism(TNPrepper):
                 snippet = row['Phrases'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
                 speaker = row['Speaker'].strip('\'".,;!?“”’‘')
-                note_template = f'These two phrases mean similar things. {speaker} is using repetition to emphasize the idea that the phrases express. If it would be helpful to your readers, you could indicate that by using a word other than “and” in your translation. Alternate translation: “{alt_translation}”'
+                note_template = f'These two phrases mean similar things. {speaker} is using repetition to emphasize the idea that the phrases express. If it would be helpful to your readers, you could indicate that by using a word other than “and” in your translation, or you could combine the phrases. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-parallelism'
                 
                 transformed_row = [

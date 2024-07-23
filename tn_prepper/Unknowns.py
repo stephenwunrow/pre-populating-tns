@@ -14,28 +14,22 @@ class Unknowns(TNPrepper):
 
         load_dotenv()
 
-        api_key = os.getenv('API_KEY')
         self.verse_text = f'output/{book_name}/ult_book.tsv'
-
-        # Initialize the Groq client with your API key
-        self.groq_client = Groq(api_key=api_key)
-        self.groq_model = 'llama3-70b-8192'
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "You have been given a chapter from the Bible. Identify any individual words that refer to objects or things that would be unfamiliar to people in other cultures. Do not include proper names.\n" 
-            "As your answer, you will provide a table with exactly four tab-separated values. Do not include any introduction or explanation with the table.\n"
-            "\n(1) The first column will provide the chapter and verse where the unknown word is found. Do not include the book name."
+            "You have been given a chapter from the Bible. Identify any individual words that refer to objects or things that would be unfamiliar to people in other cultures.\n"
+            "Do not include proper nouns such as names of people (e.g., 'David'), places (e.g., 'Lebanon', 'Zion'), or specific entities (e.g., 'Temple', 'Ark of the Covenant'). Proper nouns are typically capitalized and refer to unique entities, whereas common nouns refer to general items or concepts.\n" 
+            "As your answer, you will provide a table with exactly four tab-separated values. If there are multiple unfamiliar words in a verse, include a separate row in the able for each one.\n"
+            "\n(1) The first column will provide the chapter and verse where the unknown word is found. Do not include the book name. Make sure that you identify the verse where the word is found."
             "\n(2) The second column will provide an explanation of the unknown word. The explanation should be in this exact form: 'The word or phrase **[unknown word]** refers to [explanation]. If your readers would not be familiar with [unknown word], you could refer to a similar [class of unknown word] in your culture, or you could use a general expression.' Replace the words in brackets with the appropriate information from the verse and context."
             "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea without using the unknown word."
             "\n(4) The fourth column will provide a way to express the exact quote from the fourth value in a more general way, without using the unknown word."
             "\nBe sure that the items in each row are consistent in how they understand the unknown word.\n"
-            "Here is an example of what a row in your response might look like:\n\n"
-            "22:34\tA **rooster** is a bird that calls out loudly around the time the sun comes up. If your readers would not be familiar with this bird, you could use the name of a bird in your area that calls out or sings just before dawn, or you could use a general expression.\tthe rooster will not crow today before you deny three times that you know me\tbefore the birds begin to sing in the morning, you will deny three times that you know me\n\n"
-            "Make sure that each row contains exactly four tab-separated values."
+            "Also, make sure that each row contains exactly four tab-separated values."
         )
 
-        return self._query_llm(chapter_content, prompt)
+        return self._query_openai(chapter_content, prompt)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:

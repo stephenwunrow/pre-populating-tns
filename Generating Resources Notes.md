@@ -49,6 +49,7 @@ Based on the tests I've run, I'm including here what seem to be requirements for
 # Points System for Rating Output
     * Recognition of issue and note written
         If issue not recognized, give zero points
+        If false issue raised, give zero points
 
     * 6 points - Appropriate sup ref and note template
     * 6 points - Appropriate AT for sup ref

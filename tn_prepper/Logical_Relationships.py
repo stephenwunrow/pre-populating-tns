@@ -11,12 +11,7 @@ class LogicalRelationships(TNPrepper):
 
         load_dotenv()
 
-        api_key = os.getenv('API_KEY')
         self.verse_text = f'output/{book_name}/ult_book.tsv'
-
-        # Initialize the Groq client with your API key
-        self.groq_client = Groq(api_key=api_key)
-        self.groq_model = 'llama3-70b-8192'
 
     def __process_prompt(self, chapter_content):
         prompt = (
@@ -33,17 +28,17 @@ class LogicalRelationships(TNPrepper):
             "1:4\tcontrast\tThe word **but** here introduces a contrast with what Jonah said in the previous verse.\tbut\tin contrast\n"
             "3:5\tresult\tThe word **And** here connects the response of the men of Nineveh to Jonah's proclamation.\tAnd he\tSo he"
         )
-        return self._query_llm(chapter_content, prompt)
+        return self._query_openai(chapter_content, prompt)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
             transformed_data = []
             for row in mod_ai_data:
                 ref = row['Reference']
-                snippet = row['Snippet'].strip('\'".,;!?“”’‘')
-                explanation = row['Explanation'].strip('\'".,;!?“”’‘')
-                alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
-                function = row['Function'].strip('\'".,;!?“”’‘')
+                snippet = row['Snippet'].strip('\'".,;!?“”’‘ ')
+                explanation = row['Explanation'].strip('\'".,;!?“”’‘ ')
+                alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘ ')
+                function = row['Function'].strip('\'".,;!?“”’‘ ')
                 if function.lower() == 'contrast':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-logic-contrast'
                     note_template = f'{explanation}. In your translation, indicate this strong contrast in a way that is natural in your language. Alternate translation: “{alt_translation}”'
