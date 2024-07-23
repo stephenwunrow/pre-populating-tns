@@ -33,6 +33,7 @@ class RQuestion(TNPrepper):
             transformed_data = []
             for row in mod_ai_data:
                 ref = row['Reference']
+                ref = re.sub(r'.+ (\d+:\d+)', r'\1', ref)
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'",;!?“”’‘')

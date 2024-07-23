@@ -2,9 +2,7 @@ from TNPrepper import TNPrepper
 from groq import Groq
 import os
 import csv
-import requests
 import re
-import spacy
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
@@ -20,7 +18,7 @@ class Explicit(TNPrepper):
         prompt = (
             "Implied information is information in a non-figurative context that an author does not make explicit but that can be inferred from the context. You have been given a chapter from the Bible. Identify all places where the author implies information that is significant for understanding the verse, if any.\n"
             "Be sure that what you identify as implied information is not a figure of speech, such as metaphor or simile. For the purposes of this investigation, figures of speech will not be counted as implied information.\n"
-            "As your answer, you will provide a table with exactly four tab-separated values. If there are multiple places in a place where significant information is implied, include a separate row in the able for each one.\n"
+            "As your answer, you will provide a table with exactly four tab-separated values. If there are multiple places in a verse where significant information is implied, include a separate row in the able for each one.\n"
             "\n(1) The first column will provide the chapter and verse where the information is implied. Do not include the book name."
             "\n(2) The second column will provide an explanation of the implied information. The explanation must begin in this exact way: 'The implication is that'."
             "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the implied information explicitly."
@@ -36,6 +34,7 @@ class Explicit(TNPrepper):
             transformed_data = []
             for row in mod_ai_data:
                 ref = row['Reference'].strip('\'".,;!?“”’‘')
+                ref = re.sub(r'.+ (\d+:\d+)', r'\1', ref)
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')

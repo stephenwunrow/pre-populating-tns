@@ -9,11 +9,11 @@ class ScriptRunner(TNPrepper):
 
         # Mapping from category to script name
         self.script_mapping = {
-            "abstract nouns": "AbstractNouns.py",
+            "abstract nouns": "test_AbstractNouns.py",
             "go": "Go.py",
             "names": "Names.py",
             "ordinals": "Ordinals.py",
-            "passives": "Passives.py",
+            "passives": "test_Passives.py",
             "rhetorical questions": "RQuestion.py",
             "logical relationships": "Logical_Relationships.py",
             "parallelism": "Parallelism.py",

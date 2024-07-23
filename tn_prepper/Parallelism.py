@@ -2,6 +2,7 @@ from TNPrepper import TNPrepper
 from groq import Groq
 import os
 import csv
+import re
 from dotenv import load_dotenv
 
 class Parallelism(TNPrepper):
@@ -32,6 +33,7 @@ class Parallelism(TNPrepper):
             transformed_data = []
             for row in mod_ai_data:
                 ref = row['Reference']
+                ref = re.sub(r'.+ (\d+:\d+)', r'\1', ref)
                 snippet = row['Phrases'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
                 speaker = row['Speaker'].strip('\'".,;!?“”’‘')

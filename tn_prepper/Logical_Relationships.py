@@ -35,6 +35,7 @@ class LogicalRelationships(TNPrepper):
             transformed_data = []
             for row in mod_ai_data:
                 ref = row['Reference']
+                ref = re.sub(r'.+ (\d+:\d+)', r'\1', ref)
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘ ')
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘ ')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘ ')
