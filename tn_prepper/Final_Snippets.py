@@ -219,13 +219,53 @@ class Final_Snippets(TNPrepper):
 
         return ult_dict_sorted
     
-    def _find_sequence(self, ult_dict, input_file):
+    def __combine_possessives(self, ult_dict):
+        ult_dict_combined = []
+        temp_dict = {}
+
+        i = 0
+        while i < len(ult_dict):
+            entry = list(ult_dict[i])  # Convert tuple to list
+            reference = entry[0]
+            hebrew_word = entry[1]
+            unique_number = entry[2]
+            gloss = entry[3]
+            chunk_number = entry[4]
+            
+            if gloss == 's':
+                if i > 0:
+                    previous_entry = list(ult_dict[i - 1])  # Convert tuple to list
+                    prev_reference = previous_entry[0]
+                    prev_hebrew_word = previous_entry[1]
+                    prev_unique_number = previous_entry[2]
+                    prev_gloss = previous_entry[3]
+                    prev_chunk_number = previous_entry[4]
+
+                    if (reference == prev_reference and
+                        chunk_number == prev_chunk_number and 
+                        unique_number == prev_unique_number and 
+                        hebrew_word == prev_hebrew_word):
+                        
+                        # Add '’s' to the gloss of the previous entry
+                        previous_entry[3] = prev_gloss + '’s'
+                        # Update the previous entry in ult_dict_combined
+                        ult_dict_combined[-1] = previous_entry
+                        # Skip the current entry
+                        i += 1
+                        continue
+            
+            ult_dict_combined.append(entry)
+            i += 1
+
+        return ult_dict_combined
+
+    def _find_sequence(self, ult_dict_combined, input_file):
         data, headers = self.__read_ai_notes(input_file)
         snippet_data = []
         
         # Step 1: Create a dictionary with verse_ref as key and concatenated string of gloss words as value
         gloss_dict = {}
-        for entry in ult_dict:
+        for entry in ult_dict_combined:
             verse_ref = entry[0]
             gloss_word = entry[3]
             chunk_number = entry[4]
@@ -244,7 +284,8 @@ class Final_Snippets(TNPrepper):
             verse_ref = row[0]
             phrase = row[7].strip()
             lower_phrase = phrase.lower()
-            mod_phrase = re.sub(r'[.,:;”’‘“!?—*]', r'', lower_phrase)
+            mod_phrase = re.sub(r'[.,:;”‘“!?—*]', r'', lower_phrase)
+            mod_phrase = re.sub('s’', 's', mod_phrase)
             mod_phrase = re.sub('…', ' .+?', mod_phrase)
             search_phrase = re.sub(r' ', r' \\d+ ', mod_phrase)
             search_phrase = search_phrase + ' \\d+'
@@ -260,7 +301,7 @@ class Final_Snippets(TNPrepper):
                         pairs = re.findall(r'(\w+) (\d+)', match)
                         if pairs:
                             for gloss_word, chunk_number in pairs:
-                                for entry in ult_dict:
+                                for entry in ult_dict_combined:
                                     if entry[0] == verse_ref and entry[3].lower() == gloss_word.lower() and entry[4] == int(chunk_number):
                                         entry_2_str = str(entry[2])
                                         if ' ' in entry_2_str:
@@ -278,7 +319,7 @@ class Final_Snippets(TNPrepper):
         
         return snippet_data
     
-    def _write_origl_and_snippet(self, snippet_data, ult_dict, unique_numbers):
+    def _write_origl_and_snippet(self, snippet_data, ult_dict_combined, unique_numbers):
         processed_data = []
 
         # Step 1: Include each unique number only once within brackets
@@ -299,7 +340,7 @@ class Final_Snippets(TNPrepper):
             # Step 3: Replace "chunk_number" with the corresponding English words
             english_words = []
             for chunk_num in chunk_numbers:
-                for entry in ult_dict:
+                for entry in ult_dict_combined:
                     if entry[0] == verse_ref and int(entry[4]) == chunk_num:
                         english_words.append(entry[3])
             
@@ -334,7 +375,7 @@ class Final_Snippets(TNPrepper):
             english_words = row[3]
 
             # Create a regex pattern to match the phrase with punctuation
-            search_phrase = re.sub(r' ', r'[ .,;’”“‘!?:—]+', english_words)
+            search_phrase = re.sub(r' ', '[ .,;’”“‘!?:—]+', english_words)
 
             # Find all matches of the search phrase in the data string
             matches = re.findall(search_phrase, data_str)
@@ -450,20 +491,21 @@ class Final_Snippets(TNPrepper):
         self._write_output(book_name, file, headers, data)
 
         ult_dict = self._construct_ult_dict(version, acronym, unique_numbers)
+        ult_dict_combined = self.__combine_possessives(ult_dict)
 
-        data = ult_dict
+        data = ult_dict_combined
         headers = ['Reference', 'Hebrew word', 'Unique number', 'Gloss', 'Chunk number']
         file = '2_ult_dict.tsv'
         self._write_output(book_name, file, headers, data)
 
-        snippet_data = self._find_sequence(ult_dict, input_file)
+        snippet_data = self._find_sequence(ult_dict_combined, input_file)
         
         data = snippet_data
         headers = ['Reference', 'Phrase', 'Unique numbers', 'Chunk numbers']
         file = '3_snippet_data.tsv'
         self._write_output(book_name, file, headers, data)
 
-        origl_and_snippet = self._write_origl_and_snippet(snippet_data, ult_dict, unique_numbers)
+        origl_and_snippet = self._write_origl_and_snippet(snippet_data, ult_dict_combined, unique_numbers)
 
         origl_and_snippet = self._add_punctuation(origl_and_snippet)
 
