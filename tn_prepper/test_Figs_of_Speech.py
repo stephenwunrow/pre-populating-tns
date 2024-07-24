@@ -13,13 +13,28 @@ class Figs(TNPrepper):
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
     def __process_prompt(self, chapter_content):
-        prompt = (
+        prompt1 = (
             "You have been given a chapter from the Bible. I want you to identify these specific figures of speech whenever they occur in the chapter: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole. This list is roughly in order from most common to least common."
             "\nIf there are several figures of speech in one verse, include all of them."
+            "\nWhen you look for each figure of speech, make sure that you carefully consider the definition of that figure of speech. Then, make sure that what you identify is not better identified as a different figure of speech."
             "\nFor each figure of speech, provide the verse, the type of figure of speech, and an exact quote from the verse that contains the figure of speech."
         )
 
-        return self._query_openai(chapter_content, prompt)
+        response1 = self._query_openai(chapter_content, prompt1)
+
+        prompt2 = (
+            f"You have been given a chapter from the Bible. Here is a list of figures of speech that you identified in this chapter: {response1}\n\n"
+
+            "\nFor each of these listed figures of speech, append a row of data to a TSV table. Each row must contain exactly five tab-separated values."
+            "\n(1) The first tab-separated value will provide the chapter and verse where the figure of speech is found. Make sure that you do not include the book name."
+            "\n(2) The second tab-separated value will identify the precise category of the figure of speech. Reproduce the category from the list of data provided to you."
+            "\n(3) The third tab-separated value will provide a one-sentence explanation of the meaning of the figure of speech in context. When you quote words from the verse, enclose them in double asterisks instead of quotation marks (like this: **quoted word**). Your sentence must begin with: 'Here, this figure of speech'."
+            "\n(4) The fourth tab-separated value will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea without the figure of speech."
+            "\n(5) The fifth tab-separated value will provide a way to express the exact quote from the fourth value without using the figure of speech. This alternate expression must exactly replace the quote from the fourth value."
+            "\nEnsure that the values in each row are consistent in identifying, understanding, and explaining the figure of speech. Each row must contain exactly five values."
+        )
+
+        return self._query_openai(chapter_content, prompt2)
 
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
