@@ -10,16 +10,11 @@ Individual python scripts process inputs, primarily a tagged English translation
     * translate-ordinal (ordinal numbers such as “fifth” or “third”)
     * figs-activepassive
     * translate-names
-    * figs-metaphor
-    * figs-metonymy
+    * figures of speech
     * figs-rquestions
-    * figs-personification
-    * figs-simile
     * figs-doublet
     * figs-parallelism
     * translate-unknowns
-
-NOTE: experimenting now with a general figures of speech script: test_figsofspeech.py.
 
 Some of the script (abstractnouns, activepassive, and names) also generate reports that are written to a report file. Finally, the generated notes are combined and sorted (first by chapter, then by verse, and finally by sequence of the English snippet that the note comments on).
 
@@ -72,11 +67,11 @@ This script scrapes the usfm data for the requested book and translation. It chu
 
 This script scrapes the usfm data for the requested book and translation. It chunks the data by Hebrew word, searches the morphology for words tagged as proper nouns, and for each found proper noun saves the reference, Hebrew word, proper noun, and snippet. It also counts how many times each proper noun appears. Then, it scrapes a list of names addressed in Translation Words and removes the lines that contain these names. After that, it writes each remaining name and count to report.md and the rows of data to en_new_names.tsv. Then, for each first occurrence of a name, it writes a row in Translation Notes format (minus ID) to `transformed_names.tsv`. For all following occurrences of the name, no row is written.
 
-## The translation issue of metaphor (6): `Metaphors.py`
+## DEPRECATED - The translation issue of metaphor (6): `Metaphors.py`
 
 This script asks an LLM to identify metaphor, and if found, runs through several queries to identify the data needed to create a note. That data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file. 
 
-## The translation issue of metonymy (7): `Metonymy.py`
+## DEPRECATED - The translation issue of metonymy (7): `Metonymy.py`
 
 This script asks an LLM to identify metonymy, and if found, runs through several queries to identify the data needed to create a note. That data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file. 
 
@@ -84,29 +79,38 @@ This script asks an LLM to identify metonymy, and if found, runs through several
 
 This script asks an LLM to identify rhetorical questions, and if found, runs through several queries to identify the data needed to create a note. That data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file. 
 
-## The translation issue of personification (9): `Personification.py`
+## DEPRECATED - The translation issue of personification (9): `Personification.py`
 
 This script is a first attempt to pass an entire chapter to an LLM and ask it to generate a table of personification data for the chapter. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
 
-## The translation issue of personification (10): `Similes.py`
+## DEPRECATED - The translation issue of similes (10): `Similes.py`
 
 This script is another attempt to pass an entire chapter to an LLM and ask it to generate a table of simile data for the chapter. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
 
-## The translation issue of personification (11): `Doublets.py`
+## The translation issue of doublets (11): `Doublets.py`
 
 This script is another attempt to pass an entire chapter to an LLM and ask it to generate a table of doublet data for the chapter. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
 
-## The translation issue of personification (12): `Parallelism.py`
+## The translation issue of parallelism (12): `Parallelism.py`
 
 This script is another attempt to pass an entire chapter to an LLM and ask it to generate a table of parallelism data for the chapter. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
 
-## The translation issue of personification (13): `Unknowns.py`
+## The translation issue of unknowns (13): `Unknowns.py`
 
 This script is another attempt to pass an entire chapter to an LLM and ask it to generate a table of parallelism data for the chapter. The data is written to a TSV file. Then, the identified words and phrases are checked against the list of defined terms in the Translation Words resource. If the word or phrase is not found in Translation Words, the row is transformed into Translation Notes format (minus ID) and written to another TSV file.
 
-## TEST: overall figs of speech: `test_figsofspeech.py`
+## The translation issue of figures of speech (14): `Figs_of_Speech.py`
 
 Instead of running each figure separately, this query asks for all figures of speech in a specific list and then provides the correct sup ref for each one.
+
+## The translation issue of implicit information (15): `Explicit.py`
+
+This script passes a chapter at a time to an LLM and asks it to generate a table of places where information is implied. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
+
+## The translation issue of ellipsis (16): `Ellipsis.py`
+
+This script passes a chapter at a time to an LLM and asks it to generate a table of places where there is grammatical ellipsis. The data is written to a TSV file. Then, the data is transformed into Translation Notes format (minus ID) and written to another TSV file.
+NOTE - the prompt needs a lot of work.
 
 ## Combining notes: `Combine_Notes.py`
 
