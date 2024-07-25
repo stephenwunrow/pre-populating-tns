@@ -24,14 +24,12 @@ class Figs(TNPrepper):
 
         prompt2 = (
             f"You have been given a chapter from the Bible. Here is a list of figures of speech that you identified in this chapter: {response1}\n\n"
-
-            "\nFor each of these listed figures of speech, append a row of data to a TSV table. Each row must contain exactly five tab-separated values."
-            "\n(1) The first tab-separated value will provide the chapter and verse where the figure of speech is found. Make sure that you do not include the book name."
-            "\n(2) The second tab-separated value will identify the precise category of the figure of speech. Reproduce the category from the list of data provided to you."
-            "\n(3) The third tab-separated value will provide a one-sentence explanation of the meaning of the figure of speech in context. When you quote words from the verse, enclose them in double asterisks instead of quotation marks (like this: **quoted word**). Your sentence must begin with: 'Here, this figure of speech'."
-            "\n(4) The fourth tab-separated value will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea without the figure of speech."
-            "\n(5) The fifth tab-separated value will provide a way to express the exact quote from the fourth value without using the figure of speech. This alternate expression must exactly replace the quote from the fourth value."
-            "\nEnsure that the values in each row are consistent in identifying, understanding, and explaining the figure of speech. Each row must contain exactly five values."
+            "\nFor each of these listed figures of speech, append a row of data to a TSV table. Each row must contain exactly eight tab-separated values. Here is what a row should be like:"
+            "chapter:verse\t\t\trc://*/ta/man/translate/figs-[figure_of_speech]\thebrew_placeholder\t1\tExplanation of the figure of speech along with an alternate translation that does not use the figure of speech\tquote from the verse that the alternate translation can replace\n\n"
+            "Here are two examples:\n"
+            "1:2			rc://*/ta/man/translate/figs-metaphor	 hebrew_placeholder	1	Here the servants speak of how the young woman will always serve the king as if she would **stand to the face of the king**. If it would be helpful in your language, you could use a comparable figure of speech or state the meaning plainly. Alternate translation: “and she will always be ready to serve”\tand she will always stand to the face of the king\n"
+            "1:37			rc://*/ta/man/translate/figs-metonymy   hebrew_placeholder  1	Here, **throne** represents the rule or reign of the person who sits on the **throne**. If it would be helpful in your language, you could use an equivalent expression from your language or state the meaning plainly. Alternate translation: “and may he make his reign greater than the reign of my lord the king David” or “and may he make him a greater ruler than my lord the king David”\tand may he make his throne greater than the throne of my lord the king David\n"
+            "Note - whenever you quote directly from the verse, you should enclose the quoted word or words in double asterisks, as in the above examples."
         )
 
         return self._query_openai(chapter_content, prompt2)
