@@ -153,6 +153,7 @@ class Combine_Notes(TNPrepper):
                        f'output/{self.book_name}/transformed_ai_figures_of_speech.tsv',
                        f'output/{self.book_name}/transformed_ai_explicit.tsv',
                        f'output/{self.book_name}/transformed_ai_ellipsis.tsv',
+                       f'output/{self.book_name}/transformed_ai_123person.tsv',
                        ]
 
         # Output file name
