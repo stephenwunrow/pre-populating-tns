@@ -499,17 +499,17 @@ class TNPrepper():
             name_count = {}
             for row in verse_data:
                 gloss = row[1]
-                mod_gloss = re.sub(r'\b(And|But|Then|Now|In|The)\b ', r'', gloss)
+                mod_gloss = re.sub(r'\b(And|But|Then|Now|In|The|At|For)\b ', r'', gloss)
                 names_search = re.findall(r'(\b[A-Z]\w+?\b)', mod_gloss)
                 if names_search:
-                    for word in names_search:
-                        name = word
-                        if name.lower() not in all_names_to_remove:
-                            if name in name_count:
-                                name_count[name] += 1
-                            else:
-                                name_count[name] = 1
-                        row.append(name)
+                    name = ' '.join(names_search)
+                    mod_name = re.sub(' ', '', name)
+                    if mod_name.lower() not in all_names_to_remove:
+                        if name in name_count:
+                            name_count[name] += 1
+                        else:
+                            name_count[name] = 1
+                    row.append(name)
 
             sorted_name_count = sorted(name_count.items(), key=lambda x: x[1], reverse=True)
 
