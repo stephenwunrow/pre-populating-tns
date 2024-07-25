@@ -89,7 +89,7 @@ class Unknowns(TNPrepper):
             return doc[0].lemma_
 
         for row in mod_ai_data:
-            found_names = {}
+            found_names = []
             text = row.get('Explanation', '')
             names = re.findall(r'\*\*(.+?)\*\*', text)
             for name in names:
