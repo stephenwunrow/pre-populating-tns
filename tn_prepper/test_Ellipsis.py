@@ -17,17 +17,16 @@ class Ellipsis(TNPrepper):
         prompt1 = (
             "Ellipsis occurs when an author repeats the structure of a preceding clause but omits some of the key grammatical elements, usually the subject and/or main verb. Authors do this because readers can infer the omitted elements from the preceding clause.\n"
             "You have been given a chapter from the Bible. Identify the subject and main verb in each independent and dependent clause in this chapter. If the subject and/or verb are omitted, identify the clause as ellipsis.\n"
-            "In this context, imperatives do not count as ellipsis, since they often omit a subject. So, do not identify imperatives without subjects as ellipsis.\n"
-            "Similarly, lists do not count as an ellipsis. If the potential ellipsis is part of a list, do not identify it as an ellipsis.\n"
+            "Be sure that you separate each verse into independent and dependent clauses.\n"
             "In your answer, make sure to include the clause, the subject, the verb, and whether there is ellipsis or not. Provide the data in this form:\n"
             "**Book_Name Chapter:Verse**\n"
             "**Clause**: clause_text\n"
             "**Subject**: subject_text\n"
             "**Verb**: verb_text\n"
             "**Ellipsis**: either 'Yes' or 'No'\n\n"
-            "Include the above set of data for every clause in the chapter. Make sure that you includ the reference at the beginning of each entry.\n"
+            "Include the above set of data for every clause in the chapter. Make sure that you include the reference at the beginning of each and every entry.\n"
             "If there is no subject and/or no verb, put 'None' as the corresponding entry.\n"
-            "If you answered 'None', and if the clause is not an imperative, you should consider it an ellipsis."
+            "If you answered 'None', you should consider the independent or dependent clause an ellipsis."
         )
 
         response1 = self._query_openai(chapter_content, prompt1)
@@ -45,9 +44,9 @@ class Ellipsis(TNPrepper):
                 })
 
         prompt2 = (
-            f"Here is a set of possible ellipses in this chapter: {ellipses}.\n"
+            f"In your previous response, you gave a set of possible ellipsis in the chapter: {ellipses}.\n"
             "If the set is empty, return the answer 'None'\n."
-            "If the set contains at least one entry, for each ellipsis, analyze the data and the chapter. Make sure that each possible ellipsis is a true case of ellipsis.\n"
+            "If the set contains at least one entry, for each ellipsis, analyze the data and the chapter. Make sure that each possible ellipsis is a true case of ellipsis. If it is not a true case of ellipsis, delete the row.\n"
             "Then, for each true case of ellipsis, provide a TSV table with four tab-separated columns:"
             "\n(1) The first column will provide the chapter and verse where the ellipsis occurs. Do not include the book name."
             "\n(2) The second column will name the person who wrote or spoke the verse in the chapter context."
@@ -103,7 +102,7 @@ class Ellipsis(TNPrepper):
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
-            book_name, chapter_and_verse = reference.split()
+            book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:
                 chapters[chapter] = []
