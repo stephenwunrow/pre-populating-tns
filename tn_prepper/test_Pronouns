@@ -15,10 +15,7 @@ class Pronouns(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "In the Bible, most pronouns have a clear referent in context. However, in some cases, the pronoun referent is not clear. I need to have data for places where the pronoun referent is particularly unclear.\n"
-            "You have been given a chapter from the Bible. Please identify each pronoun that has a particularly unclear referent. Consider the context and also what else you know as you make this identification.\n"
-            "If at first read someone could tell you what the pronoun referent is, the referent is clear, and you should not include data for that pronoun. Only if identifying the referent requires some thought should you include data.\n"
-            "For pronouns with particularly unclear referents, provide the reference, the pronoun, and the referent. If there are several possible referents, include them all."
+            "You have been given a chapter from the Bible. Imagine that you are a person reading this chapter for the first time. Would any pronouns confuse you because you were not sure what their referents were? If so, list those pronouns and their possible referent(s). Do not list any other pronouns."
         )
         return self._query_openai(chapter_content, prompt)
     
