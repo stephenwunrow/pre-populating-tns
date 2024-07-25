@@ -13,7 +13,7 @@ client = OpenAI()
 
 
 class TNPrepper():
-    def __init__(self, model='gpt-4o-mini'):
+    def __init__(self, model='gpt-4o'):
         self.output_base_dir = 'output'
         self.model = model
 
@@ -520,8 +520,9 @@ class TNPrepper():
             def __filter_rows(verse_data, all_names_to_remove):
                 filtered_rows = []
                 for row in verse_data:
-                    if row[4].lower() not in all_names_to_remove:
-                        filtered_rows.append(row)
+                    if len(row) > 4:
+                        if row[4].lower() not in all_names_to_remove:
+                            filtered_rows.append(row)
                 return filtered_rows
 
             modified_verse_data = __filter_rows(verse_data, all_names_to_remove)

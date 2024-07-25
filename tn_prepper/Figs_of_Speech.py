@@ -18,7 +18,7 @@ class Figs(TNPrepper):
             "\nIn order to accomplish this goal, I want you to provide me with the data I will now describe."
             "\n\nYou have been given a chapter from the Bible. Please identify every figure of speech in this chapter, if any. If there are several figures of speech in one verse, include all of them."
             "\nHere are the specific figures of speech to look for: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole."
-            "\nWhen you find one of these figure of speech, append a row of data to a table. Each row must contain exactly five tab-separated values. Do not include any introduction or explanation with the table."
+            "\nWhen you find one of these figure of speech, append a row of data to a TSV table. Each row must contain exactly five tab-separated values. Do not include any introduction or explanation with the table."
             "\n(1) The first tab-separated value will provide the chapter and verse where the figure of speech is found. Make sure that you do not include the book name."
             "\n(2) The second tab-separated value will identify the precise category of the figure of speech. You must use one of the following categories, which are roughly in order of probability: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole. "
             "Consider carefully how you would define each figure of speech. Then, make sure that the figure you identify fits precisely with that definition instead of some other definition. For example, if the figure of speech includes the word 'like' or 'as', you should identify it as a simile."
@@ -137,7 +137,7 @@ class Figs(TNPrepper):
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
-            book_name, chapter_and_verse = reference.split()
+            book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:
                 chapters[chapter] = []

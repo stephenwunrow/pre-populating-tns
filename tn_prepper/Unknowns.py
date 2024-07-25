@@ -89,15 +89,20 @@ class Unknowns(TNPrepper):
             return doc[0].lemma_
 
         for row in mod_ai_data:
+            found_names = {}
             text = row.get('Explanation', '')
             names = re.findall(r'\*\*(.+?)\*\*', text)
             for name in names:
-                if ' ' in name:
-                    mod_name = re.sub(r' ', r'', name)
+                if name in found_names:
+                    continue
                 else:
-                    mod_name = get_lemma(name)
-                if mod_name.lower() not in all_names_to_remove:
-                    filtered_data.append(row)
+                    if ' ' in name:
+                        mod_name = re.sub(r' ', r'', name)
+                    else:
+                        mod_name = get_lemma(name)
+                    if mod_name.lower() not in all_names_to_remove:
+                        found_names.append(name)
+                        filtered_data.append(row)
 
         return filtered_data
 
@@ -121,7 +126,7 @@ class Unknowns(TNPrepper):
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
-            book_name, chapter_and_verse = reference.split()
+            book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:
                 chapters[chapter] = []

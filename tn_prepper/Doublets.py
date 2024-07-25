@@ -74,7 +74,7 @@ class Doublets(TNPrepper):
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
-            book_name, chapter_and_verse = reference.split()
+            book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:
                 chapters[chapter] = []

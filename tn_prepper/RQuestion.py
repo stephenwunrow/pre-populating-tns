@@ -37,7 +37,7 @@ class RQuestion(TNPrepper):
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'",;!?“”’‘')
-                note_template = f'{explanation}. If it would be helpful in your language, you could state the meaning plainly. Alternate translation: “{alt_translation}”'
+                note_template = f'{explanation}. If you would not use the question form for this purpose in your language, you could translate this as a statement or an exclamation. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-rquestion'
                 
                 transformed_row = [
@@ -74,7 +74,7 @@ class RQuestion(TNPrepper):
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
-            book_name, chapter_and_verse = reference.split()
+            book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:
                 chapters[chapter] = []
