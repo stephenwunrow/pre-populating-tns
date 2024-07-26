@@ -15,14 +15,13 @@ class Quotations(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "In the Bible, quotations can be either direct, indirect, or within another quote. For whichever type of quotation appears in a sentence, I want to provide the other option in my notes. You have been given a chapter from the Bible. Please identify all direct, indirect, and quote-in-quote quotations that are contained within a verse.\n"
-            "When you find a direct, indirect, or quote-in quote quotation, you will append a row of data to a TSV table. If there are multiple quotations in a verse, include a separate row for each one.\n"
+            "In the Bible, quotations can be either direct, indirect, or within another quote. You have been given a chapter from the Bible. Please identify all direct, indirect, and quote-in-quote quotations that are contained completely within a verse (in other words, if the quote spans multiple verses, do not include it). If there are no quotes contained completely within a single verse, return 'None'.\n"
+            "Whenever you find a direct, indirect, or quote-in-quote quotation, you will append a row of data to a TSV table. If there are multiple quotations in a verse, include a separate row for each one.\n"
             "Each row must contain exactly five tab-separated values:\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the quotation is found. Do not include the book name."
-            "\n(2) The second tab-separated value will provide the words from the verse that contain the direct or indirect quotation, as well as the words that indicate who is speaking the quote. Quote exactly from the verse."
-            "\n(3) The third tab-separated value will identify whether the quote is 'direct', 'indirect', or 'quote-in-quote'."
-            "\n(4) The fourth tab-separated value will provide an exact quote from the verse. This quote will include the section of the verse that will need to be rephrased in order to express a direct quote indirectly, an indirect quote directly, or a quote-in-quote indirectly. It will also include the words that indicate who is speaking the quote."
-            "\n(5) The fifth tab-separated value will rephrase the exact quote from the fourth tab-separated value. The rephrased text will model how to rephrase a direct quote as an indirect quote, an indirect quote as a direct quote, or a quote-in-quote as an indirect quote. Ensure that the rephrased text is as close as possible to the exact quote and can exactly replace the quote."
+            "\n(2) The second tab-separated value will provide the words from the verse that contain the entire quotation and the words that introduce the quotation (including speaker and verb of speech). Quote exactly from the verse."
+            "\n(3) The third tab-separated value will identify whether the quote is 'quote-in-quote', 'direct', or 'indirect'."
+            "\n(4) The fourth tab-separated value will rephrase the words from the second tab-separated value. The rephrased text will model how to rephrase a direct quote as an indirect quote, an indirect quote as a direct quote (with quotation marks), or a quote-in-quote as a single-level quote. Ensure that the rephrased text is as close as possible to the words from the second value and can exactly replace them."
             "\nMake sure that the values in each row are consistent in how they identify, understand, and explain the quotation.\n"
         )
         return self._query_openai(chapter_content, prompt)
@@ -47,7 +46,8 @@ class Quotations(TNPrepper):
                     support_reference = 'rc://*/ta/man/translate/figs-quotesinquotes'
                 else:
                     note_template = f'It may be more natural in your language to use a different form to express the quotation here. Alternate translation: “{alt_translation}”'
-                
+                    support_reference = 'rc://*/ta/man/translate/figs-quotations'
+
                 transformed_row = [
                 ref,  # Reference
                 '',   # ID: random, unique four-letter and number combination
@@ -102,13 +102,12 @@ class Quotations(TNPrepper):
         for row_list in ai_data:
             for row in row_list:
                 columns = row.split('\t')
-                if len(columns) == 5:
+                if len(columns) == 4:
                     row_dict = {
                         'Reference': columns[0],
-                        'Quotation': columns[1],
+                        'Snippet': columns[1],
                         'Type': columns[2],
-                        'Snippet': columns[3],
-                        'Alternate Translation': columns[4]
+                        'Alternate Translation': columns[3]
                     }
                     mod_ai_data.append(row_dict)
 

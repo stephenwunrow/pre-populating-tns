@@ -13,7 +13,7 @@ client = OpenAI()
 
 
 class TNPrepper():
-    def __init__(self, model='gpt-4o'):
+    def __init__(self, model='gpt-4o-mini'):
         self.output_base_dir = 'output'
         self.model = model
 
