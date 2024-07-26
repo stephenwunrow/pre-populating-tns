@@ -16,15 +16,16 @@ class Explicit(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt = (
-            "Implied information is information in a non-figurative context that an author does not make explicit but that can be inferred from the context. You have been given a chapter from the Bible. Identify all places where the author implies information that is significant for understanding the verse, if any.\n"
-            "Be sure that what you identify as implied information is not a figure of speech, such as metaphor or simile. For the purposes of this investigation, figures of speech will not be counted as implied information.\n"
-            "As your answer, you will provide a table with exactly four tab-separated values. If there are multiple places in a verse where significant information is implied, include a separate row in the able for each one.\n"
-            "\n(1) The first column will provide the chapter and verse where the information is implied. Do not include the book name."
-            "\n(2) The second column will provide an explanation of the implied information. The explanation must begin in this exact way: 'The implication is that'."
-            "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the implied information explicitly."
-            "\n(4) The fourth column will provide a way to express the exact quote from the fourth value with the implied information made explicit. Do not remove or modify any figures of speech. The rephrased text should be as similar to the quote as possible, adding as few words as possible to make the implied information explicit."
+            "Authors sometimes omit information that they believe their readers already know. This information can be inferred from the context or is generally known in their culture.\n"
+            "However, for readers who are unfamiliar with that culture or who do not infer the information from the context, the meaning can be unclear.\n"
+            "You have been given a chapter from the Bible. Identify every instance where an author omits information that he or she assumed his or her readers would already know.\n"
+            "The issues of metaphor, metonymy, and other figures of speech, as well as the issue unusual words, will be dealt with in other notes. So, do not include those issues here. Instead, focus on issues related to whole clauses and sentences."
+            "As your answer, you will provide a TSV table with exactly four tab-separated values. If there are multiple places in a verse where significant information is omitted, include a separate row in the TSV table for each one.\n"
+            "\n(1) The first column will provide the chapter and verse where the information is omittex. Do not include the book name."
+            "\n(2) The second column will provide an explanation of the omitted information. The explanation must begin in this exact way: 'The implication is that'."
+            "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the omitted information explicitly."
+            "\n(4) The fourth column will provide a way to express the exact quote from the fourth value with the omitted information made explicit. Do not remove or modify any figures of speech, and do not shorten the quote. Match the style of the verse as closely as possible."
             "\nBe sure that the items in each row are consistent in how they understand the implied information.\n"
-            "Also, make sure that each row contains exactly four tab-separated values."
         )
 
         return self._query_openai(chapter_content, prompt)
