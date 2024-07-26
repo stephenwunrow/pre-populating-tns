@@ -402,6 +402,13 @@ class Final_Snippets(TNPrepper):
                 if ai_row[0] == reference and ai_row[7] == snippet:
                     # Replace "Quote" (row 5 in ai_notes) with english_words (row 3 in origl_and_snippet)
                     ai_row[4] = hebrew_words
+                    if ai_row[6].count('…') == 1:
+                        escaped_snippet = snippet
+                        mod_snippet = re.sub('…', '(.+?)', escaped_snippet)
+                        matches = re.findall(mod_snippet, context)
+                        for match in matches:
+                            mod_match = match.strip('[]')
+                            ai_row[6] = re.sub('…', f'{mod_match}', ai_row[6])
 
                     # Locate snippet in context and get pre-words and post-words
                     snippet_index = context.lower().find(snippet)
