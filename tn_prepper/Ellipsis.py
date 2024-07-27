@@ -14,26 +14,46 @@ class Ellipsis(TNPrepper):
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
     def __process_prompt(self, chapter_content):
-        prompt = (
-            "A clause must contain a subject and a main verb. Ellipsis occurs when the subject or main verb in a clause is omitted but can be inferred from the context. You have been given a chapter from the Bible. Identify all places where there is ellipsis, if any.\n"
-            "As your answer, you will provide a TSV table with exactly four tab-separated values. If there are multiple places in a verse where ellipsis occurs, include a separate row in the able for each one.\n"
-            "\n(1) The first column will provide the chapter and verse where the ellipsis occurs. Do not include the book name."
-            "\n(2) The second column will name who writes or speaks the ellipsis."
-            "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to make the omitted words explicit."
-            "\n(4) The fourth column will provide a way to express the exact quote from the fourth value with the omitted words made explicit. The rephrased text should be as similar to the quote as possible, adding as few words as possible to make the omitted words explicit."
-            "\nBe sure that the items in each row are consistent in how they understand the ellipsis."
-            "\n# Important:"
-            "\n\t• Focus on identifying ellipsis where the subject or main verb is omitted."
-            "\n\t• Do not include conjunctions or repetitive structures unless they omit the subject or main verb."
-            "\n\t• Ensure that the rephrased quote maintains the original meaning by only adding the necessary omitted words."
-            "\n\t• Be completely sure that there is an ellipsis. It is better to have no data than to have false data."
-            "\n# Example:"
-            "\n\t• Original verse: 'so his life abhors bread, and his soul food of desire'"
-            "\n\t• Identified instance of ellipsis: 'his soul food of desire'"
-            "\n\t• Rephrased instance: 'his sould abhors food of desire'"
+        prompt1 = (
+            "You have been given a chapter from the Bible. Identify the subject and main verb in each independent and dependent clause in this chapter. If the subject and/or verb are omitted, identify the clause as 'ellipsis'.\n"
+            "There are two exceptions to this rule: (1) imperative verbs are grammatically complete without a subject, so mark them as imperatives instead of ellipses, and (2) compound predicates have one subject with several verbs, so they count as a single clause.\n"
+            "Be sure that you separate each sentence into its independent and dependent clauses before you provide your answer.\n"
+            "In your answer, make sure to include the clause, the subject, the verb, and whether there is ellipsis or not. Provide the data in this form:\n"
+            "**Book_Name Chapter:Verse**\n"
+            "**Clause**: clause_text\n"
+            "**Subject**: subject_text\n"
+            "**Verb**: verb_text\n"
+            "**Ellipsis**: either 'Yes' or 'No'\n\n"
+            "Include the above set of data for every clause in the chapter. Make sure that you include the correct reference at the beginning of each and every entry.\n"
         )
 
-        return self._query_openai(chapter_content, prompt)
+        response1 = self._query_openai(chapter_content, prompt1)
+
+        if response1:
+            ellipses = []
+            ellipsis_search = re.compile(fr'\*\*{book_name} (\d+:\d+)\*\*[^\n]*\n\*\*Clause\*\*: ([^\n]+)\n\*\*Subject\*\*: ([^\n]+)\n\*\*Verb\*\*: ([^\n]+)\n\*\*Ellipsis\*\*: Yes')
+            matches = ellipsis_search.findall(response1)
+            for match in matches:
+                ellipses.append({
+                    "Reference": match[0],
+                    "Clause": match[1],
+                    "Subject": match[2],
+                    "Verb": match[3],
+                })
+
+        prompt2 = (
+            f"In your previous response, you gave a set of possible ellipsis in the chapter: {ellipses}.\n"
+            "If the set is empty, return the answer 'None'\n."
+            "If the set contains at least one entry, for each ellipsis, analyze the data and the chapter. Make sure that each possible ellipsis is a true case of ellipsis. If it is not a true case of ellipsis, delete the row.\n"
+            "Then, for each true case of ellipsis, provide a TSV table with four tab-separated columns:"
+            "\n(1) The first column will provide the chapter and verse where the ellipsis occurs. Do not include the book name."
+            "\n(2) The second column will name the person who wrote or spoke the verse in the chapter context."
+            "\n(3) The third column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to make the omitted words explicit."
+            "\n(4) The fourth column will provide a way to express the exact quote from the fourth value with the omitted words made explicit. You should infer the omitted words from the previous clause(s). Ensure that the rephrased text fits naturally in the context and exactly replaces the quote.\n"
+            "Ensure that your answer contains exactly these four columns in TSV format. Also, do not rephrase any figurative language."
+        )
+
+        return self._query_openai(chapter_content, prompt2)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
@@ -42,8 +62,8 @@ class Ellipsis(TNPrepper):
                 ref = row['Reference'].strip('\'".,;!?“”’‘')
                 ref = re.sub(r'.+ (\d+:\d+)', r'\1', ref)
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
-                snippet = row['Snippet'].strip('\'".,;!?“”’‘')
-                alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
+                snippet = row['Snippet'].strip('\'".,;!?“”’‘()')
+                alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘()')
                 note_template = f'{explanation} is leaving out some of the words that in many languages a sentence would need in order to be complete. You could supply these words from earlier in the sentence if it would be clearer in your language. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-ellipsis'
                 
@@ -81,7 +101,7 @@ class Ellipsis(TNPrepper):
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
-            book_name, chapter_and_verse = reference.split()
+            book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:
                 chapters[chapter] = []

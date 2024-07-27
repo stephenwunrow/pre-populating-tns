@@ -14,16 +14,29 @@ class Figs(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt1 = (
-            "You have been given a chapter from the Bible. I want you to identify these specific figures of speech whenever they occur in the chapter: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole. This list is roughly in order from most common to least common."
-            "\nIf there are several figures of speech in one verse, include all of them."
-            "\nWhen you look for each figure of speech, make sure that you carefully consider the definition of that figure of speech. Then, make sure that what you identify is not better identified as a different figure of speech."
-            "\nFor each figure of speech, provide the verse, the type of figure of speech, and an exact quote from the verse that contains the figure of speech."
+            "You have been given a chapter from the Bible. I want you to look for each of the following specific figures of speech in the chapter: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole. This list is roughly in order from most common to least common."
+            "\n\nAs you are looking for each figure of speech, make sure that you carefully consider the definition of that figure of speech. Ensure that what you find for each figure of speech is not better classified as a different figure of speech."
+            "\n\nFor each figure of speech you find, provide the following information in a tab-separated format:"
+            "\n(1) The verse reference (e.g., 1 Kings 1:1)."
+            "\n(2) The type of figure of speech."
+            "\n(3) An exact quote from the verse that contains the figure of speech."
+            "\n\nIf there are several figures of speech in one verse, include a separate set of data for each one."
         )
 
         response1 = self._query_openai(chapter_content, prompt1)
 
         prompt2 = (
-            f"You have been given a chapter from the Bible. Here is a list of figures of speech that you identified in this chapter: {response1}\n\n"
+            f"You have been given a chapter from the Bible. Here is a list of some figures of speech from this chapter:\n{response1}\n\n"
+            "I want you to double-check for each of the following specific figures of speech in the chapter: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole.\n"
+            "If you find more figures of speech, add them to the list.\n"
+            "Also double-check the label provided for the figure of speech. Consider whether it is the best label for the text. Change it to another label if it is not the best label.\n"
+            "As your answer, provide the new list."
+        )
+
+        response2 = self._query_openai(chapter_content, prompt2)
+
+        prompt3 = (
+            f"You have been given a chapter from the Bible. Here is a list of figures of speech in this chapter: {response2}\n\n"
             "\nFor each of these listed figures of speech, append a row of data to a TSV table. Each row must contain exactly eight tab-separated values. Here is what a row should be like:"
             "chapter:verse\t\t\trc://*/ta/man/translate/figs-[figure_of_speech]\thebrew_placeholder\t1\tExplanation of the figure of speech along with an alternate translation that does not use the figure of speech\tquote from the verse that the alternate translation can replace\n\n"
             "Here are two examples:\n"
@@ -32,7 +45,7 @@ class Figs(TNPrepper):
             "Note - whenever you quote directly from the verse, you should enclose the quoted word or words in double asterisks, as in the above examples."
         )
 
-        return self._query_openai(chapter_content, prompt2)
+        return self._query_openai(chapter_content, prompt3)
 
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
@@ -141,7 +154,7 @@ class Figs(TNPrepper):
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
-            book_name, chapter_and_verse = reference.split()
+            book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:
                 chapters[chapter] = []

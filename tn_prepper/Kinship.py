@@ -31,10 +31,11 @@ class RQuestion(TNPrepper):
             "Ignore any figurative uses of terms for these relationships, and focus only on literal family relationships.\n"
             "When you find a term for one of the above relationships, you must append a row of data to a TSV table. If there are multiple terms in one verse, append a separate row for each one.\n"
             "Each row must contain exactly three tab-separated values:\n"
-            "\n(1) The first tab-separated value will provide the chapter and verse where the term is found. Ensure that the term is found exactly in the verse you identify."
+            "\n(1) The first tab-separated value will provide the chapter and verse where the term is found. Ensure that you provide the correct reference for the term."
             "\n(2) The second tab-separated value will provide the term from the verse. Quote exactly from the verse."
-            "\n(3) The third tab-separated value will give the required information for the term, using all information you have available. If you do not know some of the required information, include that in your answer. The required information must be in this exact form:\n"
-            "'Here the term **[family relationship term]** specifically refers to [exact family relationship]. [Any further explanation required, such as if information is not known.] If your language has a specific word for [exact family relationship], it would be appropriate to use it here'. Replace the words in brackets with the appropriate information. If you quote directly from the verse, use double asterisks instead of quote marks, as the template illustrates.\n"
+            "\n(3) The third tab-separated value will give the required information for the term, using all information you have available. If you do not know some of the required information, include that fact in your answer. The required information must be must put in this three-sentence template:\n"
+            "'Here the term **[family relationship term]** specifically refers to [the exact family relationship]. [Any further explanation required, such as if information is not known.] If your language has a specific word for [the exact family relationship], it would be appropriate to use it here.'"
+            "\nReplace the words in brackets with the appropriate information. If you quote directly from the verse, use double asterisks instead of quote marks, as the template illustrates.\n"
             "If the term is not one of the specified family relationship terms listed above, do not include it in your response.\n"
             "Ensure that the table is in TSV form."
         )
@@ -61,7 +62,10 @@ class RQuestion(TNPrepper):
                 note_template,  # Note: standard note with {gloss}
                 snippet
             ]
-                transformed_data.append(transformed_row)
+                if re.search(r'\bnone\b', note_template, re.IGNORECASE):
+                    continue
+                else:
+                    transformed_data.append(transformed_row)
 
         return transformed_data
 

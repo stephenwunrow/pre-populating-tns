@@ -9,6 +9,7 @@ import time
 import openai
 from dotenv import load_dotenv
 from openai import OpenAI
+import tiktoken
 client = OpenAI()
 
 
@@ -16,6 +17,7 @@ class TNPrepper():
     def __init__(self, model='gpt-4o-mini'):
         self.output_base_dir = 'output'
         self.model = model
+        self.tokenizer = tiktoken.get_encoding('cl100k_base')
 
     # Function to get the content of the file
     def _get_file_content(self, url):
@@ -225,6 +227,12 @@ class TNPrepper():
         with open(file_path, mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file, delimiter='\t')
             return list(reader)
+        
+    def _read_tsv_as_lists(self, file_path):
+        with open(file_path, mode='r', newline='', encoding='utf-8') as file:
+            reader = csv.reader(file, delimiter='\t')
+            data = [row for row in reader]
+        return data
 
     def _write_output(self, book_name, file, headers, data, fieldnames=None):
 
@@ -540,7 +548,10 @@ class TNPrepper():
                     name = row[4]
                     lexeme = row[2]
                     snippet = row[1]
-                    note_template = f'The word **{name}** is the name of a ______.'
+                    if ' ' in name:
+                        note_template = f'The phrase **{name}** is the name of a ______.'
+                    else:
+                        note_template = f'The word **{name}** is the name of a ______.'
 
                     # Extract chapter and verse from the reference
                     chapter_verse = reference.rsplit(' ', 1)[1]
@@ -774,7 +785,16 @@ class TNPrepper():
 
         finally:
             print(combined_prompt)
+            query_tokens = self.tokenizer.encode(combined_prompt)
+            query_token_count = len(query_tokens)
+            print(f"Token count for the query: {query_token_count}")
+
             print(f'Response: {response}')
+            if response:
+                response_tokens = self.tokenizer.encode(response)
+                response_token_count = len(response_tokens)
+                print(f"Token count for the response: {response_token_count}")
+            print(f'Total tokens: ', query_token_count + response_token_count)
             print('---')
 
             return response

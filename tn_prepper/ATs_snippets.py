@@ -77,7 +77,7 @@ class ATSnippets(TNPrepper):
 
         # Generate prompt
         prompt = (
-            f"Given the context, does the name '{bold_word}' in {verse_reference} refer to a man, woman, god, province, region, city, or something else? "
+            f"Given the context and the what you already know, does the name '{bold_word}' in {verse_reference} refer to a man, woman, god, province, region, city, or something else? "
             f"If the name refers to a person, identify only whether the person is a man or a woman. If the name refers to anything else, be as specific as possible."
             f"Provide a one-word answer that identifies the class of thing the name '{bold_word}' refers to."
         )

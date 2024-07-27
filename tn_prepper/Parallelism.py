@@ -18,12 +18,12 @@ class Parallelism(TNPrepper):
             "In parallelism, two clauses that have equivalent grammatical structures and equivalent meanings are used together for poetic effect. In the chapter from the Bible above, identify any parallelisms. Be sure that what you identify as parallelism is made up of exactly two clauses within one verse that have equivalent meanings and equivalent grammatical structures.\n\n"
             "Provide your answer in TSV form without any introduction or explanation. If there are multiple pairs of parallel lines in a verse, provide a separate row for each pair."
             "Each row should contain exactly four tab-separated values:\n\n"
-            "(1) The first tab-separated value will be the chapter and verse where the parallelism is found (without the book name).\n"
-            "(2) The second tab-separated value will be the two clauses that make up the parallelism. Make sure that you quote exactly from the verse.\n"
+            "(1) The first tab-separated value will be the chapter and verse where the parallelism is found. Do not include the book name.\n"
+            "(2) The second tab-separated value will be the two clauses that make up the parallelism. Make sure that you quote exactly from the verse. Do not use a tab to join the two clauses.\n"
             "(3) The third tab-separated value will be a way to express the two parallel clauses you quoted as a single, simple clause. Be sure that this simple clause expresses the idea of the two clauses you quoted.\n"
             "(4) The fourth tab-separated value will identify who writes or speaks the parallelism.\n\n"
             "Ensure consistency in how you understand and present the parallelism.\n"
-            "Also, be sure that there are exactly four tab-separated values in each row."
+            "Also, ensure that there are exactly four tab-separated values in each row."
 
         )
         return self._query_openai(chapter_content, prompt)

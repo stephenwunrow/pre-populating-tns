@@ -19,10 +19,12 @@ class ScriptRunner(TNPrepper):
             "parallelism": "Parallelism.py",
             "doublets": "Doublets.py",
             "unknowns": "Unknowns.py",
-            "explicit": "explicit.py",
-            "ellipsis": "test_Ellipsis.py",
+            "explicit": "Explicit.py",
+            "ellipsis": "Ellipsis.py",
             "figures of speech": "Figs_of_Speech.py",
-            "123person": "123person.py"
+            "123person": "123person.py",
+            "kinship": "Kinship.py",
+            "quotations": "Quotations.py"
             # Add more categories and corresponding scripts here
         }
 

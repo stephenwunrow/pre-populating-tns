@@ -14,10 +14,33 @@ class Pronouns(TNPrepper):
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
     def __process_prompt(self, chapter_content):
-        prompt = (
-            "You have been given a chapter from the Bible. Imagine that you are a person reading this chapter for the first time. Would any pronouns confuse you because you were not sure what their referents were? If so, list those pronouns and their possible referent(s). Do not list any other pronouns."
+        prompt1 = (
+            "You have been given a chapter from the Bible. For each pronoun, determine whether its referent is clear from the context of the text. A pronoun is considered unclear if a reader would have difficulty identifying what or whom the pronoun refers to without additional context.\n"
+            "List only those pronouns where the referent is ambiguous or not immediately apparent. For each unclear pronoun, provide its possible referent(s).\n"
+            "Be sure to include all pronouns that do not have an explicit referent earlier in the text."
         )
-        return self._query_openai(chapter_content, prompt)
+
+        response1 = self._query_openai(chapter_content, prompt1)
+
+        prompt2 = (
+            "You have been given a chapter from the Bible. I will now provide you with a list of pronouns whose referents may not be clear from the context of the text. A pronoun is considered unclear if a reader would have difficulty identifying what or whom the pronoun refers to without additional context.\n\n"
+            f"List:\n{response1}\n\n"
+            "Analyze the list and return only those pronouns that truly have unclear referents. If none of the pronouns have unclear referents, return 'None'."
+        )
+
+        response2 = self._query_openai(chapter_content, prompt2)
+
+        prompt3 = (
+            f"You have been given a chapter from the Bible. Here is a list of pronouns whose referent is unclear:\n{response2}\n\n"
+            "If the list is empty or 'None', respond with 'None'. Otherwise, create a TSV table of exactly four columns of data based on the list and the chapter."
+            "\n(1) The first column will contain the reference for the verse where the pronoun is found. Do not include the book name."
+            "\n(2) The second column will contain the pronoun whose referent is unclear."
+            "\n(3) The third column will provide an explanation. You must follow this template: 'The pronoun **[pronoun]** refers to [the referent]. If this is not clear for your readers, you could refer to [the referent] directly.'"
+            "\n(4) The fourth column will model how the pronoun from the second column could be replaced with the referent. Be sure that the word or words you provide exactly replace the pronoun."
+            "Make sure that you are consistent in how you understand and interpret the pronoun across the columns, and use TSV format."
+        )
+
+        return self._query_openai(chapter_content, prompt3)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
@@ -25,10 +48,10 @@ class Pronouns(TNPrepper):
             for row in mod_ai_data:
                 ref = row['Reference']
                 ref = re.sub(r'.+ (\d+:\d+)', r'\1', ref)
-                function = row['Type'].strip('\'".,;!?“”’‘')
-                snippet = row['Snippet'].strip('\'".,;!“”’‘')
+                explanation = row['Explanation'].strip('\'".,;!?“”’‘')
+                snippet = row['Pronoun'].strip('\'".,;!“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'",;!?“”’‘')
-                note_template = f'It may be more natural in your language to have a direct quotation here. Alternate translation: “{alt_translation}”'
+                note_template = f'{explanation}. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/writing-pronouns'
 
                 
@@ -86,13 +109,12 @@ class Pronouns(TNPrepper):
         for row_list in ai_data:
             for row in row_list:
                 columns = row.split('\t')
-                if len(columns) == 5:
+                if len(columns) == 4:
                     row_dict = {
                         'Reference': columns[0],
-                        'Quotation': columns[1],
-                        'Type': columns[2],
-                        'Snippet': columns[3],
-                        'Alternate Translation': columns[4]
+                        'Pronoun': columns[1],
+                        'Explanation': columns[2],
+                        'Alternate Translation': columns[3],
                     }
                     mod_ai_data.append(row_dict)
 
