@@ -47,93 +47,6 @@ class Figs(TNPrepper):
 
         return self._query_openai(chapter_content, prompt3)
 
-    def _transform_response(self, mod_ai_data):
-        if mod_ai_data:
-            transformed_data = []
-            for row in mod_ai_data:
-                ref = row['Reference']
-                if book_name in ref:
-                    ref = re.sub(rf'{book_name} (.+)', r'\1', ref)
-                function = row['Function']
-                explanation = row['Explanation']
-                mod_explanation = re.sub(r'.*(Here, this.+?\.).*', r'\1', explanation)
-                snippet = row['Snippet'].strip('\'"*.,;!?“”’‘')
-                alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘*')
-
-                if 'metaphor' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-metaphor'
-                    mod_explanation = re.sub('Here, this figure of speech', 'This metaphor', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could state the meaning plainly. Alternate translation: “{alt_translation}”'
-
-                if 'simile' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-simile'
-                    mod_explanation = re.sub('Here, this figure of speech', 'This simile', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could make this point explicitly. Alternate translation: “{alt_translation}”'
-
-                if 'personification' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-personification'
-                    mod_explanation = re.sub('Here, this figure of speech', 'Here, the speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could express the meaning plainly. Alternate translation: “{alt_translation}”'
-
-                if 'idiom' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-idiom'
-                    mod_explanation = re.sub('Here, this figure of speech', 'This is an idiom. It', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If this phrase does not have that meaning in your language, you could use an idiom from your language that does have that meaning or state the meaning plainly. Alternate translation: “{alt_translation}”'
-
-                if 'metonymy' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-metonymy'
-                    mod_explanation = re.sub('Here, this figure of speech', 'Here, the speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could state the meaning plainly. Alternate translation: “{alt_translation}”'
-
-                if 'synecdoche' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-synecdoche'
-                    mod_explanation = re.sub('Here, this figure of speech', 'Here, the speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could use an equivalent expression from your culture or state the meaning plainly. Alternate translation: “{alt_translation}”'
-
-                if 'apostrophe' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-apostrophe'
-                    mod_explanation = re.sub('Here, this figure of speech', 'Here, the speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you use the third person or express the idea in another way. Alternate translation: “{alt_translation}”'
-
-                if 'euphemism' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-euphemism'
-                    mod_explanation = re.sub('Here, this figure of speech', 'Here, the speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could use a polite way of referring to this in your language, or you could state this plainly. Alternate translation: “{alt_translation}”'
-
-                if 'hyperbole' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-hyperbole'
-                    mod_explanation = re.sub('Here, this figure of speech', 'Here, the speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could use a different way to express the emphasis. Alternate translation: “{alt_translation}”'
-
-                if 'hendiadys' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-hendiadys'
-                    mod_explanation = re.sub('Here, this figure of speech', 'In this figure of speech, the speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be more natural in your language, you could express this idea in a different way. Alternate translation: “{alt_translation}”'
-
-                if 'merism' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-merism'
-                    mod_explanation = re.sub('Here, this figure of speech', 'The speaker or writer', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could state the meaning plainly. Alternate translation: “{alt_translation}”'
-
-                if 'litotes' in function.lower():
-                    support_reference = 'rc://*/ta/man/translate/figs-litotes'
-                    mod_explanation = re.sub('Here, this figure of speech', 'The speaker or writer is using a figure of speech here that', mod_explanation)
-                    note_template = f'{mod_explanation.strip('\'".,;!?“”’‘')}. If it would be helpful in your language, you could express the positive meaning. Alternate translation: “{alt_translation}”'
-
-                transformed_row = [
-                ref,  # Reference
-                '',   # ID: random, unique four-letter and number combination
-                '',   # Tags: blank
-                support_reference,  # SupportReference: standard link
-                'hebrew_placeholder',  # Quote: lexeme
-                '1',  # Occurrence: the number 1
-                note_template,  # Note: standard note with {gloss}
-                snippet
-            ]
-                transformed_data.append(transformed_row)
-
-        return transformed_data
-
     def _read_tsv(self, file_path):
         verse_texts = []
         with open(file_path, 'r', encoding='utf-8') as tsvfile:
@@ -169,31 +82,10 @@ class Figs(TNPrepper):
             if response:
                 ai_data.append(response.split('\n'))
 
-        # Flatten the list of lists into a single list of dictionaries
-        mod_ai_data = []
-        for row_list in ai_data:
-            for row in row_list:
-                columns = row.split('\t')
-                if len(columns) == 5:
-                    row_dict = {
-                        'Reference': columns[0],
-                        'Function': columns[1],
-                        'Explanation': columns[2],
-                        'Snippet': columns[3],
-                        'Alternate Translation': columns[4]
-                    }
-                    mod_ai_data.append(row_dict)
-
-        # Write the results to a new TSV file
-        headers = ['Reference', 'Function', 'Explanation', 'Snippet', 'Alternate Translation']
-        file_name = 'ai_figures_of_speech.tsv'
-        data = mod_ai_data
-        self._write_fieldnames_to_tsv(book_name, file_name, data, headers)
-
-        transformed_data = self._transform_response(mod_ai_data)
+## NEED to turn data into tsv form before writing
 
         headers_transformed = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']
-        self._write_output(book_name, file='transformed_ai_figures_of_speech.tsv', headers=headers_transformed, data=transformed_data)
+        self._write_output(book_name, file='transformed_ai_figures_of_speech.tsv', headers=headers_transformed, data=ai_data)
 
 
 if __name__ == "__main__":

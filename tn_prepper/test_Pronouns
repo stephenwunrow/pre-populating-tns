@@ -25,7 +25,7 @@ class Pronouns(TNPrepper):
         prompt2 = (
             "You have been given a chapter from the Bible. I will now provide you with a list of pronouns whose referents may not be clear from the context of the text. A pronoun is considered unclear if a reader would have difficulty identifying what or whom the pronoun refers to without additional context.\n\n"
             f"List:\n{response1}\n\n"
-            "Analyze the list and return only those pronouns that truly have unclear referents. If none of the pronouns have unclear referents, return 'None'."
+            "Analyze the list and return only those pronouns that truly have unclear referents. If none of the pronouns have unclear referents, do not provide any list. Instead, return 'None'."
         )
 
         response2 = self._query_openai(chapter_content, prompt2)
