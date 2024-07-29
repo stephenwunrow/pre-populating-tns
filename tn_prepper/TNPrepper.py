@@ -284,7 +284,7 @@ class TNPrepper():
 
 
     # SupportReference specific functions
-    ## figs_go
+    ## figs-go
     def _figs_go(self, verse_data):
         # Write all collected data to the output file only if there are abstract nouns found
         modified_verse_data = list()
@@ -348,6 +348,8 @@ class TNPrepper():
 
         if modified_verse_data:
             transformed_data = []
+            used_chapters = []
+
             for row in modified_verse_data:
                 if len(row) == 4:
                     reference = row[0]
@@ -369,21 +371,25 @@ class TNPrepper():
 
                     # Extract chapter and verse from the reference
                     chapter_verse = reference.rsplit(' ', 1)[1]
-
-                    note_template = f"In a context such as this, your language might say “{text}” instead of **{key}**. Alternate translation: “{AT}”"
-
-                    # Create the new row
-                    transformed_row = [
-                        chapter_verse,  # Reference without the book name
-                        '',    # ID: random, unique four-letter and number combination
-                        '',             # Tags: blank
-                        support_reference,  # SupportReference: standard link
-                        lexeme,         # Quote: lexeme
-                        '1',            # Occurrence: the number 1
-                        note_template.format(key=key, text=text, AT=AT),  # Note: standard note with {gloss}
-                        snippet
-                    ]
-                    transformed_data.append(transformed_row)
+                    chapter, verse = chapter_verse.split(':')
+                    if chapter in used_chapters:
+                        continue
+                    else:
+                        note_template = f"In a context such as this, your language might say “{text}” instead of **{key}**. Alternate translation: “{AT}”"
+                        # Create the new row
+                        transformed_row = [
+                            chapter_verse,  # Reference without the book name
+                            '',    # ID: random, unique four-letter and number combination
+                            '',             # Tags: blank
+                            support_reference,  # SupportReference: standard link
+                            lexeme,         # Quote: lexeme
+                            '1',            # Occurrence: the number 1
+                            note_template.format(key=key, text=text, AT=AT),  # Note: standard note with {gloss}
+                            snippet
+                        ]
+                        transformed_data.append(transformed_row)
+                        used_chapters.append(chapter)
+                        print(used_chapters)
 
             return transformed_data
 
