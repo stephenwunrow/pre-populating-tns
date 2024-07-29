@@ -212,11 +212,10 @@ class Final_Snippets(TNPrepper):
                         for gloss in gloss_matches:
                             ult_dict.append([verse_ref, hebrew_word, number, gloss, chunk_number])
                 
-                ult_dict_combined = self.__combine_entries(ult_dict)
+        ult_dict_combined = self.__combine_entries(ult_dict)
 
-                # Sort ult_dict_combined by chapter, verse, and then by chunk_number
-                ult_dict_sorted = sorted(ult_dict_combined, key=lambda x: (self._parse_verse_ref(x[0]), x[4]))
-
+        # Sort ult_dict_combined by chapter, verse, and then by chunk_number
+        ult_dict_sorted = sorted(ult_dict_combined, key=lambda x: (self._parse_verse_ref(x[0]), x[4]))
         return ult_dict_sorted
     
     def __combine_possessives(self, ult_dict):
