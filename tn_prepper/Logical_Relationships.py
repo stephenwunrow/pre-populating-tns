@@ -14,21 +14,38 @@ class LogicalRelationships(TNPrepper):
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
     def __process_prompt(self, chapter_content):
-        prompt = (
-            "Transition words are conjunctions that guide the reader in following logical structures within a section of text. You have been given a chapter from the Bible. Please identify any key transition words that you find in the chapter.\n"
-            "As your answer, you will provide a table with exactly five tab-separated values. Do not include any introduction or explanation with the table."
-            "\n(1) The first column will provide the chapter and verse where the transition word is found. Do not include the book name."
-            "\n(2) The second column will indicate the precise function of the transition word in context. You must identify one of the following functions: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception."
-            "\n(3) The third column will provide a one sentence explanation of the function of the transition word in context. The sentence should begin with this phrase: 'The word **word** here'. "
+        prompt1 = (
+            "You have been given a chapter from the Bible. Identify every conjunction and transition word that introduces a condition, a contrast, a purpose, a reason, a result, or an exception.\n"
+            "List each one you identify. Each entry should contain the reference, the conjunction or transition word, and the function.\n"
+            "For the function, you must use one of these exact terms: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception, addition.\n"
+            "Important: be sure that the word or phrase you identify is actually a transition word or conjunction, not some other part of speech."
+        )
+
+        response1 = self._query_openai(chapter_content, prompt1)
+
+        prompt2 = (
+            f"You have been given a chapter from the Bible. Here is a list of possible transition words or phrases from this chapter:\n{response1}\n\n"
+            "First, check this list to make sure that the identified words are actually transition words or conjunctions. If they are not, remove them from the list.\n"
+            "Second, consider the identified function in context. If the identified function is incorrect, replace the label with one of these exact labels: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception, addition.\n"
+            "Return the list with any false positives removed and any false identifications corrected. Only return the revised list."
+        )
+
+        response3 = self._query_openai(chapter_content, prompt2)
+
+        prompt3 = (
+            f"You have been given a chapter from the Bible. Here is a list of significant conjunctions and transition words in this chapter:\n{response3}\n\n"
+            "Analyze these conjunctions and transition words in context. As your answer, you will provide a table with exactly five tab-separated values for each word or phrase in the provided list."
+            "\n(1) The first column will provide the chapter and verse where the conjunction or transition word is found. Do not include the book name."
+            "\n(2) The second column will indicate the precise function of the transition word or conjunction in context. You must identify one of the following functions: contrast, result, purpose, contrary to fact condition, factual condition, hypothetical condition, exception, addition."
+            "\n(3) The third column will provide a one sentence explanation of the function of the transition word or conjunction in context. The sentence should begin with this phrase: 'The word **word** here'."
             "\n(4) The fourth column will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea with a different transition word or phrase."
             "\n(5) The fifth column will provide a way to express the exact quote from the fourth value with a different transition word or phrase."
-            "\nYou can only pick a 'condition' option if the transition word is 'if'.\n"
-            "Be sure that the values in each row are consistent in how they understand the transition word. Also, be sure that the transition word is a conjunction, not some other part of speech.\n"
+            "Be sure that the values in each row are consistent in how they understand the transition word or conjunction.\n"
             "Here is an example of what your response might look like:\n\n"
             "1:4\tcontrast\tThe word **but** here introduces a contrast with what Jonah said in the previous verse.\tbut\tin contrast\n"
             "3:5\tresult\tThe word **And** here connects the response of the men of Nineveh to Jonah's proclamation.\tAnd he\tSo he"
         )
-        return self._query_openai(chapter_content, prompt)
+        return self._query_openai(chapter_content, prompt3)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
@@ -43,24 +60,32 @@ class LogicalRelationships(TNPrepper):
                 if function.lower() == 'contrast':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-logic-contrast'
                     note_template = f'{explanation}. In your translation, indicate this strong contrast in a way that is natural in your language. Alternate translation: “{alt_translation}”'
-                if function.lower() == 'goal':
+                elif function.lower() == 'goal':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-logic-goal'
                     note_template = f'{explanation}. Use a connector in your language that makes it clear that this is the purpose. Alternate translation: “{alt_translation}”'
-                if function.lower() == 'result':
+                elif function.lower() == 'result':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-logic-result'
                     note_template = f'{explanation}. Use a connector in your language that makes it clear that what follows is a result of what came before. Alternate translation: “{alt_translation}”'
-                if function.lower() == 'contrary to fact condition':
+                elif function.lower() == 'reason':
+                    support_reference = 'rc://*/ta/man/translate/grammar-connect-logic-result'
+                    note_template = f'{explanation}. Use a connector in your language that makes it clear that what follows is a reason. Alternate translation: “{alt_translation}”'
+                elif function.lower() == 'contrary to fact condition':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-condition-contrary'
                     note_template = f'{explanation}. Use a natural form in your language for introducing a condition that the speaker believes is not true. Alternate translation: “{alt_translation}”'
-                if function.lower() == 'factual condition':
+                elif function.lower() == 'factual condition':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-condition-fact'
                     note_template = f'{explanation}. If your language does not state something as a condition if it is certain or true, and if your readers might think that what the speaker is saying is uncertain, then you could translate his words as an affirmative statement. Alternate translation: “{alt_translation}”'
-                if function.lower() == 'hypothetical condition':
+                elif function.lower() == 'hypothetical condition':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-condition-hypothetical'
                     note_template = f'{explanation}. Use a natural form in your language for introducing a situation that could happen. Alternate translation: “{alt_translation}”'
-                if function.lower() == 'exception':
+                elif function.lower() == 'exception':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-exceptions'
                     note_template = f'{explanation}. If, in your language, it would appear that the speaker were making a statement here and then contradicting it, you could reword this to avoid using an exception clause. Alternate translation: “{alt_translation}”'
+                elif function.lower() == 'addition':
+                    continue
+                else:
+                    support_reference = 'rc://*/ta/man/translate/grammar-connect-words-phrases'
+                    note_template = f'{explanation}. Use a natural form in your language for connecting this statement to the previous one. Alternate translation: “{alt_translation}”'
                 
                 transformed_row = [
                 ref,  # Reference
@@ -127,7 +152,7 @@ class LogicalRelationships(TNPrepper):
                     mod_ai_data.append(row_dict)
 
         # Write the results to a new TSV file
-        headers = ['Reference', 'Transition', 'Explanation', 'Alternate Translation', 'Snippet', 'Function']
+        headers = ['Reference', 'Function', 'Explanation', 'Snippet', 'Alternate Translation']
         file_name = 'ai_relationships.tsv'
         data = mod_ai_data
         self._write_fieldnames_to_tsv(book_name, file_name, data, headers)
