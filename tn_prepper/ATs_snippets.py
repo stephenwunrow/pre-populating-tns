@@ -105,7 +105,7 @@ class ATSnippets(TNPrepper):
 
             # Generate prompt 1
             prompt1 = (
-                f"In {verse_reference}, the noun '{bold_word}' is abstract. Express the meaning with the same root form in a different part of speech. For example, 'faithfulness' could become 'faithful.' When you do this, you may need to adjust the rest of the clause. "
+                f"In {verse_reference}, the noun '{bold_word}' is abstract. Express the meaning with the same root form in a different part of speech (such as in adverb or adjective form). For example, 'joy' could become 'joyful'. When you do this, you may need to adjust the rest of the clause. "
                 f"Make your answer as short as possible, and respond with the rephrased text only. Do not include any explanation."
             )
 
@@ -119,7 +119,7 @@ class ATSnippets(TNPrepper):
 
             # Generate prompt 1
             prompt1 = (
-                f"In {verse_reference}, the nouns {bold_phrase} are all abstract. Express the meaning with the same root forms but with a different part of speech. For example, 'faithfulness' could become 'faithful', and 'power' could become 'powerfully'. When you do this, you may need to adjust the rest of the clause. "
+                f"In {verse_reference}, the nouns {bold_phrase} are all abstract. Express the meaning with the same root forms but with a different part of speech (such as in adverb or adjective forms). For example, 'joy' could become 'joyful'. When you do this, you may need to adjust the rest of the clause. "
                 f"Make your answer as short as possible, and respond with the rephrased text only."
             )
 
