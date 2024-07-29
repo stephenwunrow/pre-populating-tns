@@ -151,6 +151,7 @@ class Combine_Notes(TNPrepper):
                        f'output/{self.book_name}/ordinals.tsv', 
                        f'output/{self.book_name}/transformed_names.tsv', 
                        f'output/{self.book_name}/transformed_passives.tsv', 
+                       f'output/{self.book_name}/transformed_pronouns.tsv', 
                        ]
 
         # Output file name

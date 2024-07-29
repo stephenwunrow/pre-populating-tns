@@ -24,7 +24,8 @@ class ScriptRunner(TNPrepper):
             "figures of speech": "Figs_of_Speech.py",
             "123person": "123person.py",
             "kinship": "Kinship.py",
-            "quotations": "Quotations.py"
+            "quotations": "Quotations.py",
+            "pronouns": "Pronouns.py"
             # Add more categories and corresponding scripts here
         }
 
