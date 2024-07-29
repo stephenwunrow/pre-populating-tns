@@ -36,6 +36,7 @@ class Parallelism(TNPrepper):
                 ref = re.sub(r'.+ (\d+:\d+)', r'\1', ref)
                 snippet = row['Phrases'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
+                alt_translation = re.sub('*', '', alt_translation)
                 speaker = row['Speaker'].strip('\'".,;!?“”’‘')
                 note_template = f'These two phrases mean similar things. {speaker} is using repetition to emphasize the idea that the phrases express. If it would be helpful to your readers, you could indicate that by using a word other than “and” in your translation, or you could combine the phrases. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-parallelism'

@@ -39,6 +39,7 @@ class Explicit(TNPrepper):
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
+                alt_translation = re.sub('*', '', alt_translation)
                 note_template = f'{explanation}. You could include this information if that would be helpful to your readers. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-explicit'
                 

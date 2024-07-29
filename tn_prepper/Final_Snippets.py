@@ -489,54 +489,21 @@ class Final_Snippets(TNPrepper):
     
     def run(self):
 
-        if os.path.isfile(f'output/{book_name}/1_unique_numbers.tsv'):
-            user_input = input(f"The file '1_unique_numbers.tsv' already exists for {book_name}. Do you want to update it? (y/n): ").strip().lower()
-            if user_input == 'n':
-                print("Skipping update")
-            else:
-                combined_text = self._get_hbo(book_name, acronym)
-                unique_numbers = self._find_unique_numbers(combined_text)
+        combined_text = self._get_hbo(book_name, acronym)
+        unique_numbers = self._find_unique_numbers(combined_text)
 
-                data = unique_numbers
-                headers = ['Reference', 'Hebrew word', 'Unique number', 'Occurrence number']
-                file = '1_unique_numbers.tsv'
-                self._write_output(book_name, file, headers, data)
-        else:
-            combined_text = self._get_hbo(book_name, acronym)
-            unique_numbers = self._find_unique_numbers(combined_text)
+        data = unique_numbers
+        headers = ['Reference', 'Hebrew word', 'Unique number', 'Occurrence number']
+        file = '1_unique_numbers.tsv'
+        self._write_output(book_name, file, headers, data)
 
-            data = unique_numbers
-            headers = ['Reference', 'Hebrew word', 'Unique number', 'Occurrence number']
-            file = '1_unique_numbers.tsv'
-            self._write_output(book_name, file, headers, data)
+        ult_dict = self._construct_ult_dict(version, acronym, unique_numbers)
+        ult_dict_combined = self.__combine_possessives(ult_dict)
 
-
-        if os.path.isfile(f'output/{book_name}/1_unique_numbers.tsv'):
-            user_input = input(f"The file '1_unique_numbers.tsv' already exists for {book_name}. Do you want to update it? (y/n): ").strip().lower()
-            if user_input == 'n':
-                print("Skipping update")
-            else:
-                unique_numbers = self._read_tsv_as_lists(f'output/{book_name}/1_unique_numbers.tsv')
-                ult_dict = self._construct_ult_dict(version, acronym, unique_numbers)
-                ult_dict_combined = self.__combine_possessives(ult_dict)
-
-                data = ult_dict_combined
-                headers = ['Reference', 'Hebrew word', 'Unique number', 'Gloss', 'Chunk number']
-                file = '2_ult_dict.tsv'
-                self._write_output(book_name, file, headers, data)
-        else:
-            unique_numbers = self._read_tsv_as_lists(f'output/{book_name}/1_unique_numbers.tsv')
-            ult_dict = self._construct_ult_dict(version, acronym, unique_numbers)
-            ult_dict_combined = self.__combine_possessives(ult_dict)
-
-            data = ult_dict_combined
-            headers = ['Reference', 'Hebrew word', 'Unique number', 'Gloss', 'Chunk number']
-            file = '2_ult_dict.tsv'
-            self._write_output(book_name, file, headers, data)
-
-
-        unique_numbers = self._read_tsv_as_lists(f'output/{book_name}/1_unique_numbers.tsv')
-        ult_dict_combined = self._read_tsv_as_lists(f'output/{book_name}/2_ult_dict.tsv')
+        data = ult_dict_combined
+        headers = ['Reference', 'Hebrew word', 'Unique number', 'Gloss', 'Chunk number']
+        file = '2_ult_dict.tsv'
+        self._write_output(book_name, file, headers, data)
 
         snippet_data = self._find_sequence(ult_dict_combined, input_file)
         

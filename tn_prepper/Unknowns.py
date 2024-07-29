@@ -40,6 +40,7 @@ class Unknowns(TNPrepper):
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
+                alt_translation = re.sub('*', '', alt_translation)
                 note_template = f'{explanation}. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/translate_unknown'
                 
