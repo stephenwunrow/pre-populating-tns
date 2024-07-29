@@ -600,6 +600,7 @@ lordship	1
 thanks	1
 tribulatron	1
 indecency	1
+gladness    1
 """
 
 # Parse the TSV data from the string
@@ -685,10 +686,12 @@ class AbstractNouns(TNPrepper):
                         glosses_used = []
 
                         for i in range(len(perm) - 1):
-                            gloss = re.escape(perm[i])
-                            mod_gloss = re.sub('…', '.+?', gloss)
+                            gloss = perm[i]
+                            mod_gloss = re.sub(' s ', '’s ', gloss)
+                            mod_gloss = re.escape(mod_gloss)
+                            mod_gloss = re.sub('…', '.+?', mod_gloss)
                             pattern_parts.append(mod_gloss)
-                            pattern_parts.append(r'[^;.?:!]+?')  # Match any characters except sentence delimiters
+                            pattern_parts.append(r'[^;.?:!]*?')  # Match any characters except sentence delimiters
                             glosses_used.append(gloss)
                         pattern_parts.append(re.escape(perm[-1]))
                         glosses_used.append(re.escape(perm[-1]))
@@ -703,6 +706,7 @@ class AbstractNouns(TNPrepper):
                             # Map back to original glosses
                             reconstructed_glosses = []
                             for part in pattern_parts:
+                                part = re.sub('’s', '\\ s', part)
                                 if part in gloss_to_pattern:
                                     reconstructed_glosses.append(gloss_to_pattern[part])
 
