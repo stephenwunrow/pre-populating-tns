@@ -38,7 +38,7 @@ class Person(TNPrepper):
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'",;!?“”’‘')
-                alt_translation = re.sub('*', '', alt_translation)
+                alt_translation = re.sub(r'\*', '', alt_translation)
                 support_reference = 'rc://*/ta/man/translate/figs-123person'
                 note_template = f'{explanation}. Alternate translation: “{alt_translation}”'
                 
