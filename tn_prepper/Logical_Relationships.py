@@ -56,7 +56,7 @@ class LogicalRelationships(TNPrepper):
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘ ')
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘ ')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘ ')
-                alt_translation = re.sub('*', '', alt_translation)
+                alt_translation = re.sub(r'\*', '', alt_translation)
                 function = row['Function'].strip('\'".,;!?“”’‘ ')
                 if function.lower() == 'contrast':
                     support_reference = 'rc://*/ta/man/translate/grammar-connect-logic-contrast'

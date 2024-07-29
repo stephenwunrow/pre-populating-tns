@@ -37,7 +37,7 @@ class RQuestion(TNPrepper):
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'",;!?“”’‘')
-                alt_translation = re.sub('*', '', alt_translation)
+                alt_translation = re.sub(r'\*', '', alt_translation)
                 note_template = f'{explanation}. If you would not use the question form for this purpose in your language, you could translate this as a statement or an exclamation. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-rquestion'
                 

@@ -64,7 +64,7 @@ class Ellipsis(TNPrepper):
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘()')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘()')
-                alt_translation = re.sub('*', '', alt_translation)
+                alt_translation = re.sub(r'\*', '', alt_translation)
                 note_template = f'{explanation} is leaving out some of the words that in many languages a sentence would need in order to be complete. You could supply these words from earlier in the sentence if it would be clearer in your language. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-ellipsis'
                 

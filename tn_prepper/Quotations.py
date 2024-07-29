@@ -38,7 +38,7 @@ class Quotations(TNPrepper):
                 function = row['Type'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'",;!?“”’‘')
-                alt_translation = re.sub('*', '', alt_translation)
+                alt_translation = re.sub(r'\*', '', alt_translation)
                 if 'indirect' in function.lower():
                     note_template = f'It may be more natural in your language to have a direct quotation here. Alternate translation: “{alt_translation}”'
                     support_reference = 'rc://*/ta/man/translate/figs-quotations'

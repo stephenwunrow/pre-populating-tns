@@ -21,7 +21,7 @@ class Doublets(TNPrepper):
             "\n(1) The first tab-separated value will provide the chapter and verse where the doublet is found. Do not include the book name."
             "\n(2) The second tab-separated value will provide an explanation of the doublet. The explanation must be in this form: 'The terms **[word/phrase 1]** and **[word/phrase 2]** mean similar things. [Speaker/Writer] is using the two terms together for emphasis.' Use these exact sentences, including the asterisks, except you should replace the bracketed words with the appropriate data from the verse."
             "\n(3) The third tab-separated value will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea without the doublet."
-            "\n(4) The fourth tab-separated value will provide a way to express the quote from the third value without using a doublet. This alternate expression should be able to replace the quote in the verse context without losing any meaning."
+            "\n(4) The fourth tab-separated value will provide a way to express the quote from the third value without using both words or phrases. This alternate expression should be able to replace the quote in the verse context without losing any meaning."
             "\nBe sure that the items in each row are consistent in how they understand the doublet.\n"
             "Here is an example of what a row of values might look like:\n\n"
             "34:28\tThe terms **Observe** and **see** mean similar things. Elihu is using the two terms together for emphasis.\tCarefully observe\tObserve and see\n"
@@ -37,7 +37,7 @@ class Doublets(TNPrepper):
                 explanation = row['Explanation'].strip('\'".,;!?“”’‘')
                 snippet = row['Snippet'].strip('\'".,;!?“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'".,;!?“”’‘')
-                alt_translation = re.sub('*', '', alt_translation)
+                alt_translation = re.sub(r'\*', '', alt_translation)
                 note_template = f'{explanation}. If it would be clearer for your readers, you could express the emphasis with a single phrase. Alternate translation: “{alt_translation}”'
                 support_reference = 'rc://*/ta/man/translate/figs-doublet'
                 
