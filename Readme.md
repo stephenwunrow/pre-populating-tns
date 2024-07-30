@@ -143,10 +143,8 @@ In order for everything to run properly, you need to run the scripts in sequence
 
 # Further Work/Todo
 
-- Right now, output files are being overwritten when it's the same book. How bad is that?
-
 There are at least three areas in which further development is ongoing:
 
-1. There are many more translation issues to write individual scripts for
-2. Prompts for many figures of speech need refining
+1. There are some more translation issues to write prompts for
+2. What kind of checking/correcting prompts should we include? I've done some for pronouns, figures of speech, and ellipses with more or less success.
 3. What is the best workflow for a final product?
