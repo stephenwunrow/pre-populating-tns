@@ -152,6 +152,10 @@ class Combine_Notes(TNPrepper):
                        f'output/{self.book_name}/transformed_names.tsv', 
                        f'output/{self.book_name}/transformed_passives.tsv', 
                        f'output/{self.book_name}/transformed_pronouns.tsv', 
+                       f'output/{self.book_name}/transformed_ai_nominaladj.tsv', 
+                       f'output/{self.book_name}/transformed_ai_gender.tsv', 
+                       f'output/{self.book_name}/transformed_collectivenouns.tsv', 
+                       f'output/{self.book_name}/transformed_genericnouns.tsv', 
                        ]
 
         # Output file name

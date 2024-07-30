@@ -25,7 +25,11 @@ class ScriptRunner(TNPrepper):
             "123person": "123person.py",
             "kinship": "Kinship.py",
             "quotations": "Quotations.py",
-            "pronouns": "Pronouns.py"
+            "pronouns": "Pronouns.py",
+            "collective nouns": "Collective_Nouns.py",
+            "gender notations": "Gender.py",
+            "generic nouns": "Generic_Nouns.py",
+            "nominal adjectives": "Nominal_Adjectives.py"
             # Add more categories and corresponding scripts here
         }
 
