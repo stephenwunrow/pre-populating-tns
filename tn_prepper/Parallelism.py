@@ -14,19 +14,30 @@ class Parallelism(TNPrepper):
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
     def __process_prompt(self, chapter_content):
-        prompt = (
-            "In parallelism, two clauses that have equivalent grammatical structures and equivalent meanings are used together for poetic effect. In the chapter from the Bible above, identify any parallelisms. Be sure that what you identify as parallelism is made up of exactly two clauses within one verse that have equivalent meanings and equivalent grammatical structures.\n\n"
-            "Provide your answer in TSV form without any introduction or explanation. If there are multiple pairs of parallel lines in a verse, provide a separate row for each pair."
-            "Each row should contain exactly four tab-separated values:\n\n"
-            "(1) The first tab-separated value will be the chapter and verse where the parallelism is found. Do not include the book name.\n"
-            "(2) The second tab-separated value will be the two clauses that make up the parallelism. Make sure that you quote exactly from the verse. Do not use a tab to join the two clauses.\n"
-            "(3) The third tab-separated value will be a way to express the two parallel clauses you quoted as a single, simple clause. Be sure that this simple clause expresses the idea of the two clauses you quoted.\n"
-            "(4) The fourth tab-separated value will identify who writes or speaks the parallelism.\n\n"
-            "Ensure consistency in how you understand and present the parallelism.\n"
-            "Also, ensure that there are exactly four tab-separated values in each row."
-
+        prompt1 = (
+            "In parallelism, two clauses that have similar grammatical structures and similar meanings are used together for poetic effect.\n"
+            "In the chapter from the Bible above, identify any parallelisms. If there are no parallelisms, return 'None'."
         )
-        return self._query_openai(chapter_content, prompt)
+
+        response1 = self._query_openai(chapter_content, prompt1)
+
+        prompt2 = (
+            f"You have been given a chapter from the Bible. Here is a list of potential parallelisms in this chapter:\n{response1}\n\n"
+            "Examine this list in context. If the two clauses do not have similar meaning, remove the line from the list. If the two clauses do not have similar grammatical structures, remove the line from the list. Return the revised list. If the revised list is empty, return 'None'."
+        )
+
+        response2 = self._query_openai(chapter_content, prompt2)
+
+        prompt3 = (
+            f"You have been given a chapter from the Bible. Here is a list of parallelisms from that chapter:\n{response2}\n\n"
+            "If the list is empty, return 'None'. Otherwise, for each parallelism, you will append a row of data to a TSV table. Each row should contain exactly four tab-separated values:"
+            "(1) The first tab-separated value will be the chapter and verse where the parallelism is found. Do not include the book name.\n"
+            "(2) The second tab-separated value will be an exact quote from the verse. This quote must contain the two clauses that make up the parallelism.\n"
+            "(3) The third tab-separated value will be a way to express the two parallel clauses you quoted as a single, simple clause. Be sure that this simple clause combines the ideas of the two clauses you quoted.\n"
+            "(4) The fourth tab-separated value will identify who writes or speaks the parallelism.\n\n"
+            "\nBe sure that the items in each row are consistent in how they understand the parallelism.\n"
+        )
+        return self._query_openai(chapter_content, prompt3)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:

@@ -23,7 +23,7 @@ class Doublets(TNPrepper):
 
         prompt2 = (
             f"You have been given a chapter from the Bible. Here is a list of potential doublets in this chapter:\n{response1}\n\n"
-            "Examine this list in context. If the two words or phrases do not have the same meaning, remove the line from the list. If the two words or phrases are not joined directly by 'and', remove the line from the list. Return the revised list. If the revised list is emptry, return 'None'."
+            "Examine this list in context. If the two words or phrases do not have the same meaning, remove the line from the list. If the two words or phrases are not joined directly by 'and', remove the line from the list. Return the revised list. If the revised list is empty, return 'None'."
         )
 
         response2 = self._query_openai(chapter_content, prompt2)
