@@ -285,6 +285,7 @@ class Final_Snippets(TNPrepper):
             lower_phrase = phrase.lower()
             mod_phrase = re.sub(r'[.,:;”‘“!?—*]', r'', lower_phrase)
             mod_phrase = re.sub('s’', 's', mod_phrase)
+            mod_phrase = re.escape(mod_phrase)
             mod_phrase = re.sub('…', ' .+?', mod_phrase)
             search_phrase = re.sub(r' ', r' \\d+ ', mod_phrase)
             search_phrase = search_phrase + ' \\d+'

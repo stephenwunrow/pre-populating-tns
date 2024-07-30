@@ -90,20 +90,16 @@ class Unknowns(TNPrepper):
             return doc[0].lemma_
 
         for row in mod_ai_data:
-            found_names = []
             text = row.get('Explanation', '')
             names = re.findall(r'\*\*(.+?)\*\*', text)
-            for name in names:
-                if name in found_names:
-                    continue
+            if names:
+                first_name = names[0]
+                if ' ' in first_name:
+                    mod_name = re.sub(r' ', r'', first_name)
                 else:
-                    if ' ' in name:
-                        mod_name = re.sub(r' ', r'', name)
-                    else:
-                        mod_name = get_lemma(name)
-                    if mod_name.lower() not in all_names_to_remove:
-                        found_names.append(name)
-                        filtered_data.append(row)
+                    mod_name = get_lemma(first_name)
+                if mod_name.lower() not in all_names_to_remove:
+                    filtered_data.append(row)
 
         return filtered_data
 

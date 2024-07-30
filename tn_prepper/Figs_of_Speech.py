@@ -99,6 +99,7 @@ class Figs(TNPrepper):
                         'Snippet': columns[7]
                     }
                     row_dict['Snippet'] = row_dict['Snippet'].strip('.,:;“”‘’"!?')
+                    row_dict['Reference'] = re.sub(r'\w+ ', '', row_dict['Reference'])
                     mod_ai_data.append(row_dict)
 
         rows = [[row['Reference'], row['ID'], row['Tags'], row['SupportReference'], row['Quote'], row['Occurrence'], row['Note'], row['Snippet']] for row in mod_ai_data]

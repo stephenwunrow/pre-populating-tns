@@ -115,6 +115,22 @@ This script passes a chapter at a time to an LLM and asks it to identify transit
 
 This script passes a chapter at a time to an LLM and asks it to identify pronouns with unclear referents and to provide possible referents. Then, the data is checked, written to a TSV file, transformed into Translation Notes format (minus ID), and written to another TSV file.
 
+## The translation issue of collective nouns (18): `Collective_Nouns.py`
+
+This script passes a chapter at a time to an LLM and asks it to identify collective nouns. Then, the data is checked, written to a TSV file, transformed into Translation Notes format (minus ID), and written to another TSV file.
+
+## The translation issue of collective nouns (19): `Generic_Nouns.py`
+
+This script passes a chapter at a time to an LLM and asks it to identify generic nouns. Then, the data is checked, written to a TSV file, transformed into Translation Notes format (minus ID), and written to another TSV file.
+
+## The translation issue of masculine for gender neutral (20): `Gender.py`
+
+This script passes a chapter at a time to an LLM and asks it to identify places where masculine words are used for both male and female people. Then, the data is checked, written to a TSV file, transformed into Translation Notes format (minus ID), and written to another TSV file.
+
+## The translation issue of nominal adjectives (21): `Nominal_Adjectives.py`
+
+This script passes a chapter at a time to an LLM and asks it to identify nominal adjectives. Then, the data is checked, written to a TSV file, transformed into Translation Notes format (minus ID), and written to another TSV file.
+
 ## Combining notes: `Combine_Notes.py`
 
 This script reads all the "transformed_….tsv" files created by the previous scripts. It combines them and then sorts them. It sorts first by chapter, then by verse, and then by placement of the start of the "snippet" text within the English verse text provided by ult_book.tsv (in doing this, it treats … as a wildcard of up to 40 characters). It then adds a unique ID for each row. Finally, it writes the rows to `combined_notes.tsv`.
@@ -146,5 +162,5 @@ In order for everything to run properly, you need to run the scripts in sequence
 There are at least three areas in which further development is ongoing:
 
 1. There are some more translation issues to write prompts for
-2. What kind of checking/correcting prompts should we include? I've done some for pronouns, figures of speech, and ellipses with more or less success.
+2. What kind of checking/correcting prompts should we include? I've done some for pronouns, figures of speech, ellipses, etc. with more or less success.
 3. What is the best workflow for a final product?

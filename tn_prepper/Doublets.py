@@ -14,19 +14,30 @@ class Doublets(TNPrepper):
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
     def __process_prompt(self, chapter_content):
-        prompt = (
+        prompt1 = (
             "A doublet is two words or very short phrases that have the same meaning and that are joined directly by 'and'. This type of repetition emphasizes the meaning. Be sure that the words or phrases you identify are not full clauses.\n"
-            "In the chapter of the Bible provided above, identify each doublet. If there are no doublets, return 'None'.\n"
-            "Whenever you find a doublet, you will append a row of data to a table. Each row should contain exactly four tab-separated values, no more or less. Do not include any introduction or explanation with the table. For example, do not include a phrase such as 'Here is the table...'\n"
+            "In the chapter of the Bible provided above, identify each doublet. If there are no doublets, return 'None'."
+        )
+
+        response1 = self._query_openai(chapter_content, prompt1)
+
+        prompt2 = (
+            f"You have been given a chapter from the Bible. Here is a list of potential doublets in this chapter:\n{response1}\n\n"
+            "Examine this list in context. If the two words or phrases do not have the same meaning, remove the line from the list. If the two words or phrases are not joined directly by 'and', remove the line from the list. Return the revised list. If the revised list is emptry, return 'None'."
+        )
+
+        response2 = self._query_openai(chapter_content, prompt2)
+
+        prompt3 = (
+            f"You have been given a chapter from the Bible. Here is a list of doublets from that chapter:\n{response2}\n\n"
+            "If the list is empty, return 'None'. Otherwise, for each doublet, you will append a row of data to a TSV table. Each row should contain exactly four tab-separated values:"
             "\n(1) The first tab-separated value will provide the chapter and verse where the doublet is found. Do not include the book name."
             "\n(2) The second tab-separated value will provide an explanation of the doublet. The explanation must be in this form: 'The terms **[word/phrase 1]** and **[word/phrase 2]** mean similar things. [Speaker/Writer] is using the two terms together for emphasis.' Use these exact sentences, including the asterisks, except you should replace the bracketed words with the appropriate data from the verse."
             "\n(3) The third tab-separated value will provide an exact quote from the verse. This quote will be the section of the verse that would need to be rephrased to express the idea without the doublet."
             "\n(4) The fourth tab-separated value will provide a way to express the quote from the third value without using both words or phrases. This alternate expression should be able to replace the quote in the verse context without losing any meaning."
             "\nBe sure that the items in each row are consistent in how they understand the doublet.\n"
-            "Here is an example of what a row of values might look like:\n\n"
-            "34:28\tThe terms **Observe** and **see** mean similar things. Elihu is using the two terms together for emphasis.\tCarefully observe\tObserve and see\n"
         )
-        return self._query_openai(chapter_content, prompt)
+        return self._query_openai(chapter_content, prompt3)
     
     def _transform_response(self, mod_ai_data):
         if mod_ai_data:
