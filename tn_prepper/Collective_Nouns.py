@@ -50,8 +50,8 @@ class Collective_Nouns(TNPrepper):
                 snippet = row['Snippet'].strip('\'".,;!“”’‘')
                 alt_translation = row['Alternate Translation'].strip('\'",;!?“”’‘')
                 alt_translation = re.sub(r'\*', '', alt_translation)
-                note_template = f'{explanation}. Your language may use adjectives in the same way. If not, you could translate this word with an equivalent phrase. Alternate translation: “{alt_translation}”'
-                support_reference = 'rc://*/ta/man/translate/figs-nominaladj'
+                note_template = f'{explanation}. If it would be helpful in your language, you could say this plainly. Alternate translation: “{alt_translation}”'
+                support_reference = 'rc://*/ta/man/translate/grammar-collectivenouns'
                 
                 transformed_row = [
                 ref,  # Reference
