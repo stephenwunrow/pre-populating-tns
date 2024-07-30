@@ -17,7 +17,7 @@ class Generic_Nouns(TNPrepper):
         prompt1 = (
             "A generic noun seems to refer to a specific person or thing, but in the context it refers to people or things in general."
             "You have been given a chapter from the Bible. Please identify all generic nouns and noun phrases in the chapter. If there are none, return 'None'.\n"
-            "Provide the reference and the generic noun or noun phrase for each one you find, if any. Each generic noun should have its own line in the list.\n"
+            "Provide the reference and the complete noun phrase for each one you find, if any. If there are multiple generic nouns in a verse, list all of them. Each generic noun should have its own line in the list.\n"
             "Important: generic nouns are always singular.\n"
             "Here is an example: 'People curse the man who refuses to sell grain.' In this sentence, the word 'man' is used as a generic noun. Although 'man' refers to a specific individual in the sentence, it represents a general category of people. The context implies that 'man' could be any person who refuses to sell grain, rather than referring to a particular individual. The term 'man' in this context is used generically to represent any person who fits the described behavior."
         )
@@ -37,7 +37,7 @@ class Generic_Nouns(TNPrepper):
             "Each row in the TSV table must contain exactly four tab-separated values:\n"
             "\n(1) The first tab-separated value will provide the chapter and verse where the generic noun is found. Do not include the book name."
             "\n(2) The second tab-separated value will provide an explanation of the generic noun. The explanation must follow this template: 'The word **generic_noun** represents [things] in general, not one particular [thing]'. Replace the bracketed words with information from the verse and context. The word or words in double asterisks must be exact quotes from the verse."
-            "\n(3) The third tab-separated value will contain an exact quote from the verse. This quote will provide the words that would need to be rephrased to express the idea without using a generic noun. Make your answer as short as possible."
+            "\n(3) The third tab-separated value will contain an exact quote from the verse. This quote will provide the words that would need to be rephrased to express the idea without using a generic noun."
             "\n(4) The fourth tab-separated value will model how to rephrase the exact quote from the third value so that it refers to people or things in general. One of the best ways to do this is to make the noun or noun phrase plural. Make sure that the rephrased text can exactly replace the quote in the verse."
             "\nMake sure that the values in each row are consistent in how they identify, understand, and explain the collective noun.\n"
         )
