@@ -15,16 +15,16 @@ class Person(TNPrepper):
 
     def __process_prompt(self, chapter_content):
         prompt1 = (
-            "Sometimes, when they are talking, people use the third person when the second or first person would be more natural. There are several reasons why someone might do this, but respect toward a superior is a common one.\n"
-            "You have been given a chapter from the Bible. Please identify each time a speaker uses the third person when the first or second person would have been more natural. Be sure that what you identify is in a quote and uses the third person in a place that would normally use the first or second person.\n"
-            "Return a list with the reference, the relevant phrase, and whether the speaker is using the third person instead of the second person or instead of the first person. If there are several occurrences in one verse, include them all in one line. If there are no relevant phrases, return 'None'."
+            "When people talk about themselves, they use the first person. When people address their conversation partner, they use the second person. However, speakers sometimes use the third person when the second or first person would be more natural. There are several reasons why someone might do this, but respect toward a superior is a common one.\n"
+            "You have been given a chapter from the Bible. Please identify each time a speaker uses the third person when the first or second person would have been more natural. Be sure that what you identify is in a quote.\n"
+            "Return a list with the reference, the relevant phrase, and which person (first or second) would be more natural. If there are several occurrences in one verse, include them all in one line. If there are no relevant phrases, return 'None'."
         )
 
         response1 = self._query_openai(chapter_content, prompt1)
 
         prompt2 = (
-            f"You have been given a chapter from the Bible. Here is a list of places where people might be using the third person when the second or first person would be more natural:\n{response1}\n\n"
-            "Please examine this list in context to see if it is correct. If you find any lines that do not include a person referring to themselves or their conversation partner in the third person, remove them. If you find any lines that contain text that is not from a quotation, remove them.\n"
+            f"You have been given a chapter from the Bible. Here is a list of places where speakers might be using the third person when the second or first person would be more natural:\n{response1}\n\n"
+            "Please examine this list in context to see if it is correct. If you find any lines that are natural in context as third person, remove them. If you find any lines that are not third person, remove them.\n"
             "Return the revised list only. If the list is empty, return 'None'."
         )
 
@@ -34,7 +34,7 @@ class Person(TNPrepper):
             f"You have been given a chapter from the Bible. Here is a list of places where people refer to themselves or to the people with whom they are speaking in the third person:\n{response2}\n\n"
             "For each instance, append a row of exactly four tab-separated values to a TSV table. If there are multiple instances in a verse of the same type, address all of them with one row. Here is what you should include in each row:"
             "\n(1) The first tab-separated value will provide the chapter and verse where the identified instance is found. Do not include the book name."
-            "\n(2) The second tab-separated value will indicate whether it would be more natural to use the first or the second person here. Use the word 'first' the word 'second' as your answer."
+            "\n(2) The second tab-separated value will indicate whether it would be more natural to use the first person or the second person here. Use the word 'first' or the word 'second' as your answer."
             "\n(3) The third tab-separated value will provide an explanation of the issue. If it would be more natural to use the first person, use this template: '[Speaker] is speaking about himself in the third person. If this would not be natural in your language, you could use the first person form'."
             "If it would be more natural to use the second person, use this template: 'Here [Speaker] addresses [Recipient] in the third person to [function]. If this would not be natural in your language, you could use the second-person form and indicate the [function] in another way'. Replace the bracketed phrases with the appropriate information from the verse (without brackets)."
             "\n(4) The fourth tab-separated value will provide an exact quote from the verse. This quote will include the section of the verse that will need to be rephrased in order to model how to express the idea in first or second person instead of third person."
