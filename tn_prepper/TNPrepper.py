@@ -389,7 +389,6 @@ class TNPrepper():
                         ]
                         transformed_data.append(transformed_row)
                         used_chapters.append(chapter)
-                        print(used_chapters)
 
             return transformed_data
 

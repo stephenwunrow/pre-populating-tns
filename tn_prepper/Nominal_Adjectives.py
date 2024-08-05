@@ -23,7 +23,7 @@ class Nominal_Adjective(TNPrepper):
 
         prompt2 = (
             f"A nominal adjective is an adjective that functions as a noun to refer to a class of things or people. You have been given a chapter from the Bible. Here is a list of possible nominal adjectives in this chapter:\n{response1}\n\n"
-            "Examine the list and remove from it any items that are not nominal adjectives. Return the revised list only. If the revised list is empty, return 'None'."
+            "Examine the list and remove from it any items that are not nominal adjectives. You should only preserve lines that have adjectives. Remove lines that list other parts of speech. Return the revised list only. If the revised list is empty, return 'None'."
         )
 
         response2 = self._query_openai(chapter_content, prompt2)
