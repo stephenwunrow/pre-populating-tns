@@ -1,3 +1,4 @@
+import sys
 from TNPrepper import TNPrepper
 from groq import Groq
 import os
@@ -20,6 +21,7 @@ class Collective_Nouns(TNPrepper):
         )
 
         response1 = self._query_openai(chapter_content, prompt1)
+        if response1 == "None": sys.exit("No collective nouns found")
 
         prompt2 = (
             f"A collective noun is a noun that is singular in form but plural in meaning. You have been given a chapter from the Bible. Here is a list of possible collective nouns in this chapter:\n{response1}\n\n"
@@ -65,7 +67,8 @@ class Collective_Nouns(TNPrepper):
             ]
                 transformed_data.append(transformed_row)
 
-        return transformed_data
+            return transformed_data 
+        return []
 
     def _read_tsv(self, file_path):
         verse_texts = []
