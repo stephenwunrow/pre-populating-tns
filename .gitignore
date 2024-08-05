@@ -15,3 +15,6 @@ Ideas and work.txt
 *__pycache__
 deprecated
 output
+tnprep/Scripts/*
+tnprep/Lib/*
+tnprep/pyvenv.cfg
