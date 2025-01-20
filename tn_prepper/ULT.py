@@ -31,14 +31,24 @@ class ULT(TNPrepper):
             text = re.sub(r' \\v', r'\n\\v', text)
 
             # Regex pattern to capture words, punctuation, and curly brace content
-            pattern = re.compile(r'\\w ([^|]*?)\||([“‘{(]+)\\|\*([)}.,:;!?’”—]+)')
+            pattern = re.compile(r'\\w ([^|]*?)\||(["\'{(]+)\\|\*([)}.,:;!?\'"\u2014]+)')
 
             # Split the content into lines and process
             for line in text.splitlines():
+                # Check for section marker
+                if '\\ts\\*' in line:
+                    if verse_words and chapter and verse:
+                        # Add current verse before section marker
+                        verse_data.append(f'{book_name} {chapter}:{verse}\t{"".join(verse_words)}')
+                    # Add section marker line
+                    verse_data.append(f'-')
+                    verse_words = []
+                    continue
+
                 if line.startswith('\\c '):
                     if verse_words:
                         # Append previous verse words to verse_data
-                        verse_data.append(f'{book_name} {chapter}:{verse}\t{" ".join(verse_words)}')
+                        verse_data.append(f'{book_name} {chapter}:{verse}\t{"".join(verse_words)}')
                     match = re.search(r'\\c\s+(\d+)', line)
                     if match:
                         chapter = int(match.group(1))
@@ -46,7 +56,7 @@ class ULT(TNPrepper):
                 elif line.startswith('\\v '):
                     if verse_words:
                         # Append previous verse words to verse_data
-                        verse_data.append(f'{book_name} {chapter}:{verse}\t{" ".join(verse_words)}')
+                        verse_data.append(f'{book_name} {chapter}:{verse}\t{"".join(verse_words)}')
                     match = re.search(r'\\v\s+(\d+)', line)
                     if match:
                         verse = int(match.group(1))
@@ -57,6 +67,8 @@ class ULT(TNPrepper):
                     for match in matches:
                         if match[0]:  # words
                             words = [word.strip() for word in match[0].split()]
+                            if verse_words and not verse_words[-1].endswith((' ', '"', "'", '(', '{', '[')):
+                                verse_words.append(' ')  # Add space between words only when needed
                             verse_words.extend(words)
                         if match[1]:  # punctuation before zaln
                             verse_words.append(match[1])
@@ -67,6 +79,8 @@ class ULT(TNPrepper):
                     for match in matches:
                         if match[0]:  # words
                             words = [word.strip() for word in match[0].split()]
+                            if verse_words and not verse_words[-1].endswith((' ', '"', "'", '(', '{', '[')):
+                                verse_words.append(' ')  # Add space between words only when needed
                             verse_words.extend(words)
                         if match[1]:  # punctuation before zaln
                             verse_words.append(match[1])
@@ -75,7 +89,7 @@ class ULT(TNPrepper):
 
             # Append the last verse
             if verse_words:
-                verse_data.append(f'{book_name} {chapter}:{verse}\t{" ".join(verse_words)}')
+                verse_data.append(f'{book_name} {chapter}:{verse}\t{"".join(verse_words)}')
 
             return verse_data
 
@@ -83,9 +97,16 @@ class ULT(TNPrepper):
         def cleanup_lines(verse_data):
             cleaned_data = []
             for line in verse_data:
-                line = re.sub(r'( )([.,;:’”?!—})]+)', r'\2', line)
-                line = re.sub(r'([({“‘—]+)( )', r'\1', line)
-                line = re.sub(r'(\w[’]) (s)', r'\1\2', line)
+                # Fix spacing and punctuation first
+                line = re.sub(r'\s+', ' ', line)  # Normalize spaces
+                line = re.sub(r'( )([.,;:?!—})\]]+)', r'\2', line)  # Remove spaces before closing punctuation
+                line = re.sub(r'([({[\u2014]+)( )', r'\1', line)  # Remove spaces after opening punctuation
+                line = re.sub(r'(\w[\u2019]) (s)', r'\1\2', line)  # Fix possessives
+                
+                # Handle quotes and curly braces last
+                line = re.sub(r'"\s*([^"]+?)\s*"', r'"\1"', line)  # Fix spacing around quoted text
+                line = re.sub(r'\{\s*([^}]+?)\s*\}', r'\1', line)  # Remove curly braces but preserve contents and spacing
+                
                 line = line.strip()
                 cleaned_data.append(line)
             return cleaned_data

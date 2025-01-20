@@ -12,11 +12,11 @@ from openai import OpenAI
 import tiktoken
 import google.generativeai as genai
 from anthropic import Anthropic
-client = OpenAI(organization=os.getenv('OPENAI_ORGANIZATION'))
+client = OpenAI()
 
 
 class TNPrepper():
-    def __init__(self, model='gpt-4o-mini'):
+    def __init__(self, model='gpt-4-turbo'):
         self.output_base_dir = 'output'
         self.model = model
         self.tokenizer = tiktoken.get_encoding('cl100k_base')
@@ -379,7 +379,7 @@ class TNPrepper():
                     if chapter in used_chapters:
                         continue
                     else:
-                        note_template = 'In a context such as this, your language might say "{text}" instead of **{key}**. Alternate translation: "{AT}"'
+                        note_template = f"In a context such as this, your language might say “{text}” instead of **{key}**. Alternate translation: “{AT}”"
                         # Create the new row
                         transformed_row = [
                             chapter_verse,  # Reference without the book name
@@ -696,14 +696,14 @@ class TNPrepper():
                     lexeme = row['Lexeme']
                     ab_noun = row['Name']
                     if ',' not in ab_noun:
-                        note_template = f'If your language does not use an abstract noun for the idea of **{ab_noun}**, you could express the same idea in another way. Alternate translation: [alternate_translation]'
+                        note_template = f'If your language does not use an abstract noun for the idea of **{ab_noun}**, you could express the same idea in another way. Alternate translation: “alternate_translation”'
                     elif ab_noun.count(',') == 1:
                         abnoun_1, abnoun_2 = ab_noun.rsplit(',')
-                        note_template = f'If your language does not use abstract nouns for the ideas of **{abnoun_1.strip()}** and **{abnoun_2.strip()}**, you could express the same ideas in another way. Alternate translation: [alternate_translation]'
+                        note_template = f'If your language does not use abstract nouns for the ideas of **{abnoun_1.strip()}** and **{abnoun_2.strip()}**, you could express the same ideas in another way. Alternate translation: “alternate_translation”'
                     elif ab_noun.count(',') > 1:
                         phrase, abnoun_2 = ab_noun.rsplit(',', 1)
                         mod_phrase = re.sub(', ', '**, **', phrase)
-                        note_template = f'If your language does not use abstract nouns for the ideas of **{mod_phrase.strip()}**, and **{abnoun_2.strip()}**, you could express the same ideas in another way. Alternate translation: [alternate_translation]'
+                        note_template = f'If your language does not use abstract nouns for the ideas of **{mod_phrase.strip()}**, and **{abnoun_2.strip()}**, you could express the same ideas in another way. Alternate translation: “alternate_translation”'
 
                     # Extract chapter and verse from the reference
                     chapter_verse = reference.rsplit(' ', 1)[1]
@@ -865,8 +865,6 @@ class TNPrepper():
     def _query_openai(self, context, prompt):
         combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
         response = None
-        query_token_count = 0
-        response_token_count = 0
 
         try:
             completion = client.chat.completions.create(
@@ -881,15 +879,12 @@ class TNPrepper():
                 temperature=0.4
             )
 
-            response = completion.choices[0].message.content
+            response_content = completion.choices[0].message.content
+            response = response_content
 
-        except Exception as e:
-            print(f"OpenAI API request failed: {str(e)}")
-            if "rate limit" in str(e).lower():
-                print("Rate limit exceeded. Waiting before retrying...")
-                time.sleep(60)  # Wait for 60 seconds before next request
-            elif "insufficient_quota" in str(e).lower():
-                print("OpenAI quota exceeded. Please check your billing details.")
+        except openai.error.OpenAIError as e:
+            print(f"Failed to get response for prompt: {prompt}")
+            print(f"Exception: {e}")
 
         finally:
             print(combined_prompt)
@@ -897,43 +892,19 @@ class TNPrepper():
             query_token_count = len(query_tokens)
             print(f"Token count for the query: {query_token_count}")
 
+            print(f'Response: {response}')
             if response:
                 response_tokens = self.tokenizer.encode(response)
                 response_token_count = len(response_tokens)
-                print(f"Response: {response}")
                 print(f"Token count for the response: {response_token_count}")
-                print(f"Total tokens: {query_token_count + response_token_count}")
-            else:
-                print("No response received")
-            print("---")
+            print(f'Total tokens: ', query_token_count + response_token_count)
+            print('---')
 
             return response
         
     def _query_claude(self, context, prompt):
         combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
         response = None
-
-        # Initialize request tracking if not already set
-        if not hasattr(self, '_last_request_times'):
-            self._last_request_times = []
-
-        # Check if we need to wait to stay within rate limit
-        current_time = time.time()
-        while len(self._last_request_times) >= 5:
-            # Remove timestamps older than 60 seconds
-            self._last_request_times = [t for t in self._last_request_times 
-                                      if current_time - t < 60]
-            
-            if len(self._last_request_times) >= 5:
-                # Calculate time to wait
-                wait_time = 60 - (current_time - self._last_request_times[0])
-                if wait_time > 0:
-                    print(f"Rate limit reached. Waiting {wait_time:.0f} seconds...")
-                    for remaining in range(int(wait_time), 0, -1):
-                        print(f"\rTime remaining: {remaining}s ", end="", flush=True)
-                        time.sleep(1)
-                    print("\rResuming requests...           ")  # Clear countdown line
-                current_time = time.time()
 
         try:
             # Send message to Claude
@@ -947,16 +918,13 @@ class TNPrepper():
                         In order to accomplish this goal, I want you to provide me with the precise data I request. 
                         You should not provide explanations and interpretation unless you are specifically asked to do so.""",
                 messages=[
-                    {
+                                        {
                         "role": "user",
                         "content": combined_prompt
                     }
                 ]
             )
             response = message.content[0].text
-            
-            # Record successful request time
-            self._last_request_times.append(time.time())
 
         except Exception as e:
             print(f"Failed to get response for prompt: {prompt}")
@@ -966,6 +934,9 @@ class TNPrepper():
             print(combined_prompt)
             print(f'Response: {response}')
             print('---')
+
+            # Waiting between requests
+            self.__wait_between_queries(2)
 
             return response
         
