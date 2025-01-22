@@ -15,6 +15,17 @@ class Figs(TNPrepper):
         self.verse_text = f'output/{book_name}/ult_book.tsv'
 
     def __process_prompt(self, chapter_content):
+                # Get the AI model type and corresponding query function
+        which_ai = os.getenv('WHICH_AI')
+        if which_ai == 'openai':
+            query_func = self._query_openai
+        elif which_ai == 'gemini':
+            query_func = self._query_gemini
+        elif which_ai == 'claude':
+            query_func = self._query_claude
+        else:
+            raise ValueError(f"Invalid AI model specified: {which_ai}")     
+        
         prompt1 = (
             "You have been given a chapter from the Bible. I want you to look for each of the following specific figures of speech in the chapter: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole. This list is roughly in order from most common to least common."
             "\n\nAs you are looking for each figure of speech, make sure that you carefully consider the definition of that figure of speech. Ensure that what you find for each figure of speech is not better classified as a different figure of speech."
@@ -25,8 +36,9 @@ class Figs(TNPrepper):
             "\n\nIf there are several figures of speech in one verse, include a separate set of data for each one."
         )
 
-        response1 = self._query_openai(chapter_content, prompt1)
-
+        response1 = query_func(chapter_content, prompt=prompt1, temp=0.8)
+        print(f"\nResponse 1: {response1}")
+        self.write_to_log()
         prompt1a = (
             "Here are examples of really good notes along with context:"
             """
@@ -890,7 +902,9 @@ class Figs(TNPrepper):
 """
         )
 
-        response1a = self._query_openai(chapter_content, prompt1a)
+        response1a = query_func(chapter_content, prompt=prompt1a, temp=0.8)
+        print(f"\nResponse 1a: {response1a}")
+        self.write_to_log()
         
         prompt2 = (
             f"You have been given a chapter from the Bible. Here is a list of some figures of speech from this chapter:\n{response1}\n\n"
@@ -900,20 +914,25 @@ class Figs(TNPrepper):
             "As your answer, provide the new list."
         )
 
-        response2 = self._query_openai(chapter_content, prompt2)
+        response2 = query_func(chapter_content, prompt=prompt2, temp=0.8)
+        print(f"\nResponse 2: {response2}")
+        self.write_to_log()
 
         prompt3 = (
             f"You have been given a chapter from the Bible. Here is a list of figures of speech in this chapter: {response2}\n\n"
-            "\nFor each of these listed figures of speech, append a row of data to a TSV table. Each row must contain exactly eight tab-separated values. Here is what a row should be like:"
-            "chapter:verse\t\t\trc://*/ta/man/translate/figs-[figure_of_speech]\thebrew_placeholder\t1\tExplanation of the figure of speech along with an alternate translation that does not use the figure of speech\tquote from the verse that the alternate translation can replace\n\n"
+            "\nFor each of these listed figures of speech, append a row of data to a TSV table. Each row must contain exactly 7 tab-separated values. Here is what a row should be like:"
+            "chapter:verse\t\t\trc://*/ta/man/translate/figs-[figure_of_speech]\tquote from the verse that the alternate translation can replace\t1\tExplanation of the figure of speech along with an alternate translation that does not use the figure of speech\n\n"
             "Here are two examples:\n"
-            "1:2			rc://*/ta/man/translate/figs-metaphor	 hebrew_placeholder	1	Here the servants speak of how the young woman will always serve the king as if she would **stand to the face of the king**. If it would be helpful in your language, you could use a comparable figure of speech or state the meaning plainly. Alternate translation: “she will always be ready to serve”\tshe will always stand to the face of the king\n"
-            "1:37			rc://*/ta/man/translate/figs-metonymy   hebrew_placeholder  1	Here, **throne** represents the rule or reign of the person who sits on the **throne**. If it would be helpful in your language, you could use an equivalent expression from your language or state the meaning plainly. Alternate translation: “and may he make his reign greater than the reign of my lord the king David” or “and may he make him a greater ruler than my lord the king David”\tand may he make his throne greater than the throne of my lord the king David\n"
-            "Note - whenever you quote directly from the verse, you should enclose the quoted word or words in double asterisks, as in the above examples."
+            "1:2			rc://*/ta/man/translate/figs-metaphor	 she will always stand to the face of the king	1	Here the servants speak of how the young woman will always serve the king as if she would **stand to the face of the king**. If it would be helpful in your language, you could use a comparable figure of speech or state the meaning plainly. Alternate translation: [she will always be ready to serve]\n"
+            "1:37			rc://*/ta/man/translate/figs-metonymy   and may he make his throne greater than the throne of my lord the king David  1	Here, **throne** represents the rule or reign of the person who sits on the **throne**. If it would be helpful in your language, you could use an equivalent expression from your language or state the meaning plainly. Alternate translation: [and may he make his reign greater than the reign of my lord the king David] or [and may he make him a greater ruler than my lord the king David]\n"
+            "Note - whenever you quote directly from the verse (in the Note column), you should enclose the quoted word or words in double asterisks, as in the above examples."
             "Important: be sure that your explanation fits the context as well as the label for the figure of speech."
         )
 
-        return self._query_openai(chapter_content, prompt3)
+        response3 = query_func(chapter_content, prompt=prompt3, temp=0.3)
+        print(f"\nResponse 3: {response3}")
+        self.write_to_log()
+        return response3
 
     def _read_tsv(self, file_path):
         verse_texts = []
@@ -929,12 +948,15 @@ class Figs(TNPrepper):
 
         # Check the stage and limit verse_texts if in development stage
         if os.getenv('STAGE') == 'dev':
-            verse_texts = verse_texts[:5]
+            max_verses = int(os.getenv('DEV_NUMBER_OF_VERSES'))
+            verse_texts = verse_texts[:max_verses]
 
         # Organize verse texts by chapter
         chapters = {}
         for verse in verse_texts:
             reference = verse['Reference']
+            if reference == '-':
+                continue
             book_name, chapter_and_verse = reference.rsplit(' ', 1)
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:

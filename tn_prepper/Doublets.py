@@ -19,31 +19,36 @@ class Doublets(TNPrepper):
             "Only return the chapter:verse and the doublet text, no other text."
         )
 
+        # Get the AI model type and corresponding query function
         which_ai = os.getenv('WHICH_AI')
-        
         if which_ai == 'openai':
-            response1 = self._query_openai(chapter_content, prompt1)
+            query_func = self._query_openai
         elif which_ai == 'gemini':
-            response1 = self._query_gemini(chapter_content, prompt1) 
+            query_func = self._query_gemini
         elif which_ai == 'claude':
-            response1 = self._query_claude(chapter_content, prompt1)
+            query_func = self._query_claude
         else:
             raise ValueError(f"Invalid AI model specified: {which_ai}")
 
+        # First prompt and response
+        prompt1 = (
+            "A doublet is two words or very short phrases that have the same meaning (or almost the same meaning) and that are joined directly by 'and'. This type of repetition emphasizes the meaning. Be sure that the words or phrases you identify are not full clauses.\n"
+            "In the section of the Bible provided above, identify each doublet. Check the section again to make sure you didn't miss any doublets. If there are no doublets, return 'NONE_FOUND'.\n"
+            "Only return the chapter:verse and the doublet text, no other text."
+        )
+        response1 = query_func(chapter_content, prompt1)
+
+        # Second prompt and response if needed
         prompt2 = (
             f"You have been given a chapter from the Bible. Here is a list of potential doublets in this chapter:\n{response1}\n\n"
             "Examine this list in context. If the two words or phrases do not have the same meaning (or almost the same meaning), remove the line from the list. If the two words or phrases are not joined directly by 'and', remove the line from the list. If the two words or phrases could be better considered parallelisms or a merism, remove the line from the list.  If one of the words or phrases could be used to modify the other (hendiadys) remove the item from the list. Return the revised list. If the revised list is empty, return 'NONE_FOUND'."
         )
         if 'NONE_FOUND' not in response1:
-            if which_ai == 'openai':
-                response2 = self._query_openai(chapter_content, prompt2)
-            elif which_ai == 'gemini':
-                response2 = self._query_gemini(chapter_content, prompt2)
-            elif which_ai == 'claude':
-                response2 = self._query_claude(chapter_content, prompt2)
+            response2 = query_func(chapter_content, prompt2)
         else:
-            return None  # Returning null as instructed
+            return None
 
+        # Third prompt and response if needed
         prompt3 = (
             f"You have been given a section from the Bible. Here is a list of doublets from that section:\n{response2}\n\n"
             "If the list is empty, return 'None'. Otherwise, for each doublet, you will append a row of data to a TSV table. Each row should contain exactly four tab-separated values:"
@@ -54,17 +59,9 @@ class Doublets(TNPrepper):
             "\nBe sure that the items in each row are consistent in how they understand the doublet.\n"
         )
         if 'NONE_FOUND' not in response2:
-            if which_ai == 'openai':
-                return self._query_openai(chapter_content, prompt3)
-            elif which_ai == 'gemini':
-                return self._query_gemini(chapter_content, prompt3)
-            elif which_ai == 'claude':
-                return self._query_claude(chapter_content, prompt3)
-            # print("test prompt3")
-            # response3 = "test"
-            # return response3
+            return query_func(chapter_content, prompt3)
         else:
-            return None  # Returning null as instructed
+            return None
     
     
     def _transform_response(self, mod_ai_data):
@@ -110,8 +107,22 @@ class Doublets(TNPrepper):
         chapters = {}
         current_section = []
         sections_count = 0
-        dev_mode = os.getenv('STAGE') == 'dev'
-        dev_section_limit = 5  # Define limit in one place for easier modification
+        
+        # Check stage first
+        if os.getenv('STAGE') == 'dev':
+            # Then check for verse limit in dev mode
+            dev_verse_limit = os.getenv('DEV_NUMBER_OF_VERSES')
+            if dev_verse_limit:
+                try:
+                    dev_verse_limit = int(dev_verse_limit)
+                    print(f"Dev mode: Processing first {dev_verse_limit} sections")
+                except ValueError:
+                    dev_verse_limit = None
+                    print("Warning: Invalid 'DEV_NUMBER_OF_VERSES' value, processing all sections")
+            else:
+                print("Dev mode: No verse limit specified, processing all sections")
+        else:
+            dev_verse_limit = None
         
         # First pass: organize verses into sections
         for verse in verse_texts:
@@ -125,14 +136,14 @@ class Doublets(TNPrepper):
                         chapters[chapter] = []
                     chapters[chapter].append(current_section)
                     sections_count += 1
-                    if dev_mode and sections_count >= dev_section_limit:
+                    if dev_verse_limit and sections_count >= dev_verse_limit:
                         break
                 current_section = []
             else:
                 current_section.append(verse)
                 
         # Add final section if not empty and we haven't hit section limit
-        if current_section and (not dev_mode or sections_count < dev_section_limit):
+        if current_section and (not dev_verse_limit or sections_count < dev_verse_limit):
             book_name, chapter_and_verse = current_section[0]['Reference'].rsplit(' ', 1) 
             chapter = f"{book_name} {chapter_and_verse.split(':')[0]}"
             if chapter not in chapters:

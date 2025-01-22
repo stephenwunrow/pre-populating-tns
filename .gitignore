@@ -18,3 +18,5 @@ output
 tnprep/Scripts/*
 tnprep/Lib/*
 tnprep/pyvenv.cfg
+
+*.log

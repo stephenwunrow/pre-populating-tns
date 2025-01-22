@@ -31,7 +31,7 @@ class ULT(TNPrepper):
             text = re.sub(r' \\v', r'\n\\v', text)
 
             # Regex pattern to capture words, punctuation, and curly brace content
-            pattern = re.compile(r'\\w ([^|]*?)\||(["\'{(]+)\\|\*([)}.,:;!?\'"\u2014]+)')
+            pattern = re.compile(r'\\w ([^|]*?)\||([“‘{(]+)\\|\*([)}.,:;!?’”—]+)')
 
             # Split the content into lines and process
             for line in text.splitlines():
@@ -97,16 +97,19 @@ class ULT(TNPrepper):
         def cleanup_lines(verse_data):
             cleaned_data = []
             for line in verse_data:
-                # Fix spacing and punctuation first
-                line = re.sub(r'\s+', ' ', line)  # Normalize spaces
-                line = re.sub(r'( )([.,;:?!—})\]]+)', r'\2', line)  # Remove spaces before closing punctuation
-                line = re.sub(r'([({[\u2014]+)( )', r'\1', line)  # Remove spaces after opening punctuation
-                line = re.sub(r'(\w[\u2019]) (s)', r'\1\2', line)  # Fix possessives
+                line = re.sub(r'( )([.,;:’”?!—})]+)', r'\2', line)
+                line = re.sub(r'([({“‘—]+)( )', r'\1', line)
+                line = re.sub(r'(\w[’]) (s)', r'\1\2', line)
+                # # Fix spacing and punctuation first
+                # line = re.sub(r'\s+', ' ', line)  # Normalize spaces
+                # line = re.sub(r'( )([.,;:?!—})\]]+)', r'\2', line)  # Remove spaces before closing punctuation
+                # line = re.sub(r'([({[\u2014]+)( )', r'\1', line)  # Remove spaces after opening punctuation
+                # line = re.sub(r'(\w[\u2019]) (s)', r'\1\2', line)  # Fix possessives
                 
-                # Handle quotes and curly braces last
-                line = re.sub(r'"\s*([^"]+?)\s*"', r'"\1"', line)  # Fix spacing around quoted text
+                # # Handle quotes and curly braces last
+                # line = re.sub(r'"\s*([^"]+?)\s*"', r'"\1"', line)  # Fix spacing around quoted text
                 line = re.sub(r'\{\s*([^}]+?)\s*\}', r'\1', line)  # Remove curly braces but preserve contents and spacing
-                
+                line = re.sub(r'(\d+),\s+(\d{3})', r'\1,\2', line)  # Fix number formatting like "1, 234" to "1,234"
                 line = line.strip()
                 cleaned_data.append(line)
             return cleaned_data
