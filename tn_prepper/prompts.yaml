@@ -1,0 +1,152 @@
+system:
+  base: |
+    I want to write translation notes for translation issues in the Bible. It is a tool for Bible translators into langauges that don't have a Bible. Aim for ESL speakers with an 8th grade education.
+    These translation notes will include chapter and verse, an explanation of the translation issue, an brief suggestion for translators of how to translate the issue, an alternate way to translate the idea without using the figure of speech, and the words from the Bible translation that need to be replaced to include the alternate translation. 
+    In order to accomplish this goal, I want you to provide me with the precise data I request. 
+    Please analyze the text in a structured, hierarchical manner. At each level, determine if it is being used in a literal or a figurative manner. Also examine the connections between the parts of the text. Examine the text at the word, phrase, clause, sentence, paragraph, and chapter levels. Then use outside knowledge to see how that fits into the larger context of the book and then the Bible.
+    Think step-by-step, but do not put it in your response. Only give the data I request.
+    You should not provide explanations and/or interpretation unless you are specifically asked to do so.
+
+
+scripts:
+  user_defined:
+    config:
+      system: |
+        Focus on providing clear, accurate analysis for ESL Bible translators.
+        Consider cultural and historical context in your responses.
+        You may be asked to provide a list of one or more of the following: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole. If so, check to be sure that the text you are analyzing is not better classified as a different figure of speech.
+        
+    prompts:
+      initial_analysis:
+        temp: 0.8
+        content: |
+          Read this explanation: {data/metaphor.md} 
+          
+          Analyze the provided Bible section and identify any of the types of issues from the explanation above.          
+          Format your response as a list with each item on a new line.
+          If none are found, return 'NONE_FOUND'. Only return matches or 'NONE_FOUND'. Only return 'NONE_FOUND' if there are no matches in the entire section. Don't return 'NONE_FOUND' if there are matches in any subsection of the section.
+
+      detailed_review:
+        temp: 0.4
+        content: |
+          Review this analysis of the section:
+          {previous_response}
+
+          For each identified translation issue:
+          1. Verify that it is correctly categorized and actually presents a translation challenge
+          2. Check that the issue exists in the original language and cultural context
+          3. Evaluate if the issue would be difficult for translators in other languages and cultures
+          4. Consider if the issue significantly impacts the meaning of the text
+          5. Remove any items that:
+             - Are common/basic vocabulary
+             - Don't present real translation challenges
+             - Are better handled by other translation notes
+          
+          Return the revised list. If no items remain, return 'NONE_FOUND'. Only return matches or 'NONE_FOUND'. Only return 'NONE_FOUND' if there are no matches in the entire section. Don't return 'NONE_FOUND' if there are matches in any subsection of the section.
+
+      final_format:
+        temp: 0.2
+        content: |
+          For each item in this list:
+          {previous_response}
+
+          Create a structured note with:
+          1. The verse reference (e.g., 1:1)
+          2. A clear explanation for translators
+          3. Suggested ways to handle the translation
+          4. Alternative expressions if needed
+
+          Format your response in tab-separated values (TSV) with these columns:
+          Reference\tID\tTags\tSupportReference\tQuote\tOccurrence\tNote
+
+          Here are some examples of note data and how to format the note:
+          {data/metaphor-note-examples.json}
+
+  doublets:
+    prompt1: |
+      A doublet is two words or very short phrases that have the same meaning (or almost the same meaning) and that are joined directly by 'and'. This type of repetition emphasizes the meaning. Be sure that the words or phrases you identify are not full clauses.
+      In the section of the Bible provided above, identify each doublet. Check the section again to make sure you didn't miss any doublets. If there are no doublets, return 'NONE_FOUND'.
+      Only return the chapter:verse and the doublet text, no other text.
+
+    prompt2: |
+      You have been given a section from the Bible. Here is a list of potential doublets in this section:
+      {previous_response}
+
+      Examine this list in context. If the two words or phrases do not have the same meaning, remove the line from the list. If the two words or phrases are not joined directly by 'and', remove the line from the list. Return the revised list. If the revised list is empty, return 'NONE_FOUND'.
+
+    prompt3: |
+      For each doublet in this list:
+      {previous_response}
+
+      1. Provide the verse reference (e.g., 1:1)
+      2. Explain why this is a doublet
+      3. Quote the minimal phrase that contains the doublet
+      4. Provide a natural alternate translation that expresses the emphasis with a single phrase
+
+      Format your response in tab-separated values (TSV).
+
+  ordinals:
+    prompt1: |
+      You will be given a Bible verse and an ordinal number from that verse. You will also be given the occurrence number of the ordinal number. If there are multiple occurrences of the ordinal number in the verse, please only address this specific occurrence.
+      Please provide your response in the following JSON format:
+      {
+        "snippet": "the minimal phrase containing the ordinal",
+        "alternates": ["cardinal number form", "equivalent expression"],
+        "errors": ["any errors encountered"]
+      }
+
+      Notes:
+      1. The snippet should be a minimal phrase or clause from the verse that contains the ordinal which the alternate translation can replace
+      2. The alternate translation(s) should always seamlessly replace the snippet in the verse. Make sure the verse is grammatically correct. You may need to add punctuation or other words to make it work.
+      3. The alternate translation should **not** contain an ordinal number
+      4. The first alternate should always use the cardinal number form (write out numbers <= 10)
+      5. The second alternate (equivalent expression) is optional. Do not include it if you are just using the cardinal number form in another way.
+      6. If the snippet is immediately preceded by a conjunction, include that conjunction in the snippet and alternate translation
+      7. If the 'Ordinal to replace' does not contain an ordinal number, write 'NOT_ORDINAL' in the errors field (and nothing else) but still process the verse and return a snippet and alternate translations(s) as if it did contain an ordinal number
+      The most common way to suggest this transformation is like this: `the third ruler` -> `ruler number three`
+
+      Verse: {verse_content}
+      Ordinal to replace: {english_ordinal} (occurrence {occurrence})
+
+  figs_of_speech:
+    config:
+      system: |
+        Focus on identifying figures of speech accurately. Consider the cultural and historical context.
+        Ensure classifications are precise and explanations are clear for ESL readers.
+        
+    prompts:
+      initial_scan:
+        temp: 0.8
+        content: |
+          You have been given a chapter from the Bible. I want you to look for each of the following specific figures of speech in the chapter: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole. This list is roughly in order from most common to least common.
+
+          As you are looking for each figure of speech, make sure that you carefully consider the definition of that figure of speech. Ensure that what you find for each figure of speech is not better classified as a different figure of speech.
+
+          For each figure of speech you find, provide the following information in a tab-separated format:
+          (1) The verse reference (e.g., 1 Kings 1:1).
+          (2) The type of figure of speech.
+          (3) An exact quote from the verse that contains the figure of speech.
+
+          If there are several figures of speech in one verse, include a separate set of data for each one.
+      second_scan: 
+        temp: 0.4
+        content: |
+          Here are examples of really good notes along with context:
+          {figs-of-speech-examples.json}
+          You have been given a chapter from the Bible. Here is a list of some figures of speech from this chapter:\n{previous_response}\n\n
+          I want you to double-check for each of the following specific figures of speech in the chapter: metaphor, simile, idiom, personification, metonymy, synecdoche, apostrophe, euphemism, hendiadys, litotes, merism, hyperbole.\n
+          If you find more figures of speech, add them to the list.\n
+          Also double-check the label provided for the figure of speech. Consider whether it is the best label for the text. Change it to another label if it is not the best label. You may still only use the labels provided to you.\n
+          As your answer, provide the new list.
+
+      final_format:
+        temp: 0.2
+        content: |
+          You have been given a chapter from the Bible. Here is a list of figures of speech in this chapter: {previous_response}\n\n
+          \nFor each of these listed figures of speech, append a row of data to a TSV table. Each row must contain exactly 7 tab-separated values. Here is what a row should be like:
+          chapter:verse\tuw43\t\trc://*/ta/man/translate/figs-[figure_of_speech]\tquote from the verse that the alternate translation can replace\t1\tExplanation of the figure of speech, suggestion for translator action, and an alternate translation that does not use the figure of speech in []\n
+          Here are two examples:\n
+          1:2	uw43		rc://*/ta/man/translate/figs-metaphor	 she will always stand to the face of the king	1	Here the servants speak of how the young woman will always serve the king as if she would **stand to the face of the king**. If it would be helpful in your language, you could use a comparable figure of speech or state the meaning plainly. Alternate translation: [she will always be ready to serve]\n"
+          1:37	uw43		rc://*/ta/man/translate/figs-metonymy   and may he make his throne greater than the throne of my lord the king David  1	Here, **throne** represents the rule or reign of the person who sits on the **throne**. If it would be helpful in your language, you could use an equivalent expression from your language or state the meaning plainly. Alternate translation: [and may he make his reign greater than the reign of my lord the king David] or [and may he make him a greater ruler than my lord the king David]\n            
+          Note - whenever you quote directly from the verse (in the Note column), you should enclose the quoted word or words in double asterisks, as in the above examples.
+          Important: be sure that your explanation fits the context as well as the label for the figure of speech. 

@@ -6,7 +6,6 @@ import re
 from tqdm import tqdm
 from pprint import pprint
 import time
-import openai
 from dotenv import load_dotenv
 from openai import OpenAI
 import tiktoken
@@ -16,65 +15,102 @@ from anthropic import Anthropic
 import sys
 import datetime
 from io import StringIO
-client = OpenAI(organization=os.getenv('OPENAI_ORGANIZATION'))
+from utilitiesTN import load_prompts
 
+load_dotenv()
 
 class TNPrepper():
-    def __init__(self, model='gpt-4o-mini'):
+    def __init__(self, book_name=None):
         self.output_base_dir = 'output'
-        self.model = model
-        self.tokenizer = tiktoken.get_encoding('cl100k_base')
-        # genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
-        self.anthropic = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
-        self._last_request_times = []  # Initialize request tracking
+        self.book_name = book_name
         
+        # Initialize logging
+        self._setup_logging()
+        
+        # Load system prompts
+        self.system_prompts = load_prompts('system')
+        
+        # Initialize AI services
+        self._setup_ai_services()
+
+    def _setup_logging(self):
+        """Set up logging configuration."""
         # Create logs directory if it doesn't exist
         os.makedirs('logs', exist_ok=True)
         
         # Set up logging
         self.log_file = 'logs/tn_prepper.log'
-        self.start_new_log_session()
         
-        # Store original stdout
-        self.original_stdout = sys.stdout
-        # Create a string buffer for capturing output
-        self.output_buffer = StringIO()
-        # Replace stdout with our buffer
-        sys.stdout = self.output_buffer
+        # Create a custom logger that writes to both file and console
+        class TeeLogger:
+            def __init__(self, filename):
+                self.terminal = sys.stdout
+                self.log = open(filename, 'a', encoding='utf-8')
+
+            def write(self, message):
+                self.terminal.write(message)
+                self.log.write(message)
+                # Ensure both outputs are flushed immediately
+                self.terminal.flush()
+                self.log.flush()
+
+            def flush(self):
+                self.terminal.flush()
+                self.log.flush()
+
+        # Replace stdout with our custom logger
+        sys.stdout = TeeLogger(self.log_file)
+        
+        # Start new log session
+        self.start_new_log_session()
+
+    def _setup_ai_services(self):
+        """Initialize AI services based on environment variables."""
+        self._setup_tokenizer()
+        self._setup_openai()
+        self._setup_anthropic()
+        self._setup_gemini()
+        
+        # Initialize request tracking with tuples of (timestamp, tokens)
+        self._last_request_times = []
+
+    def _setup_tokenizer(self):
+        """Initialize the tokenizer."""
+        self.tokenizer = tiktoken.get_encoding('cl100k_base')
+
+    def _setup_openai(self):
+        """Initialize OpenAI client."""
+        self.openai_client = OpenAI(organization=os.getenv('OPENAI_ORGANIZATION'))
+        self.openai_model = os.getenv('WHICH_MODEL', 'gpt-4o-mini')  # Default to gpt-4 if not specified
+
+    def _setup_anthropic(self):
+        """Initialize Anthropic client."""
+        self.anthropic = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
+        self.anthropic_model = "claude-3-5-sonnet-20241022"  # Could be moved to env var if needed
+
+    def _setup_gemini(self):
+        """Initialize Gemini configuration."""
+        self.gemini_model = os.getenv('WHICH_GEMINI', 'gemini-2.0-flash-exp')
 
     def __del__(self):
         # Restore original stdout when the instance is destroyed
-        sys.stdout = self.original_stdout
-        # Close the buffer
-        self.output_buffer.close()
+        if hasattr(sys.stdout, 'log'):
+            sys.stdout.log.close()
+        sys.stdout = sys.__stdout__
 
     def start_new_log_session(self):
         """Start a new logging session with a header"""
-        with open(self.log_file, 'a', encoding='utf-8') as f:
-            timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            script_name = self.__class__.__name__
-            book_name = os.getenv('BOOK_NAME', 'Unknown Book')
-            ai_model = os.getenv('WHICH_AI', 'Unknown AI')
-            
-            f.write('\n' + '='*80 + '\n')
-            f.write(f'NEW-RUN at {timestamp}\n')
-            f.write(f'Script: {script_name}\n')
-            f.write(f'Book: {book_name}\n')
-            f.write(f'AI Model: {ai_model}\n')
-            f.write('='*80 + '\n\n')
-
-    def write_to_log(self):
-        """Write current buffer contents to both log file and console"""
-        output = self.output_buffer.getvalue()
-        if output:  # Only write if there's content
-            # Write to log file
-            with open(self.log_file, 'a', encoding='utf-8') as f:
-                f.write(output)
-            # Write to console
-            print(output, file=self.original_stdout, end='')
-            # Clear the buffer
-            self.output_buffer.truncate(0)
-            self.output_buffer.seek(0)
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        script_name = self.__class__.__name__
+        book_name = self.book_name or os.getenv('BOOK_NAME', 'Unknown Book')
+        ai_model = os.getenv('WHICH_AI', 'Unknown AI')
+        
+        print('\n' + '='*80)
+        print(f'NEW-RUN at {timestamp}')
+        print(f'Script: {script_name}')
+        print(f'Book: {book_name}')
+        print(f'AI Model: {ai_model}')
+        print('='*80 + '\n')
 
     def run(self):
         """Override this in child classes"""
@@ -90,74 +126,16 @@ class TNPrepper():
 
     # Scrapes ult or ust and reads it, returning "soup"
     def _scrape_and_read_data(self, book_name, version):
-        # Mapping of book names to their respective acronyms
-        acronym_mapping = {
-            "Genesis": "01-GEN",
-            "Exodus": "02-EXO",
-            "Leviticus": "03-LEV",
-            "Numbers": "04-NUM",
-            "Deuteronomy": "05-DEU",
-            "Joshua": "06-JOS",
-            "Judges": "07-JDG",
-            "Ruth": "08-RUT",
-            "1 Samuel": "09-1SA",
-            "2 Samuel": "10-2SA",
-            "1 Kings": "11-1KI",
-            "2 Kings": "12-2KI",
-            "1 Chronicles": "13-1CH",
-            "2 Chronicles": "14-2CH",
-            "Ezra": "15-EZR",
-            "Nehemiah": "16-NEH",
-            "Esther": "17-EST",
-            "Job": "18-JOB",
-            "Psalms": "19-PSA",
-            "Proverbs": "20-PRO",
-            "Song of Solomon": "22-SNG",
-            "Isaiah": "23-ISA",
-            "Jeremiah": "24-JER",
-            "Lamentations": "25-LAM",
-            "Ezekiel": "26-EZK",
-            "Daniel": "27-DAN",
-            "Hosea": "28-HOS",
-            "Joel": "29-JOL",
-            "Amos": "30-AMO",
-            "Obadiah": "31-OBA",
-            "Jonah": "32-JON",
-            "Micah": "33-MIC",
-            "Nahum": "34-NAM",
-            "Habakkuk": "35-HAB",
-            "Zephaniah": "36-ZEP",
-            "Haggai": "37-HAG",
-            "Zechariah": "38-ZEC",
-            "Malachi": "39-MAL",
-            "Matthew": "41-MAT",
-            "Mark": "42-MRK",
-            "Luke": "43-LUK",
-            "John": "44-JHN",
-            "Acts": "45-ACT",
-            "Romans": "46-ROM",
-            "1 Corinthians": "47-1CO",
-            "2 Corinthians": "48-2CO",
-            "Galatians": "49-GAL",
-            "Ephesians": "50-EPH",
-            "Philippians": "51-PHP",
-            "Colossians": "52-COL",
-            "1 Thessalonians": "53-1TH",
-            "2 Thessalonians": "54-2TH",
-            "1 Timothy": "55-1TI",
-            "2 Timothy": "56-2TI",
-            "Titus": "57-TIT",
-            "Philemon": "58-PHM",
-            "Hebrews": "59-HEB",
-            "James": "60-JAS",
-            "1 Peter": "61-1PE",
-            "2 Peter": "62-2PE",
-            "1 John": "63-1JN",
-            "2 John": "64-2JN",
-            "3 John": "65-3JN",
-            "Jude": "66-JUD",
-            "Revelation": "67-REV"
-        }
+        # Load acronym mapping from external file
+        acronym_mapping = {}
+        with open('tn_prepper/bible_book_acronym_map.txt', 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):  # Skip empty lines and comments
+                    key, value = line.replace('"', '').split(': ')
+                    key = key.strip(',')  # Remove trailing comma if present
+                    value = value.strip(',')  # Remove trailing comma if present
+                    acronym_mapping[key] = value
 
         # Get the acronym from the acronym mapping
         if book_name in acronym_mapping:
@@ -181,6 +159,8 @@ class TNPrepper():
         # "identification_pattern" should have two match groups, 
         # the first for morphology (x-morph) and the second for the Hebrew word (x-content),
         # and it should end with \\w .+?\|
+
+
     def _create_verse_data(self, soup, book_name, identification_pattern):
         # Initialize variables
         chapter = None
@@ -850,7 +830,19 @@ class TNPrepper():
 
         return result_lines
 
-    def _query_gemini(self, context, prompt, temp=0.4):
+    def _query_gemini(self, context, prompt, temp=0.4, system_content=None, additional_system=None):
+        """Query the Gemini model.
+        
+        Args:
+            context (str): The context to provide to the model
+            prompt (str): The prompt to send to the model
+            temp (float, optional): Temperature setting. Defaults to 0.4.
+            system_content (str, optional): System instructions. Takes precedence over additional_system.
+            additional_system (str, optional): Legacy parameter for system instructions.
+            
+        Returns:
+            str: The model's response
+        """
         combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
         response = None
 
@@ -858,17 +850,19 @@ class TNPrepper():
             # Initialize the client
             client = genai.Client(api_key=os.getenv('GOOGLE_API_KEY'))
             
+            # Combine system instructions
+            system_instruction = self.system_prompts['base']
+            if system_content:
+                system_instruction = f"{system_instruction}\n\n{system_content}"
+            elif additional_system:
+                system_instruction = f"{system_instruction}\n\n{additional_system}"
+            
             # Generate content with system instruction and temperature
             response = client.models.generate_content(
-                model="gemini-2.0-flash-thinking-exp",
+                model=self.gemini_model,
                 contents=combined_prompt,
                 config=types.GenerateContentConfig(
-                    system_instruction="I want to write translation notes for translation issues in the Bible. "
-                                    "These translation notes will include chapter and verse, an explanation of the translation issue, "
-                                    "an alternate way to translate the idea without using the figure of speech, and the words from "
-                                    "the Bible translation that need to be replaced to include the alternate translation. "
-                                    "In order to accomplish this goal, I want you to provide me with the precise data I request. "
-                                    "You should not provide explanations and/or interpretation unless you are specifically asked to do so.",
+                    system_instruction=system_instruction,
                     temperature=temp,
                 ),
             )
@@ -880,73 +874,44 @@ class TNPrepper():
 
         finally:
             print(combined_prompt)
-            # print(f'Response: {response}')
-            # print('---')
-
-            # Waiting between requests
             self.__wait_between_queries(2)
-
             return response
+
+    def _query_openai(self, context, prompt, temp=0.4, system_content=None, additional_system=None):
+        """Query the OpenAI model.
         
-    # Function to query groq LLM
-    def _query_llm(self, context, prompt):
+        Args:
+            context (str): The context to provide to the model
+            prompt (str): The prompt to send to the model
+            temp (float, optional): Temperature setting. Defaults to 0.4.
+            system_content (str, optional): System instructions. Takes precedence over additional_system.
+            additional_system (str, optional): Legacy parameter for system instructions.
+            
+        Returns:
+            str: The model's response
+        """
         combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
         response = None
 
         try:
-            chat_completion = self.groq_client.chat.completions.create(
+            # Combine system instructions
+            system_instruction = self.system_prompts['base']
+            if system_content:
+                system_instruction = f"{system_instruction}\n\n{system_content}"
+            elif additional_system:
+                system_instruction = f"{system_instruction}\n\n{additional_system}"
+
+            # Make the API call
+            client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+            response = client.chat.completions.create(
+                model=self.openai_model,
                 messages=[
-                    {
-                        "role": "system",
-                        "content": "I want to write translation notes for translation issues in the Bible."
-                        "These translation notes will include chapter and verse, an explanation of the translation issue, an alternate way to translate the idea without using the figure of speech, and the words from the Bible translation that need to be replaced to include the alternate translation."
-                        "In order to accomplish this goal, I want you to provide me with the precise data I request. You should not provide explanations and interpretation unless you are specifically asked to do so."
-                    },
-                    {
-                        "role": "user",
-                        "content": combined_prompt,
-                    }
-                ],
-                model=self.groq_model,
-                temperature = 0.4
-
-            )
-            response = chat_completion.choices[0].message.content.strip()
-
-        except Exception as e:
-            print(f"Request failed: {e}")
-            print(f"Failed to get response for prompt: {prompt}")
-
-        finally:
-            print(combined_prompt)
-            print(f'Response: {response}')
-            print('---')
-
-            # Waiting, to stay below our request limit (30 reqs/minute)
-            self.__wait_between_queries(2)
-
-            return response
-
-    def _query_openai(self, context, prompt, temp=0.4):
-        combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
-        response = None
-        query_token_count = 0
-        response_token_count = 0
-
-        try:
-            completion = client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": "I want to write translation notes for translation issues in the Bible. These translation notes will include chapter and verse, "
-                    "an explanation of the translation issue, an alternate way to translate the idea without using the figure of speech, and the words from the Bible translation "
-                    "that need to be replaced to include the alternate translation. In order to accomplish this goal, I want you to provide me with the precise data I request. "
-                    "You should not provide explanations and interpretation unless you are specifically asked to do so."},
+                    {"role": "system", "content": system_instruction},
                     {"role": "user", "content": combined_prompt}
                 ],
                 temperature=temp
             )
-
-            response = completion.choices[0].message.content
+            response = response.choices[0].message.content
 
         except Exception as e:
             print(f"OpenAI API request failed: {str(e)}")
@@ -965,7 +930,6 @@ class TNPrepper():
             if response:
                 response_tokens = self.tokenizer.encode(response)
                 response_token_count = len(response_tokens)
-                # print(f"Response: {response}")
                 print(f"Token count for the response: {response_token_count}")
                 print(f"Total tokens: {query_token_count + response_token_count}")
             else:
@@ -973,64 +937,72 @@ class TNPrepper():
             print("---")
 
             return response
+
+    def _query_claude(self, context, prompt, temp=0.4, system_content=None, additional_system=None):
+        """Query the Claude model.
         
-    def _query_claude(self, context=None, prompt=None, temp=0.3):
-        if context is None:
-            combined_prompt = f"Prompt:\n{prompt}"
-        else:
-            combined_prompt = f"Context:\n{context}\n\nPrompt:\n{prompt}"
+        Args:
+            context (str): The context to provide to the model
+            prompt (str): The prompt to send to the model
+            temp (float, optional): Temperature setting. Defaults to 0.4.
+            system_content (str, optional): System instructions. Takes precedence over additional_system.
+            additional_system (str, optional): Legacy parameter for system instructions.
+            
+        Returns:
+            str: The model's response
+        """
+        combined_prompt = f"Chapter:\n{context}\n\nPrompt:\n{prompt}"
         response = None
 
-        # Check if we need to wait to stay within rate limit
-        current_time = time.time()
-        # Clean up old timestamps first
-        self._last_request_times = [t for t in self._last_request_times 
-                                  if current_time - t < 60]
-        
-        if len(self._last_request_times) >= 5:
-            # Calculate time to wait
-            wait_time = 60 - (current_time - self._last_request_times[0])
-            if wait_time > 0:
-                # Print rate limit messages to stderr instead of stdout
-                print(f"Rate limit reached. Waiting {wait_time:.0f} seconds...", file=sys.stderr)
-                for remaining in range(int(wait_time), 0, -1):
-                    print(f"\rTime remaining: {remaining}s ", end="", file=sys.stderr, flush=True)
-                    time.sleep(1)
-                print("\rResuming requests...           ", file=sys.stderr)  # Clear countdown line
-
         try:
-            # Send message to Claude
-            message = self.anthropic.messages.create(
-                model="claude-3-5-sonnet-20241022",
-                max_tokens=1000,
-                temperature=temp,
-                system= """I want to write translation notes for translation issues in the Bible. 
-                        These translation notes will include chapter and verse, an explanation of the translation issue, 
-                        an alternate way to translate the idea without using the figure of speech, and the words from 
-                        the Bible translation that need to be replaced to include the alternate translation. 
-                        In order to accomplish this goal, I want you to provide me with the precise data I request. 
-                        You should not provide explanations and interpretation unless you are specifically asked to do so.
-                        Think step-by-step.""",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": combined_prompt
-                    }
-                ]
+            # Combine system instructions
+            system_instruction = self.system_prompts['base']
+            if system_content:
+                system_instruction = f"{system_instruction}\n\n{system_content}"
+            elif additional_system:
+                system_instruction = f"{system_instruction}\n\n{additional_system}"
+
+            # Check rate limit
+            current_time = time.time()
+            self._last_request_times = [t for t in self._last_request_times if current_time - t[0] < 60]
+            total_tokens = sum(t[1] for t in self._last_request_times)
+
+            if len(self._last_request_times) >= 3 or total_tokens >= 100000:
+                wait_time = 60 - (current_time - self._last_request_times[0][0])
+                if wait_time > 0:
+                    print(f"Rate limit reached. Waiting {wait_time:.0f} seconds...")
+                    for remaining in range(int(wait_time), 0, -1):
+                        print(f"\rTime remaining: {remaining}s ", end="", flush=True)
+                        time.sleep(1)
+                    print("\rResuming requests...           ")
+                    self._last_request_times = []
+
+            # Count tokens for the request
+            token_count_obj = self.anthropic.messages.count_tokens(
+                model=self.anthropic_model,
+                system=system_instruction,
+                messages=[{"role": "user", "content": combined_prompt}]
             )
-            response = message.content[0].text
-            
-            # Record successful request time
-            self._last_request_times.append(time.time())
+            token_count = token_count_obj.input_tokens
+
+            # Make the API call
+            response = self.anthropic.messages.create(
+                model=self.anthropic_model,
+                system=system_instruction,
+                messages=[{"role": "user", "content": combined_prompt}],
+                temperature=temp,
+                max_tokens=1000
+            )
+            response = response.content[0].text
+
+            # Record the request time and token count
+            self._last_request_times.append((time.time(), token_count))
 
         except Exception as e:
-            print(f"Failed to get response for prompt: {prompt}", file=sys.stderr)
-            print(f"Exception: {e}", file=sys.stderr)
+            print(f"Failed to get response for prompt: {prompt}")
+            print(f"Exception: {e}")
 
         finally:
             print(combined_prompt)
-            # print(f'Response: {response}')
-            print('---')
-
             return response
         

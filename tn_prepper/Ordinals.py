@@ -8,148 +8,92 @@ import os
 import csv
 import json
 import re
+from utilitiesTN import read_tsv, get_ai_query_function, apply_dev_verse_limit, process_malformed_references, load_prompts
 
 load_dotenv()
 
 class Ordinals(TNPrepper):
-    def __init__(self, book_name, version):
-        super().__init__()
-        
-        self.book_name = book_name
-        self.version = version
-        self.ult_file = f'output/{book_name}/ult_book.tsv'
+    def __init__(self, book_name):
+        super().__init__(book_name)
+        self.verse_text = f'output/{book_name}/ult_book.tsv'
+        self.ult_verses = {}
+        self.prompts = load_prompts('ordinals')
 
     def __process_prompt(self, verse_content, english_ordinal, occurrence):
-        # print("-" * 50)
-
-        prompt = (
-            "You will be given a Bible verse and an ordinal number from that verse. You will also be given the occurrence number of the ordinal number. If there are multiple occurrences of the ordinal number in the verse, please only address this specific occurrence."
-            "Please provide your response in the following JSON format:\n"
-            "{\n"
-            '  "snippet": "the minimal phrase containing the ordinal",\n'
-            '  "alternates": ["cardinal number form", "equivalent expression"],\n'
-            '  "errors": ["any errors encountered"]\n'
-            "}\n\n"
-            "Notes:\n"
-            "1. The snippet should be a minimal phrase or clause from the verse that contains the ordinal which the alternate translation can replace\n"
-            "2. The alternate translation(s) should always seamlessly replace the snippet in the verse. Make sure the verse is grammatically correct. You may need to add punctuation or other words to make it work.\n"
-            "3. The alternate translation should **not** contain an ordinal number\n"
-            "4. The first alternate should always use the cardinal number form (write out numbers <= 10)\n"
-            "5. The second alternate (equivalent expression) is optional. Do not include it if you are just using the cardinal number form in another way.\n"
-            "6. If the snippet is immediately preceded by a conjunction, include that conjunction in the snippet and alternate translation\n"
-            "7. If the 'Ordinal to replace' does not contain an ordinal number, write 'NOT_ORDINAL' in the errors field (and nothing else) but still process the verse and return a snippet and alternate translations(s) as if it did contain an ordinal number\n"
-            "The most common way to suggest this transformation is like this: `the third ruler` -> `ruler number three`\n"
-            f"Verse: {verse_content}\n"
-            f"Ordinal to replace: {english_ordinal} (occurrence {occurrence})"
+        # Get the AI model type and corresponding query function
+        query_func = get_ai_query_function(os.getenv('WHICH_AI'), self)
+        
+        prompt = self.prompts['prompt1'].format(
+            verse_content=verse_content,
+            english_ordinal=english_ordinal,
+            occurrence=occurrence
         )
 
-        which_ai = os.getenv('WHICH_AI')
+        response = query_func(prompt, temp=0.3)
+        print(f"\nAI Response:\n{response}")
+        self.write_to_log()
+
+        if not response or 'NONE_FOUND' in response:
+            return None
+
+        # Parse the response
+        result = {'snippet': '', 'at': '', 'errors': []}
         
-        if which_ai == 'openai':
-            response = self._query_openai(verse_content, prompt)
-        elif which_ai == 'gemini':
-            response = self._query_gemini(verse_content, prompt)
-        elif which_ai == 'claude':
-            response = self._query_claude(prompt=prompt)
-        else:
-            raise ValueError(f"Invalid AI model specified: {which_ai}")
+        for line in response.split('\n'):
+            if line.startswith('Snippet:'):
+                result['snippet'] = line[8:].strip()
+            elif line.startswith('AT:'):
+                result['at'] = line[3:].strip()
+            elif 'NOT_ORDINAL' in line:
+                result['errors'].append('NOT_ORDINAL')
 
-        # Parse the response to get snippet and AT
-        if response:
-            try:
-                result = json.loads(response)
-                snippet = result.get('snippet', '').strip()
-                alternates = result.get('alternates', [])
-                at = '] or ['.join(alternates) if alternates else '' # multiple ATs
-                at = f'[{at}]' if at else '' # enclose the ATs in brackets
-                errors = result.get('errors', [])
-                return {'snippet': snippet, 'at': at, 'errors': errors}
-            except (json.JSONDecodeError, AttributeError) as e:
-                print(f"Error parsing AI response: {response}")
-                print(f"Error details: {e}")
-                return None
-        return None
+        if not result['snippet'] or not result['at']:
+            print("Failed to parse AI response")
+            return None
 
-    def _read_ult_verses(self):
-        """Read verses from ULT TSV file"""
-        verses = {}
-        try:
-            with open(self.ult_file, 'r', encoding='utf-8') as f:
-                reader = csv.DictReader(f, delimiter='\t')
-                for row in reader:
-                    if row['Reference'] != '-':  # Skip section markers
-                        verses[row['Reference']] = row['Verse']
-        except FileNotFoundError:
-            print(f"ULT file not found: {self.ult_file}")
-            return {}
-        return verses
+        return result
 
     def run(self):
         # Get ULT verses
-        ult_verses = self._read_ult_verses()
-        if not ult_verses:
-            print("No ULT verses found. Please run ULT.py first.")
-            self.write_to_log()
-            return
+        verse_texts = read_tsv(self.verse_text)
+        
+        # Apply development verse limit if needed
+        verse_texts = apply_dev_verse_limit(verse_texts)
 
-        # Scrape data from proposed book for Hebrew
-        soup = self._scrape_and_read_data(self.book_name, self.version)
+        # Create dictionary of ULT verses
+        for verse in verse_texts:
+            if verse['Reference'] != '-':
+                self.ult_verses[verse['Reference']] = verse['Verse']
 
-        # Define the identification pattern - capture morphology, Hebrew occurrence data, Hebrew word, & English word
-        identification_pattern = r'x-morph="([^"]*?Ao[^"]*?)".+?x-occurrence="(\d+)" x-occurrences="(\d+)".+?x-content="([^"]+?)".+?\\w ([^|]+)\|'
+        # Read the ordinals data
+        ordinals_data = []
+        with open(f'output/{self.book_name}/ordinals.tsv', 'r', encoding='utf-8') as tsvfile:
+            reader = csv.reader(tsvfile, delimiter='\t')
+            next(reader)  # Skip header
+            for row in reader:
+                ordinals_data.append(row)
 
-        # Create verse data
-        verse_data = self._create_verse_data(soup, self.book_name, identification_pattern)
-        # print(f"Verse data: {verse_data}")
-        print(f"Number of segments: {len(verse_data)}")
-        self.write_to_log()
+        # Group by reference and Hebrew word
+        verse_data = {}
+        for row in ordinals_data:
+            if len(row) >= 6:  # Ensure row has enough elements
+                key = (row[0], row[2], row[3], row[4], row[5])  # (reference, hebrew, morphology, occurrence, occurrences)
+                if key not in verse_data:
+                    verse_data[key] = []
+                verse_data[key].append(row[1])  # English word
 
-        # Check stage first
-        if os.getenv('STAGE') == 'dev':
-            # Then check for verse limit in dev mode
-            dev_verse_limit = os.getenv('DEV_NUMBER_OF_VERSES')
-            if dev_verse_limit:
-                try:
-                    dev_verse_limit = int(dev_verse_limit)
-                    verse_data = verse_data[:dev_verse_limit]
-                    print(f"Dev mode: Processing first {dev_verse_limit} verses")
-                except ValueError:
-                    print("Warning: Invalid 'DEV_NUMBER_OF_VERSES' value, processing all verses")
-            else:
-                print("Dev mode: No verse limit specified, processing all verses")
-
-        # Combine consecutive rows with matching fields
+        # Combine the English words for each key
         combined_verse_data = []
-        last_row = None
+        for key, english_words in verse_data.items():
+            combined_verse_data.append([
+                key[0],  # reference
+                "…".join(english_words),  # combined English words
+                key[1],  # Hebrew word
+                key[2],  # morphology
+                key[3],  # occurrence
+                key[4]   # occurrences
+            ])
 
-        for row in verse_data:
-            if len(row) >= 6:
-                if last_row and \
-                   last_row[0] == row[0] and \
-                   last_row[2] == row[2] and \
-                   last_row[3] == row[3] and \
-                   last_row[4] == row[4] and \
-                   last_row[5] == row[5]:
-                    # Combine English words from matching rows
-                    last_row[1] = f"{last_row[1]} … {row[1]}"
-                else:
-                    if last_row:
-                        combined_verse_data.append(last_row)
-                    last_row = row.copy()  # Create a copy to avoid modifying original data
-
-        # Add the last row if it exists
-        if last_row:
-            combined_verse_data.append(last_row)
-
-        print("Combined verse data:")
-        for row in combined_verse_data[:2]:
-            print(f"  {row}")
-        print(f"Number of combined segments: {len(combined_verse_data)}")
-        self.write_to_log()
-        # Filter combined_verse_data to only include specific verses (testing)
-        # combined_verse_data = [row for row in combined_verse_data if row[0] in ['Daniel 7:16', 'Daniel 8:3', 'Daniel 11:29']]
-
-        print("-" * 50)
         # Transform the data with AI-generated alternate translations
         transformed_data = []
         for row in combined_verse_data:
@@ -164,8 +108,8 @@ class Ordinals(TNPrepper):
                 continue
 
             # Get the full English verse from ULT
-            if reference in ult_verses:
-                full_verse = ult_verses[reference]
+            if reference in self.ult_verses:
+                full_verse = self.ult_verses[reference]
             else:
                 print(f"No ULT verse found for reference: {reference}")
                 continue
@@ -220,7 +164,7 @@ class Ordinals(TNPrepper):
             transformed_row = [
                 chapter_verse,  # Reference
                 'uw43',   # ID
-                'NOT_ORDINAL' if  'NOT_ORDINAL' in result['errors'] else '',   # Tags
+                'NOT_ORDINAL' if 'NOT_ORDINAL' in result['errors'] else '',   # Tags
                 "rc://*/ta/man/translate/translate-ordinal",  # SupportReference
                 result['snippet'],  # Snippet (minimal phrase containing ordinal)
                 occurrence,  # Occurrence
@@ -228,22 +172,15 @@ class Ordinals(TNPrepper):
                 hebrew_word  # Quote (Hebrew)
             ]
             transformed_data.append(transformed_row)
-            print(f"Transformed row: {transformed_row}")
-            self.write_to_log()
 
-        if not transformed_data:
-            print("No ordinals found or no alternate translations generated.")
-            self.write_to_log()
-            return
-
-        # Write results to a TSV file
-        headers = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']
-        self._write_output(book_name=self.book_name, file='ordinals.tsv', headers=headers, data=transformed_data)
-        self.write_to_log()
+        # Write the results to a TSV file
+        if transformed_data:
+            headers = ['Reference', 'ID', 'Tags', 'SupportReference', 'Quote', 'Occurrence', 'Note', 'Snippet']
+            self._write_output(self.book_name, file='transformed_ai_ordinals.tsv', headers=headers, data=transformed_data)
+        else:
+            print("No data to write")
 
 if __name__ == "__main__":
     book_name = os.getenv("BOOK_NAME")
-    version = os.getenv("VERSION")
-
-    ordinals_instance = Ordinals(book_name, version)
+    ordinals_instance = Ordinals(book_name)
     ordinals_instance.run()

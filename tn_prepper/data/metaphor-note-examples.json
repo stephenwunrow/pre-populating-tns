@@ -1,0 +1,25 @@
+    {
+        "type_of_translation_issue": "metaphor",
+        "SupportReference": "rc://*/ta/man/translate/figs-metaphor",
+        "BibleRef": "Job 4:8",
+        "BibleVerse": "According to what I have seen, the ones plowing misery and sowing trouble reap it.",
+        "VerseSnippet": "the ones plowing misery and sowing trouble reap it",
+        "translationNote": "Eliphaz is speaking as if people could literally plow **misery**, sow **trouble**, and **reap** those things. If it would be clearer in your language, you could state the meaning plainly.",
+        "alternateTranslations": [
+            "those who do wicked things and cause trouble for others will experience trouble themselves"
+        ],
+        "tsv-formated-note": "4:8\tuw43\t\trc://*/ta/man/translate/figs-metaphor\t\tthe ones plowing misery and sowing trouble reap it\t1\tEliphaz is speaking as if people could literally plow **misery**, sow **trouble**, and **reap** those things. If it would be clearer in your language, you could state the meaning plainly. Alternate translation: [those who do wicked things and cause trouble for others will experience trouble themselves]"
+    },
+    {
+        "type_of_translation_issue": "metaphor",
+        "SupportReference": "rc://*/ta/man/translate/figs-metaphor",
+        "BibleRef": "2 Timothy 2:3",
+        "BibleVerse": "Suffer together as a good soldier of Jesus Christ.",
+        "VerseSnippet": "as a good soldier of Jesus Christ",
+        "translationNote": "Here Paul speaks as if Timothy were a soldier who fights for and serves Jesus Christ. If it would be helpful in your language, you could express the idea as a comparison or state the meaning plainly.",
+        "alternateTranslations": [
+            "as if you were a good soldier and Jesus Christ were your commander",
+            "as someone who faithfully serves Jesus Christ"
+        ],
+        "tsv-formated-note": "2:3\tuw43\t\trc://*/ta/man/translate/figs-metaphor\t\tas a good soldier of Jesus Christ\t1\tHere Paul speaks as if Timothy were a soldier who fights for and serves Jesus Christ. If it would be helpful in your language, you could express the idea as a comparison or state the meaning plainly. Alternate translation: [as if you were a good soldier and Jesus Christ were your commander, as someone who faithfully serves Jesus Christ]"
+    }

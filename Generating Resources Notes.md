@@ -46,6 +46,12 @@ Based on the tests I've run, I'm including here what seem to be requirements for
     If the templates are at all vague, the models I've been using will often over- or under-explain the translation issue
     If we can get cleaned up and precise templates, things should go a lot better
 
+## From 2025 all staff
+    (1) AT fit (to snippet) : we'll have to go English=>Hebrew=>English in order to check this (b/c alignment will expand what's grabbed)
+    (2) AT & UST are the same
+
+
+
 # Points System for Rating Output
     * Recognition of issue and note written
         If issue not recognized, give zero points
