@@ -873,7 +873,7 @@ class TNPrepper():
             print(f"Exception: {e}")
 
         finally:
-            print(combined_prompt)
+            # print(combined_prompt)
             self.__wait_between_queries(2)
             return response
 

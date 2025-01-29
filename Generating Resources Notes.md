@@ -49,6 +49,7 @@ Based on the tests I've run, I'm including here what seem to be requirements for
 ## From 2025 all staff
     (1) AT fit (to snippet) : we'll have to go English=>Hebrew=>English in order to check this (b/c alignment will expand what's grabbed)
     (2) AT & UST are the same
+    (3) Make ids look random
 
 
 

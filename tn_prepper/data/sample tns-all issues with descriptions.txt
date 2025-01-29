@@ -1,0 +1,1555 @@
+Type of translation issue: apostrophe
+description of issue: An apostrophe is a figure of speech in which a speaker directly addresses someone who is not there, or addresses a thing that is not a person.
+SupportReference: rc://*/ta/man/translate/figs-apostrophe
+Bible Reference: Luke 10:13
+Entire verse: Woe to you, Chorazin! Woe to you, Bethsaida! For if the miracles had happened in Tyre and Sidon which happened in you, they would have repented long ago, sitting in sackcloth and ashes.
+Portion of verse with issue: Woe to you, Chorazin! Woe to you, Bethsaida!
+Translation note: Jesus is speaking to two cities that he knows cannot hear him. He is doing this to show in a very strong way how he feels about those cities. He is actually speaking to the people who can hear him, the disciples whom he is sending out. If your readers might not understand why Jesus is speaking to someone who is not present, you could translate his words as if he were speaking directly to his disciples.
+Alternate translation(s): Chorazin and Bethsaida are two of the cities whose people God will judge severely for rejecting my message
+
+Type of translation issue: apostrophe
+description of issue: An apostrophe is a figure of speech in which a speaker directly addresses someone who is not there, or addresses a thing that is not a person.
+SupportReference: rc://*/ta/man/translate/figs-apostrophe
+Bible Reference: Judges 9:29
+Entire verse: Who will give this people into my hand? Then I would depose Abimelech. He said to Abimelech, ‘Enlarge your army and come forth.’”
+Portion of verse with issue: And he said to Abimelek, “Increase your army and come out.”
+Translation note: Gaal is speaking to Abimelek even though he is not present and cannot hear him. Gaal is doing this to show in a strong way how he feels about Abimelek. He is actually speaking to the people who can hear him, the others who are present at this feast. If your readers might not understand why Gaal is speaking to someone who is not present, you could translate his words as if he were speaking directly to others who are present. 
+Alternate translation, continuing the direct quotation: I would fight against him and his whole army and defeat him!
+
+Type of translation issue: aside 
+description of issue: An aside is a figure of speech in which someone who is speaking to a person or group pauses to speak confidentially to himself or to someone else about those to whom he had been speaking. The speaker does this to indicate in a strong way his thoughts or feelings about that person or group.
+SupportReference: rc://*/ta/man/translate/figs-aside
+Bible Reference: Obadiah 1:7
+Entire verse: All the men of your covenant are sending you away as far as the border. The men of your peace are deceiving you and are prevailing against you. They of your bread will set a trap under you. There is no understanding in him. 
+Portion of verse with issue: There is no understanding in him
+Translation note: Yahweh has been telling the people of Edom what will happen to them because they did not help the people of Judah. Here he pauses to say something to himself about Edom. If it would be natural and give the right meaning in your language, consider translating this as Yahweh speaking about Edom. But if this way of speaking would be unclear, you can translate this as Yahweh speaking to the people of Edom, but make clear that he is now expressing his thoughts and feelings about them.
+Alternate translation(s): You do not understand any of this
+
+Type of translation issue: aside
+description of issue: An aside is a figure of speech in which someone who is speaking to a person or group pauses to speak confidentially to himself or to someone else about those to whom he had been speaking. The speaker does this to indicate in a strong way his thoughts or feelings about that person or group.
+SupportReference: rc://*/ta/man/translate/figs-aside
+Bible Reference: Nehemiah 13:31
+Entire verse: and for the offering of pieces of wood at the appointed times; and for the firstfruits. Remember me, my God, for good.
+Portion of verse with issue: Remember me, my God, for good.
+Translation note: Here Nehemiah is pausing from addressing the audience that is hearing his story to speak confidentially to God in prayer about two of the characters in the story. If it would be helpful in your language, you could show this is a prayer is distinct from the story by punctuating it as a direct quotation.
+Alternate translation(s): “Remember me, my God, for good.”
+
+Type of translation issue: doublet
+description of issue: A doublet is two or more words or very short phrases that mean the same thing and that are used in the same phrase. In the Bible, doublets are often used in poetry, prophecy, and sermons to emphasize an idea.
+SupportReference: rc://*/ta/man/translate/figs-doublet
+Bible Reference: Job 38:23
+Entire verse: which I keep for a time of trouble, for a day of battle and war? 
+Portion of verse with issue: battle and war
+Translation note: The terms **battle** and **war** mean similar things. Yahweh is using the two terms together for emphasis. If it would be clearer for your readers, you could express the emphasis with a single phrase.
+Alternate translation(s): great warfare
+
+Type of translation issue: doublet
+description of issue: A doublet is two or more words or very short phrases that mean the same thing and that are used in the same phrase. In the Bible, doublets are often used in poetry, prophecy, and sermons to emphasize an idea.
+SupportReference: rc://*/ta/man/translate/figs-doublet
+Bible Reference: Acts 2:12
+Entire verse: So they were all amazed and were perplexed, saying one to another, “What does this want to be?”
+Portion of verse with issue: they were all amazed and perplexed
+Translation note: The words **amazed** and **perplexed** mean similar things. Luke is using them together to emphasize that the people could not understand what was happening. If it would be clearer for your readers, you could express the emphasis with a single phrase.
+Alternate translation(s): they were all very perplexed
+
+Type of translation issue: euphemism
+description of issue: A euphemism is a mild or polite way of referring to something that is unpleasant or embarrassing. Its purpose is to avoid offending the people who hear or read it.
+SupportReference: rc://*/ta/man/translate/figs-euphemism
+Bible Reference: Luke 1:34
+Entire verse: But Mary said to the angel, “How will this be, since I have not known a man?”
+Portion of verse with issue: I have not known a man
+Translation note: Mary is using a polite expression to say that she has never had sexual relations with a man. If this would be misunderstood in your language, use your own polite way of referring to this or use plain language.
+Alternate translation(s): I have never slept with a man OR I have never had sexual relations with a man
+
+Type of translation issue: euphemism
+description of issue: A euphemism is a mild or polite way of referring to something that is unpleasant or embarrassing. Its purpose is to avoid offending the people who hear or read it.
+SupportReference: rc://*/ta/man/translate/figs-euphemism
+Bible Reference: Acts 7:60
+Entire verse: But having put down his knees, he cried out with a loud voice, “Lord, do not hold this sin against them.” And having said this, he fell asleep.
+Portion of verse with issue: he fell asleep
+Translation note: Luke is describing the death of Stephen when he says **he fell asleep**. This is a polite way of referring to something unpleasant. If this would be misunderstood in your language, use your own polite way of referring to this or use plain language.
+Alternate translation(s): he passed away OR he died
+
+Type of translation issue: hendiadys
+description of issue: In hendiadys a single idea is expressed with two words connected with “and.” Also, the reader understands that one of the words further describes the other. That is, one word could be used to modify the other.
+SupportReference: rc://*/ta/man/translate/figs-hendiadys
+Bible Reference: Judges 4:20
+Entire verse: And he said to her, “Stand at the entrance of the tent, and it shall be, if anyone comes and asks you and says, ‘Is there anyone here?’ then you shall say ‘No one.’”
+Portion of verse with issue: asks you and says
+Translation note: This phrase expresses a single idea by using two words connected with **and**. The word **asks** indicates that what this person **says** will be a question. If it would be clearer in your language, you can express the same meaning with only one of these words.
+Alternate translation(s): asks you OR says to you
+
+Type of translation issue: hendiadys
+description of issue: In hendiadys a single idea is expressed with two words connected with “and.” Also, the reader understands that one of the words further describes the other. That is, one word could be used to modify the other.
+SupportReference: rc://*/ta/man/translate/figs-hendiadys
+Bible Reference: Job 26:11
+Entire verse: The pillars of the heavens tremble and marvel at his rebuke. 
+Portion of verse with issue: tremble and marvel
+Translation note: This phrase expresses a single idea by using two words connected with **and**. The word **marvel**, a reference to being astonished by the power of God, tells why the pillars of the heavens **tremble**. If it would be more natural in your language, you could express this meaning with an equivalent phrase that does not use “and.”
+Alternate translation(s): shake with fear
+
+Type of translation issue: hyperbole
+description of issue: A hyperbole is a deliberate exaggeration used to indicate the speaker’s feeling or opinion about something.
+SupportReference: rc://*/ta/man/translate/figs-hyperbole
+Bible Reference: Esther 1:17
+Entire verse: For the matter of the queen will go out to all the women in order to make their husbands despised in their eyes when they say, ‘The king Ahasuerus said to bring Vashti the queen before his face, but she did not come.’
+Portion of verse with issue: all the women
+Translation note: To emphasize his point, Memukan makes an overstatement and says that **all the women** in the empire will hear about Queen Vashti refusing to obey King Ahasuerus.
+Alternate translation(s): women all over the empire
+
+Type of translation issue: hyperbole
+description of issue: A hyperbole is a deliberate exaggeration used to indicate the speaker’s feeling or opinion about something.
+SupportReference: rc://*/ta/man/translate/figs-hyperbole
+Bible Reference: Luke 5:17
+Entire verse: And it happened on one of those days that he was teaching, and there were Pharisees and law teachers sitting there who had come from every village of Galilee and Judea and from Jerusalem, and power of the Lord was upon him to heal.
+Portion of verse with issue: from every village of Galilee and Judea
+Translation note: Luke is making a generalization for emphasis. He says **every** in order to emphasize from how many different villages these religious leaders came.
+Alternate translation(s): from villages throughout Galilee and Judea
+
+Type of translation issue: idiom
+description of issue: An idiom is a group of words that has a meaning that is different from what one would understand from the meanings of the individual words.
+SupportReference: rc://*/ta/man/translate/figs-idiom
+Bible Reference: Judges 9:17
+Entire verse: that my father fought on your behalf, and threw aside his life even out front, when he delivered you out of the hand of Midian,
+Portion of verse with issue: and threw his life in front
+Translation note: Jotham is using a common expression that means that Gideon risked his life by leading the armies of Israel into battle against the Midianites. Your language may have a comparable expression that you can use in your translation. You could also state the meaning plainly.
+Alternate translation(s): and put his life on the line OR and risked his life
+
+Type of translation issue: idiom
+description of issue: An idiom is a group of words that has a meaning that is different from what one would understand from the meanings of the individual words.
+SupportReference: rc://*/ta/man/translate/figs-idiom
+Bible Reference: Acts 17:20
+Entire verse: For you are bringing some startling things into our ears. Therefore, we wish to know what these things want to be.”
+Portion of verse with issue: what these things want to be
+Translation note: The philosophers are using common expression whose meaning comes from the phrase taken as a whole rather than from the words understood individually. Your language may have a similar expression that you could use in your translation. You could also state the meaning plainly.
+Alternate translation(s): what this is all about OR what these things mean
+
+Type of translation issue: irony
+description of issue: Irony is a figure of speech in which the sense that the speaker intends to communicate is actually the opposite of the literal meaning of the words.
+SupportReference: rc://*/ta/man/translate/figs-irony
+Bible Reference: Job 12:2
+Entire verse: “Truly, then, you are the people, and wisdom will die with you
+Portion of verse with issue: Truly, then, you are the people, and wisdom will die with you
+Translation note: For emphasis, Job is saying the opposite of what he means. If a speaker of your language would not do this, in your translation you could indicate what Job actually means.
+Alternate translation(s): You are speaking as if you were the people and as if wisdom would die with you, but that is not true
+
+Type of translation issue: irony
+description of issue: Irony is a figure of speech in which the sense that the speaker intends to communicate is actually the opposite of the literal meaning of the words.
+SupportReference: rc://*/ta/man/translate/figs-irony
+Bible Reference: Luke 9:13
+Entire verse: But he said to them, “You give them to eat.” But they said, “There are not more than five loaves and two fish with us—unless we go buy food for all these people.”
+Portion of verse with issue: unless we go buy food for all these people
+Translation note: The disciples are not making a serious suggestion here. They actually mean to communicate emphatically the opposite of the literal meaning of their words.
+Alternate translation(s): and we certainly cannot go and buy food for all these people
+
+Type of translation issue: litany
+description of issue: A litany is a figure of speech in which the various components of a thing are listed in a series of very similar statements. The speaker does this to indicate that what he is saying should be understood as comprehensive and without exceptions.
+SupportReference: rc://*/ta/man/translate/figs-litany
+Bible Reference: Obadiah 1:12
+Entire verse: But you should not have looked on the day of your brother, on the day of his misfortune. And you should not have rejoiced over the sons of Judah in the day of their perishing. And you should not have made your mouth great in a day of distress. 
+Portion of verse with issue: But you should not have looked & And you should not have rejoiced & And you should not have made
+Translation note: Yahweh uses a repetitive series of sentences in verses 12–14 to show how badly the people of Edom have treated the people of Judah. This repetitive style of speaking or writing is called a “litany.” This is a list of the charges against the people of Edom. Yahweh goes on to say in verses 15 and 16 that he has found them guilty of all of these charges and that he will punish them. Use a form in your language that someone would use to list things that someone has done wrong.
+
+Type of translation issue: litany
+description of issue: A litany is a figure of speech in which the various components of a thing are listed in a series of very similar statements. The speaker does this to indicate that what he is saying should be understood as comprehensive and without exceptions.
+SupportReference: rc://*/ta/man/translate/figs-litany
+Bible Reference: Revelation 22:11
+Entire verse: Let the one being unrighteous still be unrighteous, and let the filthy one still be filthy, and let the righteous one still do righteousness, and let the holy one still be holy.”
+Portion of verse with issue: Let the one being unrighteous still be unrighteous, and let the filthy one still be filthy, and let the righteous one still do righteousness, and let the holy one still be holy
+Translation note: In this verse, the angel is using a series of similar phrases in order to emphasize the idea that the phrases express. Try to translate each of these phrases in such a way as to show their similarity. You may also wish to summarize the idea behind the phrases beforehand, if that would be helpful to your readers.
+Alternate translation(s): The time is so near that it is too late for people to change the way they are living. So let the one being unrighteous still be unrighteous, and let the filthy one still be filthy, and let the righteous one still do righteousness, and let the holy one still be holy
+
+Type of translation issue: litotes
+description of issue: Litotes is an emphatic statement about something made by negating an opposite expression.
+SupportReference: rc://*/ta/man/translate/figs-litotes
+Bible Reference: Job 39:24
+Entire verse: With shaking and rage it swallows the ground, and it does not stand still when there is the sound of the horn
+Portion of verse with issue: and it does not stand still
+Translation note: Yahweh is expressing a positive meaning by using a negative word together with a term that is the opposite of his intended meaning. If it would be clearer in your language, you could state the meaning plainly.
+Alternate translation(s): and it charges forward
+
+Type of translation issue: litotes
+description of issue: Litotes is an emphatic statement about something made by negating an opposite expression.
+SupportReference: rc://*/ta/man/translate/figs-litotes
+Bible Reference: Acts 19:11
+Entire verse: And God was doing not ordinary miracles by the hands of Paul,
+Portion of verse with issue: not ordinary
+Translation note: Luke is expressing a positive meaning by using a negative word together with a term that is the opposite of the intended meaning. If it would be clearer in your language, you could state the meaning plainly.
+Alternate translation(s): extraordinary
+
+Type of translation issue: merism
+description of issue: Merism is a figure of speech in which a person refers to something by listing some of its parts or by speaking of two extreme parts of it.
+SupportReference: rc://*/ta/man/translate/figs-merism
+Bible Reference: Job 3:19
+Entire verse: Small and great are there the same, and a servant is free from his master.
+Portion of verse with issue: Small and great are there
+Translation note: Job is using two extremes of people, **Small** and **great**, to mean them and everyone in between. If it would be helpful in your language, you could use an equivalent expression or plain language.
+Alternate translation(s): People of every kind are there
+
+Type of translation issue: merism
+description of issue: Merism is a figure of speech in which a person refers to something by listing some of its parts or by speaking of two extreme parts of it.
+SupportReference: rc://*/ta/man/translate/figs-merism
+Bible Reference: Luke 8:34
+Entire verse: And having seen what had happened, the ones tending the pigs ran away and reported it in the city and in the countryside.
+Portion of verse with issue: in the city and in the countryside
+Translation note: Luke is referring to a whole region by naming the two constituent parts of it.
+Alternate translation(s): throughout the whole area
+
+Type of translation issue: metaphor
+description of issue: A metaphor is a figure of speech in which one concept is used in place of another, unrelated concept. This invites the hearer to think of what the unrelated concepts have in common. That is, metaphor is an implied comparison between two unrelated things.
+SupportReference: rc://*/ta/man/translate/figs-metaphor
+Bible Reference: Job 4:8
+Entire verse: According to what I have seen, the ones plowing misery and sowing trouble reap it.
+Portion of verse with issue: the ones plowing misery and sowing trouble reap it
+Translation note: Eliphaz is speaking as if people could literally plow **misery**, sow **trouble**, and **reap** those things. If it would be clearer in your language, you could state the meaning plainly.
+Alternate translation(s): those who do wicked things and cause trouble for others will experience trouble themselves
+
+Type of translation issue: metaphor
+description of issue: A metaphor is a figure of speech in which one concept is used in place of another, unrelated concept. This invites the hearer to think of what the unrelated concepts have in common. That is, metaphor is an implied comparison between two unrelated things.
+SupportReference: rc://*/ta/man/translate/figs-metaphor
+Bible Reference: 2 Timothy 2:3
+Entire verse: Suffer together as a good soldier of Jesus Christ.
+Portion of verse with issue: as a good soldier of Jesus Christ
+Translation note: Here Paul speaks as if Timothy were a soldier who fights for and serves Jesus Christ. If it would be helpful in your language, you could express the idea as a comparison or state the meaning plainly.
+Alternate translation(s): as if you were a good soldier and Jesus Christ were your commander OR as someone who faithfully serves Jesus Christ
+
+Type of translation issue: metonymy
+description of issue: Metonymy is a figure of speech in which a thing or idea is called not by its own name, but by the name of something closely associated with it. A metonym is a word or phrase used as a substitute for something it is associated with.
+SupportReference: rc://*/ta/man/translate/figs-metonymy
+Bible Reference: Judges 5:30
+Entire verse: ‘Are they not finding, are they not dividing spoil, a maiden, two maidens to the head of a warrior, spoil of dyed fabrics for Sisera, spoil of dyed fabrics and embroidery, dyed fabric and two embroideries for the necks of the spoil?’
+Portion of verse with issue: for the necks of the spoil
+Translation note: Sisera’s mother is using the term **spoil** by association to mean the soldiers who are collecting this plunder after the battle.
+Alternate translation(s): for the necks of the soldiers collecting this plunder
+
+Type of translation issue: metonymy
+description of issue: Metonymy is a figure of speech in which a thing or idea is called not by its own name, but by the name of something closely associated with it. A metonym is a word or phrase used as a substitute for something it is associated with.
+SupportReference: rc://*/ta/man/translate/figs-metonymy
+Bible Reference: Job 7:15
+Entire verse: and my soul chooses strangling, death, rather than my bones.
+Portion of verse with issue: rather than my bones
+Translation note: Job is using the term **bones** to mean life, by association with the way people are supported by their bones as they live on earth. If it would be helpful in your language, you could state the meaning plainly.
+Alternate translation(s): rather than life OR rather than continuing to live
+
+Type of translation issue: parallelism
+description of issue: In parallelism two or more phrases or clauses that are similar in structure or idea are used together. It is found throughout the whole of the Hebrew Bible, most commonly in the poetry of the books of Psalms and Proverbs.
+SupportReference: rc://*/ta/man/translate/figs-parallelism
+Bible Reference: Esther 3:2
+Entire verse: And all the servants of the king who were at the gate of the king were bowing down and prostrating themselves to Haman, for thus the king had commanded concerning him. But Mordecai would neither bow down nor would he prostrate himself.
+Portion of verse with issue: But Mordecai would neither bow down, nor would he prostrate himself.
+Translation note: These two phrases mean basically the same thing. The repetition is used to emphasize how serious an offense this was against the king’s command and how much determination it took for Mordecai to remain standing. If it would be clearer in your language, you could combine these phrases and express the emphasis in another way.
+Alternate translation(s): But Mordecai persistently refused to bow down to Haman
+
+Type of translation issue: parallelism
+description of issue: In parallelism two or more phrases or clauses that are similar in structure or idea are used together. It is found throughout the whole of the Hebrew Bible, most commonly in the poetry of the books of Psalms and Proverbs.
+SupportReference: rc://*/ta/man/translate/figs-parallelism
+Bible Reference: Acts 1:20
+Entire verse: “For it is written in the book of Psalms, ‘Let his habitation become desolate, and let not one dwelling be in it,’ and ‘Let another take his overseership.’
+Portion of verse with issue: Let his habitation become desolate, and let not one dwelling be in it
+Translation note: These two phrases mean basically the same thing. The second emphasizes the meaning of the first by repeating the same idea with different words. Hebrew poetry was based on this kind of repetition, and it would be good to show this to your readers by including both phrases in your translation rather than combining them. However, if this might be unclear in your language, you could connect the phrases with a word other than **and** in order to show that the second phrase is repeating the first one, not saying something additional. Alternatively, you could combine the phrases and express the emphasis in another way.
+Alternate translation(s): Let his habitation be made desolate, yes, let no one dwell in it OR Let his habitation be made completely desolate
+
+Type of translation issue: personification
+description of issue: Personification is a figure of speech in which an idea or something that is not human is referred to as if it were a person and could do the things that people do or have the qualities that people have.
+SupportReference: rc://*/ta/man/translate/figs-personification
+Bible Reference: Judges 3:11
+Entire verse: And the land rested 40 years. Then Othniel the son of Kenaz died.
+Portion of verse with issue: And the land rested 40 years
+Translation note: The author is speaking as if the **land** on which the Israelites lived were a living thing that **rested** after a foreign occupier was driven away. If it would be clearer in your language, you could state the meaning plainly.
+Alternate translation(s): And there were no more wars for 40 years
+
+Type of translation issue: personification
+description of issue: Personification is a figure of speech in which an idea or something that is not human is referred to as if it were a person and could do the things that people do or have the qualities that people have.
+SupportReference: rc://*/ta/man/translate/figs-personification
+Bible Reference: Acts 21:3
+Entire verse: And having sighted Cyprus and having left it behind on the port side, we sailed to Syria and came down to Tyre, for there the ship was unloading its cargo.
+Portion of verse with issue: the ship was unloading its cargo
+Translation note: Luke is speaking of this **ship** as if it were a living thing that would be **unloading** its own **cargo**. Luke means that the crew of this ship would be doing the unloading. If it would be helpful in your language, you could state that meaning plainly.
+Alternate translation(s): the ship’s crew was to unload its cargo
+
+Type of translation issue: predictive past
+description of issue: The predictive past is a form that some languages use to refer to things that will happen in the future. This is sometimes done in prophecy to show that the event will certainly happen.
+SupportReference: rc://*/ta/man/translate/figs-pastforfuture
+Bible Reference: Judges 7:9
+Entire verse: Now it happened during that night that Yahweh said to him, “Arise! Go down into the camp, for I have given it into your hand.
+Portion of verse with issue: I have given it into your hand
+Translation note: Yahweh is using the past tense to describe something that is going to happen in the future. He is doing this to show that the event will certainly happen. If it would be clearer in your language, you could use the future tense in your translation and express the emphasis in another way.
+Alternate translation(s): I will certainly give it into your hand
+
+Type of translation issue: predictive past
+description of issue: The predictive past is a form that some languages use to refer to things that will happen in the future. This is sometimes done in prophecy to show that the event will certainly happen.
+SupportReference: rc://*/ta/man/translate/figs-pastforfuture
+Bible Reference: Isaiah 5:13
+Entire verse: Therefore, my people have gone into captivity for lack of understanding, and its honorable people are hungry, and its parched multitude is thirsty. 
+Portion of verse with issue: my people have gone into captivity
+Translation note: Yahweh is using the past tense to describe something that is going to happen in the future. He is doing this to show that the event will certainly happen. If it would be clearer in your language, you could use the future tense in your translation and express the emphasis in another way.
+Alternate translation(s): my people will certainly go into captivity
+
+Type of translation issue: rhetorical question
+description of issue: A rhetorical question is a question that is used for something other than getting information. Often it indicates the speaker’s attitude toward the topic or the listener. Often it is used for rebuking or scolding, but some languages have other purposes as well.
+SupportReference: rc://*/ta/man/translate/figs-rquestion
+Bible Reference: Luke 10:40
+Entire verse: But Martha was distracted with much service, and coming up, she said, “Lord, are you not concerned that my sister has left me alone to serve? Therefore, speak to her so that she might help me.”
+Portion of verse with issue: Lord, are you not concerned that my sister has left me alone to serve?
+Translation note: Martha is complaining that Jesus is allowing Mary to sit listening to him when there is so much work to do. Martha respects the Lord, so she uses a rhetorical question to make her complaint more polite. If it would be helpful in your language, you could translate her words as a statement.
+Alternate translation(s): Lord, it seems as if you do not care that my sister has left me alone to serve.
+
+Type of translation issue: rhetorical question
+description of issue: A rhetorical question is a question that is used for something other than getting information. Often it indicates the speaker’s attitude toward the topic or the listener. Often it is used for rebuking or scolding, but some languages have other purposes as well.
+SupportReference: rc://*/ta/man/translate/figs-rquestion
+Bible Reference: Revelation 17:7
+Entire verse: But the angel said to me, “Why are you wondering? I will tell to you the mystery of the woman and of the beast carrying her having the seven heads and the ten horns.
+Portion of verse with issue: Why are you wondering?
+Translation note: The angel is using the question form for emphasis. If you would not use the question form for this purpose in your language, you could translate this as a statement or as an exclamation.
+Alternate translation(s): You do not need to wonder!
+
+Type of translation issue: simile
+description of issue: A simile is a comparison of two things that are not normally thought to be similar. It focuses on a particular trait that the two items have in common, and it includes words such as “like,” “as,” or “than” to make the comparison explicit.
+SupportReference: rc://*/ta/man/translate/figs-simile
+Bible Reference: Judges 7:12
+Entire verse: Now Midian and Amalek and all of the sons of the east were lying in the valley like the locust in multitude. And to their camels there was not a number, like the sand that is along the edge of the sea in multitude.
+Portion of verse with issue: like the locust in multitude
+Translation note: The point of this comparison is that just as a **locust** swarm is very great **in multitude**, that is, extremely numerous, so this combined army had a very great number of soldiers. If it would be helpful in your language, you could make this point explicitly.
+Alternate translation(s): in huge numbers, such as in a swarm of locusts
+
+Type of translation issue: simile
+description of issue: A simile is a comparison of two things that are not normally thought to be similar. It focuses on a particular trait that the two items have in common, and it includes words such as “like,” “as,” or “than” to make the comparison explicit.
+SupportReference: rc://*/ta/man/translate/figs-simile
+Bible Reference: Luke 17:6
+Entire verse: So the Lord said, “If you had faith like a mustard seed, you would say to this mulberry tree, ‘Be uprooted, and be planted in the sea,’ and it would listen to you.
+Portion of verse with issue: faith like a mustard seed
+Translation note: A **mustard seed** is a very small seed, and so Jesus is using this comparison to mean a very small amount of faith.
+Alternate translation(s): even a tiny amount of faith
+
+Type of translation issue: synecdoche
+description of issue: Synecdoche is a figure of speech in which 1) the name of a part of something is used to refer to the whole thing, or 2) the name of a whole thing is used to refer to just one part of it.
+SupportReference: rc://*/ta/man/translate/figs-synecdoche
+Bible Reference: Luke 9:3
+Entire verse: And he said to them, “Take nothing for the road—neither staff, nor bag, nor bread, nor silver—nor have two tunics.
+Portion of verse with issue: bread
+Translation note: Jesus is using one kind of food, **bread**, to represent food in general.
+Alternate translation(s): food
+
+Type of translation issue: synecdoche
+description of issue: Synecdoche is a figure of speech in which 1) the name of a part of something is used to refer to the whole thing, or 2) the name of a whole thing is used to refer to just one part of it.
+SupportReference: rc://*/ta/man/translate/figs-synecdoche
+Bible Reference: Acts 15:7
+Entire verse: And much debate having happened, Peter, arising, said to them, 
+Portion of verse with issue: “Men, brothers, you know that from original days God chose among you: By my mouth the Gentiles would hear the word of the gospel and believe.
+Translation note: By my mouth
+Alternate translation(s): Peter is using one part of himself, his **mouth**, to represent all of himself in the act of speaking. If it would be helpful in your language, you could use an equivalent expression from your culture or plain language.
+From me
+
+Type of translation issue: abstract nouns
+description of issue: rc://*/ta/man/translate/figs-abstractnouns
+SupportReference: Acts 2:26
+Bible Reference: Because of this, my heart was glad and my tongue exulted, and indeed my flesh will also dwell in hope. 
+Entire verse: dwell in hope
+Portion of verse with issue: If your language does not use an abstract noun for the idea behind the word **hope**, you could express the same idea in another way. 
+Translation note: live hopefully
+
+Type of translation issue: abstract nouns
+description of issue: Abstract nouns are nouns that refer to attitudes, qualities, events, or situations. These are things that cannot be seen or touched in a physical sense, such as happiness, weight, unity, friendship, health, and reason. This is a translation issue because some languages may express a certain idea with an abstract noun, while others would need a different way to express it.
+SupportReference: rc://*/ta/man/translate/figs-abstractnouns
+Bible Reference: Nehemiah 9:36
+Entire verse: Behold us today; we are servants. And the land that you gave to our fathers, to eat its fruit and its goodness; behold us, we are servants in it!
+Portion of verse with issue: and its goodness
+Translation note: If your language does not use an abstract noun for the idea behind the word **goodness**, you could express the same idea in another way. 
+Alternate translation(s): and the good things that grow in it
+
+Type of translation issue: passive verbal forms (active-passive)
+description of issue: Some languages use both active and passive sentences. In active sentences, the subject does the action. In passive sentences, the subject is the one that receives the action.
+SupportReference: rc://*/ta/man/translate/figs-activepassive
+Bible Reference: Luke 24:34
+Entire verse: saying, “Truly the Lord has been raised, and he has been seen by Simon!”
+Portion of verse with issue: and he has been seen by Simon
+Translation note: If your language does not use this passive form, you could express the idea in active form or in another way that is natural in your language.
+Alternate translation(s): and Simon has seen him
+
+Type of translation issue: passive verbal forms (active-passive)
+description of issue: Some languages use both active and passive sentences. In active sentences, the subject does the action. In passive sentences, the subject is the one that receives the action.
+SupportReference: rc://*/ta/man/translate/figs-activepassive
+Bible Reference: Esther 2:1
+Entire verse: After these things, when the rage of the king Ahasuerus subsided, he remembered Vashti and what she had done, and what had been decided concerning her.
+Portion of verse with issue: what had been decided
+Translation note: If your language does not use this passive form, you could express the idea in active form or in another way that is natural in your language.
+Alternate translation(s): what he had decided
+
+Type of translation issue: collective nouns
+description of issue: A collective noun is a singular noun that refers to a group of something. Examples: a family, clan, or tribe is a group of people who are related to each other; a flock is a group of birds or sheep; a fleet is a group of ships; and an army is a group of soldiers.
+SupportReference: rc://*/ta/man/translate/grammar-collectivenouns
+Bible Reference: Acts 4:24
+Entire verse: And having heard, they raised their voice unanimously to God and said, “Lord, you are the one having made the heaven and the earth and the sea and all that is in them,
+Portion of verse with issue: their voice
+Translation note: Since Luke is referring to a group of people, it might be more natural in your language to use the plural form of **voice**.
+Alternate translation(s): their voices
+
+Type of translation issue: collective nouns
+description of issue: A collective noun is a singular noun that refers to a group of something. Examples: a family, clan, or tribe is a group of people who are related to each other; a flock is a group of birds or sheep; a fleet is a group of ships; and an army is a group of soldiers.
+SupportReference: rc://*/ta/man/translate/grammar-collectivenouns
+Bible Reference: Exodus 8:22
+Entire verse: And in that day, I will distinguish the land of Goshen, on which my people dwell, so that the swarm will not be there, in order that you may know that I am Yahweh in the middle of the land.
+Portion of verse with issue: the swarm
+Translation note: Here, **the swarm** is a collective singular noun that refers to a great number of flying, biting insects traveling in a group. If your language does not use singular nouns in that way, you can use a different expression.
+Alternate translation(s): swarms of flies
+
+Type of translation issue: distinguishing versus informing or reminding (restrictive vs. non-restrictive relative clauses)
+description of issue: In some languages, phrases that modify a noun can be used with the noun for two different purposes. They can either (1) distinguish the noun from other similar items, or (2) they can give more information about the noun. That information could be new to the reader, or a reminder about something the reader might already know. Other languages use modifying phrases with a noun only for distinguishing the noun from other similar things. When people who speak these languages hear a modifying phrase along with a noun, they assume that its function is to distinguish one item from another similar item.
+SupportReference: rc://*/ta/man/translate/figs-distinguish
+Bible Reference: Leviticus 15:31
+Entire verse: And you shall hold back the sons of Israel from their uncleanness, and they will not die by their uncleanness, by their defiling my Dwelling, which is in their midst.
+Portion of verse with issue: my Dwelling, which is in their midst
+Translation note: Yahweh is not distinguishing this **Dwelling** in the **midst** of the Israelites from another Dwelling that in not in their midst. Yahweh is reminding them about the location of his Dwelling with them. Be sure that this is clear in your translation. 
+Alternate translation(s): my Dwelling. After all, it is in their midst
+
+Type of translation issue: distinguishing versus informing or reminding (restrictive vs. non-restrictive relative clauses)
+description of issue: In some languages, phrases that modify a noun can be used with the noun for two different purposes. They can either (1) distinguish the noun from other similar items, or (2) they can give more information about the noun. That information could be new to the reader, or a reminder about something the reader might already know. Other languages use modifying phrases with a noun only for distinguishing the noun from other similar things. When people who speak these languages hear a modifying phrase along with a noun, they assume that its function is to distinguish one item from another similar item.
+SupportReference: rc://*/ta/man/translate/figs-distinguish
+Bible Reference: Psalm 31:6
+Entire verse: I hate those who serve worthless idols, but I trust in Yahweh. 
+Portion of verse with issue: worthless idols
+Translation note: David is not distinguishing between certain **idols** that are **worthless** and other idols that are not worthless. Be sure that this is clear in your translation.
+Alternate translation(s): idols, which are worthless
+
+Type of translation issue: double negatives
+description of issue: Negative words are words that have in them the meaning “not.” Examples in English are “no,” “not,” “none,” “no one,” “nothing,” “nowhere,” “never,” “nor,” “neither,” and “without.” Also, some words have prefixes or suffixes that mean “not,” such as “un,” “im,” and “less,” in the following words: “unhappy,” “impossible,” and “useless.” Some other kinds of words also have a negative meaning, such as “lack” or “reject,” or even “fight” or “evil.” A double negative occurs when a clause has two words that each have a negative meaning.
+SupportReference: rc://*/ta/man/translate/figs-doublenegatives
+Bible Reference: Hebrews 9:7
+Entire verse: but into the second tent, once in the year only the high priest enters, and not without blood that he offers on behalf of himself and of the unintentional sins of the people.
+Portion of verse with issue: not without blood
+Translation note: If it would be clearer in your language, you could use a positive expression to convey the emphasis of this double negative that consists of the two negative words **not** and **without**. 
+Alternate translation(s): always with blood
+
+Type of translation issue: double negatives
+description of issue: Negative words are words that have in them the meaning “not.” Examples in English are “no,” “not,” “none,” “no one,” “nothing,” “nowhere,” “never,” “nor,” “neither,” and “without.” Also, some words have prefixes or suffixes that mean “not,” such as “un,” “im,” and “less,” in the following words: “unhappy,” “impossible,” and “useless.” Some other kinds of words also have a negative meaning, such as “lack” or “reject,” or even “fight” or “evil.” A double negative occurs when a clause has two words that each have a negative meaning.
+SupportReference: rc://*/ta/man/translate/figs-doublenegatives
+Bible Reference: Job 5:17
+Entire verse: Behold, blessed is the man God corrects, and the chastening of the Almighty do not despise. 
+Portion of verse with issue: do not despise
+Translation note: If it would be clearer in your language, you could use a positive expression to translate this double negative that consists of the negative particle **not** and the negative verb **despise**.
+Alternate translation(s): appreciate
+
+Type of translation issue: ellipsis
+description of issue: An ellipsis occurs when a speaker or writer leaves out one or more words that normally should be in the sentence. The speaker or writer does this because he knows that the hearer or reader will understand the meaning of the sentence and supply the words in his mind when he hears or reads the words that are there.
+SupportReference: rc://*/ta/man/translate/figs-ellipsis
+Bible Reference: Judges 7:5
+Entire verse: So he brought the people down to the water, and Yahweh said to Gideon, “Anyone who laps with his tongue from the water as that a dog laps, you shall set him apart, and anyone who kneels upon his knees to drink.”
+Portion of verse with issue: and anyone who kneels upon his knees to drink
+Translation note: Yahweh is leaving out some of the words that in many languages a sentence would need in order to be complete. You can supply these words from the context if that would be clearer in your language. Alternate translation: “and you shall put in a different group anyone who kneels upon his knees to drink”
+
+Type of translation issue: ellipsis
+description of issue: An ellipsis occurs when a speaker or writer leaves out one or more words that normally should be in the sentence. The speaker or writer does this because he knows that the hearer or reader will understand the meaning of the sentence and supply the words in his mind when he hears or reads the words that are there.
+SupportReference: rc://*/ta/man/translate/figs-ellipsis
+Bible Reference: 1 John 2:19
+Entire verse: They went out from us, but they were not from us. For if they had been from us, they would have remained with us, but so that they would be made apparent that they are all not from us.
+Portion of verse with issue: but so that they would be made apparent
+Translation note: John is leaving out some of the words that a sentence would need in many languages in order to be complete. These words can be supplied from the previous sentence. Alternate translation: “but they went out from us so that they would be made apparent”
+
+Type of translation issue: formal or informal “you”
+description of issue: In some cultures people use the formal “you” when speaking to someone who is older or in authority, and they use the informal “you” when speaking to someone who is their own age or younger or who has less authority. In other cultures, people use the formal “you” when speaking to strangers or people they do not know well, and the informal “you” when speaking with family members and close friends.
+SupportReference: rc://*/ta/man/translate/figs-youformal
+Bible Reference: Genesis 3:19
+Entire verse: So Yahweh God called to the man and said to him, “Where are you?”
+Portion of verse with issue: you
+Translation note: God is in authority over the man, so languages that have formal and informal forms of **you** would probably use the informal form here.
+Alternate translation(s): you (informal)
+
+Type of translation issue: formal or informal “you”
+description of issue: In some cultures people use the formal “you” when speaking to someone who is older or in authority, and they use the informal “you” when speaking to someone who is their own age or younger or who has less authority. In other cultures, people use the formal “you” when speaking to strangers or people they do not know well, and the informal “you” when speaking with family members and close friends.
+SupportReference: rc://*/ta/man/translate/figs-youformal
+Bible Reference: Luke 1:3
+Entire verse: it seemed good to me also, having carefully investigated everything from the beginning, to write for you an orderly account, most excellent Theophilus,
+Portion of verse with issue: for you
+Translation note: Luke calls Theophilus **most excellent**. This shows that Theophilus is a high official to whom Luke is showing great respect. Speakers of languages that have a formal form of “you” would probably use that form here.
+Alternate translation(s): for you (formal)
+
+Type of translation issue: dual “you”
+description of issue: Some languages have a singular form of “you” for when the word “you” refers to just one person, and a plural form for when the word “you” refers to more than one person. Some languages also have a dual form of “you” for when the word “you” refers to only two people. Translators who speak one of these languages will always need to know what the speaker meant so they can choose the right word for “you” in their language. 
+SupportReference: rc://*/ta/man/translate/figs-youdual
+Bible Reference: Luke 19:33
+Entire verse: And as they were untying the colt, the owners of it said to them, “Why are you untying the colt?”
+Portion of verse with issue: are you untying
+Translation note: The owners of the colt are speaking to the two disciples, so **you** would be dual if your language uses that form. Otherwise, it would be plural.
+Alternate translation(s): are you (dual or plural) untying
+
+Type of translation issue: dual “you”
+description of issue: Some languages have a singular form of “you” for when the word “you” refers to just one person, and a plural form for when the word “you” refers to more than one person. Some languages also have a dual form of “you” for when the word “you” refers to only two people. Translators who speak one of these languages will always need to know what the speaker meant so they can choose the right word for “you” in their language. 
+SupportReference: rc://*/ta/man/translate/figs-youdual
+Bible Reference: Esther 5:8
+Entire verse: if I have found favor in the eyes of the king, and if it is good to the king to grant my petition and to perform my request, let the king come with Haman to the banquet that I will make for them, and tomorrow I will do according to the word of the king.”
+Portion of verse with issue: for them
+Translation note: If you decide to translate this as “the banquet that I will make for you,” then the word “you” should be dual if your language uses that form, since it refers to the king and Haman. Otherwise, it should be plural.
+Alternate translation(s): for you (dual or plural)
+
+Type of translation issue: singular vs. plural “you”
+description of issue: Some languages have a singular form of “you” for when the word “you” refers to just one person, and a plural form for when the word “you” refers to more than one person. Translators who speak one of these languages will always need to know what the speaker meant so they can choose the right word for “you” in their language. 
+SupportReference: rc://*/ta/man/translate/figs-yousingular
+Bible Reference: Judges 7:7
+Entire verse: Then Yahweh said to Gideon, “With the 300 men, the ones lapping, I will save you and I will give Midian into your hand. But all the people may go, a man to his place.”
+Portion of verse with issue: you & into your hand
+Translation note: The word **you** is plural because Yahweh means all of the Israelites. The word **your** is singular because Yahweh means Gideon. Use those forms in your translation if your language marks that distinction.
+Alternate translation(s): you Israelites … into your hand
+
+Type of translation issue: singular vs. plural “you”
+description of issue: Some languages have a singular form of “you” for when the word “you” refers to just one person, and a plural form for when the word “you” refers to more than one person. Translators who speak one of these languages will always need to know what the speaker meant so they can choose the right word for “you” in their language. 
+SupportReference: rc://*/ta/man/translate/figs-yousingular
+Bible Reference: 1 Timothy 6:21
+Entire verse: which some, professing, have missed the mark concerning the faith. Grace be with you.
+Portion of verse with issue: you
+Translation note: Because Paul is giving this blessing to Timothy and all the believers who are with him, this is the one place in the letter where **you** is plural.
+Alternate translation(s): you (plural)
+
+Type of translation issue: generic nouns
+description of issue: Generic noun phrases refer to people or things in general rather than to specific individuals or things. This happens frequently in proverbs, because proverbs tell about things that are true about people in general.
+SupportReference: rc://*/ta/man/translate/figs-genericnoun
+Bible Reference: Job 20:6
+Entire verse: Though his height rises to the skies and his head reaches to the cloud, 
+Portion of verse with issue: to the cloud
+Translation note: Zophar is not referring to a specific **cloud**. He means the many clouds that appear in the sky. It may be more natural in your language to express this meaning by using a plural form.
+Alternate translation(s): to the clouds
+
+Type of translation issue: generic nouns
+description of issue: Generic noun phrases refer to people or things in general rather than to specific individuals or things. This happens frequently in proverbs, because proverbs tell about things that are true about people in general.
+SupportReference: rc://*/ta/man/translate/figs-genericnoun
+Bible Reference: Psalm 94:12
+Entire verse: Blessed is the man whom you instruct, Yahweh, and from your law you teach him.
+Portion of verse with issue: the man & and from your law you teach him
+Translation note: The psalmist is not referring to a particular **man** but to any person whom Yahweh instructs. It may be helpful to clarify this for your readers.
+Alternate translation(s): anyone … yes, anyone whom you teach from your law
+
+Type of translation issue: go and come
+description of issue: Different languages have different ways of determining whether to use the words "go" or "come" and whether to use the words "take" or "bring" when talking about motion. For example, when saying that they are approaching a person who has called them, English speakers say "I'm coming," while Spanish speakers say "I'm going." Translators will need to study the context in order to understand what is meant by the words "go" and "come" (and also "take" and "bring"), and then translate those words in a way that readers will understand which direction people are moving in.
+SupportReference: rc://*/ta/man/translate/figs-go
+Bible Reference: Judges 6:21
+Entire verse: Then the angel of Yahweh stretched out the end of the staff that was in his hand. And he touched upon the meat and upon the unleavened bread, and fire came up from the rock and consumed the meat and the unleavened bread. Then the angel of Yahweh went from his eyes.
+Portion of verse with issue: and fire came up
+Translation note: In a context such as this, your language might say “went” instead of **came**.
+Alternate translation(s): and fire went up
+
+Type of translation issue: go and come
+description of issue: Different languages have different ways of determining whether to use the words "go" or "come" and whether to use the words "take" or "bring" when talking about motion. For example, when saying that they are approaching a person who has called them, English speakers say "I'm coming," while Spanish speakers say "I'm going." Translators will need to study the context in order to understand what is meant by the words "go" and "come" (and also "take" and "bring"), and then translate those words in a way that readers will understand which direction people are moving in.
+SupportReference: rc://*/ta/man/translate/figs-go
+Bible Reference: Luke 9:3
+Entire verse: And he said to them, “Take nothing for the road—neither staff, nor bag, nor bread, nor silver—nor have two tunics.
+Portion of verse with issue: Take
+Translation note: In a context such as this, your language might say “Bring” instead of **Take**.
+Alternate translation(s): Bring
+
+Type of translation issue: nominal adjectives
+description of issue: In some languages an adjective can be used to refer to a class of things that the adjective describes. When it does, it acts like a noun.
+SupportReference: rc://*/ta/man/translate/figs-nominaladj
+Bible Reference: Job 4:3
+Entire verse: Behold, you have instructed many, you have strengthened weak hands. 
+Portion of verse with issue: many
+Translation note: Eliphaz is using the adjective **many** as a noun. Your language may use adjectives in the same way. If not, you can translate this word with an equivalent phrase.
+Alternate translation(s): many people
+
+Type of translation issue: nominal adjectives
+description of issue: In some languages an adjective can be used to refer to a class of things that the adjective describes. When it does, it acts like a noun.
+SupportReference: rc://*/ta/man/translate/figs-nominaladj
+Bible Reference: Luke 5:32
+Entire verse: I did not come to call the righteous, but sinners to repentance.”
+Portion of verse with issue: the righteous
+Translation note: Jesus is using the adjective **righteous** as a noun to mean a certain kind of person. Your language may use adjectives in the same way. If not, you can translate this adjective with an equivalent phrase.
+Alternate translation(s): righteous people
+
+Type of translation issue: order of events
+description of issue: In the Bible, events are not always told in the order in which they occurred. Sometimes the author wanted to discuss something that happened at an earlier time than the event that he just talked about. This can be confusing to the reader.
+SupportReference: rc://*/ta/man/translate/figs-events
+Bible Reference: Job 29:18
+Entire verse: And I said, ‘I will expire in my nest, and I will multiply days like sand.
+Portion of verse with issue: I will expire in my nest, and I will multiply days like sand
+Translation note: Since Job would live a long life before expiring, it might be more natural to put the second phrase before the first one.
+Alternate translation(s): I will multiply days like sand, and then I will expire in my nest
+
+Type of translation issue: order of events
+description of issue: In the Bible, events are not always told in the order in which they occurred. Sometimes the author wanted to discuss something that happened at an earlier time than the event that he just talked about. This can be confusing to the reader.
+SupportReference: rc://*/ta/man/translate/figs-events
+Bible Reference: Revelation 5:2
+Entire verse: And I saw a mighty angel proclaiming in a loud voice, “Who is worthy to open the scroll and to break its seals?”
+Portion of verse with issue: to open the scroll and to break its seals
+Translation note: Since someone would need to break the **seals** in order to **open the scroll**, in your translation you may wish to relate these events in the order in which they would have to happen.
+Alternate translation(s): to break the seals and open the scroll
+
+Type of translation issue: possession
+description of issue: Possession is used in Hebrew, Greek, and English for a variety of situations. Here are a few common situations that it is used for: Ownership — Someone owns something. Social Relationship — Someone has some kind of social relationship with another. Association — A particular thing is associated with a particular person, place, or thing. Contents — Something has something in it. Part and whole: One thing is part of another. In some languages there is a special form of possession, termed inalienable possession. This form of possession is used for things that cannot be removed from you, as opposed to things you could lose. the translator needs to understand the relationship between two ideas represented by the two nouns when one is in the grammatical relationship of possessing the other. Some languages do not use grammatical possession for all of the situations that your source text Bible might use it for.
+SupportReference: rc://*/ta/man/translate/figs-possession
+Bible Reference: Job 42:11
+Entire verse: And all of his brothers and all of his sisters and all of the ones knowing him before came to him, and they ate bread with him in his house. And they consoled him and comforted him for all of the troubles that Yahweh had brought upon him, and they each gave one kesitah to him and each gave one earring of gold.
+Portion of verse with issue: earring of gold
+Translation note: The author is using this possessive form to indicate that **gold** was the material used for making the **earring**. If it would be clearer in your language, you could use an adjective to show that one noun describes the other.
+Alternate translation(s): golden earring
+
+Type of translation issue: possession
+description of issue: Possession is used in Hebrew, Greek, and English for a variety of situations. Here are a few common situations that it is used for: Ownership — Someone owns something. Social Relationship — Someone has some kind of social relationship with another. Association — A particular thing is associated with a particular person, place, or thing. Contents — Something has something in it. Part and whole: One thing is part of another. In some languages there is a special form of possession, termed inalienable possession. This form of possession is used for things that cannot be removed from you, as opposed to things you could lose. the translator needs to understand the relationship between two ideas represented by the two nouns when one is in the grammatical relationship of possessing the other. Some languages do not use grammatical possession for all of the situations that your source text Bible might use it for.
+SupportReference: rc://*/ta/man/translate/figs-possession
+Bible Reference: 1 John 4:9
+Entire verse: In this the love of God appeared among us, that God sent his Son, the One and Only, into the world so that we might live through him.
+Portion of verse with issue: the love of God
+Translation note: John is using this possessive form to describe the **love** that **God** has for people rather than people’s love for God. It may be helpful to clarify this for your readers.
+Alternate translation(s): God’s love for us
+
+Type of translation issue: when masculine words include women (gender notations)
+description of issue: In the Bible, sometimes the words “men,” “brothers,” and “sons” refer only to men. At other times, those words include both men and women. In those places where the writer meant both men and women, the translator needs to translate it in a way that does not limit the meaning to men.
+SupportReference: rc://*/ta/man/translate/figs-gendernotations
+Bible Reference: Job 14:21
+Entire verse: His sons achieve honor and he does not know, or they become insignificant and he does not perceive them. 
+Portion of verse with issue: His sons
+Translation note: Here the masculine term **sons** has a generic sense that includes children of both genders. If it would be helpful to your readers, you could use language in your translation that would indicate this.
+Alternate translation(s): His children OR His sons and daughters
+
+Type of translation issue: when masculine words include women (gender notations)
+description of issue: In the Bible, sometimes the words “men,” “brothers,” and “sons” refer only to men. At other times, those words include both men and women. In those places where the writer meant both men and women, the translator needs to translate it in a way that does not limit the meaning to men.
+SupportReference: rc://*/ta/man/translate/figs-gendernotations
+Bible Reference: Luke 6:31
+Entire verse: And as you desire that men would do to you, do the same to them.
+Portion of verse with issue: men
+Translation note: Here the masculine term **men** has a generic sense that includes both men and women. If it would be helpful to your readers, you could use language in your translation that is clearly inclusive of both men and women.
+Alternate translation(s): people
+
+Type of translation issue: first, second, or third person
+description of issue: Normally a speaker refers to himself as “I” and the person he is speaking to as “you.” Sometimes in the Bible a speaker refers to himself or to the person he is speaking to with terms other than “I” or “you.” Sometimes in the Bible a speaker uses the third person to refer to himself or to the people he is speaking to. Readers might think that the speaker was referring to someone else. They might not understand that he meant “I” or “you.”
+SupportReference: rc://*/ta/man/translate/figs-123person
+Bible Reference: Esther 7:9
+Entire verse: And Harbona, one from the eunuchs before the face of the king, said, “Also, behold, the pole that Haman made for Mordecai, who spoke good for the king, is standing at the house of Haman 50 cubits high.” And the king said, “Hang him on it.”
+Portion of verse with issue: the king
+Translation note: Harbona is addressing the king in the third person as a way of showing respect. If it would be natural in your language, you could translate this with a respectful expression that uses the second person.
+Alternate translation(s): you, O king
+
+Type of translation issue: first, second, or third person
+description of issue: Normally a speaker refers to himself as “I” and the person he is speaking to as “you.” Sometimes in the Bible a speaker refers to himself or to the person he is speaking to with terms other than “I” or “you.” Sometimes in the Bible a speaker uses the third person to refer to himself or to the people he is speaking to. Readers might think that the speaker was referring to someone else. They might not understand that he meant “I” or “you.”
+SupportReference: rc://*/ta/man/translate/figs-123person
+Bible Reference: Luke 5:24
+Entire verse: But in order that you may know that the Son of Man has authority on the earth to forgive sins,”—he said to the one that had been paralyzed—”I say to you, get up, and picking up your mat, go to your house.”
+Portion of verse with issue: the Son of Man has
+Translation note: Jesus is referring to himself in the third person. If it would be helpful in your language, you could translate this in the first person.
+Alternate translation(s): I, the Son of Man, have
+
+Type of translation issue: exclusive and inclusive “we”
+description of issue: Some languages have more than one form of “we”: an inclusive form that means “I and you” and an exclusive form that means “I and someone else but not you.” The exclusive form excludes the person being spoken to. The inclusive form includes the person being spoken to and possibly others. This is also true for “us,” “our,” “ours,” and “ourselves.” Some languages have inclusive forms and exclusive forms for each of these. Translators whose language has separate exclusive and inclusive forms for these words will need to understand what the speaker meant so that they can decide which form to use.
+SupportReference: rc://*/ta/man/translate/figs-exclusive
+Bible Reference: Judges 1:1
+Entire verse: And it happened, after the death of Joshua, that the sons of Israel asked of Yahweh, saying, “Who will go up for us against the Canaanite in the beginning, to fight against him?”
+Portion of verse with issue: for us
+Translation note: By **us**, the Israelites mean themselves but not Yahweh, to whom they are speaking, so use the exclusive form of that word in your translation if your language marks that distinction.
+Alternate translation(s): for us (exclusive)
+
+Type of translation issue: exclusive and inclusive “we”
+description of issue: Some languages have more than one form of “we”: an inclusive form that means “I and you” and an exclusive form that means “I and someone else but not you.” The exclusive form excludes the person being spoken to. The inclusive form includes the person being spoken to and possibly others. This is also true for “us,” “our,” “ours,” and “ourselves.” Some languages have inclusive forms and exclusive forms for each of these. Translators whose language has separate exclusive and inclusive forms for these words will need to understand what the speaker meant so that they can decide which form to use.
+SupportReference: rc://*/ta/man/translate/figs-exclusive
+Bible Reference: Acts 11:15
+Entire verse: But as I began to speak, the Holy Spirit fell on them, just as also on us in the beginning.
+Portion of verse with issue: us
+Translation note: Here Peter is using the word **us** to refer to all of the believers to whom he is speaking, not just to himself and the men who went to Caesarea with him, so use the inclusive form of that word if your language marks that distinction.
+Alternate translation(s): us (inclusive)
+
+Type of translation issue: singular pronouns that refer to groups
+description of issue: The Bible was written in Hebrew, Aramaic and Greek. These languages have a singular form of “you” for when the word “you” refers to just one person, and a plural form for when the word “you” refers to more than one person. However, sometimes speakers in the Bible used the singular form of “you” even though they were speaking to a group of people. This is not obvious when you read the Bible in English because English does not have different forms that indicate where “you” is singular and where “you” is plural. But you may see this if you read a Bible in a language that does have distinct forms. Also, speakers and writers of the Old Testament often referred to groups of people with the singular pronoun “he,” rather than with the plural pronoun “they.” Finally, Old Testament speakers and writers sometimes referred to actions that they performed as part of a group by saying ‘I’ did it when, really, the whole group was involved.
+SupportReference: rc://*/ta/man/translate/figs-youcrowd
+Bible Reference: Matthew 5:39
+Entire verse: But I tell you not to resist the evil one. Instead, whoever strikes you on the right cheek, turn to him the other also.
+Portion of verse with issue: you [2] & turn
+Translation note: Jesus is speaking to many disciples and so the pronoun **you** is plural in the first sentence. But in the second sentence, he is addressing an individual situation, so the pronoun **you** and the imperative **turn** are singular. If those singular forms would not be natural in your language for someone who was speaking to a group of people, you could use plural forms in your translation.
+Alternate translation(s): you (plural) … turn (plural)
+
+Type of translation issue: singular pronouns that refer to groups
+description of issue: The Bible was written in Hebrew, Aramaic and Greek. These languages have a singular form of “you” for when the word “you” refers to just one person, and a plural form for when the word “you” refers to more than one person. However, sometimes speakers in the Bible used the singular form of “you” even though they were speaking to a group of people. This is not obvious when you read the Bible in English because English does not have different forms that indicate where “you” is singular and where “you” is plural. But you may see this if you read a Bible in a language that does have distinct forms. Also, speakers and writers of the Old Testament often referred to groups of people with the singular pronoun “he,” rather than with the plural pronoun “they.” Finally, Old Testament speakers and writers sometimes referred to actions that they performed as part of a group by saying ‘I’ did it when, really, the whole group was involved.
+SupportReference: rc://*/ta/man/translate/figs-youcrowd
+Bible Reference: Exodus 20:2
+Entire verse: I am Yahweh your God, who brought you out from the land of Egypt, from the house of slavery.
+Portion of verse with issue: your God & brought you out
+Translation note: Here and throughout this section, Yahweh uses the singular form of **you**. However, the commandments applied to the whole Israelite community, so there is both a singular and a corporate aspect to them. You may need to choose between singular and plural if your language makes that distinction.
+Alternate translation(s): your (plural) God … brought you (plural) out
+
+Type of translation issue: reflexive pronouns
+description of issue: All languages have ways of showing that the same person fills two different roles in a sentence. English does this by using reflexive pronouns. Languages have different ways of showing that the same person fills two different roles in a sentence. For those languages, translators will need to know how to translate the English reflexive pronouns. The reflexive pronouns in English also have other functions: To show that the same person or things fills two different roles in a sentence. To emphasize a person or thing in the sentence. To show that someone did something alone. To show that someone or something was alone.
+SupportReference: rc://*/ta/man/translate/figs-rpronouns
+Bible Reference: John 4:2
+Entire verse: although Jesus himself was not baptizing, but his disciples
+Portion of verse with issue: Jesus himself was not baptizing
+Translation note: John is using the pronoun **himself** to emphasize that Jesus was not the one who was baptizing. Use a way that is natural in your language to indicate this emphasis.
+Alternate translation(s): Jesus was not the one who was baptizing
+
+Type of translation issue: reflexive pronouns
+description of issue: All languages have ways of showing that the same person fills two different roles in a sentence. English does this by using reflexive pronouns. Languages have different ways of showing that the same person fills two different roles in a sentence. For those languages, translators will need to know how to translate the English reflexive pronouns. The reflexive pronouns in English also have other functions: To show that the same person or things fills two different roles in a sentence. To emphasize a person or thing in the sentence. To show that someone did something alone. To show that someone or something was alone.
+SupportReference: rc://*/ta/man/translate/figs-rpronouns
+Bible Reference: Acts 8:13
+Entire verse: And Simon himself also believed and, having been baptized, he was continuing with Philip. And seeing great signs and works happening, he marveled.
+Portion of verse with issue: Simon himself
+Translation note: Luke uses the word **himself** to emphasize how significant it was that Simon, who had claimed to be an embodiment of God, had believed in Jesus as the Messiah whom God sent. Use a way that is natural in your language to indicate this significance.
+Alternate translation(s): even Simon
+
+Type of translation issue: pronouns - when to use them
+description of issue: When we talk or write, we use pronouns to refer to people or things without always having to repeat the noun or name. Each language has its rules and exceptions to this usual way of referring to people and things.In some languages, the first time something is referred to in a paragraph or chapter, it is referred to with a noun rather than a pronoun. The main character is the person whom a story is about. In some languages, after a main character is introduced in a story, he is usually referred to with a pronoun. Some languages have special pronouns that refer only to the main character. In some languages, marking on the verb helps people know who the subject is. In some of these languages, listeners rely on this marking to help them understand who the subject is. Speakers will use a pronoun, noun phrase, or proper name only when they want either to emphasize or to clarify who the subject is.
+SupportReference: rc://*/ta/man/translate/writing-pronouns
+Bible Reference: Acts 1:22
+Entire verse: beginning from the baptism of John until the day on which he was taken up from us—one of these is to become a witness with us of his resurrection.
+Portion of verse with issue: he was taken up & of his resurrection
+Translation note: The pronoun **he** refers to Jesus, not to John the Baptist. The pronoun **his** also refers to Jesus. For clarity, you may want to use the name Jesus instead of one or both of these pronouns.
+Alternate translation(s): Jesus was taken up … of the resurrection of Jesus
+
+Type of translation issue: pronouns - when to use them
+description of issue: When we talk or write, we use pronouns to refer to people or things without always having to repeat the noun or name. Each language has its rules and exceptions to this usual way of referring to people and things.In some languages, the first time something is referred to in a paragraph or chapter, it is referred to with a noun rather than a pronoun. The main character is the person whom a story is about. In some languages, after a main character is introduced in a story, he is usually referred to with a pronoun. Some languages have special pronouns that refer only to the main character. In some languages, marking on the verb helps people know who the subject is. In some of these languages, listeners rely on this marking to help them understand who the subject is. Speakers will use a pronoun, noun phrase, or proper name only when they want either to emphasize or to clarify who the subject is.
+SupportReference: rc://*/ta/man/translate/writing-pronouns
+Bible Reference: Judges 7:19
+Entire verse: So Gideon and the 100 men who were with him came to the edge of the camp, at the start of the middle watch. Stationing, they had just stationed the guards, and they blew on the shofars and they shattered the jars that were in their hand.
+Portion of verse with issue: they had just stationed the guards, and they blew on the shofars
+Translation note: The first instance of the pronoun **they** refers to the Midianites, while the second instance refers to Gideon and his men. It may be helpful to clarify this for your readers.
+Alternate translation(s): the Midianites had just stationed the guards, and Gideon and his men blew on the shofars
+
+Type of translation issue: Information Structure
+description of issue: Different languages arrange the parts of the sentence in different ways. Although all languages have a normal order for parts of a sentence, this order can change depending on what information the speaker or writer considers to be the most important. Different languages arrange the parts of a sentence in different ways. If translators copy the order of the parts of a sentence from the source, it may not make sense in the target language. Different languages put important or new information in different places in the sentence. If translators keep the important or new information in the same place that it had in the source language, it may be confusing or give the wrong message in the target language.
+SupportReference: rc://*/ta/man/translate/figs-infostructure
+Bible Reference: Judges 3:26
+Entire verse: But Ehud escaped during their delaying, and he passed the carved images, and he fled to Seirah.
+Portion of verse with issue: But Ehud escaped during their delaying
+Translation note: Since Ehud escaping is new information, it may be more natural in your language to present it after the information that readers already have, about Eglon’s servants **delaying**.
+Alternate translation(s): Now while they were delaying, Ehud escaped
+
+Type of translation issue: Information Structure
+description of issue: Different languages arrange the parts of the sentence in different ways. Although all languages have a normal order for parts of a sentence, this order can change depending on what information the speaker or writer considers to be the most important. Different languages arrange the parts of a sentence in different ways. If translators copy the order of the parts of a sentence from the source, it may not make sense in the target language. Different languages put important or new information in different places in the sentence. If translators keep the important or new information in the same place that it had in the source language, it may be confusing or give the wrong message in the target language.
+SupportReference: rc://*/ta/man/translate/figs-infostructure
+Bible Reference: Acts 3:16
+Entire verse: And by faith in his name, this one whom you see and know, his name has made strong. And the faith that is through him has given to him this complete health in the presence of all of you.
+Portion of verse with issue: And by faith in his name, this one whom you see and know, his name has made strong.
+Translation note: It may be more natural in your language to put the information that Peter’s listeners already know before the new information that he is giving them.
+Alternate translation(s): You know the man whom you see here. By faith in his name, his name has made him strong.
+
+Type of translation issue: Statements - Other Uses
+description of issue: Normally statements are used to give information. Sometimes they are used in the Bible for other functions. Some languages would not use a statement for some of the functions that statements are used for in the Bible.
+SupportReference: rc://*/ta/man/translate/figs-declarative
+Bible Reference: Luke 1:13
+Entire verse: But the angel said to him, “Do not be afraid, Zechariah, because your prayer has been heard, and your wife Elizabeth will bear you a son, and you will call his name John.
+Portion of verse with issue: you will call
+Translation note: The angel is using a future statement to give Zechariah an instruction or command. If it would be helpful in your language, you could translate these words using an instruction or command form. you are to call
+
+Type of translation issue: Statements - Other Uses
+description of issue: Normally statements are used to give information. Sometimes they are used in the Bible for other functions (e.g., to make a request, give information, give a command, give instructions, to perform something). Some languages would not use a statement for some of the functions that statements are used for in the Bible.
+SupportReference: rc://*/ta/man/translate/figs-declarative
+Bible Reference: Matthew 8:2
+Entire verse: And behold, a leper, having approached, bowed before him, saying, “Lord, if you are willing, you are able to make me clean.”
+Portion of verse with issue: you are able to make me clean
+Translation note: The man is using this statement to make a request. If it would be helpful in your language, you could express the idea in request form.
+Alternate translation(s): please make me clean
+
+Type of translation issue: Imperatives - Other Uses
+description of issue: Imperative sentences are mainly used to express a desire or requirement that someone do something. In the Bible, sometimes imperative sentences have other uses (e.g., to make things happen, function as a blessing, function as a condition). Some languages would not use an imperative sentence for some of the functions that they are used for in the Bible.
+SupportReference: rc://*/ta/man/translate/figs-imperative
+Bible Reference: Judges 1:15
+Entire verse: And she said to him, “Give to me a blessing. Since you have given me land of the Negev, you shall also give to me springs of waters.” So Caleb gave to her the upper springs and the lower springs.
+Portion of verse with issue: Give
+Translation note: This is an imperative, but it communicates a polite request rather than a command. Use a form in your language that communicates a polite request. It may be helpful to add an expression such as “please” to make this clear.
+Alternate translation(s): Please give
+
+Type of translation issue: Imperatives - Other Uses
+description of issue: Imperative sentences are mainly used to express a desire or requirement that someone do something. In the Bible, sometimes imperative sentences have other uses (e.g., to make things happen, function as a blessing, function as a condition). Some languages would not use an imperative sentence for some of the functions that they are used for in the Bible.
+SupportReference: rc://*/ta/man/translate/figs-imperative
+Bible Reference: Luke 5:13
+Entire verse: And having reached out his hand, he touched him, saying, “I am willing. Be clean.” And immediately the leprosy departed from him.
+Portion of verse with issue: Be clean
+Translation note: This was not a command that the man was capable of obeying. Instead, Jesus was using the command form to cause the man directly to be healed.
+Alternate translation(s): I heal you from your leprosy
+
+Type of translation issue: Exclamations
+description of issue: Languages have different ways of showing that a sentence communicates strong emotion.
+SupportReference: rc://*/ta/man/translate/figs-exclamations
+Bible Reference: Judges 6:22
+Entire verse: 6:22 And Gideon saw that he was the angel of Yahweh, and Gideon said, “Alas, my Lord Yahweh, for upon that I have seen the angel of Yahweh face to face!”
+Portion of verse with issue: Alas
+Translation note: Gideon is using the word translated as **Alas** to express a strong feeling, fear. You may have an equivalent word or expression in your language that you can use in your translation to convey this strong feeling. If not, you could specify that Gideon said this because he was feeling fear.
+Alternate translation(s): Oh, no OR I am afraid
+
+Type of translation issue: Exclamations
+description of issue: Languages have different ways of showing that a sentence communicates strong emotion.
+SupportReference: rc://*/ta/man/translate/figs-exclamations
+Bible Reference: Luke 19:25
+Entire verse: And they said to him, ‘Master, he has ten minas.’
+Portion of verse with issue: he has ten minas.
+Translation note: You could translate this as an exclamation.
+Alternate translation(s): he already has ten minas!
+
+Type of translation issue: Connecting Words
+description of issue: Connecting words or phrases can connect phrases or clauses within a sentence. They can connect sentences to each other. They can also connect entire chunks to one another in order to show how the chunk before relates to the chunk after the connecting word. Very often, the connecting words that connect entire chunks to one another are either conjunctions or adverbs. Sometimes people might not use a connecting word because they expect the context to help the readers understand the relationship between the thoughts. Some languages do not use connecting words as much as other languages do. the translators will need to use the method that is most natural and clear in the target language. But in general, using connecting words whenever possible helps the reader to understand the ideas in the Bible most clearly.
+SupportReference: rc://*/ta/man/translate/grammar-connect-words-phrases
+Bible Reference: Judges 9:16
+Entire verse: So now, if you have acted in truth and in integrity and made Abimelek reign, and if you have done good with Jerubaal and with his house, and if according to the deserving of his hands you have done to him,
+Portion of verse with issue: So now, if
+Translation note: Jotham has finished telling the story of the trees, and he is using the expression **So now** to introduce his explanation of the implications of the story. You could indicate this more explicitly in your translation if that would be helpful to your readers.
+Alternate translation(s): Now this is how my story applies to you: if
+
+Type of translation issue: Connecting Words
+description of issue: Connecting words or phrases can connect phrases or clauses within a sentence. They can connect sentences to each other. They can also connect entire chunks to one another in order to show how the chunk before relates to the chunk after the connecting word. Very often, the connecting words that connect entire chunks to one another are either conjunctions or adverbs. Sometimes people might not use a connecting word because they expect the context to help the readers understand the relationship between the thoughts. Some languages do not use connecting words as much as other languages do. the translators will need to use the method that is most natural and clear in the target language. But in general, using connecting words whenever possible helps the reader to understand the ideas in the Bible most clearly.
+SupportReference: rc://*/ta/man/translate/grammar-connect-words-phrases
+Bible Reference: Job 6:21
+Entire verse: For now you are nothing; you see a terror and you fear. 
+Portion of verse with issue: For
+Translation note: Job is using the word **For** to explain in what way his friends are like the desert streams he has been describing, as he said they were in verse 15. If it would be helpful to your readers, you could indicate this in your translation.
+Alternate translation(s): You are like these streams because
+
+Type of translation issue: Sequential Clauses
+description of issue: A sequential clause is a time relation that connects two events in which one happens and then the other happens. Languages indicate sequences of events in different ways; some use ordering, some use connecting words, some even use relative tense (Relative tense is a tense that refers to a time in relation to a reference point in the context.) Connecting words that may indicate sequence are words such as “then,” “later,” “after,” “afterward,” “before,” “first,” and “when.” Translators need to be certain that they communicate the order of the events in a way that is natural in their language. This may require ordering clauses differently than in the original languages.
+SupportReference: rc://*/ta/man/translate/grammar-connect-time-sequential
+Bible Reference: Isaiah 7:16
+Entire verse: For before the child knows to refuse the evil and choose the good, the land will be desolate, though you fear the faces of its two kings.
+Portion of verse with issue: For before the child knows to refuse the evil and choose the good, the land will be desolate
+Translation note: The event in the second clause will happen before the event in the first clauses. If having the clauses in this order would make the sequence unclear, you can change the order.
+Alternate translation(s): For the land will be desolate before the child knows to refuse the evil and choose the good
+
+Type of translation issue: Sequential Clauses
+description of issue: A sequential clause is a time relation that connects two events in which one happens and then the other happens. Languages indicate sequences of events in different ways; some use ordering, some use connecting words, some even use relative tense (Relative tense is a tense that refers to a time in relation to a reference point in the context.) Connecting words that may indicate sequence are words such as “then,” “later,” “after,” “afterward,” “before,” “first,” and “when.” Translators need to be certain that they communicate the order of the events in a way that is natural in their language. This may require ordering clauses differently than in the original languages.
+SupportReference: rc://*/ta/man/translate/grammar-connect-time-sequential
+Bible Reference: Esther 3:1
+Entire verse: After these things, the king Ahasuerus made Haman, the son of Hammedatha, the Agagite, great. And he lifted him up and placed his seat of authority from over all the officials who were with him.
+Portion of verse with issue: After these things
+Translation note: This event did not happen right after Esther became queen. Your language may have a connecting phrase that you can use to show this.
+Alternate translation(s): Some time later
+
+Type of translation issue: Simultaneous Clauses
+description of issue: Languages indicate in many different ways that events occur simultaneously. These ways may vary based on whether or not something is causing the events to occur simultaneously. Connecting words that may indicate simultaneous events are words such as "while," "as," and "during." Often the Bible does not state a relationship between the events but simply says they occurred at the same time. It is important that translators know when a time relationship is implied and when it is not implied so that they can communicate it clearly. A simultaneous clause communicates that events happened at the same time but it does not indicate that one event caused the other. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-time-simultaneous
+Bible Reference: Matthew 26:5
+Entire verse: But they were saying, “Not during the festival, so that a riot does not happen among the people.”
+Portion of verse with issue: Not during the festival
+Translation note: The chief priests and elders are using the word translated as **during** to indicate that they should not arrest Jesus at the same time when the **festival** is happening. If this would not be clear, you can describe the time relationship more explicitly.
+Alternate translation(s): Not at the same time when the festival is happening
+
+Type of translation issue: Simultaneous Clauses
+description of issue: Languages indicate in many different ways that events occur simultaneously. These ways may vary based on whether or not something is causing the events to occur simultaneously. Connecting words that may indicate simultaneous events are words such as "while," "as," and "during." Often the Bible does not state a relationship between the events but simply says they occurred at the same time. It is important that translators know when a time relationship is implied and when it is not implied so that they can communicate it clearly. A simultaneous clause communicates that events happened at the same time but it does not indicate that one event caused the other. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-time-simultaneous
+Bible Reference: 2 Kings 8:5
+Entire verse: And he was recounting to the king how he had made the dead live, and behold, the woman whose son he had made live was crying out to the king upon her house and upon her field. And Gehazi said, “My lord the king, this is the woman and this is her son, whom Elisha made live.”
+Portion of verse with issue: And he was recounting & and behold, the woman & was crying out
+Translation note: The word translated as **behold** indicates that the woman began **crying out** at the same time as when Gehazi was **recounting** how Elisha had restored her son to life. If this would not be clear, you can describe the time relationship more explicitly.
+Alternate translation(s): And at the very moment when he was recounting … just then the woman … began crying out
+
+Type of translation issue: Background Clauses
+description of issue: A background clause is one that describes something that is ongoing. Then, in the same sentence, another clause indicates an event that begins to happen during that time. These events are also simultaneous events, but they have the further relationship of background event and main event because the event that is already happening serves as the background for the other event, the one that is in focus. The background event simply provides the time frame or other context for the main event or events. Languages indicate a shift in time in different ways. Translators need to understand how these shifts in time are indicated in the original languages in order to communicate them clearly in the target language. Background clauses often indicate a time that began long before the event that is in focus. Translators need to understand how both the source language and the target language communicate background events.
+SupportReference: rc://*/ta/man/translate/grammar-connect-time-background
+Bible Reference: 2 Kings 6:5
+Entire verse: And it happened, the one was felling the beam, and the iron fell into the water. And he cried out, and he said, “Alas, my lord, but it was lent!”
+Portion of verse with issue: the one was felling the beam, and the iron fell into the water
+Translation note: The first clause describes something that was ongoing. The second clause indicates an event that happened during that time. It is this second event that is in focus. Use a connecting word or phrase and verb forms that will make this clear in your language.
+Alternate translation(s): while one of them was chopping down a tree, the head of his ax fell off into the water
+
+Type of translation issue: Background Clauses
+description of issue: A background clause is one that describes something that is ongoing. Then, in the same sentence, another clause indicates an event that begins to happen during that time. These events are also simultaneous events, but they have the further relationship of background event and main event because the event that is already happening serves as the background for the other event, the one that is in focus. The background event simply provides the time frame or other context for the main event or events. Languages indicate a shift in time in different ways. Translators need to understand how these shifts in time are indicated in the original languages in order to communicate them clearly in the target language. Background clauses often indicate a time that began long before the event that is in focus. Translators need to understand how both the source language and the target language communicate background events.
+SupportReference: rc://*/ta/man/translate/grammar-connect-time-background
+Bible Reference: Acts 1:19
+Entire verse: And it happened that while Apollos was in Corinth, Paul, passing through the upper parts, came down to Ephesus and found certain disciples.
+Portion of verse with issue: while Apollos was in Corinth, Paul, passing through the upper parts, came down
+Translation note: The first clause describes something that was ongoing. The second clause indicates an event that happened during that time. It is this second event that is in focus. Use a connecting word or phrase and verb forms that will make this clear in your language.
+Alternate translation(s): during the time when Apollos was staying in Corinth, Paul passed through the upper parts and came down
+
+Type of translation issue: Goal or Purpose Relationship
+description of issue: In Scripture, the goal or purpose may be stated either first or second. But in some languages, the goal or purpose must always occur in the same position (either first or second) in order for that logical relationship to be understood. Translators need to understand the relationship between the two parts and communicate those accurately in their language. This may require changing the order of the two events. It may also require specific words to indicate that one is the goal or purpose of the other. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-logic-goal
+Bible Reference: Judges 6:11
+Entire verse: Now the angel of Yahweh came and sat beneath the oak that was in Ophrah, which was to Joash the Abiezrite. And Gideon his son was threshing wheat in the winepress to hide from the face of Midian.
+Portion of verse with issue: And Gideon his son was threshing wheat in the winepress to hide from the face of Midian.
+Translation note: If it would be more natural in your language, you could reverse the order of these clauses, since the second clauses explains the purpose for the action that the first clause describes.
+Alternate translation(s): And in order to hide from the face of Midian, Gideon his son was threshing wheat in the winepress
+
+Type of translation issue: Goal or Purpose Relationship
+description of issue: In Scripture, the goal or purpose may be stated either first or second. But in some languages, the goal or purpose must always occur in the same position (either first or second) in order for that logical relationship to be understood. Translators need to understand the relationship between the two parts and communicate those accurately in their language. This may require changing the order of the two events. It may also require specific words to indicate that one is the goal or purpose of the other. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-logic-goal
+Bible Reference: Luke 2:15
+Entire verse: And it happened that, when the angels had gone away from them into heaven, the shepherds said to each other, “Let us indeed go over as far as Bethlehem, and let us see this thing that has happened, which the Lord has made known to us.”
+Portion of verse with issue: Let us indeed go over as far as Bethlehem, and let us see this thing that has happened, which the Lord has made known to us
+Translation note: If it would be more natural in your language, you could reverse the order of these clauses, since the second clause explains the purpose for the action that the first phrase describes. You may also wish to use a connecting word to show the relationship between the clauses.
+Alternate translation(s): In order to see this thing that has happened, which the Lord has made known to us, let us indeed go over as far as Bethlehem
+
+Type of translation issue: Reason-Result Clauses
+description of issue: A reason-and-result relationship is a logical relationship in which one event is the reason or cause for another event. The second event, then, is the result of the first event.Many languages have a preferred order for the reason and the result, and it will be confusing for the reader if they are in the opposite order.translators need to be aware of the difference between a goal relationship and a reason-and-result relationship. It is necessary for translators to understand how the two events are connected, and then communicate them clearly in their language.
+SupportReference: rc://*/ta/man/translate/grammar-connect-logic-result
+Bible Reference: Nehemiah 5:15
+Entire verse: But the former governors who were before my face had been heavy on the people, and they took from them bread and wine, after forty silver shekels. Also, their young men had acted dominantly over the people. But I myself did not do thus, from the face of the fear of God.
+Portion of verse with issue: But I myself did not do thus, from the face of the fear of God.
+Translation note: If it would be more natural in your language, you could reverse the order of these phrases, since the second phrase gives the reason for the result that the first phrase describes.
+Alternate translation(s): But from the face of the fear of God, I myself did not do thus OR But because I feared God, I did not do the same thing myself
+
+Type of translation issue: Reason-Result Clauses
+description of issue: A reason-and-result relationship is a logical relationship in which one event is the reason or cause for another event. The second event, then, is the result of the first event.Many languages have a preferred order for the reason and the result, and it will be confusing for the reader if they are in the opposite order.translators need to be aware of the difference between a goal relationship and a reason-and-result relationship. It is necessary for translators to understand how the two events are connected, and then communicate them clearly in their language.
+SupportReference: rc://*/ta/man/translate/grammar-connect-logic-result
+Bible Reference: Luke 5:19
+Entire verse: And not finding a way to bring him in because of the crowd, having gone up to the housetop, they let him down through the tiles on his mat into the midst before Jesus.
+Portion of verse with issue: And not finding a way to bring him in because of the crowd, having gone up
+Translation note: If it would be helpful in your language, you could reverse the order of these phrases, since the second phrase gives the reason for the action that the first phrase describes.
+Alternate translation(s): But because the crowd, they could not find a way to bring the man inside, so having gone up
+
+Type of translation issue: Contrast Clauses
+description of issue: A contrast relationship is a logical relationship in which one event or item is in contrast or opposition to another. In Scripture, many events did not happen as the people involved intended or expected them to happen. Sometimes people acted in ways that were not expected, whether good or bad. Often it was God at work, changing the events. These events were often pivotal. It is important that translators understand and communicate these contrasts. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-logic-contrast
+Bible Reference: Genesis 50:20
+Entire verse: And as for you, you intended evil against me, but God intended it for good, in order to do as he is doing this day, to save many people.
+Portion of verse with issue: you intended evil against me, but God intended it for good
+Translation note: There is a contrasting relationship between these two clauses. If it would be clearer in your language, you could use a connecting word or phrase on the first clause rather than on the second one.
+Alternate translation(s): even though you intended evil against me, God intended it for good
+
+Type of translation issue: Contrast Clauses
+description of issue: A contrast relationship is a logical relationship in which one event or item is in contrast or opposition to another. In Scripture, many events did not happen as the people involved intended or expected them to happen. Sometimes people acted in ways that were not expected, whether good or bad. Often it was God at work, changing the events. These events were often pivotal. It is important that translators understand and communicate these contrasts. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-logic-contrast
+Bible Reference: Hebrews 5:8
+Entire verse: Even though he was a son, he learned obedience from the things that he suffered.
+Portion of verse with issue: There is a contrasting relationship between these two clauses. If it would be clearer in your language, you could use a connecting word or phrase on the second clause rather than on the first one.
+Translation note: He was a son, but he nevertheless learned obedience from the things that he suffered.
+
+Type of translation issue: Factual Conditions
+description of issue: A Factual Condition is a condition that sounds hypothetical but is already certain or true in the speaker’s mind.Some languages do not state something as a condition if it is certain or true. Translators from these languages may misunderstand the original languages and think that the condition is uncertain. This would lead to mistakes in their translations. Even if the translators understand that the condition is certain or true, the readers may misunderstand it. In this case, it would be best to translate it as a statement of fact rather than as a conditional statement.
+SupportReference: rc://*/ta/man/translate/grammar-connect-condition-fact
+Bible Reference: 2 Corinthians 4:16
+Entire verse: So we do not become discouraged. Rather, even if our outer man is decaying, yet our inner man is being renewed day by day.
+Portion of verse with issue: if
+Translation note: Here Paul is speaking as if this were a hypothetical possibility, but he means that it is actually true. If your language does not state something as a condition if it is certain or true, and if your readers might think that what Paul is saying is not certain, then you could translate his words as a confident statement.
+Alternate translation(s): though
+
+Type of translation issue: Factual Conditions
+description of issue: A Factual Condition is a condition that sounds hypothetical but is already certain or true in the speaker’s mind.Some languages do not state something as a condition if it is certain or true. Translators from these languages may misunderstand the original languages and think that the condition is uncertain. This would lead to mistakes in their translations. Even if the translators understand that the condition is certain or true, the readers may misunderstand it. In this case, it would be best to translate it as a statement of fact rather than as a conditional statement.
+SupportReference: rc://*/ta/man/translate/grammar-connect-condition-fact
+Bible Reference: 3 John 1:10
+Entire verse: Because of this, if I come, I will call attention to his works that he is doing—accusing us with evil words. And not being satisfied with these things, he does not receive the brothers, and he stops the ones willing and puts them out of the church.
+Portion of verse with issue: if
+Translation note: John speaks as if he were uncertain about this, but he means that he is planning to come. If your readers might think that what John is saying is uncertain, then you could translate his words as a confident statement.
+Alternate translation(s): when
+
+Type of translation issue: Contrary-to-Fact Conditions
+description of issue: A Contrary-to-Fact Condition is a condition that sounds hypothetical, but the speaker is already certain that it is NOT true. Usually there are no special words that indicate a Contrary-to-Fact Condition. The writer assumes that the reader knows that it is NOT a true condition. For this reason it often requires knowledge of implied information to know that it is not true. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-condition-contrary
+Bible Reference: Jeremiah 33:20–21
+Entire verse: “Yahweh says this: ‘If you can break my covenant with the day and the night so that there will no longer be day or night at their proper times, then you will be able to break my covenant with David my servant, so that he will no longer have a son to sit on his throne, and my covenant with the Levitical priests, my servants.
+Portion of verse with issue: If you can break my covenant with the day and the night & then you will be able to break my covenant with David
+Translation note: Yahweh is making a conditional statement that sounds hypothetical, but he is already convinced that the condition is not true. Use a natural form in your language for introducing a condition that the speaker is already convinced is not true.
+Alternate translation(s): You will not be able to break my covenant with David … any more than you can break my covenant with the day and the night
+
+Type of translation issue: Contrary-to-Fact Conditions
+description of issue: A Contrary-to-Fact Condition is a condition that sounds hypothetical, but the speaker is already certain that it is NOT true. Usually there are no special words that indicate a Contrary-to-Fact Condition. The writer assumes that the reader knows that it is NOT a true condition. For this reason it often requires knowledge of implied information to know that it is not true. 
+SupportReference: rc://*/ta/man/translate/grammar-connect-condition-contrary
+Bible Reference: 1 Corinthians 15:19
+Entire verse: If only in this life we have hope in Christ, of all people we are most pitiful.
+Portion of verse with issue: If only in this life we have hope in Christ
+Translation note: Paul is making a conditional statement that sounds hypothetical, but he is already convinced that the condition is not true. He is using this form to continue to show the Corinthians the implications of their claims about the resurrection. Use a natural form in your language for introducing a condition that the speaker is already convinced is not true.
+Alternate translation(s): If we really do have hope in Christ only in this life
+
+Type of translation issue: Hypothetical Conditions
+description of issue: It is important that translators understand whether or not something is a Hypothetical Condition so that they translate it in the correct way. Sometimes conditions are stated in an order different than the order in which they would happen. If the target language would state the clauses in a different order, then translators will need to make that adjustment. (This issue is not for general hypothetical situations, but only for conditional statements with a hypothetical.)
+SupportReference: rc://*/ta/man/translate/grammar-connect-condition-hypothetical
+Bible Reference: Isaiah 1:19
+Entire verse: If you agree and obey, you will eat the good of the land
+Portion of verse with issue: If you agree and obey, you will eat the good of the land
+Translation note: Yahweh is describing a condition in which a second event will only take place if a first event takes place or is fulfilled in some way. If this would not be clear in your language, you could mark the second clause with a connecting word, or you could change the order of the clauses.
+Alternate translation(s): If you agree and obey, then you will eat the good of the land OR You will eat the good of the land if you agree and obey
+
+Type of translation issue: Hypothetical Conditions
+description of issue: It is important that translators understand whether or not something is a Hypothetical Condition so that they translate it in the correct way. Sometimes conditions are stated in an order different than the order in which they would happen. If the target language would state the clauses in a different order, then translators will need to make that adjustment. (This issue is not for general hypothetical situations, but only for conditional statements with a hypothetical.)
+SupportReference: rc://*/ta/man/translate/grammar-connect-condition-hypothetical
+Bible Reference: John 10:9
+Entire verse: I am the gate. If anyone enters through me, he will be saved, and he will go in and go out and will find pasture.
+Portion of verse with issue: If anyone enters through me, he will be saved
+Translation note: Jesus is describing a condition in which a second event will only take place if a first event takes place or is fulfilled in some way. If this would not be clear in your language, you could mark the second clause with a connecting word, or you could change the order of the clauses.
+Alternate translation(s): If anyone enters through me, then he will be saved OR Everyone will be saved who enters through me
+
+Type of translation issue: Exception Clauses
+description of issue: Exceptional relationship connectors exclude one or more items or people from a group. Translators need to understand who (or what) is in the group and who (or what) is excluded in order to be able to accurately communicate this in their language.
+SupportReference: rc://*/ta/man/translate/grammar-connect-exceptions
+Bible Reference: Numbers 26:65
+Entire verse: For Yahweh had said to them, “You shall surely die in the wilderness and a man shall not remain from them, except Caleb the son of Jephunneh and Joshua the son of Nun.”
+Portion of verse with issue: and a man shall not remain from them, except Caleb the son of Jephunneh and Joshua the son of Nun
+Translation note: If, in your language, it would appear that Yahweh was making a statement and then contradicting it, you could reword this as a positive statement.
+Alternate translation(s): and the only men who will remain from them will be Caleb the son of Jephunneh and Joshua the son of Nun
+
+Type of translation issue: Exception Clauses
+description of issue: Exceptional relationship connectors exclude one or more items or people from a group. Translators need to understand who (or what) is in the group and who (or what) is excluded in order to be able to accurately communicate this in their language.
+SupportReference: rc://*/ta/man/translate/grammar-connect-exceptions
+Bible Reference: Luke 4:26
+Entire verse: But Elijah was sent to none of them except to Zarephath in Sidon, to a widow woman.
+Portion of verse with issue: Elijah was sent to none of them except
+Translation note: If, in your language, it would appear that Jesus was making a statement and then contradicting it, you could reword this as a positive statement. 
+Alternate translation(s): God sent Elijah only
+
+Type of translation issue: Quotations and Quote Margins
+description of issue: When saying that someone said something, we often tell who spoke, whom they spoke to, and what they said. The information about who spoke and whom they spoke to is called the quote margin. What the person said is the quotation. (This is also called a quote.) In some languages the quote margin may come first, last, or even in between two parts of the quotation. Translators need to put the quote margin where it is most clear and natural in their language. Translators need to decide whether they want the quote margin to have one or two verbs meaning “said.” Translators need to decide which marks to use around the quotation.
+SupportReference: rc://*/ta/man/translate/writing-quotations
+Bible Reference: Zephaniah 2:12
+Entire verse: Also you, Cushites, they will be pierced by my sword.
+Portion of verse with issue: Also you, Cushites
+Translation note: This verse is a direct quotation from Yahweh. You may wish to indicate that in your translation, using a natural way of introducing direct quotations in your language. 
+Alternate translation(s): Yahweh also declares, “You Cushites
+
+Type of translation issue: Quotations and Quote Margins
+description of issue: When saying that someone said something, we often tell who spoke, whom they spoke to, and what they said. The information about who spoke and whom they spoke to is called the quote margin. What the person said is the quotation. (This is also called a quote.) In some languages the quote margin may come first, last, or even in between two parts of the quotation. Translators need to put the quote margin where it is most clear and natural in their language. Translators need to decide whether they want the quote margin to have one or two verbs meaning “said.” Translators need to decide which marks to use around the quotation.
+SupportReference: rc://*/ta/man/translate/writing-quotations
+Bible Reference: Luke 5:5
+Entire verse: But answering, Simon said, “Master, we worked through the entire night and caught nothing, but at your word, I will let down the nets.”
+Portion of verse with issue: But answering, Simon said, “Master
+Translation note: Here and in similar instances throughout the book, decide where it would be most clear and natural in your language to put the information about who spoke and to whom. Also decide whether two have one or two verbs meaning “said.”
+Alternate translation(s): But Simon talked back. “Master,” he said OR But Simon responded, “Master
+
+Type of translation issue: Direct and Indirect Quotations
+description of issue: In some languages, reported speech can be expressed by either direct or indirect quotations. In other languages, it is more natural to use one than the other. There may be a certain meaning implied by using one rather than the other. So for each quotation, translators need to decide whether it is best to translate it as a direct quotation or as an indirect quotation.
+SupportReference: rc://*/ta/man/translate/figs-quotations
+Bible Reference: Judges 9:3
+Entire verse: And the brothers of his mother spoke all of these things for him in the ears of all of the lords of Shechem, and their heart turned after Abimelek, for they said, “He is our brother.”
+Portion of verse with issue: for they said, “He is our brother.”
+Translation note: It may be more natural in your language to have an indirect quotation here.
+Alternate translation(s): for they said that he was their brother
+
+Type of translation issue: Direct and Indirect Quotations
+description of issue: In some languages, reported speech can be expressed by either direct or indirect quotations. In other languages, it is more natural to use one than the other. There may be a certain meaning implied by using one rather than the other. So for each quotation, translators need to decide whether it is best to translate it as a direct quotation or as an indirect quotation.
+SupportReference: rc://*/ta/man/translate/figs-quotations
+Bible Reference: Luke 17:20
+Entire verse: And having been asked by the Pharisees when the kingdom of God was coming, he answered them and said, “The kingdom of God is not coming with observation.
+Portion of verse with issue: And having been asked by the Pharisees when the kingdom of God was coming
+Translation note: If it would be helpful in your language, you could present this as a direct quotation rather than as an indirect quotation.
+Alternate translation(s): Now some Pharisees asked Jesus, “When is the kingdom of God coming?”
+
+Type of translation issue: Quote Markings
+description of issue: Some languages use quotation marks to mark off direct quotes from the rest of the text. 
+SupportReference: rc://*/ta/man/translate/figs-quotemarks
+Bible Reference: Judges 5:2
+Entire verse: “For the loosening of long hair in Israel, for the volunteering of the people, bless Yahweh!
+Portion of verse with issue: For the loosening of
+Translation note: This is the beginning of the song that Deborah and Barak sang. You may wish to indicate this with an opening first-level quotation mark or with some other punctuation or convention that your language uses to indicate the start of a first-level quotation.
+Alternate translation(s): ∅
+
+Type of translation issue: Quote Markings
+description of issue: Some languages use quotation marks to mark off direct quotes from the rest of the text. 
+SupportReference: rc://*/ta/man/translate/figs-quotemarks
+Bible Reference: Ezra 5:7
+Entire verse: They sent a report to him and thus was written within it: “To Darius the king: All peace. 
+Portion of verse with issue: “To Darius the king
+Translation note: Here the book begins to quote the letter that Tattenai and his associates sent to King Darius. It may be helpful to your readers to indicate this with an opening quotation mark or with whatever other punctuation or convention your language uses to indicate the beginning of a quotation.
+Alternate translation(s): ∅
+
+Type of translation issue: Quotes Within Quotes
+description of issue: A quotation may have a quote within it, and quotes that are inside of other quotes can also have quotes within them. When a quote has quotes within it, we say there are “levels” of quotation, and each of the quotes is a level. When there are many levels of quotes inside of quotes, it can be hard for listeners and readers to know who is saying what. Some languages use a combination of direct quotes and indirect quotes to make it easier.
+SupportReference: rc://*/ta/man/translate/figs-quotesinquotes
+Bible Reference: Judges 9:8
+Entire verse: Going, the trees went to anoint a king over them. And they said to the olive tree, ‘Reign over us.’
+Portion of verse with issue: And they said to the olive tree, ‘Reign over us.’
+Translation note: If it would be clearer in your language, you could translate this so that there is not a quotation within a quotation.
+Alternate translation(s): And they asked the olive tree to reign over them
+
+Type of translation issue: Quotes Within Quotes
+description of issue: A quotation may have a quote within it, and quotes that are inside of other quotes can also have quotes within them. When a quote has quotes within it, we say there are “levels” of quotation, and each of the quotes is a level. When there are many levels of quotes inside of quotes, it can be hard for listeners and readers to know who is saying what. Some languages use a combination of direct quotes and indirect quotes to make it easier.
+SupportReference: rc://*/ta/man/translate/figs-quotesinquotes
+Bible Reference: Luke 10:9
+Entire verse: and heal the sick in it, and say to them, ‘The kingdom of God has come close to you.’
+Portion of verse with issue: say to them, ‘The kingdom of God has come close to you.’
+Translation note: If it would be helpful in your language, you could translate this so that there is not a quotation within a quotation.
+Alternate translation(s): tell them that the kingdom of God has come close to them
+
+Type of translation issue: Background Information
+description of issue: When people tell a story, they normally tell the events in the order that they happened. This sequence of events makes up the storyline. The storyline is full of action verbs that move the story along in time. But sometimes a writer may take a break from the storyline and give some information to help his listeners understand the story better. This type of information is called background information. The background information might be about things that happened before the events he has already told about, or it might explain something in the story, or it might be about something that would happen much later in the story. Languages have different ways of marking background information and storyline information. Translators need to know the order of the events in the Bible, which information is background information, and which is storyline information. They will need to translate the story in a way that marks the background information in a way that readers will understand the order of events, which information is background information, and which is storyline information.
+SupportReference: rc://*/ta/man/translate/writing-background
+Bible Reference: Judges 3:17
+Entire verse: Then he bought the tribute to Eglon, the king of Moab. Now Eglon was a very fat man.
+Portion of verse with issue: Now Eglon was a very fat man.
+Translation note: The author is providing background information that will help readers understand what happens next in the story. In your translation, present this information in a way that would be natural in your own language and culture.
+Alternate translation(s): ∅
+
+Type of translation issue: Background Information
+description of issue: When people tell a story, they normally tell the events in the order that they happened. This sequence of events makes up the storyline. The storyline is full of action verbs that move the story along in time. But sometimes a writer may take a break from the storyline and give some information to help his listeners understand the story better. This type of information is called background information. The background information might be about things that happened before the events he has already told about, or it might explain something in the story, or it might be about something that would happen much later in the story. Languages have different ways of marking background information and storyline information. Translators need to know the order of the events in the Bible, which information is background information, and which is storyline information. They will need to translate the story in a way that marks the background information in a way that readers will understand the order of events, which information is background information, and which is storyline information.
+SupportReference: rc://*/ta/man/translate/writing-background
+Bible Reference: Acts 2:5
+Entire verse: Now there were Jews living in Jerusalem, godly men, from every nation of those under heaven.
+Portion of verse with issue: Now
+Translation note: Luke is using the word **Now** to introduce background information that will help readers understand what happens next. You can translate it with a word or phrase that serves the same purpose in your language.
+Alternate translation(s): ∅
+
+Type of translation issue: End of Story
+description of issue: Translators need to know that certain information is ending the story, what the purpose of the information is, and how the information is related to the story. They need to know how to translate the particular kind of information at the end of a story the way their language expresses that kind of information, translate it so that people will understand how it relates to the story it is part of, and if possible, translate the end of the story in a way that people will know where that story ends and the next begins.
+SupportReference: rc://*/ta/man/translate/writing-endofstory
+Bible Reference: Judges 8:28
+Entire verse: So Midian was subdued to the face of the sons of Israel, and they did not continue to lift their head. And the land rested forty years in the days of Gideon.
+Portion of verse with issue: So Midian was subdued to the face of the sons of Israel, and they did not continue to lift their head. And the land rested forty years in the days of Gideon.
+Translation note: Here the author is saying what happened at the end of the story of the fight that Gideon led against the Midianites. Your language may have its own way of presenting such information.
+Alternate translation(s): ∅
+
+Type of translation issue: End of Story
+description of issue: Translators need to know that certain information is ending the story, what the purpose of the information is, and how the information is related to the story. They need to know how to translate the particular kind of information at the end of a story the way their language expresses that kind of information, translate it so that people will understand how it relates to the story it is part of, and if possible, translate the end of the story in a way that people will know where that story ends and the next begins.
+SupportReference: rc://*/ta/man/translate/writing-endofstory
+Bible Reference: Acts 5:11
+Entire verse: And great fear came upon the whole church and upon all the ones hearing these things.
+Portion of verse with issue: And great fear came upon the whole church and upon all the ones hearing these things.
+Translation note: This verse is the end of the story about Ananias and Sapphira. Luke uses the word translated And to introduce information about what happened after this story as a result of the events within the story itself. Your language may have its own way of indicating how such information relates to a story.
+Alternate translation(s): ∅
+
+Type of translation issue: Hypothetical Situations
+description of issue: Hypothetical situations are situations that are not real. They can be in the past, present, or future. Hypothetical situations in the past and present have not happened, are not happening now, and ones in the future are not expected to happen.
+SupportReference: rc://*/ta/man/translate/figs-hypo
+Bible Reference: 2 Kings 5:13
+Entire verse: Naaman’s servants went to him and said, “My father, if the prophet had told you to do some great thing, would you not have done it? How much more, then, when he tells you, ‘Wash and be cleansed’!”
+Portion of verse with issue: if the prophet had told you to do some great thing, would you not have done it?
+Translation note: The servants are using an imaginary situation to try to convince Naaman to do what Elisha has told him to do. Use a natural method in your language for introducing an imaginary situation.
+Alternate translation(s): suppose the prophet had told you to do some great thing. You would certainly have done it!
+
+Type of translation issue: Hypothetical Situations
+description of issue: Hypothetical situations are situations that are not real. They can be in the past, present, or future. Hypothetical situations in the past and present have not happened, are not happening now, and ones in the future are not expected to happen.
+SupportReference: rc://*/ta/man/translate/figs-hypo
+Bible Reference: Matthew 12:11
+Entire verse: But he said to them, “What man will there be among you who will have one sheep, and if it might fall into a pit on the Sabbaths, will not grasp hold of it and lift it out?
+Portion of verse with issue: What man will there be among you who will have one sheep, and if it might fall into a pit on the Sabbaths, will not grasp hold of it and lift it out?
+Translation note: Here Jesus uses an imaginary situation to help explain when it is appropriate to work **on the Sabbaths**. Use a natural method in your language for introducing an imaginary situation.
+Alternate translation(s): Suppose one of you had one sheep. And suppose that sheep fell into a pit on the Sabbath. You would certainly grasp hold of it and lift it out, wouldn’t you?
+
+Type of translation issue: Introduction of a New Event
+description of issue: When people tell a story, they tell about an event or a series of events. Often they put certain information at the beginning of the story, such as who the story is about, when it happened, and where it happened. This information that the writer gives before the events of the story begin is called the setting of the story. Some new events in a story also have a setting because they might involve new people, new times, and new places. In some languages, people also tell if they saw the event or heard about it from someone else. Translators need to know when people in their language tell about events, what information they give at the beginning and if there is a certain order that they put it in. Translators will need to follow the way their language introduces new information at the beginning of a story or a new event rather than the way the source language did that. In this way the translation will sound natural and communicate clearly in the target language.
+SupportReference: rc://*/ta/man/translate/writing-newevent
+Bible Reference: Judges 6:25
+Entire verse: And it happened on that night that Yahweh said to him, “Take the bullock of an ox that is to your father and the second bullock, seven years old, and you shall break down the altar of Baal that is to your father, and you shall cut down the Asherah that is beside it.
+Portion of verse with issue: The author is using the phrase **And it happened** to introduce a new event in the story. Use a word, phrase, or other method in your language that is natural for introducing a new event.
+Translation note: ∅
+
+Type of translation issue: Introduction of a New Event
+description of issue: When people tell a story, they tell about an event or a series of events. Often they put certain information at the beginning of the story, such as who the story is about, when it happened, and where it happened. This information that the writer gives before the events of the story begin is called the setting of the story. Some new events in a story also have a setting because they might involve new people, new times, and new places. In some languages, people also tell if they saw the event or heard about it from someone else. Translators need to know when people in their language tell about events, what information they give at the beginning and if there is a certain order that they put it in. Translators will need to follow the way their language introduces new information at the beginning of a story or a new event rather than the way the source language did that. In this way the translation will sound natural and communicate clearly in the target language.
+SupportReference: rc://*/ta/man/translate/writing-newevent
+Bible Reference: Luke 6:1
+Entire verse: And it happened that, on a Sabbath he was going through grainfields, and his disciples were picking and eating the heads of grain, rubbing them in their hands.
+Portion of verse with issue: And it happened that
+Translation note: Luke is using the phrase **And it happened that** to introduce a new event in the story. Use a word, phrase, or other method in your language that is natural for introducing a new event.
+Alternate translation(s): ∅
+
+Type of translation issue: Introduction of New and Old Participants
+description of issue: In order to make translations clear and natural, it is necessary to refer to the participants in such a way that readers will know if they are new participants or participants that they have already read about. Different languages have different ways of doing this. Translators must follow the way that their target language does this, not the way that the source language does this.
+SupportReference: rc://*/ta/man/translate/writing-participants
+Bible Reference: Judges 4:4
+Entire verse: Now Deborah, a woman, a prophetess, the wife of Lappidoth, she was judging Israel at that time.
+Portion of verse with issue: Now Deborah, a woman
+Translation note: The author is using the phrase **a woman** to introduce **Deborah** as a new participant in the story. If your language has its own way of introducing new participants, you can use it here in your translation.
+Alternate translation(s): Now a certain woman named Deborah
+
+Type of translation issue: Introduction of New and Old Participants
+description of issue: In order to make translations clear and natural, it is necessary to refer to the participants in such a way that readers will know if they are new participants or participants that they have already read about. Different languages have different ways of doing this. Translators must follow the way that their target language does this, not the way that the source language does this.
+SupportReference: rc://*/ta/man/translate/writing-participants
+Bible Reference: Luke 2:25
+Entire verse: And behold, there was a man in Jerusalem whose name was Simeon, and this man was righteous and devout, waiting for the consolation of Israel, and the Holy Spirit was upon him.
+Portion of verse with issue: there was a man in Jerusalem whose name was Simeon
+Translation note: Luke is using this phrase to introduce a new character into the story. If your language has its own way of doing that, you could use it here in your translation.
+Alternate translation(s): there was a certain man named Simeon living in Jerusalem
+
+Type of translation issue: Parables
+description of issue: A parable is a short story that is told to teach something that is true. The events in a parable are usually things that could or often do happen, but they are not specific events that actually did happen. They are told only to teach the lesson that the listener is meant to learn. 
+SupportReference: rc://*/ta/man/translate/figs-parables
+Bible Reference: Judges 9:8
+Entire verse: Going, the trees went to anoint a king over them. And they said to the olive tree, ‘Reign over us.’
+Portion of verse with issue: Going, the trees went to anoint a king over them
+Translation note: To make the lords of Shechem recognize that they will have much trouble because they have made Abimelek their king, Jotham tells them a story. If it would be helpful to your readers, you could state that explicitly. You could also begin this story in the way that made-up stories usually begin in your language.
+Alternate translation(s): Then Jotham told the lords of Shechem a story to make them realize that they would have much trouble because they had made Abimelek their king. He said, “Once upon a time the trees went to anoint a king over them
+
+Type of translation issue: Parables
+description of issue: A parable is a short story that is told to teach something that is true. The events in a parable are usually things that could or often do happen, but they are not specific events that actually did happen. They are told only to teach the lesson that the listener is meant to learn. 
+SupportReference: rc://*/ta/man/translate/figs-parables
+Bible Reference: Luke 7:41
+Entire verse: “There were two debtors to a certain moneylender. The one owed 500 denarii, and the other 50.
+Portion of verse with issue: “There were two debtors
+Translation note: To help Simon understand what he wants him to realize, Jesus tells him a brief story that teaches something true in a way that is easy to understand and remember. If it would be helpful to your readers, you could state that explicitly.
+Alternate translation(s): Then Jesus told him this story to help him understand. “There were two debtors
+
+Type of translation issue: Poetry
+description of issue: Different languages use poetry for different things. If a poetic form would not communicate the same meaning in the target language, translators may need to write it without the poetry. Different languages use different poetic devices. A poetic device that conveys elegance or emotion in a biblical language may be confusing or misunderstood in another language. In some languages, using poetry for a particular part of the Bible would make it much more powerful.
+SupportReference: rc://*/ta/man/translate/writing-poetry
+Bible Reference: Jonah 1:16
+Entire verse: Then the men feared Yahweh with great fear, and they sacrificed a sacrifice to Yahweh and vowed vows.
+Portion of verse with issue: For literary effect, perhaps to underscore how profoundly calm the sea was after the storm ceased, three times in this verse the author uses a construction in which a verb and its object come from the same root. Your language may permit you to use the same construction. Alternatively, you may be able to produce a similar effect in your translation by using a different poetic feature of your language.
+Translation note: ∅
+
+Type of translation issue: Poetry
+description of issue: Different languages use poetry for different things. If a poetic form would not communicate the same meaning in the target language, translators may need to write it without the poetry. Different languages use different poetic devices. A poetic device that conveys elegance or emotion in a biblical language may be confusing or misunderstood in another language. In some languages, using poetry for a particular part of the Bible would make it much more powerful.
+SupportReference: rc://*/ta/man/translate/writing-poetry
+Bible Reference: Proverbs 25:6
+Entire verse: Do not honor yourself before the face of the king, and in the place of the great ones do not stand.
+Portion of verse with issue: The two clauses in this verse say similar things, but the phrases in the second clause are in reverse order. This is a literary device called a chiasm. The writing is using it in order to emphasize the importance of not honoring oneself in front of important people. Your language may permit you to use the same device. Alternatively, you may be able to convey similar emphasis in your translation by using different a poetic feature of your language.
+Translation note: ∅
+
+Type of translation issue: Blessings
+description of issue: Each language has its own ways of saying blessings. There are many blessings in the Bible. They need to be translated in the way that people say blessings in the target language, so that readers recognize them as blessings and understand what one person wants God to do for another.
+SupportReference: rc://*/ta/man/translate/translate-blessing
+Bible Reference: Ruth 4:11
+Entire verse: And all the people who were in the gate and the elders said, “We are witnesses! May Yahweh make this woman who is coming into your house like Rachel and Leah, the two who built up the house of Israel. Prosper in Ephrathah and be renowned in Bethlehem!
+Portion of verse with issue: May Yahweh make this woman who is coming into your house like Rachel and Leah, the two who built up the house of Israel.
+Translation note: Here, the people are asking God to bless Ruth. You could express this as either a blessing or a prayer, in whichever way is more natural in your language.
+Alternate translation(s): We ask Yahweh to make this woman who is coming into your house like Rachel and Leah, the two who built up the house of Israel
+
+Type of translation issue: Blessings
+description of issue: Each language has its own ways of saying blessings. There are many blessings in the Bible. They need to be translated in the way that people say blessings in the target language, so that readers recognize them as blessings and understand what one person wants God to do for another.
+SupportReference: rc://*/ta/man/translate/translate-blessing
+Bible Reference: 2 Timothy 4:22
+Entire verse: The Lordbe with your spirit. Grace be with you.
+Portion of verse with issue: The Lordbe with your spirit. Grace be with you.
+Translation note: As was customary in his culture, Paul closes his letter with a blessing for Timothy. Use a form that people would recognize as a blessing in your language.
+Alternate translation(s): May the Lord be with your spirit, and may you experience kindness from God OR I pray that the Lord will be with your spirit and that you will have grace from God
+
+Type of translation issue: Oaths
+description of issue: As a guarantee that the person taking the oath will do what he promises, the person calls on God to witness the oath and to punish him severely if he does not do the thing promised, or if what he testifies to is not true. Sometimes the person will not name God directly but will instead name something holy that is associated with God, such as the temple. In some situations, a person might name a different authority, such as a king. A complete oath has four parts, but some of them are often left unspoken and only implied: Calling on God to witness the oath and judge the person making it. Making the promise (may be implied as the opposite of the violation). Telling what would be a violation of the oath (may be implied as the opposite of the promise). Saying what punishment God would do if the person violates the oath (often implied). People in some cultures may not be familiar with the practice of taking oaths, and so they may not understand what the people in the Bible are doing. In many languages, people would not take an oath the way that people did in the Bible, and so they might not recognize that the person is taking an oath. In the Old Testament, people often did not speak one or more parts of the oath, leaving those parts implied. The part that was most often left unspoken was the part that would tell what they are asking God to do if they break the oath. People believed that spoken words have power, and that speaking the part about punishment might cause the punishment to happen, so they often left that part to be understood silently. Because of these things, people might think that the person in the Bible is not making a real oath or they may not understand what the verse is talking about at all.
+SupportReference: rc://*/ta/man/translate/writing-oathformula
+Bible Reference: Job 31:25
+Entire verse: if I have rejoiced because my wealth was great and because my hand had acquired much
+Portion of verse with issue: if I have rejoiced because my wealth was great and because my hand had acquired much
+Translation note: Following the custom of his culture, Job is swearing an oath by stating the first part of a condition (“if”) but not the second part (“then”). If it would be helpful to your readers, you could explicitly state the second part of this condition, which is implied in the context.
+Alternate translation(s): if I have rejoiced because my wealth was great and because my hand had acquired much, then I certainly deserve punishment
+
+Type of translation issue: Oaths
+description of issue: As a guarantee that the person taking the oath will do what he promises, the person calls on God to witness the oath and to punish him severely if he does not do the thing promised, or if what he testifies to is not true. Sometimes the person will not name God directly but will instead name something holy that is associated with God, such as the temple. In some situations, a person might name a different authority, such as a king. A complete oath has four parts, but some of them are often left unspoken and only implied: Calling on God to witness the oath and judge the person making it. Making the promise (may be implied as the opposite of the violation). Telling what would be a violation of the oath (may be implied as the opposite of the promise). Saying what punishment God would do if the person violates the oath (often implied). People in some cultures may not be familiar with the practice of taking oaths, and so they may not understand what the people in the Bible are doing. In many languages, people would not take an oath the way that people did in the Bible, and so they might not recognize that the person is taking an oath. In the Old Testament, people often did not speak one or more parts of the oath, leaving those parts implied. The part that was most often left unspoken was the part that would tell what they are asking God to do if they break the oath. People believed that spoken words have power, and that speaking the part about punishment might cause the punishment to happen, so they often left that part to be understood silently. Because of these things, people might think that the person in the Bible is not making a real oath or they may not understand what the verse is talking about at all.
+SupportReference: rc://*/ta/man/translate/writing-oathformula
+Bible Reference: Ruth 1:17
+Entire verse: In the place where you die, I will die, and there I will be buried. May Yahweh do thus to me, and thus may he add, if death separates between me and between you.”
+Portion of verse with issue: May Yahweh do thus to me, and thus may he add
+Translation note: Ruth uses this oath formula to show that she is very committed to doing what she says. She calls down a curse on herself, asking God to punish her if she does not do what she has said she would do. In keeping with the custom, she did not express what that punishment would be. Use a natural way in your language to express an oath.
+Alternate translation(s): May Yahweh strike me dead, and may he do even more
+
+Type of translation issue: Proverbs
+description of issue: Proverbs are short sayings that give wise advice or teach something that is generally true about life. People enjoy proverbs because they give a lot of wisdom in few words. Proverbs in the Bible often use metaphor and parallelism. Proverbs should not be understood as absolute and unchangeable laws. Rather, proverbs offer general advice to a person about how to live his life. Each language has its own ways of saying proverbs. There are many proverbs in the Bible. They need to be translated in the way that people say proverbs in the target language so that readers recognize them as proverbs and understand what they teach.
+SupportReference: rc://*/ta/man/translate/writing-proverbs
+Bible Reference: Judges 8:21
+Entire verse: Then Zebah and Zalmunna said, “Arise yourself and strike us! For like a man is his strength.” So Gideon arose and killed Zebah and Zalmunna, and he took the ornaments that were on the necks of their camels.
+Portion of verse with issue: For like a man is his strength
+Translation note: Zebah and Zalmunna may be expressing their meaning by using a short popular saying of the culture that expresses a great deal of meaning in a few words. They probably mean that Gideon should not have expected that a boy would have had the strength or courage to kill them. Your culture may have a comparable saying that you can use in your translation.
+Alternate translation(s): It takes a man to do a man’s job
+
+Type of translation issue: Proverbs
+description of issue: Proverbs are short sayings that give wise advice or teach something that is generally true about life. People enjoy proverbs because they give a lot of wisdom in few words. Proverbs in the Bible often use metaphor and parallelism. Proverbs should not be understood as absolute and unchangeable laws. Rather, proverbs offer general advice to a person about how to live his life. Each language has its own ways of saying proverbs. There are many proverbs in the Bible. They need to be translated in the way that people say proverbs in the target language so that readers recognize them as proverbs and understand what they teach.
+SupportReference: rc://*/ta/man/translate/writing-proverbs
+Bible Reference: Luke 4:23
+Entire verse: And he said to them, “Surely you will say this proverb to me, ‘Doctor, heal yourself. Whatever we heard happened in Capernaum, also do here in your hometown.’”
+Portion of verse with issue: Doctor, heal yourself
+Translation note: Jesus anticipates that the people will want to see him do miracles to prove his credibility. He uses a short popular saying of the culture to express this. This saying expresses a great deal of meaning in a few words. If it would be helpful in your language, you could expand it to make clear to your readers what it means.
+Alternate translation(s): If a doctor cannot heal himself of a certain disease, then people will not believe that he can heal them of it
+
+Type of translation issue: Symbolic Language
+description of issue: Symbolic language in speech and writing is the use of symbols to represent other things, other events, etc. In the Bible it occurs most in prophecy and poetry, especially in visions and dreams about things that will happen in the future. Though people may not immediately know the meaning of a symbol, it is important to keep the symbol in the translation.
+SupportReference: rc://*/ta/man/translate/writing-symlanguage
+Bible Reference: Daniel 2:38
+Entire verse: and wherever the sons of men dwell, the animals of the fields and the birds of the heavens, he has given them into your hand, and he has made you rule over them all. You are the head of gold.
+Portion of verse with issue: You are the head of gold
+Translation note: This means that in the king’s dream, the statue’s head symbolizes the king. 
+Alternate translation(s): The golden head symbolizes you OR The golden head is a symbol of you and your power
+
+Type of translation issue: Symbolic Language
+description of issue: Symbolic language in speech and writing is the use of symbols to represent other things, other events, etc. In the Bible it occurs most in prophecy and poetry, especially in visions and dreams about things that will happen in the future. Though people may not immediately know the meaning of a symbol, it is important to keep the symbol in the translation.
+SupportReference: rc://*/ta/man/translate/writing-symlanguage
+Bible Reference: Revelation 11:4
+Entire verse: These are the two olive trees and the two lampstands that stand before the Lord of the earth.
+Portion of verse with issue: These are the two olive trees and the two lampstands that stand before the Lord of the earth.
+Translation note: The **two olive trees** and the **two lampstands** symbolize these witnesses, but they are not literally the witnesses.
+Alternate translation(s): The two olive trees and the two lampstands that stood before the Lord of the earth represent these witnesses
+
+Type of translation issue: Textual Variants
+description of issue: This is to alert translators when there are multiple readings of a text and the ULT has chosen one of them so they can make a decision about which one to use in their translation (based on local church preferences).
+SupportReference: rc://*/ta/man/translate/translate-textvariants
+Bible Reference: Luke 10:1
+Entire verse: And after these things, the Lord also appointed 72 others and sent them out by twos before his face to every city and place where he himself was about to go.
+Portion of verse with issue: 72
+Translation note: Some ancient manuscripts of the Bible read “72,” but others read “70.” The ULT reads **72**, but it mentions in a footnote that scholars are divided as to which number was originally in the book of Luke. If a translation of the Bible exists in your region, you may wish to use the reading that it uses.
+Alternate translation(s): ∅
+
+Type of translation issue: Textual Variants
+description of issue: This is to alert translators when there are multiple readings of a text and the ULT has chosen one of them so they can make a decision about which one to use in their translation (based on local church preferences).
+SupportReference: rc://*/ta/man/translate/translate-textvariants
+Bible Reference: 1 John 5:18
+Entire verse: We know that everyone having been begotten from God does not sin, but the one begotten from God keeps himself, and the evil one does not touch him.
+Portion of verse with issue: the one begotten from God
+Translation note: Many ancient manuscripts read “the one begotten from God keeps himself.” The ULT follows that reading. In this case, **the one begotten from God** refers to the believer, just as the earlier phrase, **everyone having been begotten from God**, refers to the believer. In this reading, the believer guards himself from sin. Other ancient manuscripts read “the one begotten from God keeps him.” In this case, **the one begotten from God refers to Jesus**, who guards the believer from sin. If a translation of the Bible exists in your region, you may wish to use the reading that it uses.
+Alternate translation(s): ∅
+
+Type of translation issue: Verse Bridges
+description of issue: These notes are to alert translators when verses might need to be combined into a verse bridge in their languageto structure the information in a clearer or chronological way.
+SupportReference: rc://*/ta/man/translate/translate-versebridge
+Bible Reference: Mark 3:9–10
+Entire verse: And he spoke to his disciples so that a small boat might be ready for him because of the crowd, so that they might not press against him. For he healed many, so that as many as had afflictions pressed against him so that they might touch him.
+Portion of verse with issue: And he spoke to his disciples so that a small boat might be ready for him because of the crowd, so that they might not press against him. For he healed many, so that as many as had afflictions pressed against him so that they might touch him.
+Translation note: If it would be helpful to your readers, you could combine [3:9](../03/09.md) and [3:10](../03/10.md) into a verse bridge, as the UST does, in order to indicate the reason why Jesus wants to get into a boat before he gives his disciples instructions about the boat.
+Alternate translation(s): And he healed many, so that as many as had afflictions pressed against him so that they might touch him. So, because of the crowd, he spoke to his disciples so that a small boat might be ready for him, so that the crowd might not press against him
+
+Type of translation issue: Verse Bridges
+description of issue: These notes are to alert translators when verses might need to be combined into a verse bridge in their languageto structure the information in a clearer or chronological way.
+SupportReference: rc://*/ta/man/translate/translate-versebridge
+Bible Reference: 1 John 2:5–6
+Entire verse: But whoever keeps his word, in this one truly the love of God has been perfected. In this we know that we are in him: the one saying he remains in him ought, just as that one walked, also to walk himself.
+Portion of verse with issue: In this we know that we are in him: the one saying he remains in him ought, just as that one walked, also to walk himself.
+Translation note: If it would be a more natural order in your language, you could move the last sentence of verse 5 to the end of verse 6. You would then present the combined verses as 5-6.
+Alternate translation(s): The one saying he remains in him ought, just as that one walked, also to walk himself. That is how we know that we are in him.
+
+Type of translation issue: Translate Unknowns
+description of issue: These notes are for things that are in the Bible or the Bible's culture and times that are not well known to people in the culture, time or place where the translation is being made.
+SupportReference: rc://*/ta/man/translate/translate-unknown
+Bible Reference: Jeremiah 9:11
+Entire verse: And I will appoint Jerusalem for piles of ruins, a dwelling-place of jackals, and I will make the cities of Judah a ruin without dwellers.” 
+Portion of verse with issue: jackals
+Translation note: The term **jackals** describes fierce wild dogs. If your readers would not be familiar with what a jackal is, in your translation you could use the name of a similar thing that your readers would recognize, or you could use a general expression.
+Alternate translation(s): wild dogs
+
+Type of translation issue: Translate Unknowns
+description of issue: These notes are for things that are in the Bible or the Bible's culture and times that are not well known to people in the culture, time or place where the translation is being made.
+SupportReference: rc://*/ta/man/translate/translate-unknown
+Bible Reference: Acts 1:26
+Entire verse: And they cast lots for them, and the lot fell to Matthias, and he was chosen together with the 11 apostles.
+Portion of verse with issue: And they cast lots for them
+Translation note: The term **lots** describes objects with various markings on different sides that were used, most likely by dropping them on the ground, to select between possibilities. They trusted that in answer to their prayer, God would control which way these objects fell and so guide the selection process.
+Alternate translation(s): they threw marked objects on the ground, trusting that God would use these to guide them
+
+Type of translation issue: Copy or Borrow Words
+description of issue: Sometimes the Bible includes things that are not part of the target culture and for which the target language may not have a word. The Bible also includes people and places for which the target language may not have names. When that happens translators can "borrow" the word from the Bible in a familiar language and use it in their translation in the target language. This means that translators basically copy it from the other language
+SupportReference: rc://*/ta/man/translate/translate-transliterate
+Bible Reference: Judges 1:36
+Entire verse: Now the border of the Amorite was from the ascent of Akrabbim, from the cliff and upward.
+Portion of verse with issue: was from the ascent of Akrabbim
+Translation note: **Akrabbim** is a Hebrew word that the ULT has spelled out using English letters so that readers will know how it sounds. The word means “scorpions” in Hebrew, and here it is the name of a place. The word translated as **ascent** may be part of this name. In your translation you could spell this name the way it sounds in your language, or you could express its meaning as a name.
+Alternate translation(s): was from Scorpion Pass
+
+Type of translation issue: Copy or Borrow Words
+description of issue: Sometimes the Bible includes things that are not part of the target culture and for which the target language may not have a word. The Bible also includes people and places for which the target language may not have names. When that happens translators can "borrow" the word from the Bible in a familiar language and use it in their translation in the target language. This means that translators basically copy it from the other language
+SupportReference: rc://*/ta/man/translate/translate-transliterate
+Bible Reference: Acts 21:38
+Entire verse: Then are you not the Egyptian having revolted before these days and having led 4,000 men of the Sicarii into the wilderness?
+Portion of verse with issue: of the Sicarii
+Translation note: The term **Sicarii** is a Latin word. Luke spells it out using Greek letters so his readers will know how it sounds. The term means an assassin and it comes from the Latin word for a dagger. In this context, it refers to a group of Jewish rebels who carried daggers under their robes and killed Romans and people who supported the Romans. In your translation, you could spell this the way it sounds in your language, or you could use a term with the same meaning.
+Alternate translation(s): of the Assassins
+
+Type of translation issue: How to Translate Names
+description of issue: These notes give advice on how to translate names (sometimes based on meaning) or to tell translators if a name is for a person (man or woman) or a place, etc.
+SupportReference: rc://*/ta/man/translate/translate-names
+Bible Reference: Judges 9:46
+Entire verse: And all of the lords of the tower of Shechem heard, and they entered into the citadel of the house of El-Berith
+Portion of verse with issue: El-Berith
+Translation note: The expression **El-Berith** seems to be another name for the false god that is called Baal-Berith in [8:33](../08/33.md) and [9:4](../09/04.md). El-Berith means “god of the covenant,” while Baal-Berith means “master of the covenant.” So that readers will know that this is the same false god, you could use the name Baal-Berith here, or you could use a general expression.
+Alternate translation(s): their false god
+
+Type of translation issue: How to Translate Names
+description of issue: These notes give advice on how to translate names or to tell translators if a name is for a person (man or woman) or a place, etc.
+SupportReference: rc://*/ta/man/translate/translate-names
+Bible Reference: Acts 11:28
+Entire verse: And one of them, Agabus by name, having arisen, signified through the Spirit that a great famine was about to occur over the whole world. This happened upon Claudius.
+Portion of verse with issue: The word Claudius is the name of the man who was the Roman emperor at this time.
+Translation note: ∅
+
+Type of translation issue: Kinship
+description of issue: Kinship terms refer to those words used to describe people related to one another in familial relationships. These terms vary widely in their specificity from language to language.
+SupportReference: rc://*/ta/man/translate/translate-kinship
+Bible Reference: Judges 9:1
+Entire verse: Now Abimelek, the son of Jerubbaal, went to Shechem to the brothers of his mother and he spoke to them and to all of the clan of the house of the father of his mother, saying,
+Portion of verse with issue: the brothers of his mother & the father of his mother
+Translation note: Your language may have its own terms or expressions for these relationships.
+Alternate translation(s): his maternal uncles … his maternal grandfather
+
+Type of translation issue: Kinship
+description of issue: Kinship terms refer to those words used to describe people related to one another in familial relationships. These terms vary widely in their specificity from language to language.
+SupportReference: rc://*/ta/man/translate/translate-kinship
+Bible Reference: Acts 23:16
+Entire verse: But hearing the ambush, the son of the sister of Paul, going and entering into the fortress, reported it to Paul.
+Portion of verse with issue: the son of the sister of Paul
+Translation note: Luke does not tell us whether this **sister** was older or younger than Paul, but describe this relationship in the way that would be most natural for your language and culture.
+Alternate translation(s): Paul’s nephew
+
+Type of translation issue: Assumed Knowledge and Implicit Information
+description of issue: Assumed knowledge and implied information are part of the communication of Scripture. As such they can be made explicit for readers who do not share the same knowledge that the original readers shared. However, when this information is more than a phrase, it may skew the message and is better included as a footnote.
+SupportReference: rc://*/ta/man/translate/figs-explicit
+Bible Reference: Nehemiah 2:2
+Entire verse: And the king said to me, “Why is your face unpleasant? Now as for you, you are not sick. This is nothing except unpleasantness of heart.” And I was extremely much afraid.
+Portion of verse with issue: And I was extremely much afraid.
+Translation note: The implication is that Nehemiah was very **afraid** because no one was supposed to look unhappy in the king’s presence. If it would be helpful in your language, you could say this explicitly.
+Alternate translation(s): This made me very afraid, because no one was supposed to look unhappy in the king’s presence
+
+Type of translation issue: Assumed Knowledge and Implicit Information
+description of issue: Assumed knowledge and implied information are part of the communication of Scripture. As such they can be made explicit for readers who do not share the same knowledge that the original readers shared. However, when this information is more than a phrase, it may skew the message and is better included as a footnote.
+SupportReference: rc://*/ta/man/translate/figs-explicit
+Bible Reference: 1 Timothy 1:18
+Entire verse: This command I am placing before you, my child, Timothy, according to the earlier prophecies about you, that in them you might fight the good fight,
+Portion of verse with issue: the earlier prophecies
+Translation note: Paul can assume that Timothy will understand what he means by **the earlier prophecies** because they were something they both knew about. However, they are not described anywhere else in the Bible. These prophecies may have been spoken before Timothy was born, before he became a believer, or when he officially joined Paul to proclaim the gospel. If it would be helpful in your language, you could make this idea some more explicit. But if possible, leave the exact timing of the prophecies unstated, as Paul does. 
+Alternate translation(s): the prophecies about you that some people gave before OR what people prophesied about you some time ago
+
+Type of translation issue: Redundant Information
+description of issue: Some languages have ways of saying things that are natural for them but sound strange when translated into other languages. One of the reasons for this is that some languages say things explicitly that some other languages would leave as implicit information. If translators render all of the explicit information from the source language into explicit information in the target language, it could sound foreign, unnatural, or perhaps even unintelligent if the target language would not make that information explicit. Instead, it is best to leave that kind of information implicit in the target language.
+SupportReference: rc://*/ta/man/translate/figs-explicitinfo
+Bible Reference: Judges 9:52
+Entire verse: So all the people also cut, a man a branch, and they went after Abimelek. And they set them against the citadel, and they burned the citadel upon them with fire. So all of the men of the tower of Shechem also died, about 1,000 men and women.
+Portion of verse with issue: and they burned the citadel upon them with fire
+Translation note: It might seem that the expression **burned … with fire** contains extra information that would be unnatural to express in your language. If so, you can shorten it.
+Alternate translation(s): and they used them to set fire to the citadel OR and they burned the citadel with them
+
+Type of translation issue: Redundant Information
+description of issue: Some languages have ways of saying things that are natural for them but sound strange when translated into other languages. One of the reasons for this is that some languages say things explicitly that some other languages would leave as implicit information. If translators render all of the explicit information from the source language into explicit information in the target language, it could sound foreign, unnatural, or perhaps even unintelligent if the target language would not make that information explicit. Instead, it is best to leave that kind of information implicit in the target language.
+SupportReference: rc://*/ta/man/translate/figs-explicitinfo
+Bible Reference: Luke 8:5
+Entire verse: “The sower went out to sow his seed, and as he sowed, some fell beside the road, and it was trampled underfoot, and the birds of the sky devoured it.
+Portion of verse with issue: the birds of the sky
+Translation note: In your language, it might seem that this phrase expresses unnecessary extra information. If so, you could abbreviate it. However, you could also use an action clause to keep the sense of **sky**.
+Alternate translation(s): birds OR birds flew down and
+
+Type of translation issue: When to Keep Information Implicit
+description of issue: Sometimes it is better not to state assumed knowledge or implicit information explicitly because it may skew the author's intended meaning.
+SupportReference: rc://*/ta/man/translate/figs-extrainfo
+Bible Reference: Job 19:25
+Entire verse: But I know that my redeemer lives, and that at the last he will stand upon the dust
+Portion of verse with issue: my redeemer
+Translation note: As Job indicates in the next verse, he believes that God will be his **redeemer**. This is similar to the way that Job speaks in [16:19](../16/19.md) of having an “advocate” in heaven and to the way that he asks God in [17:3](../17/03.md) to be his “surety.” Since Job speaks of God in the next verse, you do not need to explain in this verse that God is the **redeemer** whom Job is expecting. It may even be that Job wishes to generate some suspense and attention by not naming the redeemer right away, and it would be good to give your readers that same experience.
+Alternate translation(s): ∅
+
+Type of translation issue: When to Keep Information Implicit
+description of issue: Sometimes it is better not to state assumed knowledge or implicit information explicitly because it may skew the author's intended meaning.
+SupportReference: rc://*/ta/man/translate/figs-extrainfo
+Bible Reference: Luke 13:2
+Entire verse: And while they were ministering to the Lord and fasting, the Holy Spirit said, “Separate, then, Barnabas and Saul to me for the work to which I have called them.”
+Portion of verse with issue: the work
+Translation note: The Holy Spirit is referring implicitly to the **work** of proclaiming the gospel of Jesus in new areas. Since Luke describes Barnabas and Paul doing this work in the rest of this chapter, you do not need to explain its meaning further here.
+Alternate translation(s): ∅
+
+Type of translation issue: Biblical Distance
+description of issue: Used to clarify how to translate a distance.
+SupportReference: rc://*/ta/man/translate/translate-bdistance
+Bible Reference: 1 Samuel 17:4
+Entire verse: And a man of the space between came out from the camp of the Philistines, Goliath was his name, from Gath. His height was six cubits and a span.
+Portion of verse with issue: six cubits and a span
+Translation note: These **cubits** were a unit of measurement equal to about 46 centimeters each. A **span** was a unit of measurement equal to about 23 centimeters.
+Alternate translation(s): about 3 meters
+
+Type of translation issue: Biblical Distance
+description of issue: Used to clarify how to translate a distance.
+SupportReference: rc://*/ta/man/translate/translate-bdistance
+Bible Reference: Luke 24:13
+Entire verse: And behold, on that same day, two of them were going to a distant village that was named Emmaus, 60 stadia from Jerusalem
+Portion of verse with issue: 60 stadia
+Translation note: The word **stadia** is the plural of “stadium,” a Roman measurement of distance equivalent to about 185 meters or a little over 600 feet.
+Alternate translation(s): about eleven kilometers OR about seven miles
+
+Type of translation issue: Biblical Volume
+description of issue: Used to clarify how to translate volume.
+SupportReference: rc://*/ta/man/translate/translate-bvolume
+Bible Reference: Exodus 16:16
+Entire verse: This is the thing that Yahweh has commanded: ‘Gather from it each according to the mouths of his eating; an omer for each person up to the number of your people, each shall take for those in his tent.’”
+Portion of verse with issue: an omer
+Translation note: An **omer** was a unit of measurement equal to about two liters.
+Alternate translation(s): a couple of liters
+
+Type of translation issue: Biblical Volume
+description of issue: Used to clarify how to translate volume.
+SupportReference: rc://*/ta/man/translate/translate-bvolume
+Bible Reference: Matthew 13:33
+Entire verse: He spoke to them another parable: “The kingdom of the heavens is like yeast that a woman, having taken, mixed with three seahs of flour until it was all leavened.”
+Portion of verse with issue: three seahs
+Translation note: The term **seahs** is the plural of “seah,” a dry measure equivalent to nearly eight liters or two gallons. You can express this quantity in terms of a measure that your culture uses, or you can use a general expression.
+Alternate translation(s): 24 liters OR a large amount
+
+Type of translation issue: Biblical Weight
+description of issue: Used to clarify how to translate weight.
+SupportReference: rc://*/ta/man/translate/translate-bweight
+Bible Reference: Exodus 38:29
+Entire verse: And the bronze of the raised offering was 70 kikkars and 2, 400 shekels.
+Portion of verse with issue: 70 kikkars and 2, 400 shekels
+Translation note: These **kikkars** each weighed about 34 kilograms, and these **shekels** each weighed about 11 grams. If it would be helpful to your readers, you could express this in terms of modern measurements, either in the text or in a footnote.
+Alternate translation(s): 2,400 kilograms
+
+Type of translation issue: Biblical Weight
+description of issue: Used to clarify how to translate weight.
+SupportReference: rc://*/ta/man/translate/translate-bweight
+Bible Reference: 1 Kings 10:13
+Entire verse: And the weight of the gold that came to Solomon in one year was 666 kikkars of gold
+Portion of verse with issue: 666 kikkars
+Translation note: The term **kikkars** is the plural of “kikkar,” a unit of weight equal to about 33 kilograms.
+Alternate translation(s): almost 22,000 kilograms of gold
+
+Type of translation issue: Biblical Money
+description of issue: Used to clarify how to translate money.
+SupportReference: rc://*/ta/man/translate/translate-bmoney
+Bible Reference: Genesis 23:15
+Entire verse: “My lord, listen to me. Land worth 400 shekels of silver, between me and you, what is that? So bury your dead.”
+Portion of verse with issue: 400 shekels	
+Translation note: Coins did not exist at this time. Rather, people paid each other with **shekels** of silver or gold, which was a weight measurement. **400 shekels of silver** was about ten pounds (4.5 kilos) of silver. Many translation teams like to keep the same numbers that are in the Hebrew text in their translation and then in a footnote give the equivalent amount in their own currency. Other teams put the equivalent amount in the text and put the literal phrase in a footnote.
+Alternate translation(s): ten pounds
+
+Type of translation issue: Biblical Money
+description of issue: Used to clarify how to translate money.
+SupportReference: rc://*/ta/man/translate/translate-bmoney
+Bible Reference: Matthew 17:24
+Entire verse: Now when they had come to Capernaum, the ones collecting the two-drachma tax approached Peter and said, “Does not your teacher pay the two-drachma tax?”
+Portion of verse with issue: the two-drachma tax
+Translation note: A **drachma** was a silver coin equivalent to a day’s wage. You could try to express this amount in terms of current monetary values, but that might cause your Bible translation to become outdated and inaccurate, since those values can change over time. So instead you might state something more general or give the equivalent in wages.
+Alternate translation(s): the tax of two valuable silver coins OR the tax of two coins each worth a day’s wages
+
+Type of translation issue: Hebrew Months
+description of issue: Used to clarify how to translate Hebrew months.
+SupportReference: rc://*/ta/man/translate/translate-hebrewmonths
+Bible Reference: Exodus 23:15
+Entire verse: You shall keep the Festival of Unleavened Bread. You shall eat unleavened bread seven days, as I commanded you, at the appointed time, the month of Aviv, for in it you came out from Egypt. And you shall not appear at my face empty-handed.
+Portion of verse with issue: the month of Aviv
+Translation note: **Aviv** is the name of the first month of the Hebrew calendar. Aviv is during the last part of March and the first part of April on Western calendars. You could convert the Hebrew day and month into an approximate date on the calendar that your culture uses. However, the Jews used a lunar calendar, so if you use a solar calendar, the date will be different every year and the translation will not be entirely accurate. So in the text you may just want to give the number of the day and the name of the month on the Hebrew calendar. You can indicate in a footnote approximately what time of year that is on your calendar.
+Alternate translation(s): ∅
+
+Type of translation issue: Hebrew Months
+description of issue: Used to clarify how to translate Hebrew months.
+SupportReference: rc://*/ta/man/translate/translate-hebrewmonths
+Bible Reference: Ezra 6:15
+Entire verse: And this house was done by day three of the month of Adar, which was year six of the reign of Darius the king.
+Portion of verse with issue: You could convert the Hebrew day and month into an approximate date on the calendar that your culture uses. However, the Jews used a lunar calendar, so if you use a solar calendar, the date will be different every year and the translation will not be entirely accurate. So you may just want to give the number of the day and the name of the month on the Hebrew calendar. 
+Translation note: by the third day of the month of Adar
+
+Type of translation issue: Numbers
+description of issue: Used to clarify how to translate large numbers.
+SupportReference: rc://*/ta/man/translate/translate-numbers
+Bible Reference: Genesis 5:3
+Entire verse: And Adam lived 130 years, then he fathered a son in his own likeness, according to his image, and he called his name Seth.
+Portion of verse with issue: Each translation team needs to decide how they are going to write large numbers in the Bible. Many teams use numerals, especially if the target language has a complicated counting system. Other teams prefer to use words. Be consistent in what you do throughout your translation.
+Translation note: one hundred thirty
+
+Type of translation issue: Numbers
+description of issue: Used to clarify how to translate large numbers.
+SupportReference: rc://*/ta/man/translate/translate-numbers
+Bible Reference: Revelation 9:16
+Entire verse: And the number of the horse soldiers was two myriads of myriads; I heard their number.
+Portion of verse with issue: two myriads of myriads
+Translation note: A myriad is a hundred hundreds, or ten thousand. Express this number in the way that would be most natural in your language.
+Alternate translation(s): 200,000,000
+
+Type of translation issue: Ordinal Numbers
+description of issue: Used to clarify how to translate ordinal numbers.
+SupportReference: rc://*/ta/man/translate/translate-ordinal
+Bible Reference: Ezra 3:1
+Entire verse: Then the seventh month came and the sons of Israel were in their cities. And the people were gathered together as one man to Jerusalem.
+Portion of verse with issue: the seventh month
+Translation note: If your language does not use ordinal numbers, you can use a cardinal number here or an equivalent expression.
+Alternate translation(s): month seven
+
+Type of translation issue: Ordinal Numbers
+description of issue: Used to clarify how to translate ordinal numbers.
+SupportReference: rc://*/ta/man/translate/translate-ordinal
+Bible Reference: Ezra 6:15
+Entire verse: And this house was done by day three of the month of Adar, which was year six of the reign of Darius the king.
+Portion of verse with issue: day three & year six
+Translation note: The Aramaic text uses cardinal numbers here, **three** and **six**, but there is not a significant difference in meaning between that and the use of ordinal numbers in similar contexts elsewhere in this book. If your language customarily uses ordinals for the numbers of days and years, you can do that here in your translation.
+Alternate translation(s): the third day … the sixth year
+
+Type of translation issue: Fractions
+description of issue: Used to clarify how to translate fractions.
+SupportReference: rc://*/ta/man/translate/translate-fraction
+Bible Reference: Numbers 15:5
+Entire verse: And wine for the drink offering, a fourth of the hin, you shall make with the burnt offering or for the sacrifice, for the one male lamb.
+Portion of verse with issue: And wine for the drink offering, a fourth of the hin, you shall make
+Translation note: A **fourth** means one part out of three equal parts.
+Alternate translation(s): And for the drink offering, you shall divide a hin of wine into four equal parts and offer one part
+
+Type of translation issue: Fractions
+description of issue: Used to clarify how to translate fractions.
+SupportReference: rc://*/ta/man/translate/translate-fraction
+Bible Reference: Revelation 9:15
+Entire verse: And the four angels having been prepared for the hour and day and month and year were released so that they might kill a third of men.
+Portion of verse with issue: a third of men
+Translation note: A **third** means one part out of three equal parts.
+Alternate translation(s): one out of every three men
+
+Type of translation issue: Symbolic Action
+description of issue: A symbolic action is something that someone does in order to express a certain idea. Symbolic actions do not mean the same things in all cultures. In the Bible, sometimes people perform symbolic actions and sometimes they only refer to the symbolic action. An action may have a meaning in one culture and a different meaning or no meaning at all in another culture. 
+SupportReference: rc://*/ta/man/translate/translate-symaction
+Bible Reference: Job 2:12
+Entire verse: And they raised their eyes from afar and they did not recognize him, and they raised their voice and wept, and they each tore his robe, and they threw dust heavenward upon their heads.
+Portion of verse with issue: and they each tore his robe, and they threw dust heavenward upon their heads
+Translation note: Job’s friends tore their robes and threw dust into the air so that it would land on their heads as symbolic actions to show that they were deeply distressed about what had happened to Job. If it would be helpful to your readers, you could explain the significance of these actions.
+Alternate translation(s): and to show how distressed they were about what had happened to Job, each tore his robe, and they threw dust heavenward upon their heads
+
+Type of translation issue: Symbolic Action
+description of issue: A symbolic action is something that someone does in order to express a certain idea. Symbolic actions do not mean the same things in all cultures. In the Bible, sometimes people perform symbolic actions and sometimes they only refer to the symbolic action. An action may have a meaning in one culture and a different meaning or no meaning at all in another culture. 
+SupportReference: rc://*/ta/man/translate/translate-symaction
+Bible Reference: Revelation 4:10
+Entire verse: the 24 elders will fall before the one sitting on the throne and worship the one living to the ages of the ages, and they will lay their crowns before the throne, saying,
+Portion of verse with issue: they will lay their crowns before the throne
+Translation note: The elders respectfully place their **crowns** on the ground to show that they are submitting to God’s authority over them. If it would be helpful to your readers, you could explain the significance of this action.
+Alternate translation(s): and they will lay their crowns before the throne
+they will lay their crowns on the ground in front of God's throne to show that they are submitting to him

@@ -167,7 +167,7 @@ def process_prompt_references(prompts):
     
     print("\nFinished processing prompt references")
     print("="*80)
-    return prompts
+    return prompts 
 
 def load_prompts(script_name=None):
     """Load prompts from prompts.yaml file."""
@@ -196,4 +196,63 @@ def load_prompts(script_name=None):
     except Exception as e:
         print(f"ERROR: Failed to load prompts: {str(e)}")
         print("="*80)
+        return {} 
+
+def load_issue_descriptions():
+    """Load and process issue descriptions from the data file.
+    Returns a dictionary mapping issue types to their descriptions and examples."""
+    descriptions = {}
+    current_block = []
+    current_support_ref = None
+    
+    try:
+        with open('tn_prepper/data/sample tns-all issues with descriptions.txt', 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith('Type of translation issue:'):
+                    # Start a new block
+                    if current_block and current_support_ref:
+                        # Store the previous block
+                        ref_key = current_support_ref.split('/')[-1]  # Get the last part of the reference
+                        if ref_key not in descriptions:
+                            descriptions[ref_key] = []
+                        descriptions[ref_key].append('\n'.join(current_block))
+                    current_block = [line]
+                    current_support_ref = None
+                elif line.startswith('SupportReference:'):
+                    current_support_ref = line.split(':', 1)[1].strip()
+                elif line:
+                    current_block.append(line)
+            
+            # Don't forget to store the last block
+            if current_block and current_support_ref:
+                ref_key = current_support_ref.split('/')[-1]
+                if ref_key not in descriptions:
+                    descriptions[ref_key] = []
+                descriptions[ref_key].append('\n'.join(current_block))
+                
+        # Combine multiple blocks for each issue type
+        combined_descriptions = {}
+        for ref_key, blocks in descriptions.items():
+            # Remove redundant descriptions, keep unique examples
+            first_block = blocks[0]
+            description_line = next((line for line in first_block.split('\n') if line.startswith('description of issue:')), '')
+            
+            # Combine all blocks but keep only one description
+            combined = [first_block]
+            for block in blocks[1:]:
+                # Skip the type and description lines in subsequent blocks
+                block_lines = block.split('\n')
+                filtered_lines = [line for line in block_lines 
+                                if not line.startswith('Type of translation issue:') 
+                                and not line.startswith('description of issue:')]
+                if filtered_lines:
+                    combined.append('\n'.join(filtered_lines))
+            
+            combined_descriptions[ref_key] = '\n'.join(combined)
+                
+        print(f"Successfully loaded {len(combined_descriptions)} issue descriptions")
+        return combined_descriptions
+    except Exception as e:
+        print(f"Error loading issue descriptions: {str(e)}")
         return {} 

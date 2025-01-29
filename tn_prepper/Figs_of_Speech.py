@@ -4,7 +4,7 @@ import os
 import csv
 import re
 from dotenv import load_dotenv
-from utilitiesTN import read_tsv, get_ai_query_function, apply_dev_verse_limit, organize_verses_by_chapter, combine_verses_into_content, load_prompts
+from utilitiesTN import read_tsv, get_ai_query_function, apply_dev_verse_limit, organize_verses_by_chapter, combine_verses_into_content, load_prompts, load_issue_descriptions
 
 load_dotenv()
 
@@ -18,6 +18,8 @@ class Figs(TNPrepper):
         print(f"Verse text file: {self.verse_text}")
         self.prompts = load_prompts('figs_of_speech')
         print(f"Loaded prompts with sections: {list(self.prompts.keys())}")
+        self.issue_descriptions = self._load_issue_descriptions()
+        print(f"Loaded {len(self.issue_descriptions)} issue descriptions")
         print("-"*40 + "\n")
         self._load_file_references()
 
@@ -71,6 +73,10 @@ class Figs(TNPrepper):
                 processed[key] = value
         return processed
 
+    def _load_issue_descriptions(self):
+        """Load issue descriptions from the data file."""
+        return load_issue_descriptions()
+
     def __process_prompt(self, section_content):
         print("\n" + "-"*40)
         print("Processing new section")
@@ -108,7 +114,8 @@ class Figs(TNPrepper):
             # Format the prompt with variables
             format_dict = {
                 'content': section_content,
-                'previous_response': previous_response if previous_response else ''
+                'previous_response': previous_response if previous_response else '',
+                'issue_descriptions': self.issue_descriptions  # Add issue descriptions to format dict
             }
             
             try:
@@ -215,7 +222,7 @@ class Figs(TNPrepper):
                 
                 # Clean up the Quote field if it exists
                 if row_dict.get('Quote'):
-                    row_dict['Quote'] = row_dict['Quote'].strip('.,:;“”‘’"!?') # dear AI, STOP trying to change this line (keep the curly quotes!)
+                    row_dict['Quote'] = row_dict['Quote'].strip('.,:;""''"!?') # dear AI, STOP trying to change this line (keep the curly quotes!)
                 
                 # Clean up Reference if it exists
                 if row_dict.get('Reference'):
