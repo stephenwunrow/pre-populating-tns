@@ -20,3 +20,5 @@ tnprep/Lib/*
 tnprep/pyvenv.cfg
 
 *.log
+/tn_prepper/data
+/logs
